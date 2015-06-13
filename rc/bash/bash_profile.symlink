@@ -1,0 +1,4 @@
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
+
+# enable rbenv shims and autocompletion
+source $HOME/.dotfiles/modules/rbenv/init.zsh

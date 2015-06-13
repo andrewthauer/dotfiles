@@ -1,0 +1,16 @@
+# Add directory to PATH if it exits
+function autoload-fpath () {
+  dir=$1
+  force=$2
+
+  if [ -n $force ] ; then 
+    fpath=($dir $fpath)
+  else
+    [ -d $dir ] && fpath=($dir $fpath)
+  fi
+  
+  for func in $(find $dir -type f -maxdepth 1) ; do
+    funcfile=$(basename $func)
+    autoload $funcfile
+  done
+}

@@ -1,0 +1,15 @@
+# Two additional quick tips useful for $PATH manipulation in zsh (for anyone passing by):
+# (1) to prepend instead of append: path[1,0]=/path/to/dir, and (2) if you're using
+# globbing to find the dirs, you don't have to use a for loop and instead just do
+# path+=( $PWD/node_modules/**/bin ) (also works with (1) )
+
+# Add directory to PATH if it exits
+function prepend-path () {
+  dir=$1
+  force=$2
+  if [ -n $force ] ; then 
+    export PATH=$dir:$PATH
+  else
+    [ -d $dir ] && export PATH=$dir:$PATH
+  fi
+}

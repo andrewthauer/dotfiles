@@ -1,0 +1,6 @@
+ln -s . "${HOME}/.dotfiles"
+
+# Setup symlinks
+for rcfile in ./rc/**/*.symlink; do
+  ln -s "${rcfile}" "${HOME}/.${rcfile:t:r}"
+done

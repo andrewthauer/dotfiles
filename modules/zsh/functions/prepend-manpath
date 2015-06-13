@@ -1,0 +1,5 @@
+# Add directory to MANPATH if it exits
+function prepend-manpath () {
+  dir=$1
+  [ -d $dir ] && export MANPATH=$dir:$MANPATH
+}
