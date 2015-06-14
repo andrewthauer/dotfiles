@@ -1,6 +1,10 @@
 # !/bin/sh
 
-tab-title() {
+realpath() {
+  echo $(cd $(dirname $1); pwd)/$(basename $1)
+}
+
+tab_title() {
   title = $1
   echo -ne "\e]1;${title}\a"
 }

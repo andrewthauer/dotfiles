@@ -1,6 +1,10 @@
 # Executes commands at the start of an interactive session
 
-export DOTFILES="${HOME}/.dotfiles"
+# Root dotfiles (sym-linked)
+export DOTFILES="$HOME/.dotfiles"
+
+# Add the dotfiles bin to the path
+export PATH="${DOTFILES}/bin:${PATH}"
 
 # Bootstrap dots
 . $DOTFILES/modules/dotfiles/dotfiles.zsh
@@ -18,18 +22,19 @@ if ! zgen saved; then
   zgen-prezto() {
     local repo="sorin-ionescu/prezto"
     local file="${1:-init.zsh}"
-    zgen-load "${repo}" "${file}"
+    zgen-load "$repo" "$file"
   }
 
   # Prezto zsh modules
   zgen-prezto
   zgen-prezto modules/environment
   zgen-prezto modules/terminal
-  zgen-prezto modules/utility
   zgen-prezto modules/editor
   zgen-prezto modules/history
   zgen-prezto modules/directory
+  zgen-prezto modules/helper
   zgen-prezto modules/spectrum
+  zgen-prezto modules/utility
   zgen-prezto modules/archive
   zgen-prezto modules/command-not-found
   zgen-prezto modules/homebrew
@@ -64,8 +69,9 @@ if ! zgen saved; then
 fi
 
 # Load local private rc files
-for file ($DOTFILES/rc/private/*); do
-  source $file
+[ -L "$HOME/.localrc" ] && source "$HOME/.localrc"
+for file ($DOTFILES/rc/*local*); do
+  [ -s "$file" ] && source "$file"
 done
 
 # Load local modules
@@ -74,6 +80,6 @@ for mod ($DOTFILES/modules/*); do
 done
 
 # Load local files
-for file ($DOTFILES/local/*); do
-  [ -s "${file}" ] && source "${file}"
+for file ($DOTFILES/local/*.zsh); do
+  [ -s "$file" ] && source "$file"
 done
