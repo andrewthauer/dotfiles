@@ -7,3 +7,5 @@ edit() {
     $EDITOR --args "$F"
   fi
 }
+
+alias e="edit"

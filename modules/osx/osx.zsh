@@ -1,5 +1,3 @@
-# Varoius OSX related functions & aliases
-
-source $ZSH/plugins/osx/osx.plugin.zsh
+# Various OSX related functions & aliases
 
 alias downloads="open ~/Downloads"

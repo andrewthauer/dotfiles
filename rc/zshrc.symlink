@@ -13,23 +13,16 @@ autoload-fpath $DOTFILES/modules/zsh/functions
 
 # Load zgen
 source "${DOTFILES}/zgen/zgen.zsh"
+source "${DOTFILES}/modules/zgen/zgen.zsh"
 
 # Check if there's no init script
 if ! zgen saved; then
   echo "Creating a zgen save"
 
-  # Load prezto modules from zgen
-  zgen-prezto() {
-    local repo="sorin-ionescu/prezto"
-    local file="${1:-init.zsh}"
-    zgen-load "$repo" "$file"
-  }
-
   # Prezto zsh modules
   zgen-prezto
   zgen-prezto modules/environment
   zgen-prezto modules/terminal
-  zgen-prezto modules/editor
   zgen-prezto modules/history
   zgen-prezto modules/directory
   zgen-prezto modules/helper
@@ -40,22 +33,18 @@ if ! zgen saved; then
   zgen-prezto modules/homebrew
   zgen-prezto modules/osx
   zgen-prezto modules/node
-  zgen-prezto modules/ruby
-  zgen-prezto modules/rails
   zgen-prezto modules/ssh
-  zgen-prezto modules/git
 
   # Oh-My-Zsh plugins (must come after prezto if using oh-my-zsh theme)
   zgen oh-my-zsh
   zgen oh-my-zsh plugins/bundler
   zgen oh-my-zsh plugins/powder
+  zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/vagrant
   zgen oh-my-zsh plugins/zsh_reload
 
-  # Completions
+  # Other zsh modules
   zgen load zsh-users/zsh-completions src
-
-  # Syntax highlighting
   zgen load zsh-users/zsh-syntax-highlighting
 
   # Load zsh theme
@@ -63,23 +52,13 @@ if ! zgen saved; then
 
   # Save all to init script
   zgen save
-
-  # We don't need this anymore
-  unset zgen-prezto
 fi
 
-# Load local private rc files
-[ -L "$HOME/.localrc" ] && source "$HOME/.localrc"
-for file ($DOTFILES/rc/*local*); do
-  [ -s "$file" ] && source "$file"
-done
+# Load local rc files
+for file ($DOTFILES/rc/**/*local*) [ -s "$file" ] && source "$file"
+for file ($DOTFILES/local/*.zsh) [ -s "$file" ] && source "$file"
 
 # Load local modules
 for mod ($DOTFILES/modules/*); do
   dotfiles-import-local-module $mod
-done
-
-# Load local files
-for file ($DOTFILES/local/*.zsh); do
-  [ -s "$file" ] && source "$file"
 done

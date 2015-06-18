@@ -10,15 +10,17 @@ if [ ! -d "$DOTFILES" ] && [ ! -L "$DOTFILES" ]; then
 fi
 
 # Create symlink to prezto
-PREZTO=$HOME/.zgen/sorin-ionescu/prezto-master
-if [ -d "$PREZTO" ]; then
-  ln -s "$PREZTO" "$HOME/.zprezto"
+prezto=$HOME/.zgen/sorin-ionescu/prezto-master
+if [ -d "$prezto" ]; then
+  ln -s "$prezto" "$HOME/.zprezto"
 fi
 
 # Setup RC file symlinks
 for rcfile in ./rc/*.symlink; do
   src=$(realpath $rcfile)
   dest="$HOME/.$(basename $src .symlink)"
+
+  # TODO - handle sub directories
 
   # Remove existing symlinks
   if [ -L "$dest" ]; then
