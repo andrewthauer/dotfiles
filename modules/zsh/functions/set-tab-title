@@ -1,0 +1,4 @@
+function set-tab-title () {
+  title = $1
+  echo -ne "\e]1;${title}\a"
+}

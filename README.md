@@ -24,7 +24,7 @@ Installation
 
 TODO
 
-boostrap.sh
+bootstrap.sh
 
 Customizing
 -----------

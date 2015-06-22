@@ -1,19 +1,13 @@
 # Executes commands at the start of an interactive session
 
-# Root dotfiles (sym-linked)
+# Bootstrap
 export DOTFILES="$HOME/.dotfiles"
-
-# Add the dotfiles bin to the path
-export PATH="${DOTFILES}/bin:${PATH}"
-
-# Bootstrap dots
-. $DOTFILES/modules/dotfiles/dotfiles.zsh
-. $DOTFILES/modules/zsh/functions/autoload-fpath
-autoload-fpath $DOTFILES/modules/zsh/functions
+source $DOTFILES/bootstrap.zsh
+prepend-path "$DOTFILES/bin:$PATH"
 
 # Load zgen
-source "${DOTFILES}/zgen/zgen.zsh"
-source "${DOTFILES}/modules/zgen/zgen.zsh"
+source $DOTFILES/zgen/zgen.zsh
+dotfiles-require 'zgen'
 
 # Check if there's no init script
 if ! zgen saved; then
@@ -55,10 +49,11 @@ if ! zgen saved; then
 fi
 
 # Load local rc files
-for file ($DOTFILES/rc/**/*local*) [ -s "$file" ] && source "$file"
-for file ($DOTFILES/local/*.zsh) [ -s "$file" ] && source "$file"
+for file ($DOTFILES/local/*.zsh); do
+  dotfiles-source "$file"
+done
 
 # Load local modules
 for mod ($DOTFILES/modules/*); do
-  dotfiles-import-local-module $mod
+  dotfiles-import-module $mod
 done

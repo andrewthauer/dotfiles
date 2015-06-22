@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# import helper functions
-[ -s "../modules/brew/brew.zsh" ] && source "../modules/brew/brew.zsh"
+# Bootstrap
+source ../bootstrap.zsh
+dotfiles-require 'brew'
 
 # -------------------------------------------
 # Install homebrew
@@ -10,7 +11,6 @@ if ! command -v brew >/dev/null; then
   echo "Installing Homebrew ..."
     curl -fsS 'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
     # append_to_zshrc '# recommended by brew doctor'
-    # shellcheck disable=SC2016
     # append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
     export PATH="/usr/local/bin:$PATH"
 else

@@ -1,16 +1,14 @@
-# module def:   (look at oh-my-zsh and prezto, can we merge/incorporate?)
-#   bin/*                   install or symlink?
-#   topic/*.zsh             source
-#   fpath                   function autoloads
-#   topic/path.zsh          builds path
-#   topic/completion.zsh    adds completions (look at prezto/oh-my-zsh)
-#   topic/*.symlink         copy in as symlinks
-#
-#   * ability to partially include (completions, but not aliases, for example)
-#   * look at command history on startup to suggest modules to add from list-modules ('suggest' module)
-#   * check aliases when commands are run to see if one could have been used ('suggest' module)
+function dotfiles-source () {
+  file=$1
+  [ -s "$file" ] && source "$file"
+}
 
-function dotfiles-import-local-module () {
+function dotfiles-require () {
+  mod=$1
+  dotfiles-import-module "${DOTFILES}/modules/${mod}"
+}
+
+function dotfiles-import-module () {
   moddir=$1
 
   setopt null_glob
@@ -47,4 +45,25 @@ function dotfiles-zgen-check-modules () {
       -dots-alert-message "oh-my-zsh module $omz_module is also in prezto"
     fi
   done
+}
+
+function dotfiles-symlink-file () {
+  rcfile=$1
+  dest_dir=$HOME
+
+  # Setup RC file symlinks
+  src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
+  dest="$dest_dir/.$(basename $src .symlink)"
+
+  # Remove existing symlinks
+  if [ -L "$dest" ]; then
+    echo "Removing symlink for $dest"
+    rm $dest
+  fi
+
+  # Create new symlink
+  if [ -f "$rcfile" ]; then
+    echo "Symlinking '$src' to '$dest'"
+    ln -s "$src" "$dest"
+  fi
 }

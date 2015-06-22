@@ -1,0 +1,4 @@
+function realpath () {
+  # Resolves the path or symlink
+  echo $(cd $(dirname $1); pwd)/$(basename $1)
+}
