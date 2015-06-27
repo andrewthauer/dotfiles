@@ -7,5 +7,5 @@ if [ -s "$DOTFILES/modules/dotfiles/dotfiles.zsh" ]; then
 fi
 
 # Source some functions
-dotfiles-source "$DOTFILES/modules/zsh/functions/autoload-fpath"
+dotfiles_source "$DOTFILES/modules/zsh/functions/autoload-fpath"
 autoload-fpath $DOTFILES/modules/zsh/functions

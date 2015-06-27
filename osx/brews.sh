@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Bootstrap
-source ../bootstrap.zsh
-dotfiles-require 'brew'
+source ../init.zsh
+dotfiles_require 'brew'
 
 # -------------------------------------------
 # Install homebrew

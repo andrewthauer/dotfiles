@@ -1,7 +1,7 @@
 [include]
-	path = ~/.dotfiles/rc/local/gitconfig
+	path = ~/.dotfiles/local/gitconfig.local
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.config/git/ignore
 	mergeoptions = --no-edit
 [push]
 	default = simple

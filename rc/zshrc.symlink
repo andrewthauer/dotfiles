@@ -1,13 +1,13 @@
 # Executes commands at the start of an interactive session
 
-# Bootstrap
+# Initialize
 export DOTFILES="$HOME/.dotfiles"
-source $DOTFILES/bootstrap.zsh
+source $DOTFILES/init.zsh
 prepend-path "$DOTFILES/bin:$PATH"
 
 # Load zgen
 source $DOTFILES/zgen/zgen.zsh
-dotfiles-require 'zgen'
+dotfiles_require 'zgen'
 
 # Check if there's no init script
 if ! zgen saved; then
@@ -50,10 +50,12 @@ fi
 
 # Load local rc files
 for file ($DOTFILES/local/*.zsh); do
-  dotfiles-source "$file"
+  dotfiles_source "$file"
 done
 
 # Load local modules
 for mod ($DOTFILES/modules/*); do
-  dotfiles-import-module $mod
+  if [[ -z "$DOTFILES_MODULES" ]] || [[ ${DOTFILES_MODULES[*]} =~ ${mod:t} ]]; then
+    dotfiles_import_module "$mod"
+  fi
 done
