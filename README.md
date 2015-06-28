@@ -15,19 +15,34 @@ Here's a list of things that are used:
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
 
 Requirements
---------
+------------
 
-TODO
+* The dotfiles are dependant on ZSH
 
 Installation
+------------
+
+Clone the repository:
+
+`$ git clone --recursive <git-repo>`
+
+Change your default shell to zsh:
+
+`$ chsh -s /bin/zsh`
+
+Run bootstrap:
+
+`$ ./bootstrap.sh`
+
+Updating
 --------
 
-TODO
-
-bootstrap.sh
+`git pull && git submodule update --init --recursive`
 
 Customizing
 -----------
+
+TODO
 
 Reference
 ---------

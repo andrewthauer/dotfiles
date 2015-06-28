@@ -57,7 +57,7 @@ function dotfiles_symlink_file () {
 
   # Prefix file with '.' if dir is ~
   prefix=""
-  [ "$dir_dir" = $HOME ] && prefix="."
+  [ "$dest_dir" = $HOME ] && prefix="."
 
   # Setup RC file symlinks
   src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
