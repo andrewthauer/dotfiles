@@ -8,19 +8,19 @@ function remote_console() {
   /usr/bin/env ssh $1 "(cd $2 && ruby script/console production)"
 }
 
+rails_port() {
+  port=$(head -n 1 .railsrc)
+  echo $port
+}
+
 # start rails in the current dir
 start_rails() {
-  filename=".railsrc"
-
-  if [ ! -f $filename ]; then
+  if [ ! -f ".railsrc" ]; then
     echo $fg[yellow]"Rails config '${filename}' not found"
     return
   fi
 
-  # TODO - Implement more reliable seraching for 'export BYEBUGPORT=####'
-  port=$(head -n 1 $filename)
-
-  # echo "Starting rails on localhost:${port}"
+  port=`rails_port`
   bundle exec rails s -p $port
 }
 
