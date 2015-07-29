@@ -1,4 +1,8 @@
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
-# enable rbenv shims and autocompletion
-source $HOME/.dotfiles/modules/rbenv/init.zsh
+# enable ruby shims and autocompletion
+# source $HOME/.dotfiles/modules/ruby/ruby.plugin.zsh
+
+# rbenv path support
+export PATH="${HOME}/.rbenv/shims:${HOME}/.rbenv/bin:${PATH}"
+eval "$(rbenv init -)"
