@@ -109,7 +109,7 @@ defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool false
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Empty Trash securely by default
-defaults write com.apple.finder EmptyTrashSecurely -bool true
+defaults write com.apple.finder EmptyTrashSecurely -bool false
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
