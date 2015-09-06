@@ -27,6 +27,5 @@ Temporary Items
 .apdisk
 
 # Custom Stuff
-*.sublime*
 *~
 .railsrc
