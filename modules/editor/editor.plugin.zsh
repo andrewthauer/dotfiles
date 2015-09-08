@@ -4,7 +4,7 @@ edit() {
     $EDITOR
   else
     [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-    $EDITOR --args "$F"
+    $EDITOR "$F"
   fi
 }
 

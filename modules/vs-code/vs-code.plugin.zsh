@@ -1,5 +1,5 @@
 # Visual Studio Code
-code () {
+vscode () {
   if [[ $# = 0 ]] then
     open -a "Visual Studio Code"
   else

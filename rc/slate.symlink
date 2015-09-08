@@ -46,10 +46,10 @@ bind up:ctrl;alt;cmd    nudge +0   -10%
 bind down:ctrl;alt;cmd  nudge +0   +10%
 
 # Resize Bindings
-bind right:ctrl;shift     resize +10% +0
-bind left:ctrl;shift      resize -10% +0
-bind up:ctrl;shift        resize +0   -10%
-bind down:ctrl;shift      resize +0   +10%
+#bind right:ctrl;shift     resize +10% +0
+#bind left:ctrl;shift      resize -10% +0
+#bind up:ctrl;shift        resize +0   -10%
+#bind down:ctrl;shift      resize +0   +10%
 #bind right:ctrl;alt;shift resize -10% +0 bottom-right
 #bind left:ctrl;alt;shift  resize +10% +0 bottom-right
 #bind up:ctrl;alt;shift    resize +0   +10% bottom-right

@@ -16,25 +16,13 @@ if ! zgen saved; then
   # Prezto zsh modules
   zgen-prezto
   zgen-prezto modules/environment
-  zgen-prezto modules/terminal
-  zgen-prezto modules/history
-  zgen-prezto modules/directory
   zgen-prezto modules/helper
-  zgen-prezto modules/spectrum
   zgen-prezto modules/utility
-  zgen-prezto modules/archive
-  zgen-prezto modules/command-not-found
-  zgen-prezto modules/homebrew
   zgen-prezto modules/osx
-  zgen-prezto modules/node
-  zgen-prezto modules/ssh
 
   # Oh-My-Zsh plugins (must come after prezto if using oh-my-zsh theme)
   zgen oh-my-zsh
-  zgen oh-my-zsh plugins/bundler
-  zgen oh-my-zsh plugins/powder
   zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/vagrant
   zgen oh-my-zsh plugins/zsh_reload
 
   # Other zsh modules
