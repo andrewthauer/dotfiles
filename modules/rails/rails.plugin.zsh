@@ -59,12 +59,11 @@ alias rlc='bundle exec rake log:clear'
 alias rn='bundle exec rake notes'
 alias rr='bundle exec rake routes'
 
-alias testdropdb="bundle exec rake db:drop RAILS_ENV=test"
-alias testcreatedb="bundle exec rake db:create RAILS_ENV=test"
-alias testloaddb="bundle exec rake db:schema:load RAILS_ENV=test"
-alias testreset="testdropdb; testcreatedb; testloaddb; testprep"
-alias testprep="bundle exec rake db:migrate RAILS_ENV=test"
-alias schemas="bundle exec rake db:migrate; testprep"
+alias rtdd="bundle exec rake db:drop RAILS_ENV=test"
+alias rtdc="bundle exec rake db:create RAILS_ENV=test"
+alias rtdm='bundle exec rake db:migrate db:test:clone'
+alias rtddcm="rtdd; rtdc; rtdm"
+alias rschemas="bundle exec rake db:migrate; testprep"
 
 alias be="bundle exec"
 alias rspec="bundle exec rspec"

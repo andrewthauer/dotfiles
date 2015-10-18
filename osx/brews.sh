@@ -4,6 +4,9 @@
 source ../init.zsh
 dotfiles_require 'brew'
 
+# Setup permissions
+sudo chown -R "$USER":admin /usr/local
+
 # -------------------------------------------
 # Install homebrew
 
@@ -39,6 +42,9 @@ brew_launchctl_restart 'mysql'
 
 brew_install_or_upgrade 'redis'
 brew_launchctl_restart 'redis'
+
+brew_install_or_upgrade 'postgres'
+brew_launchctl_restart 'postgres'
 
 # -------------------------------------------
 # Install caskroom & apps
