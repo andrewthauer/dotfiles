@@ -1,3 +1,5 @@
+#!/bin/zsh
+#
 # no modules on prezto startup -- we'll load using zgen/antigen in .zshrc
 # Set the Prezto modules to load (browse modules).
 # The order matters.
