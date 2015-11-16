@@ -1,5 +1,7 @@
 # Dotfiles helpers
 
+alias dotfiles="$DOTFILES"
+
 function dotfiles_source () {
   file=$1
   [ -s "$file" ] && source "$file"
@@ -44,6 +46,40 @@ function dotfiles_zgen_check_modules () {
   zgen list | grep oh-my-zsh | awk '{print $2}' | xargs basename | while read omz_module ; do
     if [ -d $ZPREZTODIR/modules/$omz_module ] ; then
       -dots-alert-message "oh-my-zsh module $omz_module is also in prezto"
+    fi
+  done
+}
+
+function dotfiles_get_symlink_dir () {
+  dir=$1
+  root_dir=$2
+  if [ "$dir" = "${root_dir}" ]; then
+    dir="$HOME"
+  else
+    dir="$HOME/.${dir}"
+  fi
+  echo $dir
+}
+
+function dotfiles_symlink_dir () {
+  root_dir=$1
+
+  # Symlink rc files
+  for file in ${root_dir}/**/*; do
+    # handle directories
+    if [ -d "$file" ] && [ "${file:t}" != "local" ]; then
+      dir=$(dotfiles_get_symlink_dir ${file#${root_dir}/} ${root_dir})
+      if [ ! -d "$dir" ]; then
+        echo "Creating directory '${dir}'"
+        mkdir "$dir"
+      fi
+    fi
+
+    # handle root files
+    if [ "${file:e}" = "symlink" ]; then
+      dir="${file:h}"
+      dir=$(dotfiles_get_symlink_dir ${dir#${root_dir}/} ${root_dir})
+      dotfiles_symlink_file $file $dir
     fi
   done
 }

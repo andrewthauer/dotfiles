@@ -1,5 +1,5 @@
 [include]
-	path = ~/.dotfiles/local/gitconfig.local
+	path = ~/.dotfiles/secrets/gitconfig
 [core]
 	excludesfile = ~/.config/git/ignore
 	mergeoptions = --no-edit

@@ -1,38 +1,32 @@
 #!/bin/zsh
-#
-# Executes commands at login pre-zshrc.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Executes commands at login pre-zshrc
 
-#
+# Dotfiles directory
+export DOTFILES="$HOME/.dotfiles"
+
+# Prezto directory
+export ZPREZTODIR=$HOME/.zgen/sorin-ionescu/prezto-master
+
+# Load Secrets
+[[ -f "$DOTFILES/secrets/zprofile" ]] && source "$DOTFILES/secrets/zprofile"
+
 # Browser
-#
-
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
-#
 # Editors
-#
-
-export EDITOR="subl"
+export EDITOR="atom"
 export VISUAL='nano'
 export PAGER='less'
 
-#
 # Language
-#
-
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
 
-#
-# Paths
-#
+# Default NVM Version
+export NVM_VER="4.2"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -48,10 +42,6 @@ path=(
   $path
 )
 
-#
-# Less
-#
-
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
@@ -63,10 +53,7 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-#
 # Temporary Files
-#
-
 if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="/tmp/$LOGNAME"
   mkdir -p -m 700 "$TMPDIR"

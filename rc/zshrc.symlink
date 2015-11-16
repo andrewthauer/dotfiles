@@ -1,26 +1,16 @@
 #!/bin/zsh
-
 # Executes commands at the start of an interactive session
 
 # Initialize
-export DOTFILES="$HOME/.dotfiles"
 source $DOTFILES/init.zsh
 prepend-path "$DOTFILES/bin:$PATH"
 
 # Load zgen
 source $DOTFILES/zgen/zgen.zsh
-dotfiles_require 'zgen'
 
 # Check if there's no init script
 if ! zgen saved; then
   echo "Creating a zgen save"
-
-  # Prezto zsh modules
-  zgen-prezto
-  zgen-prezto modules/environment
-  zgen-prezto modules/helper
-  zgen-prezto modules/utility
-  zgen-prezto modules/osx
 
   # Oh-My-Zsh plugins (must come after prezto if using oh-my-zsh theme)
   zgen oh-my-zsh
@@ -31,6 +21,16 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen load zsh-users/zsh-syntax-highlighting
 
+  # Custom modules
+  zgen load $DOTFILES/modules/editor
+  zgen load $DOTFILES/modules/git
+  zgen load $DOTFILES/modules/node
+  zgen load $DOTFILES/modules/ssh
+  zgen load $DOTFILES/modules/zsh
+
+  # Load local zsh files
+  source $DOTFILES/local/zgen.local.zsh
+
   # Load zsh theme
   zgen oh-my-zsh themes/af-magic
 
@@ -38,14 +38,5 @@ if ! zgen saved; then
   zgen save
 fi
 
-# Load local rc files
-for file ($DOTFILES/local/*.zsh); do
-  dotfiles_source "$file"
-done
-
-# Load local modules
-for mod ($DOTFILES/modules/*); do
-  if [[ -z "$DOTFILES_MODULES" ]] || [[ ${DOTFILES_MODULES[*]} =~ ${mod:t} ]]; then
-    dotfiles_import_module "$mod"
-  fi
-done
+# Load local zsh files
+source $DOTFILES/local/zshrc.local.zsh

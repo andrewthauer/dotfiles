@@ -1,14 +1,9 @@
 #!/bin/zsh
-#
-# Executes commands at logout.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Executes commands at logout
 
 # Print the message.
 cat <<-EOF
 
 Thank you. Come again!
-  -- Dr. Apu Nahasapeemapetilon
+  -- AT
 EOF

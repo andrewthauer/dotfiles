@@ -1,4 +1,5 @@
 #!/bin/bash
+# Executes commands at login pre-bash
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 

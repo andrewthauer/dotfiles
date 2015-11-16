@@ -16,3 +16,6 @@ gem_install_or_update() {
     rbenv rehash
   fi
 }
+
+# aliases
+alias be="bundle exec"
