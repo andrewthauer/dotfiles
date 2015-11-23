@@ -1,4 +1,11 @@
 .DS_Store
 .tags*
 examples
-secrets
+
+# Ignore local
+local/*
+!local/.gitkeep
+
+# Ignore secrets
+secrets/*
+!secrets/.gitkeep
