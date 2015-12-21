@@ -1,0 +1,39 @@
+#!/bin/zsh
+# Executes commands at the start of an interactive session
+
+# Initialize
+source $DOTFILES/init.zsh
+prepend-path "$DOTFILES/bin:$PATH"
+
+# Load zgen
+source $DOTFILES/zgen/zgen.zsh
+
+# Check if there's no init script
+if ! zgen saved; then
+  echo "Creating a zgen save"
+
+  # Oh-My-Zsh plugins (must come after prezto if using oh-my-zsh theme)
+  zgen oh-my-zsh
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/zsh_reload
+
+  # Other zsh modules
+  zgen load zsh-users/zsh-completions src
+  zgen load zsh-users/zsh-syntax-highlighting
+
+  # Custom modules
+  zgen load $DOTFILES/git
+  zgen load $DOTFILES/node
+  zgen load $DOTFILES/ruby
+  zgen load $DOTFILES/ssh
+  zgen load $DOTFILES/zsh
+
+  # Load zsh theme
+  zgen oh-my-zsh themes/af-magic
+
+  # Save all to init script
+  zgen save
+fi
+
+# Load local zsh files
+source $DOTFILES/zsh/zshrc.local

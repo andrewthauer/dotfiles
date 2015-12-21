@@ -1,0 +1,8 @@
+#!/bin/bash
+# Executes commands at login pre-bash
+
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
+
+# rbenv path support
+export PATH="${HOME}/.rbenv/shims:${HOME}/.rbenv/bin:${PATH}"
+eval "$(rbenv init -)"

@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+# Create symlink to this directory
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ ! -d "$DOTFILES" ] && [ ! -L "$DOTFILES" ]; then
+  ln -s $DOTFILES "$HOME/.dotfiles"
+fi
+
+# Export dot files dir
+export DOTFILES="$HOME/.dotfiles"
+
+# Initialize
+[ -s "$DOTFILES/init.zsh" ] && source "$DOTFILES/init.zsh"
+
+# Symlink directories
+dotfiles_symlink_dir "./bash"
+dotfiles_symlink_dir "./editorconfig"
+dotfiles_symlink_dir "./git"
+dotfiles_symlink_dir "./secrets"
+dotfiles_symlink_dir "./slate"
+dotfiles_symlink_dir "./vim"
+dotfiles_symlink_dir "./zsh"
+
+# Create symlink to prezto
+dotfiles_require 'zgen'
+if [ -d "$ZPREZTODIR" ]; then
+  rm "$HOME/.zprezto"
+  ln -s "$ZPREZTODIR" "$HOME/.zprezto"
+fi
+
+# Update zgen
+git submodule update --init --recursive
+zgen update && src
+
+# Reload zsh
+echo "Restart your shell"

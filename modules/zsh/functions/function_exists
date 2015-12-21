@@ -1,6 +1,0 @@
-function function_exists () {
-  FUNCTION_NAME=$1
-  [ -z "$FUNCTION_NAME" ] && return 1
-  declare -F "$FUNCTION_NAME" > /dev/null 2>&1
-  return $?
-}

@@ -1,0 +1,54 @@
+[include]
+	path = ~/.dotfiles/secrets/gitconfig
+[core]
+	excludesfile = ~/.dotfiles/git/gitignore
+	mergeoptions = --no-edit
+[push]
+	default = simple
+[diff]
+	tool = bc3
+[merge]
+	tool = bc3
+[mergetool]
+	bc3 = trustExitCode
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[alias]
+	st = status -sb
+	ci = commit
+	co = checkout
+	br = branch
+	cp = cherry-pick
+	cps = cherry-pick -s
+	today = diff @{yesterday}.. --stat
+	meh = commit --amend
+	wdiff = diff --word-diff=color
+	wshow = show --word-diff=color
+	lasttag = describe --tags --abbrev=0
+	branches = branch -vv
+	autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
+	slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+	glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+	gflog = log -p --cc --graph --decorate
+	wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
+	unci = reset HEAD^
+	uncommit = reset HEAD^
+	ls = ls-files
+        rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
+	in = !git wtf HEAD..HEAD@{u}
+	out = !git wtf HEAD@{u}..HEAD
+	killbranches = !git branch | grep -v '\\bmaster\\b' | xargs git branch -d 2> /dev/null
+	sync = !git pull && git push
+	comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
+	ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
+	theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	authors = shortlog -sn
+	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+	serveall = daemon --verbose --export-all --base-path=. --reuseaddr .
+	addpr = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
