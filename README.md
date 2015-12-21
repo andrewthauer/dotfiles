@@ -29,13 +29,13 @@ Setup
 
 ```bash
 # Change your default shell to zsh:
-`$ chsh -s /bin/zsh`
+$ chsh -s /bin/zsh
 
 # Clone the repository:
-`$ git clone --recursive https://github.com/andrewthauer/dotfiles`
+$ git clone --recursive https://github.com/andrewthauer/dotfiles
 
 # Run setup (create rc symlinks, etc.)
-`$ ./setup`
+$ ./setup
 ```
 
 ### Symlinks
