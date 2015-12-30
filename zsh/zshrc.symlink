@@ -36,4 +36,4 @@ if ! zgen saved; then
 fi
 
 # Load local zsh files
-source $DOTFILES/zsh/zshrc.local
+[[ -f "$DOTFILES/zsh/zshrc.local" ]] && source $DOTFILES/zsh/zshrc.local

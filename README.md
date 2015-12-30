@@ -48,7 +48,7 @@ Customizing
 
 ### zshrc.local
 
-Create a `zsh/zshrc.local` file to run any
+Create a `zsh/zshrc.local` file to run anything for a local environment.
 
 ```bash
 #!/bin/zsh
