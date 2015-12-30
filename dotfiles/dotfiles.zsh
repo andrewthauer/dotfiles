@@ -66,20 +66,26 @@ function dotfiles_symlink_dir () {
 
   # Symlink rc files
   for file in ${root_dir}/**/*; do
-    # handle directories
-    if [ -d "$file" ] && [ "${file:t}" != "local" ]; then
-      dir=$(dotfiles_get_symlink_dir ${file#${root_dir}/} ${root_dir})
-      if [ ! -d "$dir" ]; then
-        echo "Creating directory '${dir}'"
-        mkdir "$dir"
-      fi
+    # get parent directory info
+    parent_dir="$(dirname "$dir")"
+    in_symlink_dir=
+    contains "$parent_dir" ".symlink" && in_symlink_dir=true
+
+    # Symlink the entire directory
+    if [ -d "$file" ] && [ "${file:e}" = "symlink" ]; then
+      dir="${file}"
+      dir=$(dirname $dir)
+      dir=$(dotfiles_get_symlink_dir ${dir#${root_dir}/} ${root_dir})
+      dotfiles_symlink_file $file $dir
+      echo
     fi
 
-    # handle root files
-    if [ "${file:e}" = "symlink" ]; then
+    # Handle files
+    if [ "${file:e}" = "symlink" ] && [ "$in_symlink_dir" != "true" ]; then
       dir="${file:h}"
       dir=$(dotfiles_get_symlink_dir ${dir#${root_dir}/} ${root_dir})
       dotfiles_symlink_file $file $dir
+      echo
     fi
   done
 }
@@ -106,7 +112,7 @@ function dotfiles_symlink_file () {
   fi
 
   # Create new symlink
-  if [ -f "$rcfile" ]; then
+  if [ -e "$rcfile" ]; then
     echo "Symlinking '$src' to '$dest'"
     ln -s "$src" "$dest"
   fi
