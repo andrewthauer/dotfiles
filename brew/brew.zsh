@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 brew_install_or_upgrade() {
   if brew_is_installed "$1"; then

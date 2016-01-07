@@ -1,8 +1,8 @@
 #!/bin/bash
 # Executes commands at login pre-bash
 
-[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
+# Load the default .profile
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
-# rbenv path support
-export PATH="${HOME}/.rbenv/shims:${HOME}/.rbenv/bin:${PATH}"
-eval "$(rbenv init -)"
+# rbenv support
+[[ -s "$DOTFILES/ruby/rbenv.zsh" ]] && source "$DOTFILES/ruby/rbenv.zsh"

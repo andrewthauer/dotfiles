@@ -40,7 +40,7 @@ $ ./setup
 
 ### Symlinks
 
-The `setup` command runs `dotfiles_symlink_dir` on various directories. This will automatically setup a symbolic link for each file with a `.symlink` extension to the user `$HOME` directory. Files will be renamed from `my_rc_file.symlink to `.my_rc_file`. Files inside sub directories will be treated relative to the user home directory.
+The `setup` command runs `dotfiles_symlink_dir` on various directories. This will automatically setup a symbolic link for each file or directory with a `.symlink` extension to the user `$HOME` directory. Items will be renamed from `my_rc_file.symlink to `.my_rc_file`. Any `symlink` files inside sub directories will be treated relative to the user home directory (unless a direct parent directory ends in `.symlink`).
 
 
 Customizing

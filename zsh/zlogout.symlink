@@ -1,9 +1,8 @@
 #!/bin/zsh
 # Executes commands at logout
 
-# Print the message.
+# Print the logout message
 cat <<-EOF
 
-Thank you. Come again!
-  -- AT
+-- Ciao Chus Bye!
 EOF

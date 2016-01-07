@@ -4,9 +4,6 @@
 # Dotfiles directory
 export DOTFILES="$HOME/.dotfiles"
 
-# Prezto directory
-export ZPREZTODIR=$HOME/.zgen/sorin-ionescu/prezto-master
-
 # Load Secrets
 [[ -f "$DOTFILES/secrets/zprofile" ]] && source "$DOTFILES/secrets/zprofile"
 
@@ -24,9 +21,6 @@ export PAGER='less'
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
-
-# Default NVM Version
-export NVM_VER="4.2"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path

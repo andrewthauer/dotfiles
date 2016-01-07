@@ -1,9 +1,5 @@
-# Edit files/directories
+#!/bin/bash
+
 alias zshconfig="$EDITOR ~/.zshrc"
-alias sshconfig="$EDITOR ~/.ssh/config"
-
-# Reload alias
-alias reload="zgen update && src"
-
-# Edit alias
+alias reload!="zgen update && src"
 alias e="edit"
