@@ -10,6 +10,7 @@ brew update
 # -------------------------------------------
 # Install brews
 
+brew_install_or_upgrade 'git-extras'
 brew_install_or_upgrade 'ansible'
 brew_install_or_upgrade 'ctags'
 brew_install_or_upgrade 'imagemagick'
