@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+EXCLUDE=${NAS_RSYNC_EXCLUDE}
+
+rsync \
+	-av \
+	--delete \
+	--stats \
+	--progress \
+	--exclude "${EXCLUDE}" \
+	${LOCAL_LIGHTROOM_DIR} \
+	-e ssh ${NAS_USER}@${NAS_HOST}:${NAS_LIGHTROOM_DIR}
