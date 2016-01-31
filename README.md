@@ -69,7 +69,7 @@ The `secrets/gitconfig` is included by `git/gitconfig`. This should contain any 
 
 ### Other Secrets
 
-Any file located in the `secrets` directory should not be committed to source control or since it contains secret information or is specific to the local environment. Any `.symlink` file will be automatically linked to the home directory when `setup` is run.
+Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment. Any `.symlink` file will be automatically linked to the home directory when `setup` is run.
 
 *Make sure you re-run `./setup` to setup any new symlinks*
 
