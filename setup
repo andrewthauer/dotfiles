@@ -21,6 +21,7 @@ dotfiles_symlink_dir "./secrets"
 dotfiles_symlink_dir "./slate"
 dotfiles_symlink_dir "./vim"
 dotfiles_symlink_dir "./zsh"
+dotfiles_symlink_dir "./ruby"
 
 # Update zgen
 echo "\n=== Updating zgen ===\n"
