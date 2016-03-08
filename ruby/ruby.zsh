@@ -15,3 +15,4 @@ gem_install_or_update() {
 
 # aliases
 alias be="bundle exec"
+alias rspec="bundle exec rspec"

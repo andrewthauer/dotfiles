@@ -6,4 +6,4 @@
 
 # Ignore secrets
 secrets/*
-!secrets/.gitkeep
+!secrets/README.md

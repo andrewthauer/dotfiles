@@ -8,22 +8,6 @@ function remote_console() {
   /usr/bin/env ssh $1 "(cd $2 && ruby script/console production)"
 }
 
-rails_port() {
-  port=$(head -n 1 .railsrc)
-  echo $port
-}
-
-# start rails in the current dir
-start_rails() {
-  if [ ! -f ".railsrc" ]; then
-    echo $fg[yellow]"Rails config '${filename}' not found"
-    return
-  fi
-
-  port=`rails_port`
-  bundle exec rails s -p $port
-}
-
 alias devlog='tail -f log/development.log'
 alias prodlog='tail -f log/production.log'
 alias testlog='tail -f log/test.log'
@@ -64,8 +48,3 @@ alias rtdc="bundle exec rake db:create RAILS_ENV=test"
 alias rtdm='bundle exec rake db:migrate db:test:clone'
 alias rtdp="rtdd; rtdc; rtdm"
 alias rschemas="bundle exec rake db:migrate; rtdp"
-
-alias be="bundle exec"
-alias rspec="bundle exec rspec"
-
-alias choo="start_rails"
