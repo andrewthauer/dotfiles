@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+function secure-rm () {
+  if [ "$(uname)" == "Darwin" ]; then
+    path = $1
+    srm -rmv $path
+  fi
+}
