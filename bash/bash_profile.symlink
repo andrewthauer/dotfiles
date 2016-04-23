@@ -1,6 +1,9 @@
 #!/bin/bash
 # Executes commands at login pre-bash
 
+# Dotfiles directory
+export DOTFILES="$HOME/.dotfiles"
+
 # Load the default .profile
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
