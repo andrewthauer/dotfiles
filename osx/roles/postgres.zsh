@@ -12,3 +12,6 @@ brew update
 
 brew_install_or_upgrade 'postgres'
 brew_launchctl_restart 'postgres'
+
+brew_cask_install_or_upgrade 'pgadmin'
+brew_cask_install_or_upgrade 'postico'

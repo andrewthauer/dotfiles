@@ -13,4 +13,5 @@ brew update
 brew_install_or_upgrade 'mysql'
 brew_launchctl_restart 'mysql'
 
-brew_cask_install_or_upgrade 'mysqlworkbench'
+brew_cask_install_or_upgrade 'sequel-pro'
+# brew_cask_install_or_upgrade 'mysqlworkbench'
