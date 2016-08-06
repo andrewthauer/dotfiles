@@ -11,7 +11,6 @@ Dotfiles
 
 These are my dotfiles ...
 
-
 Overview
 --------
 
@@ -22,7 +21,6 @@ Here's a list of things that are used:
 * [brew](https://github.com/homebrew/homebrew) (OSX)
 * [prezto](https://github.com/sorin-ionescu/prezto) (some modules)
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
-
 
 Setup
 -----
@@ -41,7 +39,6 @@ $ ./setup
 ### Symlinks
 
 The `setup` command runs `dotfiles_symlink_dir` on various directories. This will automatically setup a symbolic link for each file or directory with a `.symlink` extension to the user `$HOME` directory. Items will be renamed from `my_rc_file.symlink to `.my_rc_file`. Any `symlink` files inside sub directories will be treated relative to the user home directory (unless a direct parent directory ends in `.symlink`).
-
 
 Customizing
 -----------
@@ -73,12 +70,10 @@ Any file located in the `secrets` directory should not be committed to source co
 
 *Make sure you re-run `./setup` to setup any new symlinks*
 
-
 Updating
 --------
 
 `git pull && git submodule update --init --recursive`
-
 
 Functions
 ---------
@@ -95,7 +90,6 @@ SSH_CONFIGS=("$DOTFILES/secrets/ssh.personal.config" "$DOTFILES/secrets/ssh.work
 ssh_config_merge
 ```
 
-
 Reference
 ---------
 
@@ -107,7 +101,6 @@ Reference
 
 * [Handling Command Line Arguments](http://www.shelldorado.com/goodcoding/cmdargs.html)
 * [ Command Line Options: How To Parse In Bash Using “getopt”](http://www.bahmanm.com/blogs/command-line-options-how-to-parse-in-bash-using-getopt)
-
 
 Inspiration
 -----------

@@ -24,6 +24,12 @@ echo "Updating Homebrew formulas ..."
 brew update
 brew upgrade
 
+echo "Install Homebrew Services ..."
+brew tap homebrew/services
+
 echo "Install Caskroom ..."
 brew_install_or_upgrade caskroom/cask/brew-cask
 brew_tap caskroom/versions
+
+echo "Install Caskroom Repair ..."
+brew install vitorgalvao/tiny-scripts/cask-repair
