@@ -2,7 +2,7 @@
 # If no ~/.slate file exists this is the file that will be used.
 
 config defaultToCurrentScreen true
-config nudgePercentOf screenSize
+config nudgePercentOf  screenSize
 config resizePercentOf screenSize
 
 # General aliases
@@ -12,32 +12,34 @@ alias ssx screenSizeX
 alias ssy screenSizeY
 
 # Position aliases
-alias centered ${sox}+${ssx}/8;${soy}+${ssy}/8 ${ssx}/8*6;${ssy}/8*6
-alias fullscreen ${sox};${soy} ${ssx};${ssy}
-alias leftHalf ${sox};${soy} ${ssx}/2;${ssy}
-alias leftThird ${sox};${soy} ${ssx}/3;${ssy}
-alias leftTwoThirds ${sox};${soy} ${ssx}/1.5;${ssy}
-alias bottomHalf ${sox};${soy}+${ssy}/2 ${ssx};${ssy}/2
-alias topHalf ${sox};${soy} ${ssx};${ssy}/2
-alias rightHalf ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}
-alias rightThird ${sox}+${ssx}/3*2;${soy} ${ssx}/3;${ssy}
-alias rightTwoThirds ${sox}+${ssx}/3;${soy} ${ssx}/3*2;${ssy}
-alias topLeftQuarter ${sox};${soy} ${ssx}/2;${ssy}/2
-alias topRightQuarter ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}/2
-alias bottomLeftQuarter ${sox};${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
+alias centered           ${sox}+${ssx}/8;${soy}+${ssy}/8 ${ssx}/8*6;${ssy}/8*6
+alias fullscreen         ${sox};${soy} ${ssx};${ssy}
+alias leftHalf           ${sox};${soy} ${ssx}/2;${ssy}
+alias leftThird          ${sox};${soy} ${ssx}/3;${ssy}
+alias leftTwoThirds      ${sox};${soy} ${ssx}/1.5;${ssy}
+alias bottomHalf         ${sox};${soy}+${ssy}/2 ${ssx};${ssy}/2
+alias topHalf            ${sox};${soy} ${ssx};${ssy}/2
+alias rightHalf          ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}
+alias rightThird         ${sox}+${ssx}/3*2;${soy} ${ssx}/3;${ssy}
+alias rightTwoThirds     ${sox}+${ssx}/3;${soy} ${ssx}/3*2;${ssy}
+alias topLeftQuarter     ${sox};${soy} ${ssx}/2;${ssy}/2
+alias topRightQuarter    ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}/2
+alias bottomLeftQuarter  ${sox};${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
 alias bottomRightQuarter ${sox}+${ssx}/2;${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
 
 # Resize Bindings
-bind g:ctrl;alt move ${centered}
-bind o:ctrl;alt move ${fullscreen}
-bind h:ctrl;alt move ${leftHalf}
-bind j:ctrl;alt move ${bottomHalf}
-bind k:ctrl;alt move ${topHalf}
-bind l:ctrl;alt move ${rightHalf}
-bind u:ctrl;alt move ${topLeftQuarter}
-bind i:ctrl;alt move ${topRightQuarter}
-bind n:ctrl;alt move ${bottomLeftQuarter}
-bind m:ctrl;alt move ${bottomRightQuarter}
+bind g:ctrl;alt move     ${centered}
+bind o:ctrl;alt move     ${fullscreen}
+bind h:ctrl;alt move     ${leftHalf}
+bind h:ctrl;alt;cmd move ${leftTwoThirds}
+bind j:ctrl;alt move     ${bottomHalf}
+bind k:ctrl;alt move     ${topHalf}
+bind l:ctrl;alt move     ${rightHalf}
+bind l:ctrl;alt;cmd move ${rightTwoThirds}
+bind u:ctrl;alt move     ${topLeftQuarter}
+bind i:ctrl;alt move     ${topRightQuarter}
+bind n:ctrl;alt move     ${bottomLeftQuarter}
+bind m:ctrl;alt move     ${bottomRightQuarter}
 
 # Nudge Bindings
 bind right:ctrl;alt;cmd nudge +10% +0
@@ -50,8 +52,8 @@ bind down:ctrl;alt;cmd  nudge +0   +10%
 #bind left:ctrl;shift      resize -10% +0
 #bind up:ctrl;shift        resize +0   -10%
 #bind down:ctrl;shift      resize +0   +10%
-#bind right:ctrl;alt;shift resize -10% +0 bottom-right
-#bind left:ctrl;alt;shift  resize +10% +0 bottom-right
+#bind right:ctrl;alt;shift resize -10% +0   bottom-right
+#bind left:ctrl;alt;shift  resize +10% +0   bottom-right
 #bind up:ctrl;alt;shift    resize +0   +10% bottom-right
 #bind down:ctrl;alt;shift  resize +0   -10% bottom-right
 
@@ -74,18 +76,18 @@ bind ;:ctrl;alt         throw previous
 bind esc:cmd hint
 
 # 1 monitor layout
-layout oneScreen 'Spotify' move ${fullscreen}
+layout oneScreen 'Spotify'                 move ${fullscreen}
 layout oneScreen 'FirefoxDeveloperEdition' move ${fullscreen}
-layout oneScreen 'Atom' move ${leftTwoThirds}
-layout oneScreen 'Terminal' move ${rightThird}
-layout oneScreen 'Slack' move ${topRightQuarter}
+layout oneScreen 'Atom'                    move ${leftTwoThirds}
+layout oneScreen 'Terminal'                move ${rightThird}
+layout oneScreen 'Slack'                   move ${topRightQuarter}
 
 # 2 monitor layout
-layout twoScreen 'Atom' move ${fullscreen} 1
-layout twoScreen 'Terminal' move ${rightHalf} 2
+layout twoScreen 'Atom'     move ${fullscreen} 1
+layout twoScreen 'Terminal' move ${rightHalf}  2
 
 # 3 monitor layout
-layout threeScreen 'Atom' move ${fullscreen} 1
+layout threeScreen 'Atom'     move ${fullscreen} 1
 layout threeScreen 'Terminal' move ${rightHalf} 2
 
 # Layout Bindings
