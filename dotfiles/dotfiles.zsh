@@ -23,12 +23,12 @@ function dotfiles_import_module () {
 
   # autoload functions
   [ -d "$moddir/functions" ] && {
-    autoload-fpath $moddir/functions
+    autoload_fpath $moddir/functions
   }
 
   # add bin dir to path
   [ -d "$moddir/bin" ] && {
-    prepend-path $moddir/bin
+    prepend_path $moddir/bin
   }
 
   # source zsh files

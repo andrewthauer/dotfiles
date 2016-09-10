@@ -3,10 +3,13 @@
 
 # Initialize
 source "$DOTFILES/init.zsh"
-prepend-path "$DOTFILES/bin:$PATH"
+prepend_path "$DOTFILES/bin:$PATH"
 
 # Load zgen
+ZGEN_AUTOLOAD_COMPINIT=false
 source "$DOTFILES/zgen/zgen.zsh"
+autoload -U compinit
+compinit -u "${ZGEN_DIR}/zcompdump"
 
 # Check if there's no init script
 if ! zgen saved; then

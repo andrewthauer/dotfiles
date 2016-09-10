@@ -23,4 +23,7 @@ ssh_config_merge() {
     cat "$conf" >> ~/.ssh/config
     echo "" >> ~/.ssh/config
   done
+
+  # Update permissions
+  chmod 600 ~/.ssh/config
 }

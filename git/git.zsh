@@ -1,2 +1,2 @@
 # source functions
-autoload-fpath $(dirname $0)/functions
+autoload_fpath $(dirname $0)/functions

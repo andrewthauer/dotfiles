@@ -9,5 +9,5 @@ if [[ -s "$DOTFILES/dotfiles/dotfiles.zsh" ]]; then
 fi
 
 # Source some functions
-dotfiles_source "$DOTFILES/functions/autoload-fpath"
-autoload-fpath "$DOTFILES/functions"
+dotfiles_source "$DOTFILES/functions/autoload_fpath"
+autoload_fpath "$DOTFILES/functions"

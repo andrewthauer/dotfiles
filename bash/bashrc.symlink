@@ -1,2 +1,15 @@
 #!/bin/bash
 # Executes commands at the start of an interactive session
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# Launch Zsh
+if [ -t 1 ]; then
+  exec zsh
+fi
+
+# Alias definitions.
+if [ -f ~/.bash_aliases ]; then
+  source ${DOTFILES}/bash/bash_aliases
+fi

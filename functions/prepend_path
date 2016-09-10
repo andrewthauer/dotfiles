@@ -6,7 +6,7 @@
 # path+=( $PWD/node_modules/**/bin ) (also works with (1) )
 
 # Add directory to PATH if it exits
-function prepend-path () {
+function prepend_path () {
   dir=$1
   force=$2
   if [ -n $force ] ; then
