@@ -1,5 +1,5 @@
 #!/bin/bash
-# Excuted by at login pre-bash
+# Excuted by bash at login pre-bash
 
 # Dotfiles directory
 export DOTFILES="$HOME/.dotfiles"
