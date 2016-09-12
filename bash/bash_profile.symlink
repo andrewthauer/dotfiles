@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env sh
 # Excuted by bash at login pre-bash
 
 # Dotfiles directory
 export DOTFILES="$HOME/.dotfiles"
 
 # rbenv support
-[[ -s "$DOTFILES/ruby/rbenv.zsh" ]] && source "$DOTFILES/ruby/rbenv.zsh"
+[ -s "${DOTFILES}/ruby/rbenv.zsh" ] && source "${DOTFILES}/ruby/rbenv.zsh"

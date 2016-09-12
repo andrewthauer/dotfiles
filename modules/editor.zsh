@@ -1,5 +1,5 @@
 # Opens files via the $EDITOR
-edit() {
+edit () {
   if [[ $# = 0 ]] then
     $EDITOR
   else

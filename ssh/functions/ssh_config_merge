@@ -1,7 +1,7 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Create a composite ssh config file
-ssh_config_merge() {
+ssh_config_merge () {
   dest_config=
 
   # if [ -z "$src_configs" ]; then 'No source configs provided'; return; fi

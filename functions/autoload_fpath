@@ -1,17 +1,17 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Add directory to PATH if it exits
 function autoload_fpath () {
   dir=$1
   force=$2
 
-  if [ -n $force ] ; then
+  if [ -n $force ]; then
     fpath=($dir $fpath)
   else
     [ -d $dir ] && fpath=($dir $fpath)
   fi
 
-  for func in $(find $dir -maxdepth 1 -type f) ; do
+  for func in $(find $dir -maxdepth 1 -type f); do
     funcfile=$(basename $func)
     autoload $funcfile
   done

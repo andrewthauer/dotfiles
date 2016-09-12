@@ -1,6 +1,6 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-brew_install_or_upgrade() {
+brew_install_or_upgrade () {
   if brew_is_installed "$1"; then
     if brew_is_upgradable "$1"; then
       echo "Upgrading %s ..." "$1"
@@ -14,27 +14,27 @@ brew_install_or_upgrade() {
   fi
 }
 
-brew_is_installed() {
+brew_is_installed () {
   local name="$(brew_expand_alias "$1")"
 
   brew list -1 | grep -Fqx "$name"
 }
 
-brew_is_upgradable() {
+brew_is_upgradable () {
   local name="$(brew_expand_alias "$1")"
 
   ! brew outdated --quiet "$name" >/dev/null
 }
 
-brew_tap() {
+brew_tap () {
   brew tap "$1" 2> /dev/null
 }
 
-brew_expand_alias() {
+brew_expand_alias () {
   brew info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
 }
 
-brew_launchctl_restart() {
+brew_launchctl_restart () {
   local name="$(brew_expand_alias "$1")"
   local domain="homebrew.mxcl.$name"
   local plist="$domain.plist"
@@ -52,23 +52,23 @@ brew_launchctl_restart() {
 # -------------------------------------
 # brew cask (caskroom) stuff
 
-brew_cask_is_installed() {
+brew_cask_is_installed () {
   local name="$(brew_cask_expand_alias "$1")"
 
   brew cask list -1 | grep -Fqx "$name"
 }
 
-brew_cask_is_upgradable() {
+brew_cask_is_upgradable () {
   local name="$(brew_cask_expand_alias "$1")"
 
   ! brew cask outdated --quiet "$name" >/dev/null
 }
 
-brew_cask_expand_alias() {
+brew_cask_expand_alias () {
   brew cask info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
 }
 
-brew_cask_install_or_upgrade() {
+brew_cask_install_or_upgrade () {
   if brew_cask_is_installed "$1"; then
     if brew_cask_is_upgradable "$1"; then
       echo "Upgrading %s ..." "$1"
@@ -82,13 +82,13 @@ brew_cask_install_or_upgrade() {
   fi
 }
 
-brew_cask_setup_repair() {
+brew_cask_setup_repair () {
   # fork homebrew-cask to your account - only needed once
   cd "$(brew --repository)/Library/Taps/caskroom/homebrew-cask/Casks"
   hub fork
 }
 
-brew_cask_repair() {
+brew_cask_repair () {
   # use to update <outdated_cask>
   outdated_cask=$1 # '<the-cask-i-want-to-update>'
   github_user=${GITHUB_USER} # '<my-github-username>'

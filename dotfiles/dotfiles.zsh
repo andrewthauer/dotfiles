@@ -17,7 +17,7 @@ function dotfiles_import_module () {
   setopt null_glob
 
   # if a directory wasn't given, assume they meant a DOTFILES module
-  if [ ! -d $moddir ] ; then
+  if [ ! -d $moddir ]; then
     moddir=$DOTFILES/$moddir
   fi
 
@@ -44,7 +44,7 @@ function dotfiles_unexport_file () {
 function dotfiles_zgen_check_modules () {
   # report oh-my-zsh modules that could be taken from prezto instead
   zgen list | grep oh-my-zsh | awk '{print $2}' | xargs basename | while read omz_module ; do
-    if [ -d $ZPREZTODIR/modules/$omz_module ] ; then
+    if [ -d $ZPREZTODIR/modules/$omz_module ]; then
       -dots-alert-message "oh-my-zsh module $omz_module is also in prezto"
     fi
   done

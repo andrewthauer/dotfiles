@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Two additional quick tips useful for $PATH manipulation in zsh (for anyone passing by):
 # (1) to prepend instead of append: path[1,0]=/path/to/dir, and (2) if you're using
@@ -9,7 +9,7 @@
 function prepend_path () {
   dir=$1
   force=$2
-  if [ -n $force ] ; then
+  if [ -n $force ]; then
     export PATH=$dir:$PATH
   else
     [ -d $dir ] && export PATH=$dir:$PATH

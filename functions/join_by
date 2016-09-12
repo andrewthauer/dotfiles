@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# Joins the args >= 2 by the first arg delimeter
+# Examples:
+#   join_by , a "b c" d #a,b c,d
+#   join_by / var local tmp #var/local/tmp
+#   join_by , "${FOO[@]}" #a,b,c
+function join_by {
+  local IFS="$1"
+  shift
+  echo "$*"
+}

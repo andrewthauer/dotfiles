@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 # Executes commands at the start of an interactive session
 
 # If not running interactively, don't do anything
@@ -9,7 +9,10 @@ if [ -t 1 ]; then
   exec zsh
 fi
 
+# Dotfiles directory
+export DOTFILES="$HOME/.dotfiles"
+
 # Alias definitions.
-if [ -f ~/.bash_aliases ]; then
-  source ${DOTFILES}/bash/bash_aliases
+if [ -f "${DOTFILES}/bash/bash_aliases.sh" ]; then
+  source ${DOTFILES}/bash/bash_aliases.sh
 fi

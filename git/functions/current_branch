@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Displays the current Git branch.
 function current_branch {
@@ -9,7 +9,7 @@ function current_branch {
 
   local ref="$(git symbolic-ref HEAD 2> /dev/null)"
 
-  if [[ -n "$ref" ]]; then
+  if [ -n "$ref" ]; then
     print "${ref#refs/heads/}"
     return 0
   else

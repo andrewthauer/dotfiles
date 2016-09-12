@@ -1,11 +1,11 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 # Executes commands at login pre-zshrc
 
 # Dotfiles directory
 export DOTFILES="$HOME/.dotfiles"
 
-# Load Secrets
-[[ -f "$DOTFILES/secrets/zprofile" ]] && source "$DOTFILES/secrets/zprofile"
+# Load Secrets (if exists)
+[[ -s "${DOTFILES}/secrets/zprofile" ]] && source "${DOTFILES}/secrets/zprofile"
 
 # Browser
 if [[ "$OSTYPE" == darwin* ]]; then

@@ -1,8 +1,8 @@
 # dotfiles_require 'git'
 
 # deploy a rails app
-cap_deploy() {
-  if [ -z "$1" ]; then
+cap_deploy () {
+  if [[ -z "$1" ]]; then
     echo $fg[yellow]"Missing Environnment"
     echo "\te.g. cap-deploy qa"
     return

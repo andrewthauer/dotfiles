@@ -2,7 +2,7 @@
 # Ruby stuff
 
 # gem helper
-gem_install_or_update() {
+gem_install_or_update () {
   if gem list "$1" --installed > /dev/null; then
     echo "Updating %s ..." "$1"
     gem update "$@"

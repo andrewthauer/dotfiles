@@ -4,7 +4,7 @@
 # These are meant to compliment existing oh-my-zsh plugins:
 # ===========================================================
 
-function remote_console() {
+function remote_console () {
   /usr/bin/env ssh $1 "(cd $2 && ruby script/console production)"
 }
 

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Create symlink to this directory
 SOURCE_DOTFILES=$(cd $(dirname $0); pwd)
@@ -27,7 +27,7 @@ dotfiles_symlink_dir "${DOTFILES}/ruby"
 
 # Update zgen
 echo "\n=== Updating zgen ===\n"
-pushd ${DOTFILES} > /dev/null
+pushd "${DOTFILES}" > /dev/null
 git submodule update --init --recursive
 popd /dev/null
 dotfiles_require 'zgen'

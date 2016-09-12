@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Add directory to MANPATH if it exits
 function prepend_manpath () {

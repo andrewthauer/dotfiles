@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-# --- OSX Setup script ---
+# --- macOS setup script ---
 
 # Prompt for admin password upfront
 sudo -v

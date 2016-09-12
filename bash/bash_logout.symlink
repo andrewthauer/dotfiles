@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 # Executed by bash when login shell exits.
 
 # when leaving the console clear the screen to increase privacy

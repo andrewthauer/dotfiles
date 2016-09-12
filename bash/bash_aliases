@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# some more ls aliases
-alias l='ls -la'
