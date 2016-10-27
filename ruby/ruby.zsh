@@ -13,6 +13,10 @@ gem_install_or_update () {
   fi
 }
 
+alias gem_uninstall_all="gem uninstall -aIx"
+
 # aliases
 alias be="bundle exec"
 alias rspec="bundle exec rspec"
+alias cap="bundle exec cap"
+alias rake="bundle exec rake"
