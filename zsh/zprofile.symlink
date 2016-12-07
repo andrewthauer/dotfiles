@@ -4,16 +4,13 @@
 # Dotfiles directory
 export DOTFILES="$HOME/.dotfiles"
 
-# Load Secrets (if exists)
-[[ -s "${DOTFILES}/secrets/zprofile" ]] && source "${DOTFILES}/secrets/zprofile"
-
 # Browser
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
 # Editors
-export EDITOR="atom"
+export EDITOR="vi"
 export VISUAL='nano'
 export PAGER='less'
 
@@ -54,3 +51,6 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+# Load local profile (if exists)
+[[ -s "${HOME}/.zprofile.local" ]] && source "${HOME}/.zprofile.local"

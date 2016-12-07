@@ -4,5 +4,5 @@
 # Dotfiles directory
 export DOTFILES="$HOME/.dotfiles"
 
-# rbenv support
-[ -s "${DOTFILES}/ruby/rbenv.zsh" ] && source "${DOTFILES}/ruby/rbenv.zsh"
+# Editors
+export PAGER='less'
