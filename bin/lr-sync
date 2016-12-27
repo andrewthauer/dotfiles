@@ -25,7 +25,7 @@ EXCLUDES="${NAS_RSYNC_EXCLUDE_OPTS}"
 NAS_DIR="${NAS_LIGHTROOM_DIR}"
 LOCAL_DIR="${LOCAL_LIGHTROOM_DIR}"
 
-echo "Command: ${cmd}"
+echo "Command: ${CMD}"
 echo "Dry Run: ${DRY_RUN}"
 echo "Excluding: ${EXCLUDES}"
 echo ""
