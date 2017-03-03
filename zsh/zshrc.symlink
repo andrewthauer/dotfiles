@@ -27,6 +27,10 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen load zsh-users/zsh-syntax-highlighting
 
+  # zsh-nvm
+  export NVM_AUTO_USE=true
+  zgen load lukechilds/zsh-nvm
+
   # Custom modules
   zgen load $DOTFILES/brew
   zgen load $DOTFILES/git
