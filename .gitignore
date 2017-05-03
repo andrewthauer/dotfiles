@@ -7,3 +7,6 @@
 # Ignore secrets
 secrets/*
 !secrets/README.md
+
+# Ignore configs
+windows/appdata/ConEmu.xml
