@@ -2,6 +2,7 @@
 .tags*
 
 # Ignore local
+local/*
 **/*.local*
 
 # Ignore secrets

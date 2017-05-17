@@ -28,18 +28,18 @@ alias bottomLeftQuarter  ${sox};${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
 alias bottomRightQuarter ${sox}+${ssx}/2;${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
 
 # Resize Bindings
-bind g:ctrl;alt move     ${centered}
-bind o:ctrl;alt move     ${fullscreen}
-bind h:ctrl;alt move     ${leftHalf}
+bind g:ctrl;alt     move ${centered}
+bind o:ctrl;alt     move ${fullscreen}
+bind h:ctrl;alt     move ${leftHalf}
 bind h:ctrl;alt;cmd move ${leftTwoThirds}
-bind j:ctrl;alt move     ${bottomHalf}
-bind k:ctrl;alt move     ${topHalf}
-bind l:ctrl;alt move     ${rightHalf}
+bind j:ctrl;alt     move ${bottomHalf}
+bind k:ctrl;alt     move ${topHalf}
+bind l:ctrl;alt     move ${rightHalf}
 bind l:ctrl;alt;cmd move ${rightTwoThirds}
-bind u:ctrl;alt move     ${topLeftQuarter}
-bind i:ctrl;alt move     ${topRightQuarter}
-bind n:ctrl;alt move     ${bottomLeftQuarter}
-bind m:ctrl;alt move     ${bottomRightQuarter}
+bind u:ctrl;alt     move ${topLeftQuarter}
+bind i:ctrl;alt     move ${topRightQuarter}
+bind n:ctrl;alt     move ${bottomLeftQuarter}
+bind m:ctrl;alt     move ${bottomRightQuarter}
 
 # Nudge Bindings
 bind right:ctrl;alt;cmd nudge +10% +0
@@ -58,7 +58,7 @@ bind down:ctrl;alt;cmd  nudge +0   +10%
 #bind down:ctrl;alt;shift  resize +0   -10% bottom-right
 
 # Throw Bindings
-bind ;:ctrl;alt         throw previous
+bind ;:ctrl;alt          throw previous
 #bind right:ctrl;alt;cmd throw right resize
 #bind left:ctrl;alt;cmd  throw left  resize
 #bind up:ctrl;alt;cmd    throw up    resize
