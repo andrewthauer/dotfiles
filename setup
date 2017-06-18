@@ -7,31 +7,22 @@ if [[ ! -d "${TARGET_DOTFILES}" ]] && [[ ! -L "${TARGET_DOTFILES}" ]]; then
   ln -s "${SOURCE_DOTFILES}" "${TARGET_DOTFILES}"
 fi
 
-# Export dot files dir
-export DOTFILES="$HOME/.dotfiles"
+# Export dotfiles dir
+DOTFILES_PATH="$HOME/.dotfiles"
 
-# Initialize
-[[ -s "${DOTFILES}/init.zsh" ]] && source "${DOTFILES}/init.zsh"
+# Import symlink helpers
+source $DOTFILES_PATH/lib/functions/load_zsh_module
+load_zsh_module $DOTFILES_PATH/plugins/dotfile_symlink
 
 # Symlink directories
 echo "\n=== Symlinking files & directories ===\n"
-dotfiles_symlink_dir "${DOTFILES}/bash"
-dotfiles_symlink_dir "${DOTFILES}/editorconfig"
-dotfiles_symlink_dir "${DOTFILES}/git"
-dotfiles_symlink_dir "${DOTFILES}/node"
-dotfiles_symlink_dir "${DOTFILES}/secrets"
-dotfiles_symlink_dir "${DOTFILES}/slate"
-dotfiles_symlink_dir "${DOTFILES}/vim"
-dotfiles_symlink_dir "${DOTFILES}/zsh"
-dotfiles_symlink_dir "${DOTFILES}/ruby"
-
-# Update zgen
-echo "\n=== Updating zgen ===\n"
-pushd "${DOTFILES}" > /dev/null
-git submodule update --init --recursive
-popd /dev/null
-dotfiles_require 'zgen'
-zgen update
+symlink_dotfile_dir "${DOTFILES_PATH}/config/bash"
+symlink_dotfile_dir "${DOTFILES_PATH}/config/dev"
+symlink_dotfile_dir "${DOTFILES_PATH}/config/macos"
+symlink_dotfile_dir "${DOTFILES_PATH}/config/vim"
+symlink_dotfile_dir "${DOTFILES_PATH}/config/zsh"
+symlink_dotfile_dir "${DOTFILES_PATH}/local"
+symlink_dotfile_dir "${DOTFILES_PATH}/secrets"
 
 # Reload zsh
 echo "\n=== Restarting your shell ===\n"

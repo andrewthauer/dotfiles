@@ -19,10 +19,10 @@ This is my system configuration files, settings, etc.
 Here's a list of things that are used:
 
 * [zsh](https://github.com/zsh-users/zsh)
-* [zgen](https://github.com/tarjoilija/zgen)
+* [zplug](https://github.com/zplug/zplug)
 * [homebrew](https://github.com/homebrew/homebrew) (macOS)
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
-* [zsh-uses](https://github.com/zsh-users) (some modules)
+* [zsh-users](https://github.com/zsh-users) (some modules)
 
 Setup
 -----
@@ -32,76 +32,72 @@ Setup
 $ chsh -s /bin/zsh
 
 # Clone the repository:
-$ git clone --recursive https://github.com/andrewthauer/dotfiles
+$ git clone https://github.com/andrewthauer/dotfiles
 
-# Run setup (create rc symlinks, etc.)
+# Run setup (creates dotfile symlinks, etc.)
 $ ./setup
+
+# The `./setup` command symlinks files & directories
+# Example:
+#   `~/.zshrc -> ~/.dotfiles/config/zsh/zshrc.symlink`
+#   `~/.zsrc.local -> ~/.dotfiles/local/zshrc.local.symlink`
+#   `~/.gitconfig -> ~/.dotfiles/secrets/gitconfig.symlink`
+#   `~/some-directory/.some-config` ->  `~/.dotfiles/secrets/some-directory/some-config.symlink`
+#   `~/.some-directory/ -> ~/.dotfiles/secrets/some-directory.symlink/`
 ```
 
-### Symlinks
+Structure
+---------
 
-The `./setup` command symlinks configuration files from various topic directories. For example:
+Here is a list of the top level directories:
 
-* `~/.zshrc` -> `~/.dotfiles/zsh/zshrc.symlink`
-* `~/.gitconfig` -> `~/.dotfiles/secrets/gitconfig.symlink`
-* `~/.some-config` -> `~/.dotfiles/secrets/some-config.symlink`
-* `~/some-directory/.some-config` -> `~/.dotfiles/secrets/some-directory/some-config.symlink`
-* `~/.some-directory/` -> `~/.dotfiles/secrets/some-directory.symlink/`
+* `config` - Contains various configuration files
+* `lib` - Contains core helper functions
+* `local` - Used for local environment customizations
+* `plugins` - Various plugins organized by topic
+* `secrets` - Store local secrets
+* `system` - OS Specific files and setup scripts
 
-### Updating
+Configuration
+-------------
 
-`git pull && git submodule update --init --recursive`
+The following can be used to sync application settings:
+
+* Atom - [Sync Settings for Atom](https://atom.io/packages/sync-settings) package
+* Visual Studio Code - [Visual Studio Code Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) extension
 
 Customizing
 -----------
 
-### zshrc.local
+Make sure you run `./setup` after adding new .symlink files or direcories.
 
-Create a `~/.zshrc.local` file to run custom scripts. This could also be added to the secrets directory (i.e. `secrets/zshrc.local.symlink).
+### `local` directory
 
-```bash
-#!/usr/bin/env zsh
-# Setup local environment variables
-# Setup local aliases
-# Source other files
-# etc ...
+* Create a `local/zprofile.local.symlink` file to extend `~/.zprofile` with `~/.zprofile.local`
+* Create a `local/zshrc.local.symlink` file to extend `~/.zshrc` with `~/.zshrc.local`
+
+Example:
+
+```shell
+# ~/.dotfiles/local/zprofile.local.symlink
+
+# do some non secret stuff
+# ...
+
+# source the secret profile data
+source $DOTFILES_PATH/secrets/profile
 ```
 
-### zprofile
+### `secrets` directory
 
-The `secrets/zprofile` file is sourced at the start of a new zsh session (if found). It can be used to add environment variables before other files are sourced.
+Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment. Any `.symlink` file will be automatically linked to the home directory when `./setup` is run.
 
-### gitconfig
+**gitconfig**
 
-The `secrets/gitconfig` is included by `git/gitconfig`. This should contain any user specific git information (i.e. user/email).
+The `./secrets/gitconfig` file is included by `./config/dev/gitconfig`. This should contain any user specific git information (i.e. user/email).
 
-### Secret Files
-
-Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment. Any `.symlink` file will be automatically linked to the home directory when `setup` is run.
-
-**Make sure you re-run `./setup` to setup any new symlinks**
-
-*NOTE: See `Configuration Settings` below for more details.*
-
-Functions
----------
-
-There are various common shell functions located in the `./functions` directory. Each topic based directory (i.e git), may also contain a functions directory specific to that topic. These are auto loaded when the shell session is started.
-
-**ssh_config_merge**
-
-This function can be used to merge various ssh configurations files together into `~.ssh/config` (since ssh does not have an include file feature). This can be useful to separate personal and work ssh configurations.
-
-```bash
-# Setup desired SSH config files (add to zshrc.local)
-SSH_CONFIGS=("$DOTFILES/secrets/ssh.personal.config" "$DOTFILES/secrets/ssh.work.config")
-
-# Merge configs together manually
-ssh_config_merge
-```
-
-Windows
--------
+Windows Support
+---------------
 
 The dotfiles are compatible with `Windows Subsystem for Linux` (i.e. Windows Bash). Follow these steps to setup:
 
@@ -112,31 +108,11 @@ The dotfiles are compatible with `Windows Subsystem for Linux` (i.e. Windows Bas
 * Open the windows bash command prompt
 * Run the setup (i.e. `/mnt/d/Username/dotfiles/setup`)
 
-### Configuration
+**Configuration**
 
 *NOTE: This is a work in progress ...*
 
-Various windows configuration settings can be symlinked to the user profile directory (making them more portable). Running the PowerShell script `windows/setup/run.ps1` will run the windows setup routines.
-
-Backups & Syncing
------------------
-
-Most configuration settings are contained in this repo. This means git is used to version and store the majority of settings that are not secrets.
-
-### Secrets
-
-Anything that is secret or environment specific should go into the `secrets` directory where it exists locally only.
-
-*NOTE: Work in progress*
-
-The `./bin/backup-secrets` script will backup settings to a server, NAS, etc. using env variables defined in the secrets folder (i.e. zshrc.local).
-
-### App Configuration
-
-The following are used to sync application settings:
-
-* Atom - [Sync Settings for Atom](https://atom.io/packages/sync-settings) package
-* Visual Studio Code - [Visual Studio Code Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) extension
+Various windows configuration settings can be symlinked to the user profile directory (making them more portable). Running the PowerShell script `system/windows/setup.ps1` will run the windows setup routines.
 
 Reference
 ---------
@@ -145,9 +121,6 @@ Reference
 * [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
 * [Master Your Z Shell with These Outrageously Useful Tips](http://reasoniamhere.com/2014/01/11/outrageously-useful-tips-to-master-your-z-shell/)
 * [docopt: Command-line interface description language](http://docopt.org/)
-
-### Command Line Parsing
-
 * [Handling Command Line Arguments](http://www.shelldorado.com/goodcoding/cmdargs.html)
 * [ Command Line Options: How To Parse In Bash Using “getopt”](http://www.bahmanm.com/blogs/command-line-options-how-to-parse-in-bash-using-getopt)
 

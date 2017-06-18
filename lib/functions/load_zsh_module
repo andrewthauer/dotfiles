@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+function load_zsh_module () {
+  moddir=$1
+  setopt null_glob
+
+  # if a directory wasn't given, assume they meant a DOTFILES module
+  if [ ! -d $moddir ]; then
+    moddir=$DOTFILES_PATH/$moddir
+  fi
+
+  # autoload functions
+  [ -d "$moddir/functions" ] && {
+    autoload_fpath $moddir/functions
+  }
+
+  # add bin dir to path
+  [ -d "$moddir/bin" ] && {
+    prepend_path $moddir/bin
+  }
+
+  # source zsh files
+  for file ($moddir/*.zsh); do
+    [ -f $file ] && source $file
+  done
+}

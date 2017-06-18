@@ -1,13 +1,7 @@
 .DS_Store
 .tags*
-
-# Ignore local
 local/*
 **/*.local*
-
-# Ignore secrets
 secrets/*
-!secrets/README.md
-
-# Ignore configs
-windows/appdata/ConEmu.xml
+windows/appdata/*
+!.gitkeep

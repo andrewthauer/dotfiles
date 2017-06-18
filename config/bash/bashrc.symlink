@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+# Executes commands at the start of an interactive session
+
+# If not running interactively (powershell), don't do anything
+[ -z "$PS1" ] && return
+
+# Launch Zsh
+if [ -t 1 ]; then
+  exec zsh
+fi
+
+# Dotfiles directory
+export DOTFILES_PATH="$HOME/.dotfiles"
+
+# rbenv support
+[ -s "${DOTFILES_PATH}/plugins/ruby/rbenv.zsh" ] && source "${DOTFILES_PATH}/plugins/ruby/rbenv.zsh"
+
+# Alias definitions.
+if [ -f "${DOTFILES_PATH}/plugins/common-aliases/aliases.zsh" ]; then
+  source "${DOTFILES_PATH}/plugins/common-aliases/aliases.zsh"
+fi
