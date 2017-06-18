@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Images #
+# Images
 alias di='docker images'
 alias drmi='docker rmi'
 alias dbu='docker build'

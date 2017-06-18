@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function tab () {
+tab() {
   local command="cd \\\"$PWD\\\"; clear; "
   (( $# > 0 )) && command="${command}; $*"
 

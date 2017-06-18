@@ -10,9 +10,10 @@ fi
 # Export dotfiles dir
 DOTFILES_PATH="$HOME/.dotfiles"
 
-# Import symlink helpers
-source $DOTFILES_PATH/lib/functions/load_zsh_module
-load_zsh_module $DOTFILES_PATH/plugins/dotfile_symlink
+# Source some helpers
+source $DOTFILES_PATH/plugins/zsh-functions/functions/autoload_fpath
+autoload_fpath $DOTFILES_PATH/plugins/zsh-functions/functions
+load_zsh_module $DOTFILES_PATH/plugins/dotfiles
 
 # Symlink directories
 echo "\n=== Symlinking files & directories ===\n"

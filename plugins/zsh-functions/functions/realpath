@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function realpath () {
+realpath() {
   # Resolves the path or symlink
   echo $(cd $(dirname $1); pwd)/$(basename $1)
 }

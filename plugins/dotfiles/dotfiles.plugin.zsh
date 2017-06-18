@@ -1,9 +1,10 @@
 #!/usr/bin/env zsh
 
 # gets the symlink director
-function dotfile_symlink_target_dir () {
-  dir=$1
-  root_dir=$2
+dotfile_symlink_target_dir () {
+  local dir=$1
+  local root_dir=$2
+
   if [ "$dir" = "${root_dir}" ]; then
     dir="$HOME"
   else
@@ -13,8 +14,8 @@ function dotfile_symlink_target_dir () {
 }
 
 # symlinks all dot files & directories inside a directory
-function symlink_dotfile_dir () {
-  root_dir=$1
+symlink_dotfile_dir () {
+  local root_dir=$1
 
   # Symlink rc files
   for file in ${root_dir}/**/*; do
@@ -44,20 +45,20 @@ function symlink_dotfile_dir () {
 }
 
 # symlinks a dot file (myfile.symlink)
-function symlink_dotfile () {
-  rcfile=$1
-  dest_dir=$2
+symlink_dotfile () {
+  local rcfile=$1
+  local dest_dir=$2
 
   # Default to home
   [ -z "$dest_dir" ] && dest_dir=$HOME
 
   # Prefix file with '.' if dir is ~
-  prefix=""
+  local prefix=""
   [ "$dest_dir" = $HOME ] && prefix="."
 
   # Setup RC file symlinks
-  src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
-  dest="$dest_dir/$prefix$(basename $src .symlink)"
+  local src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
+  local dest="$dest_dir/$prefix$(basename $src .symlink)"
 
   # Remove existing symlinks
   if [ -L "$dest" ]; then

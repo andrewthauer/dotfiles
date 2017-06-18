@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
-confirm () {
-  msg=$1
+confirm() {
+  local msg=$1
+
   [ -z "$1" ] && msg="Are you sure [y/N]?"
   echo -n "$msg "
   read answer

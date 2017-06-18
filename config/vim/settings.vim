@@ -1,4 +1,4 @@
-let vimsettings = '~/.dotfiles/vim/settings'
+let vimsettings = '~/.dotfiles/config/vim/settings'
 let uname = system("uname -s")
 
 for fpath in split(globpath(vimsettings, '*.vim'), '\n')

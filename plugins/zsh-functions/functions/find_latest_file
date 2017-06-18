@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-function find_latest_file () {
-  dir=$1
-  pattern=$2
+find_latest_file() {
+  local dir=$1
+  local pattern=$2
 
   [ -z "${dir}" ] && echo "Directory not provided" && return 1
   [ ! -d "${dir}" ] && echo "Directory does not exist" && return 1

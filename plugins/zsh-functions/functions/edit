@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Opens files via the $EDITOR
-function edit () {
+edit () {
   if [[ $# = 0 ]] then
     $EDITOR
   else

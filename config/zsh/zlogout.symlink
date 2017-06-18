@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-# Executes commands at logout
-
-# Print the logout message
-cat <<-EOF
-
--- Ciao Chus Bye!
-EOF

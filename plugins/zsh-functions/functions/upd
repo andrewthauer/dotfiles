@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-function upd {
-  num=${1:-1}
+upd() {
+  local num=${1:-1}
   for x in $(seq 1 $num) ; do
     1=".."
     cd ..

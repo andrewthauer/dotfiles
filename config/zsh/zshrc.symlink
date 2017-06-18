@@ -1,44 +1,53 @@
 #!/usr/bin/env zsh
 # Executes commands at the start of an interactive session
 
+# Check if zplug is installed
+if [[ ! -d "$HOME/.zplug" ]]; then
+  git clone https://github.com/zplug/zplug "$HOME/.zplug/repos/zplug/zplug"
+  ln -s "$HOME/.zplug/repos/zplug/zplug/init.zsh" "$HOME/.zplug/init.zsh"
+fi
+
 # Load zplug
-export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 # oh-my-zsh plugins
-zplug "robbyrussell/oh-my-zsh", use:"lib/directories.zsh"
-# zplug "plugins/common-aliases", from:oh-my-zsh
+zplug "plugins/aws", from:oh-my-zsh
+zplug "plugins/bundler", from:oh-my-zsh
+zplug "plugins/capistrano", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/git-extras", from:oh-my-zsh
+zplug "plugins/httpie", from:oh-my-zsh
+zplug "plugins/nvm", from:oh-my-zsh
+zplug "plugins/osx", from:oh-my-zsh
+zplug "plugins/rake", from:oh-my-zsh
 zplug "plugins/rails", from:oh-my-zsh
 zplug "plugins/rbenv", from:oh-my-zsh
+zplug "plugins/ruby", from:oh-my-zsh
 zplug "plugins/yarn", from:oh-my-zsh
 
 # zsh-user plugins
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# zsh-nvm plugin
 zplug "lukechilds/zsh-nvm", from:github
 
-# local zsh plugins
-dotfiles=$DOTFILES_PATH
-# zplug "$dotfiles/lib/functions", from:local, use:"*", lazy:on
-zplug "$dotfiles/plugins/capistrano", from:local
-zplug "$dotfiles/plugins/common-aliases", from:local
-zplug "$dotfiles/plugins/docker", from:local
-zplug "$dotfiles/plugins/docker-compose", from:local
-zplug "$dotfiles/plugins/node", from:local
-zplug "$dotfiles/plugins/ruby", from:local
-zplug "$dotfiles/plugins/ssh", from:local
-# zplug "$dotfiles/plugins/brew", from:local
-# zplug "$dotfiles/plugins/rails", from:local
-# zplug "$dotfiles/plugins/rbenv", from:local
-# zplug "$dotfiles/plugins/yarn", from:local
+# local plugins
+zplug "$DOTFILES_PATH/plugins/capistrano", from:local
+zplug "$DOTFILES_PATH/plugins/common-aliases", from:local
+zplug "$DOTFILES_PATH/plugins/docker", from:local
+zplug "$DOTFILES_PATH/plugins/docker-compose", from:local
+zplug "$DOTFILES_PATH/plugins/node", from:local
+zplug "$DOTFILES_PATH/plugins/rbenv", from:local
+zplug "$DOTFILES_PATH/plugins/ssh", from:local
+zplug "$DOTFILES_PATH/plugins/yarn", from:local
+zplug "$DOTFILES_PATH/plugins/zsh-functions", from:local, use:"*", lazy:on
 
 # Load theme file
 zplug "dracula/zsh", as:theme
 # zplug "robbyrussell/oh-my-zsh", use:"themes/af-magic.zsh-theme", as:theme
-
-# Load the local zsh file
-[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -49,8 +58,9 @@ if ! zplug check --verbose; then
 fi
 
 # Load the local zsh file
-alias dotfiles="$DOTFILES_PATH"
-[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi
 
 # Then, source plugins and add commands to $PATH
 zplug load --verbose

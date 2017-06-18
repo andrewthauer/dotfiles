@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Bootstrap
-load_zsh_module "$DOTFILES_PATH/brew"
+load_zsh_module "$DOTFILES_PATH/plugins/brew"
 
 # Setup permissions
 sudo chown -R "$USER":admin /usr/local

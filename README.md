@@ -52,7 +52,6 @@ Structure
 Here is a list of the top level directories:
 
 * `config` - Contains various configuration files
-* `lib` - Contains core helper functions
 * `local` - Used for local environment customizations
 * `plugins` - Various plugins organized by topic
 * `secrets` - Store local secrets
@@ -73,8 +72,9 @@ Make sure you run `./setup` after adding new .symlink files or direcories.
 
 ### `local` directory
 
-* Create a `local/zprofile.local.symlink` file to extend `~/.zprofile` with `~/.zprofile.local`
-* Create a `local/zshrc.local.symlink` file to extend `~/.zshrc` with `~/.zshrc.local`
+* `local/zprofile.local.symlink` file to extend `~/.zprofile` with `~/.zprofile.local`
+* `local/zprofile.env.symlink` file to extend `~/.zshenv` with `~/.zshenv.local`
+* `local/zshrc.local.symlink` file to extend `~/.zshrc` with `~/.zshrc.local`
 
 Example:
 

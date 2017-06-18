@@ -1,15 +1,16 @@
 #!/usr/bin/env zsh
 
-function get_mount_volume () {
-  share=$1
-  mount_dir=${2:-/Volumes}
+get_mount_volume() {
+  local share=$1
+  local mount_dir=${2:-/Volumes}
   echo "${mount_dir}/${share:t}"
 }
 
-function is_share_mounted () {
-  share=$1
-  mount_dir=${2:-/Volumes}
-  mnt_volume=$(get_mount_volume ${share} ${mount_dir})
+is_share_mounted() {
+  local share=$1
+  local mount_dir=${2:-/Volumes}
+  local mnt_volume=$(get_mount_volume ${share} ${mount_dir})
+
   if [ -d "$mnt_volume" ]; then
     return 0
   else
@@ -17,10 +18,11 @@ function is_share_mounted () {
   fi
 }
 
-function mount_share () {
-  share=$1
-  mount_dir=${2:-/Volumes}
-  mnt_volume=$(get_mount_volume ${share} ${mount_dir})
+mount_share() {
+  local share=$1
+  local mount_dir=${2:-/Volumes}
+  local mnt_volume=$(get_mount_volume ${share} ${mount_dir})
+
   if ! $(is_share_mounted ${mnt_volume} ${mount_dir}); then
     echo "Mount -> ${share} on ${mnt_volume}"
     mkdir ${mnt_volume}
@@ -30,10 +32,11 @@ function mount_share () {
   fi
 }
 
-function unmount_share () {
-  share=$1
-  mount_dir=${2:-/Volumes}
-  mnt_volume=$(get_mount_volume ${share} ${mount_dir})
+unmount_share() {
+  local share=$1
+  local mount_dir=${2:-/Volumes}
+  local mnt_volume=$(get_mount_volume ${share} ${mount_dir})
+
   if $(is_share_mounted ${mnt_volume} ${mount_dir}); then
     echo "Unmount -> ${mnt_volume}"
     diskutil unmount ${mnt_volume}

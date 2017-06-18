@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-function load_zsh_module () {
-  moddir=$1
+load_zsh_module () {
+  local moddir=$1
   setopt null_glob
 
   # if a directory wasn't given, assume they meant a DOTFILES module

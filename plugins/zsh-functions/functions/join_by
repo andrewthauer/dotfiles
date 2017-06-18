@@ -5,7 +5,7 @@
 #   join_by , a "b c" d #a,b c,d
 #   join_by / var local tmp #var/local/tmp
 #   join_by , "${FOO[@]}" #a,b,c
-function join_by {
+join_by() {
   local IFS="$1"
   shift
   echo "$*"

@@ -3,7 +3,7 @@
 # Prepands each string with the prefix
 # Examples:
 #   prepend_each '--switch' 'foo bar' = '--switch foo --switch bar'
-function prepend_each {
+prepend_each() {
   set -o shwordsplit
 
   local prefix=$1

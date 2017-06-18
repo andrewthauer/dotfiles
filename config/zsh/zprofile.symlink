@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # Executes commands at login pre-zshrc
 
-# === Basics
+# ====== Basics ======
 
 # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
 setopt AUTO_CD
@@ -9,18 +9,7 @@ setopt AUTO_CD
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
-# Set the the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
-
-# Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
-
-# === History
+# ====== History ======
 
 # Allow multiple terminal sessions to all append to one zsh command history
 setopt APPEND_HISTORY
@@ -40,7 +29,7 @@ setopt HIST_REDUCE_BLANKS
 # Include more information about when the command was executed, etc
 setopt EXTENDED_HISTORY
 
-# === Completion
+# ====== Completion ======
 
 # Allow completion from within a word/phrase
 setopt COMPLETE_IN_WORD
@@ -48,14 +37,29 @@ setopt COMPLETE_IN_WORD
 # When completing from the middle of a word, move the cursor to the end of the word
 setopt ALWAYS_TO_END
 
-# === Prompt
+# ====== Prompt ======
 
 # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
 setopt PROMPT_SUBST
 
-unsetopt MENU_COMPLETE
+# Completion menu settings
 setopt AUTO_MENU
+setopt MENU_COMPLETE
+zstyle ':completion:*' menu select
 
-# === Load local profile (if exists)
+# Colourize ls output
+export CLICOLOR=1
+# export LSCOLORS=GxFxCxDxBxegedabagaced
 
-[[ -s "${HOME}/.zprofile.local" ]] && source "${HOME}/.zprofile.local"
+# ====== Terminal ======
+
+# Keep directory when opening new tab
+precmd() { print -Pn "\e]2; %~/ \a" }
+preexec() { print -Pn "\e]2; %~/ \a" }
+
+# ====== Local profiles ======
+
+# Load local profile (if exists)
+if [[ -s "${HOME}/.zprofile.local" ]]; then
+  source "${HOME}/.zprofile.local"
+fi
