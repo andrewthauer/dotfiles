@@ -1,13 +1,7 @@
-#!/usr/bin/env zsh
-# Executes commands at login pre-zshrc
-
 # ====== Basics ======
 
 # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
 setopt AUTO_CD
-
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
 
 # ====== History ======
 
@@ -42,24 +36,7 @@ setopt ALWAYS_TO_END
 # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
 setopt PROMPT_SUBST
 
-# Completion menu settings
-setopt AUTO_MENU
-setopt MENU_COMPLETE
-zstyle ':completion:*' menu select
+# ====== Completion ======
 
-# Colourize ls output
-export CLICOLOR=1
-# export LSCOLORS=GxFxCxDxBxegedabagaced
-
-# ====== Terminal ======
-
-# Keep directory when opening new tab
-precmd() { print -Pn "\e]2; %~/ \a" }
-preexec() { print -Pn "\e]2; %~/ \a" }
-
-# ====== Local profiles ======
-
-# Load local profile (if exists)
-if [[ -s "${HOME}/.zprofile.local" ]]; then
-  source "${HOME}/.zprofile.local"
-fi
+# setopt AUTO_MENU
+# setopt MENU_COMPLETE

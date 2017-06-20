@@ -4,9 +4,9 @@ load_zsh_module () {
   local moddir=$1
   setopt null_glob
 
-  # if a directory wasn't given, assume they meant a DOTFILES module
+  # if a directory wasn't given, assume they meant a local DOTFILES module
   if [ ! -d $moddir ]; then
-    moddir=$DOTFILES_PATH/$moddir
+    moddir=${DOTPATH}/$moddir
   fi
 
   # autoload functions

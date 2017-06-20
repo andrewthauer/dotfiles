@@ -1,4 +1,8 @@
-#!/usr/bin/env zsh
+# Docker zsh functions & aliases
+
+# =====================================
+# docker
+# ====================================
 
 # Images
 alias di='docker images'
@@ -30,3 +34,12 @@ alias drmv_all='docker rm -v $* $(docker ps -a -q)'
 alias dvls='docker volume ls $*'
 alias dvrm_all='docker volume rm $(docker volume ls -q)'
 alias dvrm_dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
+
+# =====================================
+# docker-compose
+# =====================================
+
+# additional aliases for oh-my-zsh/plugins/docker-compose
+alias dcrestart='docker-compose restart'
+alias dcstart='docker-compose start'
+alias dcstop='docker-compose stop'

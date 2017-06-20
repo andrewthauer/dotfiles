@@ -1,4 +1,12 @@
-#!/usr/bin/env zsh
+# Node helpers
+
+# NVM support
+# NOTE: Now using zsh-nvm (https://github.com/lukechilds/zsh-nvm)
+
+# Yarn support
+if [[ -d "${HOME}/.yarn" ]]; then
+  export PATH="${PATH}:${HOME}/.yarn/bin"
+fi
 
 # aliases
 alias npm-outdated="npm outdated --depth 0 -q"

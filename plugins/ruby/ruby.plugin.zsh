@@ -1,4 +1,11 @@
-#!/usr/bin/env zsh
+# Ruby helpers & aliases
+
+# rbenv support
+if [[ -d "${HOME}/.rbenv" ]]; then
+  export PATH="${HOME}/.rbenv/shims:${HOME}/.rbenv/bin:${PATH}"
+  # eval "$(rbenv init -)"
+  eval "$(rbenv init - --no-rehash)"
+fi
 
 # gem helper
 gem_install_or_update () {

@@ -1,5 +1,12 @@
 #!/usr/bin/env zsh
 
+# Check if zplug is installed
+ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
+if [[ ! -d "${ZPLUG_HOME}" ]]; then
+  git clone https://github.com/zplug/zplug "${HOME}/.zplug/repos/zplug/zplug"
+  ln -s "${HOME}/.zplug/repos/zplug/zplug/init.zsh" "${HOME}/.zplug/init.zsh"
+fi
+
 # Create symlink to this directory
 SOURCE_DOTFILES=$(cd $(dirname $0); pwd)
 TARGET_DOTFILES="$HOME/.dotfiles"
@@ -8,22 +15,20 @@ if [[ ! -d "${TARGET_DOTFILES}" ]] && [[ ! -L "${TARGET_DOTFILES}" ]]; then
 fi
 
 # Export dotfiles dir
-DOTFILES_PATH="$HOME/.dotfiles"
+DOTPATH="$HOME/.dotfiles"
 
 # Source some helpers
-source $DOTFILES_PATH/plugins/zsh-functions/functions/autoload_fpath
-autoload_fpath $DOTFILES_PATH/plugins/zsh-functions/functions
-load_zsh_module $DOTFILES_PATH/plugins/dotfiles
+source $DOTPATH/plugins/zsh-functions/functions/autoload_fpath
+autoload_fpath $DOTPATH/plugins/zsh-functions/functions
+load_zsh_module $DOTPATH/plugins/dotfiles
 
 # Symlink directories
 echo "\n=== Symlinking files & directories ===\n"
-symlink_dotfile_dir "${DOTFILES_PATH}/config/bash"
-symlink_dotfile_dir "${DOTFILES_PATH}/config/dev"
-symlink_dotfile_dir "${DOTFILES_PATH}/config/macos"
-symlink_dotfile_dir "${DOTFILES_PATH}/config/vim"
-symlink_dotfile_dir "${DOTFILES_PATH}/config/zsh"
-symlink_dotfile_dir "${DOTFILES_PATH}/local"
-symlink_dotfile_dir "${DOTFILES_PATH}/secrets"
+symlink_dotfile_dir "${DOTPATH}/config"
+symlink_dotfile_dir "${DOTPATH}/local"
+if [[ ! -d "${DOTPATH}/secrets" ]]; then
+  symlink_dotfile_dir "${DOTPATH}/secrets"
+fi
 
 # Reload zsh
 echo "\n=== Restarting your shell ===\n"

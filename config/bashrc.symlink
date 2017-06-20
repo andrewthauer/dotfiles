@@ -10,12 +10,12 @@ if [ -t 1 ]; then
 fi
 
 # Dotfiles directory
-export DOTFILES_PATH="$HOME/.dotfiles"
+export DOTPATH="${HOME}/.dotfiles"
 
 # rbenv support
-[ -s "${DOTFILES_PATH}/plugins/ruby/rbenv.zsh" ] && source "${DOTFILES_PATH}/plugins/ruby/rbenv.zsh"
+[ -s "${DOTPATH}/plugins/ruby/rbenv.zsh" ] && source "${DOTPATH}/plugins/ruby/rbenv.zsh"
 
 # Alias definitions.
-if [ -f "${DOTFILES_PATH}/plugins/common-aliases/aliases.zsh" ]; then
-  source "${DOTFILES_PATH}/plugins/common-aliases/aliases.zsh"
+if [ -f "${DOTPATH}/zsh/30_aliases.zsh" ]; then
+  source "${DOTPATH}/zsh/30_aliases.zsh"
 fi

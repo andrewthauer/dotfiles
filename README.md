@@ -85,7 +85,7 @@ Example:
 # ...
 
 # source the secret profile data
-source $DOTFILES_PATH/secrets/profile
+source $DOTPATH/secrets/profile
 ```
 
 ### `secrets` directory
@@ -127,6 +127,7 @@ Reference
 Inspiration
 -----------
 
+* [b4b4r07](https://github.com/b4b4r07)
 * [matiasbynens](https://github.com/mathiasbynens/dotfiles)
 * [sorin-ionescu](https://github.com/sorin-ionescu/dotfiles)
 * [ijcd](https://github.com/ijcd/dotfiles)

@@ -11,9 +11,9 @@ This function can be used to merge various ssh configurations files together int
 ```bash
 # ~/.zshrc.local
 SSH_CONFIGS=(
-  "$DOTFILES_PATH/secrets/ssh.base.config"
-  "$DOTFILES_PATH/secrets/ssh.personal.config"
-  "$DOTFILES_PATH/secrets/ssh.work.config"
+  "$DOTPATH/secrets/ssh.base.config"
+  "$DOTPATH/secrets/ssh.personal.config"
+  "$DOTPATH/secrets/ssh.work.config"
 )
 
 # merge files defined in SSH_CONFIGS

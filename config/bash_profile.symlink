@@ -2,7 +2,7 @@
 # Excuted by bash at login pre-bash
 
 # Dotfiles directory
-export DOTFILES_PATH="$HOME/.dotfiles"
+export DOTPATH="${HOME}/.dotfiles"
 
 # Editors
 export PAGER='less'

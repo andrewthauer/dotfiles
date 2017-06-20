@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# OSX volumn mount plugin helpers
 
 get_mount_volume() {
   local share=$1

@@ -1,7 +1,7 @@
-#!/usr/bin/env zsh
+# Dotfiles helpers
 
 # gets the symlink director
-dotfile_symlink_target_dir () {
+_dotfile_symlink_target_dir () {
   local dir=$1
   local root_dir=$2
 
@@ -11,37 +11,6 @@ dotfile_symlink_target_dir () {
     dir="$HOME/.${dir}"
   fi
   echo $dir
-}
-
-# symlinks all dot files & directories inside a directory
-symlink_dotfile_dir () {
-  local root_dir=$1
-
-  # Symlink rc files
-  for file in ${root_dir}/**/*; do
-    # get parent directory info
-    parent_dir="$(dirname "$dir")"
-    in_symlink_dir=
-    # does parent_dir contain .symlink
-    test "${parent_dir#*$.symlink}" != "$parent_dir" && in_symlink_dir=true
-
-    # Symlink the entire directory
-    if [ -d "$file" ] && [ "${file:e}" = "symlink" ]; then
-      dir="${file}"
-      dir=$(dirname $dir)
-      dir=$(dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
-      symlink_dotfile $file $dir
-      echo
-    fi
-
-    # Handle files
-    if [ "${file:e}" = "symlink" ] && [ "$in_symlink_dir" != "true" ]; then
-      dir="${file:h}"
-      dir=$(dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
-      symlink_dotfile $file $dir
-      echo
-    fi
-  done
 }
 
 # symlinks a dot file (myfile.symlink)
@@ -71,4 +40,35 @@ symlink_dotfile () {
     echo "Symlinking '$src' to '$dest'"
     ln -s "$src" "$dest"
   fi
+}
+
+# symlinks all dot files & directories inside a directory
+symlink_dotfile_dir () {
+  local root_dir=$1
+
+  # Symlink rc files
+  for file in ${root_dir}/**/*; do
+    # get parent directory info
+    parent_dir="$(dirname "$dir")"
+    in_symlink_dir=
+    # does parent_dir contain .symlink
+    test "${parent_dir#*$.symlink}" != "$parent_dir" && in_symlink_dir=true
+
+    # Symlink the entire directory
+    if [ -d "$file" ] && [ "${file:e}" = "symlink" ]; then
+      dir="${file}"
+      dir=$(dirname $dir)
+      dir=$(_dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
+      symlink_dotfile $file $dir
+      echo
+    fi
+
+    # Handle files
+    if [ "${file:e}" = "symlink" ] && [ "$in_symlink_dir" != "true" ]; then
+      dir="${file:h}"
+      dir=$(_dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
+      symlink_dotfile $file $dir
+      echo
+    fi
+  done
 }

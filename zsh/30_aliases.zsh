@@ -1,4 +1,7 @@
-#!/usr/bin/env zsh
+# Common system aliases
+
+# Common aliases
+alias dotfiles="${DOTPATH}"
 
 # directories
 alias cd..="cd .."

@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# Capistrano zsh functions & aliases
 
 # deploy a rails app
 cap_deploy () {
