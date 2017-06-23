@@ -5,21 +5,23 @@
 # Enable to profile startup time (then run zprof)
 # zmodload zsh/zprof
 
+# zplug home
 export ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
 
 # Dotfiles directory
-export DOTPATH="${DOTPATH:-$HOME/.dotfiles}"
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 if [[ -f "$ZPLUG_HOME/init.zsh" ]]; then
   # Initialize zplug
-  export ZPLUG_LOADFILE="${DOTPATH}/zsh/zplug.zsh"
+  export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
   source $ZPLUG_HOME/init.zsh
 
   # Add any local zplug-packages
-  if [[ -f "$DOTPATH/local/zsh/zplug.zsh" ]]; then
-    source "$DOTPATH/local/zsh/zplug.zsh"
+  if [[ -f "$DOTFILES_DIR/local/zsh/zplug.zsh" ]]; then
+    source "$DOTFILES_DIR/local/zsh/zplug.zsh"
   fi
 
+  # NOTE: This adds load time
   # Install plugins if there are plugins that have not been installed
   # if ! zplug check --verbose; then
   #   printf "Install? [y/N]: "

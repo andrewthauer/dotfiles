@@ -21,8 +21,9 @@ Here's a list of things that are used:
 * [zsh](https://github.com/zsh-users/zsh)
 * [zplug](https://github.com/zplug/zplug)
 * [homebrew](https://github.com/homebrew/homebrew) (macOS)
-* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
 * [zsh-users](https://github.com/zsh-users) (some modules)
+* [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
+* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
 
 Setup
 -----
@@ -32,18 +33,11 @@ Setup
 $ chsh -s /bin/zsh
 
 # Clone the repository:
-$ git clone https://github.com/andrewthauer/dotfiles
+$ git clone https://github.com/andrewthauer/dotfiles ~/.dotfiles
 
-# Run setup (creates dotfile symlinks, etc.)
+# Run setup (creates dotfile symlinks in $ZDOTDIR/$HOME, etc.)
+cd ~/.dotfiles
 $ ./setup
-
-# The `./setup` command symlinks files & directories
-# Example:
-#   `~/.zshrc -> ~/.dotfiles/config/zsh/zshrc.symlink`
-#   `~/.zsrc.local -> ~/.dotfiles/local/zshrc.local.symlink`
-#   `~/.gitconfig -> ~/.dotfiles/secrets/gitconfig.symlink`
-#   `~/some-directory/.some-config` ->  `~/.dotfiles/secrets/some-directory/some-config.symlink`
-#   `~/.some-directory/ -> ~/.dotfiles/secrets/some-directory.symlink/`
 ```
 
 Structure
@@ -57,8 +51,18 @@ Here is a list of the top level directories:
 * `secrets` - Store local secrets
 * `system` - OS Specific files and setup scripts
 
-Configuration
--------------
+Configuration Files
+-------------------
+
+Any files with the extension `.symlink` will be symlinked to the $HOME directory. The following are examples of output:
+
+* `~/.zshrc -> ~/.dotfiles/config/zsh/zshrc.symlink`
+* `~/.zsrc.local -> ~/.dotfiles/local/zshrc.local.symlink`
+* `~/.gitconfig -> ~/.dotfiles/secrets/gitconfig.symlink`
+* `~/some-directory/.some-config` ->  `~/.dotfiles/secrets/some-directory/some-config.symlink`
+* `~/.some-directory/ -> ~/.dotfiles/secrets/some-directory.symlink/`
+
+### Additional Config Files
 
 The following can be used to sync application settings:
 
@@ -72,8 +76,7 @@ Make sure you run `./setup` after adding new .symlink files or direcories.
 
 ### `local` directory
 
-* `local/zprofile.local.symlink` file to extend `~/.zprofile` with `~/.zprofile.local`
-* `local/zprofile.env.symlink` file to extend `~/.zshenv` with `~/.zshenv.local`
+* `local/zshenv.local.symlink` file to extend `~/.zshenv` with `~/.zshenv.local`
 * `local/zshrc.local.symlink` file to extend `~/.zshrc` with `~/.zshrc.local`
 
 Example:
@@ -85,7 +88,7 @@ Example:
 # ...
 
 # source the secret profile data
-source $DOTPATH/secrets/profile
+source ${DOTFILES_DIR}/secrets/profile
 ```
 
 ### `secrets` directory

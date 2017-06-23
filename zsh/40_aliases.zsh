@@ -1,7 +1,7 @@
 # Common system aliases
 
 # Common aliases
-alias dotfiles="${DOTPATH}"
+alias dotfiles="${DOTFILES_DIR}"
 
 # directories
 alias cd..="cd .."

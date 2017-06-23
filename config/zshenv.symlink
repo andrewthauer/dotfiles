@@ -2,14 +2,8 @@
 # Defines environment variables
 
 # Dotfiles directory
-export DOTPATH="${DOTPATH:-$HOME/.dotfiles}"
-
-# autoload
-autoload -Uz run-help
-autoload -Uz add-zsh-hook
-autoload -Uz colors && colors
-autoload -Uz compinit && compinit -u
-autoload -Uz is-at-least
+export ZDOTDIR="${ZDOTDIR:-$HOME}"
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Language
 [[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
@@ -33,17 +27,17 @@ fi
 
 # ls command colors
 export CLICOLOR=1
-export LSCOLORS=exfxcxdxbxegedabagacad
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+# export LSCOLORS=exfxcxdxbxegedabagacad
+# export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # History
-export HISTFILE=~/.zsh_history
+export HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=1000000
 
 # zsh-nvm settings
 export NVM_LAZY_LOAD=true
-export NVM_NO_USE=true
+export NVM_AUTO_USE=true
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${HOME}/.zprofile" ]]; then

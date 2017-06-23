@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-# Executes commands at login pre-zshrc
-
-# Load local profile (if exists)
-if [[ -s "${HOME}/.zprofile.local" ]]; then
-  source "${HOME}/.zprofile.local"
-fi

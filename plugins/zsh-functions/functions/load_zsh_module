@@ -6,7 +6,7 @@ load_zsh_module () {
 
   # if a directory wasn't given, assume they meant a local DOTFILES module
   if [ ! -d $moddir ]; then
-    moddir=${DOTPATH}/$moddir
+    moddir=${DOTFILES_DIR}/$moddir
   fi
 
   # autoload functions

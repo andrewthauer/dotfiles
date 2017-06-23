@@ -3,9 +3,9 @@
 # Create a composite ssh config file
 #
 # SSH_CONFIGS=(
-#   "$DOTPATH/secrets/ssh/config.base"
-#   "$DOTPATH/secrets/ssh/config.personal"
-#   "$DOTPATH/secrets/ssh/config.work"
+#   "$DOTFILES_DIR/secrets/ssh/config.base"
+#   "$DOTFILES_DIR/secrets/ssh/config.personal"
+#   "$DOTFILES_DIR/secrets/ssh/config.work"
 # )
 #
 # Usage: ssh_config_merge
