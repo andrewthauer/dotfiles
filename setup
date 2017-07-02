@@ -2,7 +2,7 @@
 
 # Check if zplug is installed
 ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
-if [[ ! -d "${ZPLUG_HOME}" ]]; then
+if [[ ! -d "${ZPLUG_HOME}" ]] || [[ ! -d "${ZPLUG_HOME}/repos/zplug/zplug" ]]; then
   git clone https://github.com/zplug/zplug "${HOME}/.zplug/repos/zplug/zplug"
   ln -s "${HOME}/.zplug/repos/zplug/zplug/init.zsh" "${HOME}/.zplug/init.zsh"
 fi
@@ -18,9 +18,9 @@ fi
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # Source some helpers
-source $DOTFILES_DIR/plugins/zsh-functions/functions/autoload_fpath
-autoload_fpath $DOTFILES_DIR/plugins/zsh-functions/functions
-load_zsh_module $DOTFILES_DIR/plugins/dotfiles
+source "$DOTFILES_DIR/plugins/zsh-functions/functions/autoload_fpath"
+autoload_fpath "$DOTFILES_DIR/plugins/zsh-functions/functions"
+load_zsh_module "$DOTFILES_DIR/plugins/dotfiles"
 
 # Symlink directories
 echo "\n=== Symlinking files & directories ===\n"
@@ -29,6 +29,11 @@ symlink_dotfile_dir "${DOTFILES_DIR}/local"
 if [[ ! -d "${DOTFILES_DIR}/secrets" ]]; then
   symlink_dotfile_dir "${DOTFILES_DIR}/secrets"
 fi
+
+# Initialize zplug
+export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
+source $ZPLUG_HOME/init.zsh
+zplug clear
 
 # Reload zsh
 echo "\n=== Restarting your shell ===\n"

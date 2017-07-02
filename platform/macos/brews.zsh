@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
 # Bootstrap
+source "$DOTFILES_DIR/plugins/zsh-functions/functions/autoload_fpath"
+autoload_fpath "$DOTFILES_DIR/plugins/zsh-functions/functions"
 load_zsh_module "$DOTFILES_DIR/plugins/brew"
 
 # Setup permissions
@@ -12,8 +14,6 @@ sudo chown -R "$USER":admin /usr/local
 if ! command -v brew >/dev/null; then
   echo "Installing Homebrew ..."
     curl -fsS 'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
-    # append_to_zshrc '# recommended by brew doctor'
-    # append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
     export PATH="/usr/local/bin:$PATH"
 else
   echo "Homebrew already installed. Skipping ..."
@@ -42,7 +42,8 @@ brew_install_or_upgrade 'git-extras'
 brew_install_or_upgrade 'ctags'
 brew_install_or_upgrade 'httpie'
 brew_install_or_upgrade 'imagemagick'
-brew_install_or_upgrade 'qt'
+brew_install_or_upgrade 'tmux'
+brew_install_or_upgrade 'the_silver_searcher'
 brew_install_or_upgrade 'vim'
 
 # -------------------------------------------

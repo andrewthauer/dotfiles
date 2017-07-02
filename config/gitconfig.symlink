@@ -1,5 +1,5 @@
 [core]
-	excludesfile = ~/.dotfiles/local/gitignore
+	excludesfile = ~/.gitignore
   mergeoptions = --no-edit
 
 [push]

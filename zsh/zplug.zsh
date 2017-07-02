@@ -1,19 +1,25 @@
 # zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
 # Local zsh setup
-zplug "${DOTFILES_DIR}/zsh", from:local, use:"<->_*.zsh"
+zplug "${DOTFILES_DIR}/zsh", from:local, use:"_init.zsh": defer:1
 
 # prezto
-# zplug "sorin-ionescu/prezto", from:github
+zplug "modules/environment", from:prezto
+zplug "modules/terminal", from:prezto
+zplug "modules/editor", from:prezto
+zplug "modules/history", from:prezto
+zplug "modules/directory", from:prezto
+zplug "modules/spectrum", from:prezto
+zplug "modules/utility", from:prezto
+zplug "modules/completion", from:prezto
+zplug "modules/history-substring-search", from:prezto, defer:2
+
+# docker completions
+zplug "docker/cli", use:contrib/completion/zsh
+zplug "docker/compose", use:contrib/completion/zsh
 
 # oh-my-zsh
-# zplug "robbyrussell/oh-my-zsh", from:github
-# zplug "plugins/aws", from:oh-my-zsh
-# zplug "plugins/bundler", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
-# zplug "plugins/osx", from:oh-my-zsh
 
 # zsh-nvm plugin
 zplug "lukechilds/zsh-nvm"

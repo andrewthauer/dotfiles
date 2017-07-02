@@ -5,6 +5,9 @@
 # Enable to profile startup time (then run zprof)
 # zmodload zsh/zprof
 
+# Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
 # zplug home
 export ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
 

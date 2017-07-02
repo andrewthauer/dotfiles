@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-
-set_tab_title() {
-  local title=$1
-  echo -ne "\e]1;${title}\a"
-}

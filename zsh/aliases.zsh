@@ -4,7 +4,6 @@
 alias dotfiles="${DOTFILES_DIR}"
 
 # directories
-alias cd..="cd .."
 alias l="ls -la"
 alias ll="ls -lhA"
 alias lt="ls -ltA"

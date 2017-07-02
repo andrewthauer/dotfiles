@@ -1,7 +1,7 @@
 # Dotfiles helpers
 
 # gets the symlink director
-_dotfile_symlink_target_dir () {
+_dotfile_symlink_target_dir() {
   local dir=$1
   local root_dir=$2
 
@@ -14,7 +14,7 @@ _dotfile_symlink_target_dir () {
 }
 
 # symlinks a dot file (myfile.symlink)
-symlink_dotfile () {
+symlink_dotfile() {
   local rcfile=$1
   local dest_dir=$2
 
@@ -43,7 +43,7 @@ symlink_dotfile () {
 }
 
 # symlinks all dot files & directories inside a directory
-symlink_dotfile_dir () {
+symlink_dotfile_dir() {
   local root_dir=$1
 
   # Symlink rc files

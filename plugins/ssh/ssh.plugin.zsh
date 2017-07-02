@@ -10,7 +10,7 @@
 #
 # Usage: ssh_config_merge
 #
-ssh_config_merge () {
+ssh_config_merge() {
   local dest_config=
 
   # if [ -z "$src_configs" ]; then 'No source configs provided'; return; fi
