@@ -1,9 +1,25 @@
 #!/usr/bin/env zsh
+#
 # Defines environment variables
+#
 
 # Dotfiles directory
 export ZDOTDIR="${ZDOTDIR:-$HOME}"
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+# Zplug settings (and custom local)
+export ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
+export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
+export ZPLUG_LOCAL_LOADFILE="${HOME}/.zplug.local"
+
+# Ensure path arrays do not contain duplicates
+typeset -gU cdpath fpath mailpath path
+
+# Set the list of directories that Zsh searches for programs
+path=(
+  /usr/local/{bin,sbin}
+  $path
+)
 
 # Language
 [[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
@@ -11,11 +27,15 @@ export LC_CTYPE=${LANG}
 export LC_ALL=${LANG}
 
 # Editor
-export EDITOR=vi
+export EDITOR=vim
 export VISUAL="${EDITOR}"
 
+# zsh-nvm settings
+export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
+
 # Pager
-export PAGER=less
+export PAGER='less'
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 export LESSCHARSET='utf-8'
 
@@ -24,20 +44,6 @@ export LESSCHARSET='utf-8'
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
-
-# ls command colors
-export CLICOLOR=1
-# export LSCOLORS=exfxcxdxbxegedabagacad
-# export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-# History
-export HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"
-export HISTSIZE=10000
-export SAVEHIST=1000000
-
-# zsh-nvm settings
-export NVM_LAZY_LOAD=true
-export NVM_AUTO_USE=true
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${HOME}/.zprofile" ]]; then

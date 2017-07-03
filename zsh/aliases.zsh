@@ -1,17 +1,18 @@
-# Common system aliases
+#
+# My additional aliases & overrides
+#
 
 # Common aliases
 alias dotfiles="${DOTFILES_DIR}"
 
 # directories
-alias l="ls -la"
-alias ll="ls -lhA"
-alias lt="ls -ltA"
-alias lsl="ls -lhA | ${PAGER}"
-alias mkdir="mkdir -p"
+# alias l="ls -lhA"
+# alias lt="ls -ltA"
+# alias mkdir="mkdir -p"
+# alias rm="${aliases[rm]:-rm}"
 
 # find here
-alias fhere="find . -name"
+alias findhere="find . -name"
 
 # process
 alias psg="ps aux | grep -v grep | grep -i"

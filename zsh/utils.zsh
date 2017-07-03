@@ -1,4 +1,6 @@
-# Add common utility functions here
+#
+# Common utilities
+#
 
 time_zsh() {
   time zsh -i -c exit

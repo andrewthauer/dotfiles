@@ -1,3 +1,7 @@
+#
+# Initializes the zsh file
+#
+
 # The current directory
 local dir="$(dirname "$0")"
 

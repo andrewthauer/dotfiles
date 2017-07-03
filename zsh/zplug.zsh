@@ -1,9 +1,14 @@
+#
+# Zplug plugins
+#
+
 # zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
 # Local zsh setup
-zplug "${DOTFILES_DIR}/zsh", from:local, use:"_init.zsh": defer:1
+zplug "${DOTFILES_DIR}/zsh", from:local, use:"_init.zsh": defer:2
 
 # prezto
+zplug "sorin-ionescu/prezto", use:"init.zsh": defer:0
 zplug "modules/environment", from:prezto
 zplug "modules/terminal", from:prezto
 zplug "modules/editor", from:prezto
@@ -20,6 +25,7 @@ zplug "docker/compose", use:contrib/completion/zsh
 
 # oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
 
 # zsh-nvm plugin
 zplug "lukechilds/zsh-nvm"
@@ -39,7 +45,7 @@ zplug "${DOTFILES_DIR}/plugins/ssh", from:local
 
 # zsh theme (async for zsh used by pure)
 zplug "mafredri/zsh-async", from:github, defer:0
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, defer:3
 
 # Load any local packages
 if [[ -f "${ZPLUG_LOCAL_LOADFILE}" ]]; then

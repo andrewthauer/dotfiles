@@ -1,28 +1,14 @@
 #!/usr/bin/env zsh
+#
 # Executes commands at the start of an interactive session
+#
 
-# TODO: Time the startup time and output when done loading
 # Enable to profile startup time (then run zprof)
 # zmodload zsh/zprof
 
-# Homebrew
-export PATH="/usr/local/sbin:$PATH"
-
-# zplug home
-export ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
-
-# Dotfiles directory
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
 if [[ -f "$ZPLUG_HOME/init.zsh" ]]; then
   # Initialize zplug
-  export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
   source $ZPLUG_HOME/init.zsh
-
-  # Add any local zplug-packages
-  if [[ -f "$DOTFILES_DIR/local/zsh/zplug.zsh" ]]; then
-    source "$DOTFILES_DIR/local/zsh/zplug.zsh"
-  fi
 
   # NOTE: This adds load time
   # Install plugins if there are plugins that have not been installed
