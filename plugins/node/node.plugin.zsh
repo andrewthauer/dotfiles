@@ -1,7 +1,9 @@
-# Node helpers
+#
+# Node.js helpers & aliases
+#
 
 # NVM support
-# NOTE: Now using zsh-nvm (https://github.com/lukechilds/zsh-nvm)
+# Using - https://github.com/lukechilds/zsh-nvm
 
 # Yarn support
 if [[ -d "${HOME}/.yarn" ]]; then

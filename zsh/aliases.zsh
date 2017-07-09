@@ -2,20 +2,33 @@
 # My additional aliases & overrides
 #
 
-# Common aliases
-alias dotfiles="${DOTFILES_DIR}"
+#
+# Dotfiles
+#
 
-# directories
+alias dotfiles="${DOTFILES_DIR}"
+alias src="source ~/.zshrc"
+
+#
+# Directories
+#
+
 # alias l="ls -lhA"
 # alias lt="ls -ltA"
 # alias mkdir="mkdir -p"
-# alias rm="${aliases[rm]:-rm}"
+alias rm="${aliases[rm]:-rm}"
 
-# find here
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+#
+# Searching
+#
+
 alias findhere="find . -name"
 
-# process
-alias psg="ps aux | grep -v grep | grep -i"
+#
+# Diagnostics
+#
 
-# reloading
-alias src="source ~/.zshrc"
+alias psg="ps aux | grep -v grep | grep -i"

@@ -13,7 +13,6 @@ zplug "modules/environment", from:prezto
 zplug "modules/terminal", from:prezto
 zplug "modules/editor", from:prezto
 zplug "modules/history", from:prezto
-zplug "modules/directory", from:prezto
 zplug "modules/spectrum", from:prezto
 zplug "modules/utility", from:prezto
 zplug "modules/completion", from:prezto
@@ -35,10 +34,7 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # local plugins
-zplug "${DOTFILES_DIR}/plugins/capistrano", from:local
-zplug "${DOTFILES_DIR}/plugins/docker", from:local
 zplug "${DOTFILES_DIR}/plugins/node", from:local
-zplug "${DOTFILES_DIR}/plugins/rails", from:local
 zplug "${DOTFILES_DIR}/plugins/ruby", from:local
 zplug "${DOTFILES_DIR}/plugins/ssh", from:local
 # zplug "${DOTFILES_DIR}/plugins/zsh-functions", from:local, use:"functions/*", lazy:on

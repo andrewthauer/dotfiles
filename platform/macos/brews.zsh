@@ -1,15 +1,14 @@
 #!/usr/bin/env zsh
-
-# Bootstrap
-source "$DOTFILES_DIR/plugins/zsh-functions/functions/autoload_fpath"
-autoload_fpath "$DOTFILES_DIR/plugins/zsh-functions/functions"
-load_zsh_module "$DOTFILES_DIR/plugins/brew"
+#
+# Setup homebrew
+#
 
 # Setup permissions
 sudo chown -R "$USER":admin /usr/local
 
-# -------------------------------------------
+#
 # Install homebrew
+#
 
 if ! command -v brew >/dev/null; then
   echo "Installing Homebrew ..."
@@ -23,80 +22,75 @@ echo "Updating Homebrew formulas ..."
 brew update
 brew upgrade
 
-echo "Install Homebrew Services ..."
+# Homebrew services
 brew tap homebrew/services
 
-echo "Install Caskroom ..."
-brew_install_or_upgrade caskroom/cask/brew-cask
-brew_tap caskroom/versions
+# Homebrew cask
+brew install caskroom/cask/brew-cask
+brew tap caskroom/versions
 
-echo "Install Caskroom Repair ..."
+# Homebrew repair
 brew install vitorgalvao/tiny-scripts/cask-repair
 
-# -------------------------------------------
+#
 # Install common brews
+#
 
-brew_install_or_upgrade 'curl'
-brew_install_or_upgrade 'git'
-brew_install_or_upgrade 'git-extras'
-brew_install_or_upgrade 'ctags'
-brew_install_or_upgrade 'httpie'
-brew_install_or_upgrade 'imagemagick'
-brew_install_or_upgrade 'tmux'
-brew_install_or_upgrade 'the_silver_searcher'
-brew_install_or_upgrade 'vim'
+brew install 'curl'
+brew install 'git'
+brew install 'git-extras'
+brew install 'ctags'
+brew install 'httpie'
+brew install 'imagemagick'
+brew install 'tmux'
+brew install 'the_silver_searcher'
+brew install 'vim'
 
-# -------------------------------------------
-# Install dev brews
+# text utils (i.e. envsubst)
+brew install gettext
+brew link gettext --force
 
-brew_cask_install_or_upgrade 'java'
+#
+# Common dev tools
+#
 
-brew_install_or_upgrade 'mysql'
-brew_launchctl_restart 'mysql'
+brew install 'node'
 
-brew_install_or_upgrade 'node'
-brew_install_or_upgrade 'nvm'
-
-brew_install_or_upgrade 'postgres'
-brew_launchctl_restart 'postgres'
-
-brew_install_or_upgrade 'python'
-brew_install_or_upgrade 'python3'
+brew install 'python'
+brew install 'python3'
 pip install virtualenv
 
-brew_install_or_upgrade 'redis'
-brew_launchctl_restart 'redis'
+brew install 'rbenv'
+brew install 'ruby-build'
 
-brew_install_or_upgrade 'rbenv'
-brew_install_or_upgrade 'ruby-build'
+#
+# Homebrew casks
+#
 
-# -------------------------------------------
-# Install dev tools
+# General apps
+brew cask install 'firefoxdeveloperedition'
+brew cask install 'google-chrome'
+brew cask install 'keepassxc'
+brew cask install 'keeweb'
+brew cask install 'slate'
 
-brew_install_or_upgrade 'ansible'
-brew_install_or_upgrade 'awscli'
+# Libraries
+brew cask install 'flash'
+brew cask install 'java'
 
-brew_cask_install_or_upgrade 'atom'
-brew_cask_install_or_upgrade 'beyond-compare'
-brew_cask_install_or_upgrade 'dash'
-brew_cask_install_or_upgrade 'docker-edge'
-brew_cask_install_or_upgrade 'pgadmin'
-brew_cask_install_or_upgrade 'postico'
-brew_cask_install_or_upgrade 'sequel-pro'
-brew_cask_install_or_upgrade 'visual-studio-code'
+# Dev tools
+brew cask install 'atom'
+brew cask install 'cheatsheet'
+brew cask install 'dash'
+brew cask install 'beyond-compare'
+brew cask install 'docker'
+brew cask install 'pgadmin'
+brew cask install 'postico'
+brew cask install 'sequel-pro'
+brew cask install 'visual-studio-code'
 
-# -------------------------------------------
-# Install macOS brews
-
-brew_cask_install_or_upgrade 'cheatsheet'
-brew_cask_install_or_upgrade 'flash'
-brew_cask_install_or_upgrade 'firefoxdeveloperedition'
-brew_cask_install_or_upgrade 'electrum'
-brew_cask_install_or_upgrade 'google-chrome'
-brew_cask_install_or_upgrade 'keepassxc'
-brew_cask_install_or_upgrade 'keeweb'
-brew_cask_install_or_upgrade 'licecap'
-brew_cask_install_or_upgrade 'slack'
-brew_cask_install_or_upgrade 'slate'
-brew_cask_install_or_upgrade 'the-unarchiver'
-brew_cask_install_or_upgrade 'tunnelblick'
+# Other apps
+brew cask install 'electrum'
+brew cask install 'licecap'
+brew cask install 'the-unarchiver'
+brew cask install 'tunnelblick'
