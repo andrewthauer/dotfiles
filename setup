@@ -26,7 +26,7 @@ load_zsh_module "$DOTFILES_DIR/plugins/dotfiles"
 echo "\n=== Symlinking files & directories ===\n"
 symlink_dotfile_dir "${DOTFILES_DIR}/config"
 symlink_dotfile_dir "${DOTFILES_DIR}/local"
-if [[ ! -d "${DOTFILES_DIR}/secrets" ]]; then
+if [[ -d "${DOTFILES_DIR}/secrets" ]]; then
   symlink_dotfile_dir "${DOTFILES_DIR}/secrets"
 fi
 

@@ -50,7 +50,6 @@ unsetopt CORRECT
 unsetopt CORRECT_ALL
 DISABLE_CORRECTION=true
 
-
 # ZSH syntax highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 

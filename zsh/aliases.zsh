@@ -16,7 +16,7 @@ alias src="source ~/.zshrc"
 # alias l="ls -lhA"
 # alias lt="ls -ltA"
 # alias mkdir="mkdir -p"
-alias rm="${aliases[rm]:-rm}"
+# alias rm="${aliases[rm]:-rm}"
 
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
