@@ -1,8 +1,7 @@
-let vimsettings = '~/.dotfiles/config/vim/settings'
+let vimsettings = '~/.dotfiles/vim/settings'
 let uname = system("uname -s")
 
 for fpath in split(globpath(vimsettings, '*.vim'), '\n')
-
   if (fpath == expand(vimsettings) . "/rc-keymap-mac.vim") && uname[:4] ==? "linux"
     continue " skip mac mappings for linux
   endif
