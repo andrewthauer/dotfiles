@@ -11,9 +11,9 @@ endif
 " This loads all the plugins specified in ~/.vim/bundles.vim
 
 " Use NeoBundle plugin to manage all other plugins
-if filereadable(expand("~/.dotfiles/config/vim/neobundle.vim"))
-  source ~/.dotfiles/config/vim/neobundle.vim
-  source ~/.dotfiles/config/vim/bundles.vim
+if filereadable(expand("~/.dotfiles/vim/neobundle.vim"))
+  source ~/.dotfiles/vim/neobundle.vim
+  source ~/.dotfiles/vim/bundles.vim
 endif
 
 " ================ General Config ====================

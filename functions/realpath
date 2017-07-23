@@ -1,4 +1,11 @@
 #!/usr/bin/env zsh
+#
+# description:
+#   Resolves the path to the real path
+#
+# usage:
+#   realpath /path/to/symlink
+#
 
 realpath() {
   # Resolves the path or symlink

@@ -1,4 +1,11 @@
 #!/usr/bin/env zsh
+#
+# description:
+#   Autoloads the functions within the specified path
+#
+# usage:
+#   autoload_fpath ./path/to/functions
+#
 
 # Add directory to PATH if it exits
 autoload_fpath() {

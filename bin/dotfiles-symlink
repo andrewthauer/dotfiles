@@ -1,7 +1,11 @@
-# Dotfiles helpers
+#!/usr/bin/env zsh
+#
+# description:
+#   Symlinks files and diretories with the extension *.symlink
+#
 
-# gets the symlink director
-_dotfile_symlink_target_dir() {
+# Gets the symlink directory
+__dotfile_symlink_target_dir() {
   local dir=$1
   local root_dir=$2
 
@@ -13,8 +17,8 @@ _dotfile_symlink_target_dir() {
   echo $dir
 }
 
-# symlinks a dot file (myfile.symlink)
-symlink_dotfile() {
+# Symlinks a dot file (myfile.symlink)
+__symlink_dotfile() {
   local rcfile=$1
   local dest_dir=$2
 
@@ -42,33 +46,58 @@ symlink_dotfile() {
   fi
 }
 
-# symlinks all dot files & directories inside a directory
-symlink_dotfile_dir() {
+# Symlinks all dot files & directories inside a directory
+__symlink_dotfile_dir() {
   local root_dir=$1
+  typeset -U root_dir_matches
+  local root_dir_matches=(${root_dir}/**/*)
 
   # Symlink rc files
-  for file in ${root_dir}/**/*; do
+  for file in ${root_dir_matchs}; do
     # get parent directory info
-    parent_dir="$(dirname "$dir")"
-    in_symlink_dir=
+    local parent_dir="$(dirname "$dir")"
+    local in_symlink_dir=
+
     # does parent_dir contain .symlink
     test "${parent_dir#*$.symlink}" != "$parent_dir" && in_symlink_dir=true
 
     # Symlink the entire directory
     if [ -d "$file" ] && [ "${file:e}" = "symlink" ]; then
-      dir="${file}"
+      local dir="${file}"
       dir=$(dirname $dir)
-      dir=$(_dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
-      symlink_dotfile $file $dir
+      dir=$(__dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
+      __symlink_dotfile $file $dir
       echo
     fi
 
     # Handle files
     if [ "${file:e}" = "symlink" ] && [ "$in_symlink_dir" != "true" ]; then
       dir="${file:h}"
-      dir=$(_dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
-      symlink_dotfile $file $dir
+      dir=$(__dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
+      __symlink_dotfile $file $dir
       echo
     fi
   done
 }
+
+# disable glob nomatch errors
+setopt +o nomatch
+
+# Run the main
+if [[ ! -z $1 ]]; then
+  # Symlink a sinle directory
+  local src="$1"
+  __symlink_dotfile_dir "${src}"
+
+else
+  # Symlink all files
+  local dir="$(dirname $0)"
+  typeset -U all_dotfiles
+  local all_dotfiles=(${dir}/../**/*)
+
+  for file in ${all_dotfiles}; do
+    if [[ -d "$file" ]]; then
+      __symlink_dotfile_dir "$file"
+    fi
+  done
+fi

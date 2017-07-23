@@ -1,9 +1,16 @@
 #!/usr/bin/env zsh
-
-# contains(string, substring)
 #
-# Returns 0 if the specified string contains the specified substring,
-# otherwise returns 1.
+# description:
+#   Checks one string is contained in the other
+#
+# usage:
+#   contains(string, substring)
+#
+# returns:
+#   Returns 0 if the specified string contains the specified substring,
+#   otherwise returns 1.
+#
+
 contains() {
   local string="$1"
   local substring="$2"

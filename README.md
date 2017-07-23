@@ -35,19 +35,20 @@ $ chsh -s /bin/zsh
 # Clone the repository:
 $ git clone https://github.com/andrewthauer/dotfiles ~/.dotfiles
 
-# Run setup (creates dotfile symlinks in $ZDOTDIR/$HOME, etc.)
+# Run setup (creates dotfile symlinks in $ZDOTDIR, $HOME, etc.)
 cd ~/.dotfiles
-$ ./setup
+$ ./bin/dotfiles-setup
 ```
 
 Structure
 ---------
 
-Here is a list of the top level directories:
+Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The following directories are common:
 
-* `config` - Contains various configuration files
+* `bin` - Contains functions (added to `$PATH`)
+* `config` - Contains misc configuration files
+* `functions` - Contains misc zsh functions
 * `local` - Used for local environment customizations
-* `plugins` - Various plugins organized by topic
 * `secrets` - Store local secrets
 * `system` - OS Specific files and setup scripts
 

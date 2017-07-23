@@ -1,4 +1,11 @@
 #!/usr/bin/env zsh
+#
+# description:
+#   Finds the latest file based on a pattern
+#
+# usage:
+#   find_latest_file ./directory/to/search "file_pattern_find"
+#
 
 find_latest_file() {
   local dir=$1

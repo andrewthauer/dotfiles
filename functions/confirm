@@ -1,4 +1,11 @@
 #!/usr/bin/env zsh
+#
+# description:
+#   Prompt for a confirmation message
+#
+# usage:
+#   confirm "Do you want to continue? [y/N]'" && echo continuing ...
+#
 
 confirm() {
   local msg=$1

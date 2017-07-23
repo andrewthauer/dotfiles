@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Symlinks files and diretories with the extension *.symlink
+#
+
+export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
+source $ZPLUG_HOME/init.zsh
+zplug install
+zplug update
+zplug clear
+source ~/.zshrc
+return 1

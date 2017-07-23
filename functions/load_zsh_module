@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Load a prezto compatible zsh module directory
+#
+# usage:
+#   load_zsh_module /path/to/module
+#
+
+load_zsh_module () {
+  setopt null_glob
+  local mod_dir=$1
+
+  # if a directory wasn't given, assume they meant a local DOTFILES module
+  if [ ! -d $mod_dir ]; then
+    mod_dir=${DOTFILES_DIR}/$mod_dir
+  fi
+
+  # autoload functions
+  [ -d "$mod_dir/functions" ] && {
+    autoload_fpath $mod_dir/functions
+  }
+
+  # add bin dir to path
+  [ -d "$mod_dir/bin" ] && {
+    prepend_path $mod_dir/bin
+  }
+
+  # source zsh files
+  for file ($mod_dir/*.zsh); do
+    [ -f $file ] && source $file
+  done
+}

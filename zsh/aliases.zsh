@@ -6,8 +6,8 @@
 # Dotfiles
 #
 
-alias dotfiles="${DOTFILES_DIR}"
-alias src="source ~/.zshrc"
+alias dfdir="cd ${DOTFILES_DIR}"
+alias reload!="source ~/.zshrc"
 
 #
 # Directories

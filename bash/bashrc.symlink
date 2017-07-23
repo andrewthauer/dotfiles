@@ -12,10 +12,10 @@ fi
 # Dotfiles directory
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
-# rbenv support
-[ -s "${DOTFILES_DIR}/plugins/ruby/rbenv.zsh" ] && source "${DOTFILES_DIR}/plugins/ruby/rbenv.zsh"
+# ruby rbenv support
+[ -s "${DOTFILES_DIR}/ruby/init.zsh" ] && source "${DOTFILES_DIR}/ruby/init.zsh"
 
 # Alias definitions.
-if [ -f "${DOTFILES_DIR}/zsh/30_aliases.zsh" ]; then
-  source "${DOTFILES_DIR}/zsh/30_aliases.zsh"
+if [ -f "${DOTFILES_DIR}/zsh/aliases.zsh" ]; then
+  source "${DOTFILES_DIR}/zsh/aliases.zsh"
 fi

@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Run dotfiles commands
+#
+# usage:
+#   dotfiles setup
+#   dotfiles symlink
+#   dotfiles update
+#   dotfiles startup-time
+#
+
+local dir="$(dirname "$0")"
+local cmd=$1
+local args=${@:2}
+
+if [[ $cmd == "setup" ]]; then
+  # run the setup script
+  "${dir}/dotfiles-setup" 2>&1
+
+elif [[ $cmd == "symlink" ]]; then
+  # symlink all .symlink files
+  "${dir}/dotfiles-symlink" 2>&1
+
+elif [[ $cmd == "update" ]]; then
+  # update all plugins
+  "${dir}/dotfiles-update" 2>&1
+
+elif [[ $cmd == "startup-time" ]]; then
+  # time startup
+  time zsh -i -c exit
+
+else
+  printf "Command not found: $cmd" >&2
+
+fi
+
+return 0

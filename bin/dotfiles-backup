@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Backup local machine setups & secrets
+#
+# todo:
+#   Implement function to backup secrets and local env files
+#

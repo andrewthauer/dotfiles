@@ -1,4 +1,11 @@
 #!/usr/bin/env zsh
+#
+# description:
+#   Check if a function exists
+#
+# usage:
+#   function_exists "func_name"
+#
 
 function_exists() {
   local function_name=$1
