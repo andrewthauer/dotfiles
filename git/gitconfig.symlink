@@ -20,47 +20,47 @@
 	required = true
 
 [alias]
-	; addpr = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
-	; assume = update-index --assume-unchanged
-	; assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-	; authors = shortlog -sn
-	; autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
-	; br = branch
-	; branches = branch -vv
-	; ci = commit
-	; co = checkout
-	; comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
-	; cp = cherry-pick
-	; cps = cherry-pick -s
-  ; count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
-	; gflog = log -p --cc --graph --decorate
-	; glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
-	; in = !git wtf HEAD..HEAD@{u}
-	; killbranches = !git branch | grep -v '\\bmaster\\b' | xargs git branch -d 2> /dev/null
-	; lasttag = describe --tags --abbrev=0
-	; ls = ls-files
-	; meh = commit --amend
-  ; newb = "!f() { proj=$1 ticketNum=$2; branchName=$3; git checkout -b \"${proj^^j}-${ticketNum}-${branchName}\"; }; f"
-  ; nomerge = --no-commit --no-ff $@
-	; ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
-	; out = !git wtf HEAD@{u}..HEAD
-	; pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
-  ; rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
-	; serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-	; serveall = daemon --verbose --export-all --base-path=. --reuseaddr .
-	; slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
-  ; squashbase = "!f() { branchName=${1-master}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
-	; st = status -sb
-	; sync = !git pull && git push
-	; theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
-	; today = diff @{yesterday}.. --stat
-	; unassume = update-index --no-assume-unchanged
-	; unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
-	; unci = reset HEAD^
-	; uncommit = reset HEAD^
-	; wdiff = diff --word-diff=color
-	; wshow = show --word-diff=color
-	; wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
+	addpr = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
+	assume = update-index --assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	authors = shortlog -sn
+	autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
+	br = branch
+	branches = branch -vv
+	ci = commit
+	co = checkout
+	comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
+	cp = cherry-pick
+	cps = cherry-pick -s
+  count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
+	gflog = log -p --cc --graph --decorate
+	glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+	in = !git wtf HEAD..HEAD@{u}
+	killbranches = !git branch | grep -v '\\bmaster\\b' | xargs git branch -d 2> /dev/null
+	lasttag = describe --tags --abbrev=0
+	ls = ls-files
+	meh = commit --amend
+  newb = "!f() { proj=$1 ticketNum=$2; branchName=$3; git checkout -b \"${proj^^j}-${ticketNum}-${branchName}\"; }; f"
+  nomerge = --no-commit --no-ff $@
+	ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
+	out = !git wtf HEAD@{u}..HEAD
+	pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
+  rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
+	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+	serveall = daemon --verbose --export-all --base-path=. --reuseaddr .
+	slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+  squashbase = "!f() { branchName=${1-master}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
+	st = status -sb
+	sync = !git pull && git push
+	theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
+	today = diff @{yesterday}.. --stat
+	unassume = update-index --no-assume-unchanged
+	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+	unci = reset HEAD^
+	uncommit = reset HEAD^
+	wdiff = diff --word-diff=color
+	wshow = show --word-diff=color
+	wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
 
 # env overrides
 [include]
