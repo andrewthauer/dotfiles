@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Create a favicon
+#
+
+local source=$1
+
+if [[ ! -v "$source" ]]; then
+  echo "No source file provided"
+  return 1
+fi
+
+convert $source -define icon:auto-resize=64,48,32,16 favicon.ico

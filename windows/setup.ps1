@@ -38,12 +38,6 @@ SymlinkItem "$powershellDir\profile.ps1" "$dotfilesDir\powershell\profile.ps1"
 "Symlinking WindowsPowerShell\cmdlets"
 SymlinkItem "$powershellDir\cmdlets" "$dotfilesDir\powershell\cmdlets"
 
-# ConEmu.xml
-$configFile = Join-Path "$currentDir" "..\appdata\ConEmu.xml" -Resolve
-"Symlinking 'AppData\Roaming\ConEmu.xml'"
-SymlinkItem "$appDataDir\ConEmu.xml" "$configFile"
-
-
 # ---------------------------------------------------------
 # Install Chocolatey & packages
 

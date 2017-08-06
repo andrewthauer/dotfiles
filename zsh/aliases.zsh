@@ -6,7 +6,7 @@
 # Dotfiles
 #
 
-alias dfdir="cd ${DOTFILES_DIR}"
+alias dotdir="cd ${DOTFILES_DIR}"
 alias reload!="source ~/.zshrc"
 
 #

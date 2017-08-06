@@ -4,6 +4,9 @@
 #   Symlinks files and diretories with the extension *.symlink
 #
 
+# disable glob nomatch errors
+setopt +o nomatch
+
 # Gets the symlink directory
 __dotfile_symlink_target_dir() {
   local dir=$1
@@ -49,11 +52,11 @@ __symlink_dotfile() {
 # Symlinks all dot files & directories inside a directory
 __symlink_dotfile_dir() {
   local root_dir=$1
-  typeset -U root_dir_matches
-  local root_dir_matches=(${root_dir}/**/*)
+  typeset -U files
+  local files=(${root_dir}/**/*)
 
   # Symlink rc files
-  for file in ${root_dir_matchs}; do
+  for file in ${files}; do
     # get parent directory info
     local parent_dir="$(dirname "$dir")"
     local in_symlink_dir=
@@ -80,22 +83,14 @@ __symlink_dotfile_dir() {
   done
 }
 
-# disable glob nomatch errors
-setopt +o nomatch
-
 # Run the main
 if [[ ! -z $1 ]]; then
-  # Symlink a sinle directory
   local src="$1"
-  __symlink_dotfile_dir "${src}"
+  typeset -U files
+  local files=(${1}/**/*)
 
-else
-  # Symlink all files
-  local dir="$(dirname $0)"
-  typeset -U all_dotfiles
-  local all_dotfiles=(${dir}/../**/*)
-
-  for file in ${all_dotfiles}; do
+  # Symlink all directories
+  for file in ${files}; do
     if [[ -d "$file" ]]; then
       __symlink_dotfile_dir "$file"
     fi

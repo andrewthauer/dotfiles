@@ -29,6 +29,3 @@ source ~/.zshrc
 
 # Install Homebrew & packages
 source "$dir/brews.zsh"
-
-# Setup terminal
-# TODO: Setup .terminal file

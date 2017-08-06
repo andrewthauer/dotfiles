@@ -17,9 +17,7 @@ choco install qttabbar
 # -------------------------------------------
 # Install util chocolatey packages
 
-# choco install sdelete
-# choco install testdisk
-# choco install testdisk-photorec
+choco install sdelete
 
 # -------------------------------------------
 # Install app chocolatey packages

@@ -38,6 +38,7 @@ zplug "docker/compose", use:contrib/completion/zsh
 zplug "${DOTFILES_DIR}/functions", from:local, use:"functions/*", lazy:on
 zplug "${DOTFILES_DIR}/node", from:local
 zplug "${DOTFILES_DIR}/ruby", from:local
+zplug "${DOTFILES_DIR}/rust", from:local
 zplug "${DOTFILES_DIR}/ssh", from:local
 
 # zsh theme (async for zsh used by pure)
