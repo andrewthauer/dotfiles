@@ -6,7 +6,11 @@
 # Dotfiles
 #
 
+# shortcuts
+alias dotfiles-dir="cd ${DOTFILES_DIR}"
 alias dotdir="cd ${DOTFILES_DIR}"
+
+# reload the zsh
 alias reload!="source ~/.zshrc"
 
 #

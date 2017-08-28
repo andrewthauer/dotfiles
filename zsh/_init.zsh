@@ -1,5 +1,5 @@
 #
-# Initializes the zsh file
+# Personalize the zsh environment
 #
 
 # The current directory
