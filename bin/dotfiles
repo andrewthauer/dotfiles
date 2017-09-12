@@ -10,9 +10,23 @@
 #   dotfiles startup-time
 #
 
-local dir="$(dirname "$0")"
-local cmd=$1
-local args=${@:2}
+display_help() {
+  cat <<EOF
+Usage: $0 [command] [options]
+
+Commands
+  backup          Backup the dotfiles local settings
+  help            Displays this message
+  setup           Run the dotfiles setup
+  startup-time    Displays the load time for the zsh environment
+  symlink         Symlinks all files
+  update          Updates the dotfiles environment
+EOF
+}
+
+dir="$(dirname "$0")"
+cmd=$1
+args=${@:2}
 
 if [[ $cmd == "setup" ]]; then
   # run the setup script
@@ -26,13 +40,15 @@ elif [[ $cmd == "update" ]]; then
   # update all plugins
   "${dir}/dotfiles-update" 2>&1
 
+elif [[ $cmd == "backup" ]]; then
+  # backup the local dotfiles
+  "${dir}/dotfiles-backup" 2>&1
+
 elif [[ $cmd == "startup-time" ]]; then
   # time startup
   time zsh -i -c exit
 
 else
-  printf "Command not found: $cmd" >&2
+  display_help >&2
 
 fi
-
-return 0

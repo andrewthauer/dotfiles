@@ -37,6 +37,7 @@ zplug "docker/compose", use:contrib/completion/zsh
 # local modules
 zplug "${DOTFILES_DIR}/functions", from:local, use:"functions/*", lazy:on
 zplug "${DOTFILES_DIR}/brew", from:local
+zplug "${DOTFILES_DIR}/git", from:local
 zplug "${DOTFILES_DIR}/node", from:local
 zplug "${DOTFILES_DIR}/python", from:local
 zplug "${DOTFILES_DIR}/ruby", from:local

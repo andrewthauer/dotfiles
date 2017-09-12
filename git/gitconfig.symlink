@@ -27,12 +27,19 @@
 	autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
 	br = branch
 	branches = branch -vv
+  branch-name = !git rev-parse --abbrev-ref HEAD
 	ci = commit
 	co = checkout
 	comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
 	cp = cherry-pick
 	cps = cherry-pick -s
   count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
+  # Show changes that have been staged
+  diffc = diff --cached
+  # Show the difference from master
+  #diffm =  diff master...`!git branch-name`
+  # Fetch and prune all branches that do not exist in remote
+  fetchp = fetch -p
 	gflog = log -p --cc --graph --decorate
 	glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
 	in = !git wtf HEAD..HEAD@{u}
@@ -42,6 +49,7 @@
 	meh = commit --amend
   newb = "!f() { proj=$1 ticketNum=$2; branchName=$3; git checkout -b \"${proj^^j}-${ticketNum}-${branchName}\"; }; f"
   nomerge = --no-commit --no-ff $@
+  # Stage our files during a merge
 	ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
 	out = !git wtf HEAD@{u}..HEAD
 	pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
@@ -58,6 +66,7 @@
 	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
 	unci = reset HEAD^
 	uncommit = reset HEAD^
+  unstage = reset HEAD
 	wdiff = diff --word-diff=color
 	wshow = show --word-diff=color
 	wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
