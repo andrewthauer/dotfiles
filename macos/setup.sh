@@ -6,26 +6,23 @@
 # Exit on error or unset variable
 set -o nounset
 set -o errexit
+set -o pipefail
 
 # Current directory
 local dir="$(dirname "$0")"
 
-# Setup macOS defaults
-# source "$dir/macos-defaults.sh"
-
 # Prompt for sudo up front
 sudo -v
 
-# Set ZSH as Default Shell
-$ chsh -s $(which zsh)
+#
+# Run scripts
+#
 
-# create a zshrc file
-if [ ! -f "$HOME/.zshrc" ]; then
-  touch "$HOME/.zshrc"
-fi
-
-# Reload shell
-source ~/.zshrc
-
-# Install Homebrew & packages
-source "$dir/brews.zsh"
+# source "$dir/system/base.sh"
+# source "$dir/system/defaults.sh"
+# source "$dir/system/brew.sh"
+# source "$dir/system/zsh.sh"
+# source "$dir/system/node.sh"
+# source "$dir/system/ruby.sh"
+# source "$dir/system/brews.sh"
+# source "$dir/system/casks.sh"

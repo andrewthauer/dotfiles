@@ -36,3 +36,9 @@ alias findhere="find . -name"
 #
 
 alias psg="ps aux | grep -v grep | grep -i"
+
+#
+# Apps
+#
+
+alias code="code-insiders"

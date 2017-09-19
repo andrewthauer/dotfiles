@@ -53,6 +53,8 @@
 	ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
 	out = !git wtf HEAD@{u}..HEAD
 	pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
+  # reset to origin/master
+  reset-to-master = !git fetch origin; !git reset --hard origin/master
   rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 	serveall = daemon --verbose --export-all --base-path=. --reuseaddr .

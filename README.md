@@ -28,6 +28,8 @@ Here's a list of things that are used:
 Setup
 -----
 
+Setup on macOS:
+
 ```bash
 # Change your default shell to zsh:
 $ chsh -s /bin/zsh
