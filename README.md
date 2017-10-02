@@ -21,7 +21,7 @@ Here's a list of things that are used:
 * [zsh](https://github.com/zsh-users/zsh)
 * [zplug](https://github.com/zplug/zplug)
 * [homebrew](https://github.com/homebrew/homebrew) (macOS)
-* [prezto](hhttps://github.com/sorin-ionescu/prezto) (some modules)
+* [prezto](https://github.com/sorin-ionescu/prezto) (some modules)
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
 * [zsh-users](https://github.com/zsh-users) (some modules)
 * [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
