@@ -15,6 +15,7 @@ brew install 'jq'
 brew install 'tmux'
 brew install 'the_silver_searcher'
 brew install 'vim'
+brew install 'zsh'
 
 # text utils (i.e. envsubst)
 brew install gettext

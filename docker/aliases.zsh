@@ -2,6 +2,11 @@
 # Docker related aliases
 #
 
+# Skip if docker isn't installed
+if (( ! $+commands[docker] )); then
+  return
+fi
+
 #
 # docker
 #

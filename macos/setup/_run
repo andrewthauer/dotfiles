@@ -15,14 +15,24 @@ local dir="$(dirname "$0")"
 sudo -v
 
 #
-# Run scripts
+# macOS Setup
 #
 
-# source "$dir/system/base.sh"
+# Configure common defaults
 # source "$dir/system/defaults.sh"
+
+#
+# Run setup scripts
+#
+
 # source "$dir/system/brew.sh"
 # source "$dir/system/zsh.sh"
 # source "$dir/system/node.sh"
 # source "$dir/system/ruby.sh"
-# source "$dir/system/brews.sh"
-# source "$dir/system/casks.sh"
+
+#
+# Install tools & apps
+#
+
+# source "$dir/brew/brews.sh"
+# source "$dir/brew/casks.sh"

@@ -21,25 +21,34 @@ Here's a list of things that are used:
 * [zsh](https://github.com/zsh-users/zsh)
 * [zplug](https://github.com/zplug/zplug)
 * [homebrew](https://github.com/homebrew/homebrew) (macOS)
+* [prezto](hhttps://github.com/sorin-ionescu/prezto) (some modules)
+* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
 * [zsh-users](https://github.com/zsh-users) (some modules)
 * [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
-* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
 
 Setup
 -----
 
 Setup on macOS:
 
-```bash
+```shell
 # Change your default shell to zsh:
-$ chsh -s /bin/zsh
+chsh -s /bin/zsh
 
 # Clone the repository:
-$ git clone https://github.com/andrewthauer/dotfiles ~/.dotfiles
+git clone https://github.com/andrewthauer/dotfiles ~/.dotfiles
 
 # Run setup (creates dotfile symlinks in $ZDOTDIR, $HOME, etc.)
 cd ~/.dotfiles
-$ ./bin/dotfiles-setup
+./bin/dotfiles-setup
+```
+
+Commands
+--------
+
+```bash
+# Display available dotfiles commands
+dotfiles help
 ```
 
 Structure
@@ -47,12 +56,10 @@ Structure
 
 Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The following directories are common:
 
-* `bin` - Contains functions (added to `$PATH`)
-* `config` - Contains misc configuration files
+* `bin` - Contains various scripts (added to `$PATH`)
 * `functions` - Contains misc zsh functions
 * `local` - Used for local environment customizations
 * `secrets` - Store local secrets
-* `system` - OS Specific files and setup scripts
 
 Configuration Files
 -------------------
@@ -65,42 +72,24 @@ Any files with the extension `.symlink` will be symlinked to the $HOME directory
 * `~/some-directory/.some-config` ->  `~/.dotfiles/secrets/some-directory/some-config.symlink`
 * `~/.some-directory/ -> ~/.dotfiles/secrets/some-directory.symlink/`
 
-### Additional Config Files
-
-The following can be used to sync application settings:
-
-* Atom - [Sync Settings for Atom](https://atom.io/packages/sync-settings) package
-* Visual Studio Code - [Visual Studio Code Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) extension
-
 Customizing
 -----------
 
-Make sure you run `./setup` after adding new .symlink files or direcories.
+Make sure you run `dotfiles setup` after adding new .symlink files or direcories.
 
 ### `local` directory
 
 * `local/zshenv.local.symlink` file to extend `~/.zshenv` with `~/.zshenv.local`
 * `local/zshrc.local.symlink` file to extend `~/.zshrc` with `~/.zshrc.local`
-
-Example:
-
-```shell
-# ~/.dotfiles/local/zprofile.local.symlink
-
-# do some non secret stuff
-# ...
-
-# source the secret profile data
-source ${DOTFILES_DIR}/secrets/profile
-```
+* `local/zplug.local.symlink` file to extend `~/.zshrc` with `~/.zplug.local`
 
 ### `secrets` directory
 
-Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment. Any `.symlink` file will be automatically linked to the home directory when `./setup` is run.
+Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment. Files with the `.symlink` extension will be linked to the users home directory.
 
-**gitconfig**
+### `gitconfig` settings
 
-The `./secrets/gitconfig` file is included by `./config/dev/gitconfig`. This should contain any user specific git information (i.e. user/email).
+The `./secrets/gitconfig` file is included by `./config/git/gitconfig.symlink`. This should contain any user specific git information (i.e. user/email).
 
 Windows Support
 ---------------

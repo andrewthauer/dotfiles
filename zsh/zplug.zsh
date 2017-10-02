@@ -19,8 +19,12 @@ zplug "modules/completion", from:prezto
 zplug "modules/history-substring-search", from:prezto, defer:2
 
 # oh-my-zsh
-zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
+
+# git
+zplug "plugins/git", from:oh-my-zsh
+zplug "tj/git-extras", use:etc/git-extras-completion.zsh
+zplug "${DOTFILES_DIR}/git", from:local
 
 # zsh-nvm plugin
 zplug "lukechilds/zsh-nvm"
@@ -29,21 +33,21 @@ zplug "lukechilds/zsh-nvm"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
-# completions
-zplug "tj/git-extras", use:etc/git-extras-completion.zsh
-zplug "docker/cli", use:contrib/completion/zsh
-zplug "docker/compose", use:contrib/completion/zsh
-
-# local modules
+# local modules (shared)
 zplug "${DOTFILES_DIR}/functions", from:local, use:"functions/*", lazy:on
 zplug "${DOTFILES_DIR}/brew", from:local
+zplug "${DOTFILES_DIR}/ssh", from:local
+
+# docker
+zplug "docker/cli", use:contrib/completion/zsh
+zplug "docker/compose", use:contrib/completion/zsh
 zplug "${DOTFILES_DIR}/docker", from:local
-zplug "${DOTFILES_DIR}/git", from:local
+
+# local modules (languages)
 zplug "${DOTFILES_DIR}/node", from:local
 zplug "${DOTFILES_DIR}/python", from:local
 zplug "${DOTFILES_DIR}/ruby", from:local
 zplug "${DOTFILES_DIR}/rust", from:local
-zplug "${DOTFILES_DIR}/ssh", from:local
 
 # zsh theme (async for zsh used by pure)
 zplug "mafredri/zsh-async", from:github, defer:0
