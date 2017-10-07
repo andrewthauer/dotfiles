@@ -1,23 +1,9 @@
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.dotfiles/git/.gitignore
   mergeoptions = --no-edit
 
 [push]
 	default = simple
-
-[diff]
-	tool = bc3
-
-[merge]
-	tool = bc3
-
-[mergetool]
-	bc3 = trustExitCode
-
-[filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
 
 [alias]
 	addpr = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
@@ -73,6 +59,5 @@
 	wshow = show --word-diff=color
 	wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
 
-# env overrides
 [include]
-	path = ~/.dotfiles/secrets/gitconfig
+  path = ~/.dotfiles/local/.gitconfig

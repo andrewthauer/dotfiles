@@ -17,7 +17,7 @@
 #   -> # ~/.ssh/config
 #
 
-local dest_config=
+dest_config=
 # if [ -z "$src_configs" ]; then 'No source configs provided'; return; fi
 
 # Defaults

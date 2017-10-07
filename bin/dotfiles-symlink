@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 #
 # description:
-#   Symlinks files and diretories with the extension *.symlink
+#   Symlinks files and directories with the extension *.symlink
 #
 
 # disable glob nomatch errors
@@ -9,8 +9,8 @@ setopt +o nomatch
 
 # Gets the symlink directory
 __dotfile_symlink_target_dir() {
-  local dir=$1
-  local root_dir=$2
+  dir=$1
+  root_dir=$2
 
   if [ "$dir" = "${root_dir}" ]; then
     dir="$HOME"
@@ -22,19 +22,19 @@ __dotfile_symlink_target_dir() {
 
 # Symlinks a dot file (myfile.symlink)
 __symlink_dotfile() {
-  local rcfile=$1
-  local dest_dir=$2
+  rcfile=$1
+  dest_dir=$2
 
   # Default to home
   [ -z "$dest_dir" ] && dest_dir=$HOME
 
   # Prefix file with '.' if dir is ~
-  local prefix=""
+  prefix=""
   [ "$dest_dir" = $HOME ] && prefix="."
 
   # Setup RC file symlinks
-  local src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
-  local dest="$dest_dir/$prefix$(basename $src .symlink)"
+  src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
+  dest="$dest_dir/$prefix$(basename $src .symlink)"
 
   # Remove existing symlinks
   if [ -L "$dest" ]; then
@@ -51,22 +51,22 @@ __symlink_dotfile() {
 
 # Symlinks all dot files & directories inside a directory
 __symlink_dotfile_dir() {
-  local root_dir=$1
+  root_dir=$1
   typeset -U files
-  local files=(${root_dir}/**/*)
+  files=(${root_dir}/**/*)
 
   # Symlink rc files
   for file in ${files}; do
     # get parent directory info
-    local parent_dir="$(dirname "$dir")"
-    local in_symlink_dir=
+    parent_dir="$(dirname "$dir")"
+    in_symlink_dir=
 
     # does parent_dir contain .symlink
     test "${parent_dir#*$.symlink}" != "$parent_dir" && in_symlink_dir=true
 
     # Symlink the entire directory
     if [ -d "$file" ] && [ "${file:e}" = "symlink" ]; then
-      local dir="${file}"
+      dir="${file}"
       dir=$(dirname $dir)
       dir=$(__dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
       __symlink_dotfile $file $dir
@@ -85,9 +85,9 @@ __symlink_dotfile_dir() {
 
 # Run the main
 if [[ ! -z $1 ]]; then
-  local src="$1"
+  src="$1"
   typeset -U files
-  local files=(${1}/**/*)
+  files=(${1}/**/*)
 
   # Symlink all directories
   for file in ${files}; do
