@@ -1,0 +1,14 @@
+./bash/.bash_logout
+./bash/.bash_profile
+./bash/.bashrc
+./git/.gitconfig
+./hyper/.hyper.js
+./local/.zplug.local
+./local/.zshenv.local
+./local/.zshrc.local
+./macos/.slate
+./ruby/.gemrc
+./vim/.vimrc
+./zsh/.zprestorc
+./zsh/.zshenv
+./zsh/.zshrc

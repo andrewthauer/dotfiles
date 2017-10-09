@@ -1,98 +1,67 @@
 #!/usr/bin/env zsh
 #
 # description:
-#   Symlinks files and directories with the extension *.symlink
+#   Symlinks all items from `.symlinks` or `.symlinks.default` to $HOME
 #
 
-# disable glob nomatch errors
-setopt +o nomatch
-
-# Gets the symlink directory
-__dotfile_symlink_target_dir() {
-  dir=$1
-  root_dir=$2
-
-  if [ "$dir" = "${root_dir}" ]; then
-    dir="$HOME"
-  else
-    dir="$HOME/.${dir}"
-  fi
-  echo $dir
-}
-
-# Symlinks a dot file (myfile.symlink)
-__symlink_dotfile() {
-  rcfile=$1
-  dest_dir=$2
-
-  # Default to home
-  [ -z "$dest_dir" ] && dest_dir=$HOME
-
-  # Prefix file with '.' if dir is ~
-  prefix=""
-  [ "$dest_dir" = $HOME ] && prefix="."
-
-  # Setup RC file symlinks
-  src=$(cd $(dirname $rcfile); pwd)/$(basename $rcfile)
-  dest="$dest_dir/$prefix$(basename $src .symlink)"
+# Symlinks a file
+symlink_item() {
+  local src_file="$1"
+  local dest_file="$2"
 
   # Remove existing symlinks
-  if [ -L "$dest" ]; then
-    echo "Removing symlink for $dest"
-    rm $dest
+  if [ -L "$dest_file" ]; then
+    echo "Removing symlink for $dest_file"
+    rm $dest_file
   fi
 
   # Create new symlink
-  if [ -e "$rcfile" ]; then
-    echo "Symlinking '$src' to '$dest'"
-    ln -s "$src" "$dest"
+  if [ -e "$src_file" ]; then
+    echo "Symlinking '$src_file' to '$dest_file'"
+    ln -s "$src_file" "$dest_file"
   fi
 }
 
-# Symlinks all dot files & directories inside a directory
-__symlink_dotfile_dir() {
-  root_dir=$1
-  typeset -U files
-  files=(${root_dir}/**/*)
+# symlinks files
+symlink_items_from_file() {
+  local list_file="$1"
+  local base_src_dir=$(cd $(dirname $list_file); pwd)
+  local base_dest_dir="${HOME}"
 
-  # Symlink rc files
-  for file in ${files}; do
-    # get parent directory info
-    parent_dir="$(dirname "$dir")"
-    in_symlink_dir=
+  # read all files to be symlinked
+  grep -v '^#' ${list_file} | while read -r file; do
+    # source file
+    local filename=$(basename $file)
+    local src_file="$(cd $(dirname $file); pwd)/$filename"
+    local src_file_dir=$(dirname $src_file)
 
-    # does parent_dir contain .symlink
-    test "${parent_dir#*$.symlink}" != "$parent_dir" && in_symlink_dir=true
+    # get sub directory
+    local rel_dir="$(dirname ${file#./})"
+    local top_dir="$(echo $rel_dir | cut -d "/" -f1)"
+    local sub_dir="${rel_dir#$top_dir}"
 
-    # Symlink the entire directory
-    if [ -d "$file" ] && [ "${file:e}" = "symlink" ]; then
-      dir="${file}"
-      dir=$(dirname $dir)
-      dir=$(__dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
-      __symlink_dotfile $file $dir
-      echo
-    fi
+    # the destination file
+    local dest_file="${base_dest_dir}${sub_dir}/${filename}"
 
-    # Handle files
-    if [ "${file:e}" = "symlink" ] && [ "$in_symlink_dir" != "true" ]; then
-      dir="${file:h}"
-      dir=$(__dotfile_symlink_target_dir ${dir#${root_dir}/} ${root_dir})
-      __symlink_dotfile $file $dir
-      echo
-    fi
+    # symlink file
+    symlink_item $src_file $dest_file
   done
 }
 
-# Run the main
-if [[ ! -z $1 ]]; then
-  src="$1"
-  typeset -U files
-  files=(${1}/**/*)
+# symlink all items from the file or override
+symlink_all_items() {
+  local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
+  local symlinks_file=".symlinks"
 
-  # Symlink all directories
-  for file in ${files}; do
-    if [[ -d "$file" ]]; then
-      __symlink_dotfile_dir "$file"
-    fi
-  done
-fi
+  local list_file="${dotfiles_dir}/${symlinks_file}"
+  local default_file="${list_file}.default"
+
+  if [ -e "${list_file}" ]; then
+    symlink_items_from_file "${list_file}"
+  else
+    symlink_items_from_file "${default_file}"
+  fi
+}
+
+# Create all symlinks
+symlink_all_items

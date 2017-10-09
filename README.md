@@ -64,32 +64,30 @@ Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The follo
 Configuration Files
 -------------------
 
-Any files with the extension `.symlink` will be symlinked to the $HOME directory. The following are examples of output:
+The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the `.symlinks.default` file.
 
-* `~/.zshrc -> ~/.dotfiles/config/zsh/zshrc.symlink`
-* `~/.zsrc.local -> ~/.dotfiles/local/zshrc.local.symlink`
-* `~/.gitconfig -> ~/.dotfiles/secrets/gitconfig.symlink`
-* `~/some-directory/.some-config` ->  `~/.dotfiles/secrets/some-directory/some-config.symlink`
-* `~/.some-directory/ -> ~/.dotfiles/secrets/some-directory.symlink/`
+* `~/.zshrc -> ~/.dotfiles/zsh/.zshrc`
+* `~/.zsrc.local -> ~/.dotfiles/local/.zshrc.local`
+* `~/.gitconfig -> ~/.dotfiles/git/.gitconfig`
+* `~/.some-directory/.some-file` ->  `~/.dotfiles/local/.some-directory/.some-file`
+* `~/some-directory/some-file` ->  `~/.dotfiles/local/some-directory/some-file`
 
 Customizing
 -----------
 
-Make sure you run `dotfiles setup` after adding new .symlink files or direcories.
-
 ### `local` directory
 
-* `local/zshenv.local.symlink` file to extend `~/.zshenv` with `~/.zshenv.local`
-* `local/zshrc.local.symlink` file to extend `~/.zshrc` with `~/.zshrc.local`
-* `local/zplug.local.symlink` file to extend `~/.zshrc` with `~/.zplug.local`
+* `local/zshenv.local` file to extend `~/.zshenv` with `~/.zshenv.local`
+* `local/zshrc.local` file to extend `~/.zshrc` with `~/.zshrc.local`
+* `local/zplug.local` file to extend `~/.zshrc` with `~/.zplug.local`
 
 ### `secrets` directory
 
-Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment. Files with the `.symlink` extension will be linked to the users home directory.
+Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment.
 
 ### `gitconfig` settings
 
-The `./secrets/gitconfig` file is included by `./config/git/gitconfig.symlink`. This should contain any user specific git information (i.e. user/email).
+The `local/.gitconfig` file is included by `./config/git/.gitconfig`. This should contain any user specific git information (i.e. user/email).
 
 Windows Support
 ---------------
