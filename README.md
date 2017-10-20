@@ -29,19 +29,7 @@ Here's a list of things that are used:
 Setup
 -----
 
-Setup on macOS:
-
-```shell
-# Change your default shell to zsh:
-chsh -s /bin/zsh
-
-# Clone the repository:
-git clone https://github.com/andrewthauer/dotfiles ~/.dotfiles
-
-# Run setup (creates dotfile symlinks in $ZDOTDIR, $HOME, etc.)
-cd ~/.dotfiles
-./bin/dotfiles-setup
-```
+[Setup on macOS](macos/README.md)
 
 Commands
 --------

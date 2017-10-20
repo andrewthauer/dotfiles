@@ -4,7 +4,7 @@
 #
 
 # Current version of NVM & node to install
-NVM_VER="${NVM_VER:-0.33.4}"
+NVM_VER="${NVM_VER:-0.33.5}"
 NODE_VERSION="${NODE_VERSION:-8}"
 
 # Will be a dependency
