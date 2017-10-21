@@ -275,12 +275,10 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
 # Default view syle to columns
-defaults write com.apple.Finder FXPreferredViewStyle clmv
+defaults write com.apple.finder FXPreferredViewStyle clmv
 
-# Set Desktop as the default location for new Finder windows
-# For other paths, use `PfLo` and `file:///full/path/here/`
-# defaults write com.apple.finder NewWindowTarget -string "PfDe"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+# Set user's home as the default location for new Finder windows
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
 
 # Show icons for external hard drives & removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -297,9 +295,9 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 # Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool false
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool false
-defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
