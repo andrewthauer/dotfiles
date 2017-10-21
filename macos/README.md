@@ -16,6 +16,17 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 killall finder
 ```
 
+Optional
+
+```shell
+# Set hostname, computer name
+HOSTNAME="MY-MAC-NAME" && \
+   sudo scutil --set HostName ${HOSTNAME} && \
+   sudo scutil --set LocalHostName ${HOSTNAME} && \
+   sudo scutil --set ComputerName ${HOSTNAME} && \
+   dscacheutil -flushcache
+```
+
 ### Install Homebrew
 
 ```shell
