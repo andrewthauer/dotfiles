@@ -7,9 +7,6 @@ Machine Setup
 ### Bootrap
 
 ```shell
-# Install command line tools
-xcode-select --install
-
 # Switch to use z-shell
 $ chsh -s $(which zsh)
 
@@ -22,11 +19,18 @@ killall finder
 ### Install Homebrew
 
 ```shell
-# Take ownership of /usr/local
+# Take owernship of /usr/local
 sudo chown -R "$USER":admin /usr/local
 
 # Download and install homebrew
-curl -fsS 'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
+curl -fsS 'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby \
+  brew tap homebrew/services \
+  brew tap caskroom/cask \
+  brew tap caskroom/versions
+
+# Install common brew packages
+brew install git
+brew install zsh
 ```
 
 ### Create SSH Key
@@ -55,17 +59,20 @@ echo "Setting up git ..." && \
   git config --global core.excludesfile ~/.gitignore
 ```
 
-### Clone Repo
+### Setup Dotfiles & Defaults
 
 ```shell
+# Clone the repo
 DOTFILES_DIR=~/path/to/dotfiles && \
   git clone git@github.com:andrewthauer/dotfiles.git "$DOTFILES_DIR" &&
-  ln -s ${DOTFILES_DIR} ${HOME}/.dotfiles}
-```
+  ln -s ${DOTFILES_DIR} ${HOME}/.dotfiles
 
-### Run Setup
+# Move gitconfig to dotfiles
+mv ~/.gitconfig ${DOTFILES_DIR}/local/.gitconfig
 
-```shell
-DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}" && \
-  ${DOTFILES_DIR}/macos/setup/_run
+# Run dotfiles setup
+${DOTFILES_DIR}/bin/dotfiles-setup
+
+# Optional - Run setup scripts
+${DOTFILES_DIR}/macos/setup/defaults
 ```

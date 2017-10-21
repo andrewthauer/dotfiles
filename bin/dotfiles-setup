@@ -16,7 +16,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Symlink directories
 echo "Symlinking files & directories ..."
-"${DOTFILES_DIR}/bin/dotfiles-symlink" "${DOTFILES_DIR}"
+"${DOTFILES_DIR}/bin/dotfiles-symlink"
 
 # Initialize zplug
 ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"

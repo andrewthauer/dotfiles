@@ -52,15 +52,18 @@ symlink_items_from_file() {
 symlink_all_items() {
   local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
   local symlinks_file=".symlinks"
-
   local list_file="${dotfiles_dir}/${symlinks_file}"
   local default_file="${list_file}.default"
+
+  pushd $dotfiles_dir >/dev/null
 
   if [ -e "${list_file}" ]; then
     symlink_items_from_file "${list_file}"
   else
     symlink_items_from_file "${default_file}"
   fi
+
+  popd >/dev/null
 }
 
 # Create all symlinks
