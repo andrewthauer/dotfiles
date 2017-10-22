@@ -1,8 +1,33 @@
 macOS
 =====
 
-Machine Setup
--------------
+*NOTE: If this is a new machine see `New Machine Setup`*
+
+Setup Dotfiles
+--------------
+
+```shell
+# Clone the repo
+DOTFILES_DIR="~/.dotfiles" && git clone git@github.com:andrewthauer/dotfiles.git "$DOTFILES_DIR"
+
+# Run dotfiles setup
+${DOTFILES_DIR}/bin/dotfiles-setup
+
+# Optional - Run setup scripts
+${DOTFILES_DIR}/macos/setup/defaults.sh
+```
+
+### Configuration
+
+```shell
+# Move gitconfig to dotfiles local
+mv ~/.gitconfig ${DOTFILES_DIR}/local/.gitconfig
+```
+
+New Machine Setup
+-----------------
+
+The following is used to get a new machine ready to setup dotfiles from scratch:
 
 ### Bootrap
 
@@ -10,21 +35,8 @@ Machine Setup
 # Switch to use z-shell
 $ chsh -s $(which zsh)
 
-# Show all filename extensions and hiddle files by default
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-defaults write com.apple.finder AppleShowAllFiles -bool true
-killall finder
-```
-
-Optional
-
-```shell
-# Set hostname, computer name
-HOSTNAME="MY-MAC-NAME" && \
-   sudo scutil --set HostName ${HOSTNAME} && \
-   sudo scutil --set LocalHostName ${HOSTNAME} && \
-   sudo scutil --set ComputerName ${HOSTNAME} && \
-   dscacheutil -flushcache
+# Show all hidden files by default
+defaults write com.apple.finder AppleShowAllFiles -bool true && killall finder
 ```
 
 ### Install Homebrew
@@ -47,7 +59,7 @@ brew install zsh
 ### Create SSH Key
 
 ```shell
-SSH_KEY_NAME=id_rsa && \
+SSH_KEY_NAME="id_rsa" && \
   mkdir -p ~/.ssh && \
   if [ -e ~/.ssh/$SSH_KEY_NAME ]; then echo "$HOME/.ssh/${SSH_KEY_NAME} already exists"; return; fi && \
   printf "Enter your email: " && read EMAIL && \
@@ -66,24 +78,5 @@ echo "Setting up git ..." && \
   printf "Enter your Git user.name (e.g. John Smith): " && read GIT_USER_NAME && \
   printf "Enter your GitHub username (e.g. batman42): " && read GITHUB_USER && \
   git config --global user.name "$GIT_USER_NAME" && \
-  git config --global user.email "$GITHUB_USER@users.noreply.github.com" && \
-  git config --global core.excludesfile ~/.gitignore
-```
-
-### Setup Dotfiles & Defaults
-
-```shell
-# Clone the repo
-DOTFILES_DIR=~/path/to/dotfiles && \
-  git clone git@github.com:andrewthauer/dotfiles.git "$DOTFILES_DIR" &&
-  ln -s ${DOTFILES_DIR} ${HOME}/.dotfiles
-
-# Move gitconfig to dotfiles
-mv ~/.gitconfig ${DOTFILES_DIR}/local/.gitconfig
-
-# Run dotfiles setup
-${DOTFILES_DIR}/bin/dotfiles-setup
-
-# Optional - Run setup scripts
-${DOTFILES_DIR}/macos/setup/defaults
+  git config --global user.email "$GITHUB_USER@users.noreply.github.com"
 ```

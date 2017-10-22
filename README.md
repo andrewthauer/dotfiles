@@ -29,12 +29,13 @@ Here's a list of things that are used:
 Setup
 -----
 
-[Setup on macOS](macos/README.md)
+[macOS](macos/README.md)
+[Windows Bash](windows/README.md)
 
 Commands
 --------
 
-```bash
+```shell
 # Display available dotfiles commands
 dotfiles help
 ```
@@ -47,7 +48,7 @@ Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The follo
 * `bin` - Contains various scripts (added to `$PATH`)
 * `functions` - Contains misc zsh functions
 * `local` - Used for local environment customizations
-* `secrets` - Store local secrets
+* `anothertopic` - A topic (e.g. language or tool)
 
 Configuration Files
 -------------------
@@ -65,35 +66,14 @@ Customizing
 
 ### `local` directory
 
-* `local/zshenv.local` file to extend `~/.zshenv` with `~/.zshenv.local`
-* `local/zshrc.local` file to extend `~/.zshrc` with `~/.zshrc.local`
-* `local/zplug.local` file to extend `~/.zshrc` with `~/.zplug.local`
+The `local` directory (git ignored) can be used to customize the dotfiles for a particular environment. It is also a good place to store an secret information (i.e. in `local/secrets`). Files located here can be symlinked to the $HOME directory either manually or via the `.symlinks` file and then running `dotfiles symlink`.
 
-### `secrets` directory
+The following are part of the standard setup:
 
-Any file located in the `secrets` directory should not be committed to source control since it contains secret information or is specific to the local environment.
-
-### `gitconfig` settings
-
-The `local/.gitconfig` file is included by `./config/git/.gitconfig`. This should contain any user specific git information (i.e. user/email).
-
-Windows Support
----------------
-
-The dotfiles are compatible with `Windows Subsystem for Linux` (i.e. Windows Bash). Follow these steps to setup:
-
-* Clone the repo somewhere on a windows partition (i.e. D:\Username\dotfiles). This will be available as `/mnt/d/Username/dotfiles` in the bash shell.
-* [Install bash for Windows 10](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
-* Change the default bash user from root in a command prompt `lxrun /setdefaultuser username` (if applicable)
-* Install `zsh` via `apt-get install zsh`
-* Open the windows bash command prompt
-* Run the setup (i.e. `/mnt/d/Username/dotfiles/setup`)
-
-**Configuration**
-
-*NOTE: This is a work in progress ...*
-
-Various windows configuration settings can be symlinked to the user profile directory (making them more portable). Running the PowerShell script `system/windows/setup.ps1` will run the windows setup routines.
+* `local/.gitconfig` - This should contain any user specific git information (i.e. user/email)
+* `local/.zplug.local` - Load custom zsh plugins (sourced by `zsh/zplug.zsh`)
+* `local/.zshenv.local` - Customize the zsh environment (sourced by `zsh/.zshenv`)
+* `local/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
 
 Reference
 ---------
