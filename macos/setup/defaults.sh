@@ -199,10 +199,10 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Disable Mission Control
-defaults write com.apple.dock mcx-expose-disabled -bool true
+defaults write com.apple.dock mcx-expose-disabled -bool false
 
 # Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool true
+defaults write com.apple.dashboard mcx-disabled -bool false
 
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false

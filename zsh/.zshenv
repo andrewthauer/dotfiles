@@ -32,7 +32,7 @@ export EDITOR=vim
 export VISUAL="${EDITOR}"
 
 # zsh-nvm settings
-export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=false
 export NVM_AUTO_USE=true
 
 # ls colors

@@ -49,7 +49,8 @@ sudo chown -R "$USER":admin /usr/local
 curl -fsS 'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby \
   brew tap homebrew/services \
   brew tap caskroom/cask \
-  brew tap caskroom/versions
+  brew tap caskroom/versions \
+  brew tap caskroom/fonts
 
 # Install common brew packages
 brew install git

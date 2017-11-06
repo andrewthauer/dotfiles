@@ -41,4 +41,4 @@ alias psg="ps aux | grep -v grep | grep -i"
 # Apps
 #
 
-alias code="code-insiders"
+alias codei="code-insiders"
