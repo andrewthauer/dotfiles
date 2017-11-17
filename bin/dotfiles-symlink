@@ -29,19 +29,29 @@ symlink_items_from_file() {
   local base_dest_dir="${HOME}"
 
   # read all files to be symlinked
-  grep -v '^#' ${list_file} | while read -r file; do
+  grep -v '^#' ${list_file} | while read -r line; do
+    # get src:dest from line
+    local paths=("${(@s/:/)line}")
+    local src=$paths[1]
+    local dest=$paths[2]
+
     # source file
-    local filename=$(basename $file)
-    local src_file="$(cd $(dirname $file); pwd)/$filename"
+    local filename=$(basename $src)
+    local src_file="$(cd $(dirname $src); pwd)/$filename"
     local src_file_dir=$(dirname $src_file)
 
     # get sub directory
-    local rel_dir="$(dirname ${file#./})"
+    local rel_dir="$(dirname ${src#./})"
     local top_dir="$(echo $rel_dir | cut -d "/" -f1)"
     local sub_dir="${rel_dir#$top_dir}"
 
     # the destination file
-    local dest_file="${base_dest_dir}${sub_dir}/${filename}"
+    local dest_file=
+    if [ -n $dest ]; then
+      dest_file="$(expand_path "$dest")"
+    else
+      dest_file="${base_dest_dir}${sub_dir}/${filename}"
+    fi
 
     # symlink file
     symlink_item $src_file $dest_file
@@ -64,6 +74,12 @@ symlink_all_items() {
   fi
 
   popd >/dev/null
+}
+
+# expands the full path
+expand_path() {
+  eval path=$1
+  echo $path
 }
 
 # Create all symlinks

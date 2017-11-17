@@ -12,22 +12,22 @@ module.exports = {
     fontSize: 14,
 
     // font family with optional fallbacks
-    fontFamily: 'Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+    fontFamily: 'Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: 'rgba(248,28,229,0.8)',
 
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
-    cursorShape: 'BLOCK',
+    cursorShape: 'UNDERLINE',
 
     // set to true for blinking cursor
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor: '#bbb',
 
     // terminal background color
-    backgroundColor: '#000',
+    backgroundColor: '#222',
 
     // border color (window, tabs)
     borderColor: '#333',
@@ -115,7 +115,11 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: [],
+  plugins: [
+    'hypercwd',
+    'hyper-match',
+    'hyper-zenburn'
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

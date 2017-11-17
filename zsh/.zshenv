@@ -22,6 +22,12 @@ path=(
   $DOTFILES_DIR/bin
 )
 
+# Set the function path
+fpath=(
+  $DOTFILES_DIR/functions
+  $fpath
+)
+
 # Language
 [[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
 export LC_CTYPE=${LANG}

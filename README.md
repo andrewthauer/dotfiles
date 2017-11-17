@@ -53,13 +53,7 @@ Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The follo
 Configuration Files
 -------------------
 
-The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the `.symlinks.default` file.
-
-* `~/.zshrc -> ~/.dotfiles/zsh/.zshrc`
-* `~/.zsrc.local -> ~/.dotfiles/local/.zshrc.local`
-* `~/.gitconfig -> ~/.dotfiles/git/.gitconfig`
-* `~/.some-directory/.some-file` ->  `~/.dotfiles/local/.some-directory/.some-file`
-* `~/some-directory/some-file` ->  `~/.dotfiles/local/some-directory/some-file`
+The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the `.symlinks.default` file. Each line represents a file to be symlinked using `:` as a delimeter (e.g `./src/file:~/dest/file`)
 
 Customizing
 -----------
