@@ -125,6 +125,9 @@ sudo nvram SystemAudioVolume=""
 # disable feedback sound when changing volume
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
 
+# disable ui sound effects (empty trash, screen capture, etc.)
+defaults write com.apple.systemsound com.apple.sound.uiaudio.enabled -int 0
+
 # =============================================================================
 # Menu Bar
 # =============================================================================
@@ -134,7 +137,7 @@ defaults write com.apple.menuextra.clock FlashDateSeparator -bool false
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 
 # Do not show battery percent
-defaults write com.apple.menuextra.battery ShowPercent -string "NO"
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 # =============================================================================
 # Dock

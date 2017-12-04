@@ -27,6 +27,7 @@
   # Fetch and prune all branches that do not exist in remote
   fetchp = fetch -p
   gflog = log -p --cc --graph --decorate
+  gslog = log --oneline --graph --decorate
   glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
   in = !git wtf HEAD..HEAD@{u}
   killbranches = !git branch | grep -v '\\bmaster\\b' | xargs git branch -d 2> /dev/null
