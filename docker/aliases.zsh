@@ -57,6 +57,7 @@ alias dvrm_dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
 alias dco="docker-compose"
 alias dcb="docker-compose build"
 alias dce="docker-compose exec"
+alias dceit="docker-compose exec -it"
 alias dcps="docker-compose ps"
 alias dcr="docker-compose run --rm"
 alias dcrsp="docker-compose run --rm --service-ports"

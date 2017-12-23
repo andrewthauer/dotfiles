@@ -16,3 +16,6 @@ brew_cask_repair() {
   cd "$(brew --repository)/Library/Taps/caskroom/homebrew-cask/Casks"
   cask-repair --pull origin --push $github_user $outdated_cask
 }
+
+# aliases
+alias brew-uses="brew uses --installed"

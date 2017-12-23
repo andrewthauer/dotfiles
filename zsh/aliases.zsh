@@ -23,7 +23,6 @@ alias reload!="source ~/.zshrc"
 # alias rm="${aliases[rm]:-rm}"
 
 alias d='dirs -v'
-for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 #
 # Searching
@@ -35,10 +34,11 @@ alias findhere="find . -name"
 # Diagnostics
 #
 
-alias psg="ps aux | grep -v grep | grep -i"
+# alias psg="ps aux | grep -v grep | grep -i"
+function psg() { ps aux | { head -1; grep -v grep | grep -i "$1"; } }
 
 #
-# Apps
+# Networking
 #
 
-alias codei="code-insiders"
+alias lstcp="lsof -i -n -P | grep TCP"

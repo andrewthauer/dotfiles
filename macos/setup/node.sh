@@ -4,11 +4,8 @@
 #
 
 # Current version of NVM & node to install
-NVM_VER="${NVM_VER:-0.33.5}"
+NVM_VER="${NVM_VER:-0.33.8}"
 NODE_VERSION="${NODE_VERSION:-8}"
-
-# Will be a dependency
-brew install 'node'
 
 # NOTE: This is the preferred way to install NVM as the Homebrew version is unsupported
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VER}/install.sh | bash

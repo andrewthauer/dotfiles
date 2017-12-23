@@ -7,8 +7,8 @@
 RUBY_VERSION="${RUBY_VERSION:-2.4.0}"
 
 # Install ruby & rbenv stuff
-brew install 'rbenv'
-brew install 'ruby-build'
+brew install rbenv
+brew install ruby-build
 
 # Initialize rbenv
 eval "$(rbenv init -)"

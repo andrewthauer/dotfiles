@@ -4,18 +4,17 @@
 #
 
 # Common utilities
-brew install 'curl'
-brew install 'gcc'
-brew install 'git'
-# brew install 'git-extras'
-brew install 'ctags'
-brew install 'httpie'
-brew install 'imagemagick'
-brew install 'jq'
-brew install 'tmux'
-brew install 'the_silver_searcher'
-brew install 'vim'
-brew install 'zsh'
+brew install curl
+brew install gcc
+brew install git
+# brew install git-extras
+brew install ctags
+brew install httpie
+brew install imagemagick
+brew install jq
+brew install tmux
+brew install vim --without-ruby --without-python --without-perl
+brew install zsh
 
 # Text utils (i.e. envsubst)
 brew install gettext
