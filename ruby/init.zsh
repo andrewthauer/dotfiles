@@ -9,6 +9,5 @@ fi
 
 # Load rbenv
 if [[ -d "${HOME}/.rbenv" ]]; then
-  # NOTE: reshash slows startup time
   eval "$(rbenv init - --no-rehash)"
 fi

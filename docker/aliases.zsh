@@ -60,7 +60,7 @@ alias dce="docker-compose exec"
 alias dceit="docker-compose exec -it"
 alias dcps="docker-compose ps"
 alias dcr="docker-compose run --rm"
-alias dcrsp="docker-compose run --rm --service-ports"
+alias dcrs="docker-compose run --rm --service-ports"
 alias dcrm="docker-compose rm"
 alias dcstart="docker-compose start"
 alias dcstop="docker-compose stop"
@@ -70,9 +70,6 @@ alias dcupd="docker-compose up -d"
 alias dcdn="docker-compose down"
 alias dcl="docker-compose logs"
 alias dclf="docker-compose logs -f"
-
-# TODO: Read .env file for default service name (i.e. DEFAULT_SERVICE=web)
-alias dcrs="docker-compose run --rm --service-ports web"
 
 # Special helpers
 alias dctail="docker-compose logs --tail=all -f"
