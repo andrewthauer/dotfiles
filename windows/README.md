@@ -1,12 +1,10 @@
-Windows
-=======
+# Windows
 
 > For usage with `Windows Subsystem for Linux` (i.e. Windows Bash)
+>
+> *NOTE: WINDOWS SUPPORT IS EXPERIMENTAL*
 
-*NOTE: WINDOWS SUPPORT IS EXPERIMENTAL*
-
-Dotfiles Setup
---------------
+## Dotfiles Setup
 
 Follow these steps to setup:
 
@@ -17,7 +15,7 @@ Follow these steps to setup:
 * Open the windows bash command prompt
 * Run the setup (i.e. `/mnt/d/Username/dotfiles/setup`)
 
-**Configuration**
+### Configuration
 
 *NOTE: This is a work in progress ...*
 

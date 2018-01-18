@@ -1,5 +1,4 @@
-Dotfiles
-========
+# Dotfiles
 
 ```
      _       _    __ _ _
@@ -11,8 +10,7 @@ Dotfiles
 
 > These are my dotfiles ...
 
-Overview
---------
+## Overview
 
 This is my system configuration files, settings, etc.
 
@@ -26,22 +24,46 @@ Here's a list of things that are used:
 * [zsh-users](https://github.com/zsh-users) (some modules)
 * [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
 
-Setup
------
+## Setup
+
+Change zsh to the default shell:
+
+```sh
+chsh -s $(which zsh)
+```
+
+Setup the dotfiles repo:
+
+```
+git clone git@github.com:andrewthauer/dotfiles.git
+cd dotfiles
+./bin/dotfiles-setup
+```
+
+Restart your shell
+
+### Configuration
+
+Move gitconfig to dotfiles local
+
+```sh
+mv ~/.gitconfig ${DOTFILES_DIR}/local/.gitconfig
+```
+
+### Setup Guides
 
 * [macOS](macos/README.md)
+* [Linux](linux/README.md)
 * [Windows Bash](windows/README.md)
 
-Commands
---------
+## Commands
 
-```shell
+```sh
 # Display available dotfiles commands
 dotfiles help
 ```
 
-Structure
----------
+## Structure
 
 Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The following directories are common:
 
@@ -50,13 +72,11 @@ Each topic is grouped into a specific directory (i.e. zsh, git, etc.). The follo
 * `local` - Used for local environment customizations
 * `anothertopic` - A topic (e.g. language or tool)
 
-Configuration Files
--------------------
+## Configuration Files
 
 The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the `.symlinks.default` file. Each line represents a file to be symlinked using `:` as a delimeter (e.g `./src/file:~/dest/file`)
 
-Customizing
------------
+## Customizing
 
 ### `local` directory
 
@@ -69,8 +89,7 @@ The following are part of the standard setup:
 * `local/.zshenv.local` - Customize the zsh environment (sourced by `zsh/.zshenv`)
 * `local/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
 
-Reference
----------
+## Reference
 
 * [dotfiles.github.io](https://dotfiles.github.io/)
 * [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
@@ -79,8 +98,7 @@ Reference
 * [Handling Command Line Arguments](http://www.shelldorado.com/goodcoding/cmdargs.html)
 * [ Command Line Options: How To Parse In Bash Using “getopt”](http://www.bahmanm.com/blogs/command-line-options-how-to-parse-in-bash-using-getopt)
 
-Inspiration
------------
+## Inspiration
 
 * [b4b4r07](https://github.com/b4b4r07)
 * [matiasbynens](https://github.com/mathiasbynens/dotfiles)

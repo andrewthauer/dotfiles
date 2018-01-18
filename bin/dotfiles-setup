@@ -4,8 +4,8 @@
 #   Setup script for install dotfiles
 #
 
-# Create symlink to this directory
-SOURCE_DOTFILES=$(cd $(dirname $0); pwd)
+# Create symlink to the parent directory
+SOURCE_DOTFILES=$(cd $(dirname $0)/..; pwd)
 TARGET_DOTFILES="$HOME/.dotfiles"
 if [[ ! -d "${TARGET_DOTFILES}" ]] && [[ ! -L "${TARGET_DOTFILES}" ]]; then
   ln -s "${SOURCE_DOTFILES}" "${TARGET_DOTFILES}"
