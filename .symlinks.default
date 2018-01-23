@@ -12,3 +12,4 @@
 ./zsh/.zprestorc:~/.zprestorc
 ./zsh/.zshenv:~/.zshenv
 ./zsh/.zshrc:~/.zshrc
+./.editorconfig:~/.editorconfig
