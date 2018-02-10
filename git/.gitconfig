@@ -1,5 +1,5 @@
 [core]
-  excludesfile = ~/.dotfiles/git/.gitignore
+	excludesfile = ~/.dotfiles/git/.gitignore
   mergeoptions = --no-edit
 
 [push]
@@ -25,6 +25,8 @@
   cp = cherry-pick
   cps = cherry-pick -s
   count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
+  # Delete merged branches
+  # delete-remote-merged = git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
   # Show changes that have been staged
   diffc = diff --cached
   # Show the difference from master
@@ -42,6 +44,9 @@
   lasttag = describe --tags --abbrev=0
   # List all files
   ls = ls-files
+  # Show remote
+  ls-merged = `git branch -r --merged | grep -v master`
+  # Ammend the last commit
   meh = commit --amend
   # Create a new branch `git [newb] [proj [branchName]`
   newb = "!f() { proj=$1 ticketNum=$2; branchName=$3; git checkout -b \"${proj^^j}-${ticketNum}-${branchName}\"; }; f"

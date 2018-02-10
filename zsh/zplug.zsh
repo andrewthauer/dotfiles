@@ -38,10 +38,11 @@ zplug "docker/compose", use:contrib/completion/zsh
 zplug "${DOTFILES_DIR}/docker", from:local
 
 # local zsh functiosn
-zplug "${DOTFILES_DIR}/functions", from:local, use:"functions/*", lazy:on
+zplug "${DOTFILES_DIR}/functions", from:local, use:"*", lazy:on
 
 # local modules
 zplug "${DOTFILES_DIR}/brew", from:local
+zplug "${DOTFILES_DIR}/dotenv", from:local
 zplug "${DOTFILES_DIR}/python", from:local
 zplug "${DOTFILES_DIR}/ruby", from:local
 zplug "${DOTFILES_DIR}/rust", from:local
