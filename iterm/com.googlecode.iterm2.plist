@@ -186,14 +186,18 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
+	<key>NSWindow Frame ProfilesPanel</key>
+	<string>275 596 735 382 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>650 604 620 392 0 0 1920 1177 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>269 136 606 469 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>404 409 796 473 0 0 1920 1177 </string>
+	<string>404 516 796 473 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>352 121 1130 792 0 0 1920 1177 </string>
+	<string>185 110 1290 814 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>172 81 1130 792 0 0 1680 1027 </string>
+	<string>207 107 1290 837 0 0 1680 1027 </string>
 	<key>NeverWarnAboutOverrides</key>
 	<true/>
 	<key>NeverWarnAboutOverrides_selection</key>
@@ -804,7 +808,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Minimum Contrast</key>
-			<real>0.0</real>
+			<real>0.30913765822784811</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -1654,7 +1658,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-11-22T01:33:31Z</date>
+	<date>2018-02-18T05:53:27Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>

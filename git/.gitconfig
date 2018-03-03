@@ -40,6 +40,7 @@
   # Show log (one commit per line)
   glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
   in = !git wtf HEAD..HEAD@{u}
+  # Delete all branches but master
   killbranches = !git branch | grep -v '\\bmaster\\b' | xargs git branch -d 2> /dev/null
   lasttag = describe --tags --abbrev=0
   # List all files

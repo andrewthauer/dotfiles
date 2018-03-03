@@ -43,6 +43,7 @@ zplug "${DOTFILES_DIR}/functions", from:local, use:"*", lazy:on
 # local modules
 zplug "${DOTFILES_DIR}/brew", from:local
 zplug "${DOTFILES_DIR}/dotenv", from:local
+zplug "${DOTFILES_DIR}/macos", from:local
 zplug "${DOTFILES_DIR}/python", from:local
 zplug "${DOTFILES_DIR}/ruby", from:local
 zplug "${DOTFILES_DIR}/rust", from:local
