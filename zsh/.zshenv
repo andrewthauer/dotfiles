@@ -37,10 +37,6 @@ export LC_ALL=${LANG}
 export EDITOR=vim
 export VISUAL="${EDITOR}"
 
-# zsh-nvm settings
-export NVM_LAZY_LOAD=true
-export NVM_AUTO_USE=true
-
 # ls colors
 export CLICOLOR=1
 
