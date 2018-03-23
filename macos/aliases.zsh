@@ -10,9 +10,9 @@
 #   rimraf-dsstore /path/to/search
 #
 rimraf-dsstore() {
-  local path=$1
+  local search_path=$1
   if [ -v $1 ]; then
-    path="."
+    search_path="."
   fi
-  find "${path}" -iname ".DS_Store" -delete
+  find "${search_path}" -iname ".DS_Store" -delete
 }

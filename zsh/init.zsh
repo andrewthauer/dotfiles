@@ -1,0 +1,11 @@
+#
+# Personalize the zsh environment
+#
+
+# Source module files
+source "${0:h}/modules/environment.zsh"
+source "${0:h}/modules/completion.zsh"
+source "${0:h}/modules/history.zsh"
+
+# Source aliases
+source "${0:h}/aliases.zsh"

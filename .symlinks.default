@@ -1,3 +1,4 @@
+./asdf/.asdfrc:~/.asdfrc
 ./bash/.bash_logout:~/.bash_logout
 ./bash/.bash_profile:~/.bash_profile
 ./bash/.bashrc:~/.bashrc

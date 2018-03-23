@@ -1,5 +1,5 @@
 #
-# Git helpers & aliases
+# Dotenv helpers & aliases
 #
 # Note:
 #   On macOS `envsubst` requires gettext:

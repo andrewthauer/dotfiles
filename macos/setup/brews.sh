@@ -3,22 +3,46 @@
 # Install homebrew brews & casks
 #
 
+# Common libraries
+brew install autoconf
+brew install automake
+brew install coreutils
+brew install libtool
+brew install libxml2
+brew install libxslt
+brew install libyaml
+brew install openssl
+brew install readline
+brew install unixodbc
+
 # Common utilities
 brew install curl
+# brew install httpie
+# brew install imagemagick
+# brew install jq
+# brew install tree
+
+# Text utils (i.e. envsubst)
+# brew install gettext && brew link gettext --force
+
+# Shells & editors
+brew install bash
+brew install zsh
+# brew install tmux
+brew install vim
+
+# Privacy
+brew install gpg
+brew install openvpn
+
+# Coding
 brew install gcc
 brew install git
 # brew install git-extras
-brew install ctags
-brew install httpie
-brew install imagemagick
-brew install jq
-brew install tmux
-brew install vim --without-ruby --without-python --without-perl
-brew install zsh
-
-# Text utils (i.e. envsubst)
-brew install gettext
-brew link gettext --force
+# brew install perl
+# brew install python
+# brew install ruby
+# brew install ruby-build
 
 #
 # Casks - Applications

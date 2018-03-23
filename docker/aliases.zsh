@@ -11,7 +11,7 @@ fi
 # docker
 #
 
-alias dk='docker"'
+alias dk='docker'
 
 # Images
 alias di='docker images'
