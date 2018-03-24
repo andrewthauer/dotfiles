@@ -1,5 +1,5 @@
 #
-# Environment
+# ZSH Environment
 #
 
 # Basics
@@ -44,9 +44,6 @@ unsetopt AUTO_NAME_DIRS     # Do not auto add variable-stored paths to ~ list.
 unsetopt CLOBBER            # Do not overwrite existing files with > and >>.
                             # Use >! and >>! to bypass.
 
-# Wait 10s for wildcard delete
-# setopt RM_STAR_WAIT
-
 #
 # Prompt
 #
@@ -67,7 +64,6 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # added as a requirement of url-quote-magic in 5.1, but in 5.1.1 bracketed
 # paste had a regression. Additionally, 5.2 added bracketed-paste-url-magic
 # which is generally better than url-quote-magic so we load that when possible.
-autoload -Uz is-at-least
 if [[ ${ZSH_VERSION} != 5.1.1 ]]; then
   if is-at-least 5.2; then
     autoload -Uz bracketed-paste-url-magic
@@ -81,19 +77,3 @@ if [[ ${ZSH_VERSION} != 5.1.1 ]]; then
   autoload -Uz url-quote-magic
   zle -N self-insert url-quote-magic
 fi
-
-#
-# Misc
-#
-
-# autoload -Uz cdr
-# autoload -Uz history-search-end
-# autoload -Uz modify-current-argument
-# autoload -Uz smart-insert-last-word
-# autoload -Uz terminfo
-# autoload -Uz vcs_info
-# autoload -Uz zcalc
-# autoload -Uz zmv
-# autoload -Uz run-help-git
-# autoload -Uz run-help-svk
-# autoload -Uz run-help-svn

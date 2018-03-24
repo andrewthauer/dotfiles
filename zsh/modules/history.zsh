@@ -1,5 +1,5 @@
 #
-# History
+# ZSH History
 #
 
 HISTFILE="${HOME}/.zhistory"     # The path to the history file.
