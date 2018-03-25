@@ -2,6 +2,11 @@
 # Git helpers & aliases
 #
 
+# Skip if git is not installed
+if ! [ -x "$(command -v git)" ]; then
+  return
+fi
+
 alias g="git"
 
 # A

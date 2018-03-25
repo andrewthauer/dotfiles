@@ -17,22 +17,23 @@ zplug "docker/compose", use:contrib/completion/zsh
 zplug "plugins/z", from:oh-my-zsh
 
 # local zsh setup
-zplug "${DOTFILES_DIR}/zsh", from:local, use:"init.zsh": defer:2
+zplug "${DOTFILES_DIR}/zsh", from:local, use:"init.zsh"
 
 # local modules
-zplug "${DOTFILES_DIR}/asdf", from:local, use:"init.zsh"
+zplug "${DOTFILES_DIR}/asdf", from:local
 zplug "${DOTFILES_DIR}/asdf", from:local, as:command, use:"bin/*", lazy:on
 zplug "${DOTFILES_DIR}/brew", from:local
 zplug "${DOTFILES_DIR}/docker", from:local
 zplug "${DOTFILES_DIR}/dotenv", from:local
-zplug "${DOTFILES_DIR}/elm", from:local, use:"init.zsh"
+zplug "${DOTFILES_DIR}/elm", from:local
 zplug "${DOTFILES_DIR}/functions", from:local, use:"*", lazy:on
 zplug "${DOTFILES_DIR}/git", from:local
 zplug "${DOTFILES_DIR}/macos", from:local
-zplug "${DOTFILES_DIR}/node", from:local, use:"init.zsh"
-zplug "${DOTFILES_DIR}/python", from:local, use:"init.zsh"
-zplug "${DOTFILES_DIR}/ruby", from:local, use:"init.zsh"
-zplug "${DOTFILES_DIR}/rust", from:local, use:"init.zsh"
+zplug "${DOTFILES_DIR}/node", from:local, defer:1
+zplug "${DOTFILES_DIR}/python", from:local
+zplug "${DOTFILES_DIR}/ruby", from:local
+zplug "${DOTFILES_DIR}/rust", from:local
+zplug "${DOTFILES_DIR}/shell", from:local
 zplug "${DOTFILES_DIR}/ssh", from:local
 
 # zsh theme (async for zsh used by pure)

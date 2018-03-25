@@ -11,6 +11,3 @@ fi
 if (( $+commands[rustc] )); then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
-
-# Source module files
-source "${0:h}/aliases.zsh"

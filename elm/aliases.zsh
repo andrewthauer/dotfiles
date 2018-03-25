@@ -3,7 +3,7 @@
 #
 
 # Skip if elm is not installed
-if (( ! $+commands[elm] )); then
+if ! [ -x "$(command -v elm)" ]; then
   return
 fi
 

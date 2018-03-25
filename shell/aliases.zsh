@@ -3,14 +3,10 @@
 #
 
 #
-# Dotfiles
+# Shortcuts
 #
 
-# Shortcuts
 alias dotdir="cd ${DOTFILES_DIR}"
-
-# Reload the zsh
-alias reload!="source ~/.zshrc"
 
 #
 # Directories

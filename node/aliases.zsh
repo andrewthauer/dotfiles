@@ -3,7 +3,7 @@
 #
 
 # Skip if node is not installed
-if (( ! $+commands[node] )); then
+if ! [ -x "$(command -v node)" ]; then
   return
 fi
 

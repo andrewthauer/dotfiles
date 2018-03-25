@@ -3,7 +3,7 @@
 #
 
 # Skip if ruby is not installed
-if (( ! $+commands[ruby] )); then
+if ! [ -x "$(command -v ruby)" ]; then
   return
 fi
 
