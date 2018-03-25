@@ -1,12 +1,12 @@
 ./asdf/.asdfrc:~/.asdfrc
 ./bash/.bash_profile:~/.bash_profile
 ./bash/.bashrc:~/.bashrc
+./brew/Brewfile:~/.Brewfile
 ./git/.gitconfig:~/.gitconfig
 ./hammerspoon:~/.hammerspoon
 ./local/.zplug.local:~/.zplug.local
 ./local/.zshenv.local:~/.zshenv.local
 ./local/.zshrc.local:~/.zshrc.local
-./macos/Brewfile:~/.Brewfile
 ./ruby/.gemrc:~/.gemrc
 ./vim/.vimrc:~/.vimrc
 ./zsh/.zshenv:~/.zshenv

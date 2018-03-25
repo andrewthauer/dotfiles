@@ -24,5 +24,5 @@ ${DOTFILES_DIR}/macos/setup/hostname.sh "my-host-name"
 ### Install Homebrew
 
 ```sh
-${DOTFILES_DIR}/macos/setup/homebrew.sh
+${DOTFILES_DIR}/brew/install.sh
 ```
