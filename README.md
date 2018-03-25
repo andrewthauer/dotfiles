@@ -28,7 +28,7 @@ Here's a list of things that are used:
 The setup instructions assume using `git` with `ssh`:
 
 ```sh
-curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/bin/ssh-key-gen' | sh
+curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/master/bin/ssh-key-gen' | sh
 ```
 
 [Add the SSH Key to your GitHub account](https://help.github.com/articles/generating-ssh-keys/#step-4-add-your-ssh-key-to-your-account).

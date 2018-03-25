@@ -8,7 +8,7 @@
 #   SSH_KEY_NAME="id_mykey" ssh-key-gen
 #
 
-SSH_KEY_NAME="id_rsa" && \
+SSH_KEY_NAME="${SSH_KEY_NAME:-id_rsa}" && \
   mkdir -p ~/.ssh && \
   if [ -e ~/.ssh/$SSH_KEY_NAME ]; then echo "$HOME/.ssh/${SSH_KEY_NAME} already exists"; exit 1; fi && \
   printf "Enter your email: " && read EMAIL && \
