@@ -1,16 +1,14 @@
 ./asdf/.asdfrc:~/.asdfrc
-./bash/.bash_logout:~/.bash_logout
 ./bash/.bash_profile:~/.bash_profile
 ./bash/.bashrc:~/.bashrc
 ./git/.gitconfig:~/.gitconfig
 ./hammerspoon:~/.hammerspoon
-./hyper/.hyper.js:~/.hyper.js
 ./local/.zplug.local:~/.zplug.local
 ./local/.zshenv.local:~/.zshenv.local
 ./local/.zshrc.local:~/.zshrc.local
+./macos/Brewfile:~/.Brewfile
 ./ruby/.gemrc:~/.gemrc
 ./vim/.vimrc:~/.vimrc
-./zsh/.zprestorc:~/.zprestorc
 ./zsh/.zshenv:~/.zshenv
 ./zsh/.zshrc:~/.zshrc
 ./.editorconfig:~/.editorconfig

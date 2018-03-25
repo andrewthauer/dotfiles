@@ -2,7 +2,8 @@
 # Zplug plugins
 #
 
-# zplug "zplug/zplug", hook-build:'zplug --self-manage'
+# self manage zplug
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
 # zsh-user plugins
 zplug "zsh-users/zsh-completions"
@@ -12,9 +13,6 @@ zplug "zsh-users/zsh-history-substring-search", defer:2
 # docker completions
 zplug "docker/cli", use:contrib/completion/zsh
 zplug "docker/compose", use:contrib/completion/zsh
-
-# z plugin
-zplug "plugins/z", from:oh-my-zsh
 
 # local zsh setup
 zplug "${DOTFILES_DIR}/zsh", from:local, use:"init.zsh"
@@ -27,6 +25,7 @@ zplug "${DOTFILES_DIR}/brew", from:local
 zplug "${DOTFILES_DIR}/docker", from:local
 zplug "${DOTFILES_DIR}/dotenv", from:local
 zplug "${DOTFILES_DIR}/elm", from:local
+zplug "${DOTFILES_DIR}/fasd", from:local
 zplug "${DOTFILES_DIR}/git", from:local
 zplug "${DOTFILES_DIR}/macos", from:local
 zplug "${DOTFILES_DIR}/node", from:local, defer:1

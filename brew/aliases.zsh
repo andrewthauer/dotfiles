@@ -11,6 +11,7 @@ fi
 # Aliases
 #
 
+alias brew-bundle="brew bundle --global"
 alias brew-uses="brew uses --installed"
 
 #

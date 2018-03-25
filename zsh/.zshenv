@@ -3,14 +3,11 @@
 # Defines environment variables
 #
 
-# Dotfiles directory
+# Zsh home directory
 export ZDOTDIR="${ZDOTDIR:-$HOME}"
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
-# Zplug settings (and custom local)
-export ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
-export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
-export ZPLUG_LOCAL_LOADFILE="${HOME}/.zplug.local"
+# Dotfiles directory
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
@@ -28,32 +25,14 @@ fpath=(
   $fpath
 )
 
-# Language
-[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
-export LC_CTYPE=${LANG}
-export LC_ALL=${LANG}
+# Zplug settings (and custom local)
+export ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
+export ZPLUG_LOADFILE="${DOTFILES_DIR}/zsh/zplug.zsh"
+export ZPLUG_LOCAL_LOADFILE="${HOME}/.zplug.local"
 
-# Editor
-export EDITOR=vim
-export VISUAL="${EDITOR}"
-
-# ls colors
-export CLICOLOR=1
-
-# Pager
-export PAGER='less'
-export LESS='-F -g -i -M -R -S -w -X -z-4'
-export LESSCHARSET='utf-8'
-
-# Set the Less input preprocessor.
-# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-if (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-fi
-
-# Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${HOME}/.zprofile" ]]; then
-  source "${HOME}/.zprofile"
+# Load common shell environment
+if [[ -f "${DOTFILES_DIR}/shell/config/environment.sh" ]]; then
+  source "${DOTFILES_DIR}/shell/config/environment.sh"
 fi
 
 # Load ~/.zshenv.local
