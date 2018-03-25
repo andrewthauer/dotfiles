@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 #
 # description:
 #   Two additional quick tips useful for $PATH manipulation in zsh (for anyone passing by):

@@ -23,6 +23,18 @@ Here's a list of things that are used:
 
 ## Setup
 
+### Create SSH Key
+
+The setup instructions assume using `git` with `ssh`:
+
+```sh
+curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/bin/ssh-key-gen' | sh
+```
+
+[Add the SSH Key to your GitHub account](https://help.github.com/articles/generating-ssh-keys/#step-4-add-your-ssh-key-to-your-account).
+
+### Dotfiles Setup
+
 Change zsh to the default shell:
 
 ```sh
@@ -31,7 +43,7 @@ chsh -s $(which zsh)
 
 Setup the dotfiles repo:
 
-```
+```sh
 git clone git@github.com:andrewthauer/dotfiles.git
 cd dotfiles
 ./bin/dotfiles-setup
@@ -39,15 +51,7 @@ cd dotfiles
 
 Restart your shell
 
-### Configuration
-
-Move gitconfig to dotfiles local
-
-```sh
-mv ~/.gitconfig ${DOTFILES_DIR}/local/.gitconfig
-```
-
-### Setup Guides
+### System Specific
 
 * [macOS](macos/README.md)
 * [Linux](linux/README.md)

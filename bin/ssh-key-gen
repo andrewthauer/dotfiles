@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Generate an SSH key
+#
+# usage:
+#   ssh-keygen
+#   SSH_KEY_NAME="id_mykey" ssh-key-gen
+#
+
+SSH_KEY_NAME="id_rsa" && \
+  mkdir -p ~/.ssh && \
+  if [ -e ~/.ssh/$SSH_KEY_NAME ]; then echo "$HOME/.ssh/${SSH_KEY_NAME} already exists"; exit 1; fi && \
+  printf "Enter your email: " && read EMAIL && \
+  ssh-keygen -t rsa -b 4096 -C $EMAIL -f "$HOME/.ssh/$SSH_KEY_NAME" && \
+  eval "$(ssh-agent -s)" && ssh-add -K "$HOME/.ssh/$SSH_KEY_NAME" && \
+  pbcopy < "$HOME/.ssh/$SSH_KEY_NAME.pub" && \
+  echo "Copied public key to clipboard"

@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 #
 # description:
 #   Prompt for a confirmation message
@@ -10,8 +10,10 @@
 confirm() {
   local msg=$1
 
-  [ -z "$1" ] && msg="Are you sure [y/N]?"
-  echo -n "$msg "
+  [ -z "$1" ] && msg="Are you sure?"
+  confirm_msg="${msg} [y/N]?"
+
+  echo -n "$confirm_msg "
   read answer
   case "${answer}" in
     [yY]|[yY][eE][sS])
