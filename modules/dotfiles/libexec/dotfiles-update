@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Update the dotfiles
+#
+
+set -e
+
+echo "Updating zplug ..."
+source "${ZPLUG_HOME}/init.zsh"
+zplug install
+zplug update
+zplug clear
+
+# Reload zsh
+echo "\nReloading shell ..."
+source ~/.zshrc
+
+exit 0

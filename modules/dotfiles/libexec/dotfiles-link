@@ -1,0 +1,96 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Symlinks all items from `.symlinks` or `.symlinks.default` to $HOME
+#
+
+set -e
+
+# expands the full path
+expand_path() {
+  eval path=$1
+  echo $path
+}
+
+# Symlinks a file
+symlink_item() {
+  local src_file="$1"
+  local dest_file="$2"
+
+  echo "Symlinking: $src_file -> $dest_file"
+
+  # Remove existing symlinks
+  if [ -L "$dest_file" ]; then
+    rm $dest_file
+  fi
+
+  # Create new symlink
+  if [ -e "$src_file" ]; then
+    ln -s "$src_file" "$dest_file"
+  else
+    echo "WARNING: Destination file already exists - "$dest_file""
+  fi
+}
+
+# symlinks files
+symlink_items_from_file() {
+  local list_file="$1"
+  local base_src_dir=$(cd $(dirname $list_file); pwd)
+  local base_dest_dir="${HOME}"
+
+  # read all files to be symlinked
+  grep -v '^#' ${list_file} | while read -r line; do
+    # skip empty lines or comments
+    if [[ -z $line ]] || [[ $line == "#*" ]]; then
+      continue
+    fi
+
+    # get src:dest from line
+    local paths=("${(@s/:/)line}")
+    local src=$paths[1]
+    local dest=$paths[2]
+
+    # source file
+    local filename=$(basename $src)
+    local src_file="$(cd $(dirname $src); pwd)/$filename"
+    local src_file_dir=$(dirname $src_file)
+
+    # get sub directory
+    local rel_dir="$(dirname ${src#./})"
+    local top_dir="$(echo $rel_dir | cut -d "/" -f1)"
+    local sub_dir="${rel_dir#$top_dir}"
+
+    # the destination file
+    local dest_file=
+    if [ -n $dest ]; then
+      dest_file="$(expand_path "$dest")"
+    else
+      dest_file="${base_dest_dir}${sub_dir}/${filename}"
+    fi
+
+    # symlink file
+    symlink_item $src_file $dest_file
+  done
+}
+
+# symlink all items from the file or override
+symlink_all_items() {
+  local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
+  local symlinks_file=".symlinks"
+  local list_file="${dotfiles_dir}/${symlinks_file}"
+  local default_file="${list_file}.default"
+
+  pushd $dotfiles_dir >/dev/null
+
+  if [ -e "${list_file}" ]; then
+    symlink_items_from_file "${list_file}"
+  else
+    symlink_items_from_file "${default_file}"
+  fi
+
+  popd >/dev/null
+}
+
+# Create all symlinks
+echo "Linking Dotfiles ..."
+symlink_all_items

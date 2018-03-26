@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Finds the latest file based on a pattern
+#
+# usage:
+#   find_latest ./directory/to/search "*pattern*"
+#
+
+# Simple pattern
+# local pattern=$1
+# ls -t $pattern | head -1
+
+local dir=$1
+local pattern=$2
+
+[ -z "${dir}" ] && echo "Directory not provided" && return 1
+[ ! -d "${dir}" ] && echo "Directory does not exist" && return 1
+[ -z "${pattern}" ] && echo "Pattern not provided" && return 1
+
+# glob directory -> filter by pattern -> sort by date -> one result
+echo $(ls ${dir}/**/*(e:'[[ $REPLY =~ ${pattern} ]]':.om[1]))

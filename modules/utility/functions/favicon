@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Create a favicon
+#
+# usage:
+#   favicon /path/to/image
+#
+
+favicon() {
+  source=$1
+
+  if [[ ! -v "$source" ]]; then
+    echo "No source file provided"
+    return 1
+  fi
+
+  convert $source -define icon:auto-resize=64,48,32,16 favicon.ico
+}

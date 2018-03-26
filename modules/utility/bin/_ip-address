@@ -1,0 +1,8 @@
+#compdef ip-address
+
+_ip-address() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "public internal" -- $cur) )
+}
+
+complete -F _ip-address ip-address

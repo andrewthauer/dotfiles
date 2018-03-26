@@ -1,14 +1,31 @@
-./asdf/.asdfrc:~/.asdfrc
-./bash/.bash_profile:~/.bash_profile
-./bash/.bashrc:~/.bashrc
-./brew/Brewfile:~/.Brewfile
-./git/.gitconfig:~/.gitconfig
-./hammerspoon:~/.hammerspoon
-./local/.zplug.local:~/.zplug.local
-./local/.zshenv.local:~/.zshenv.local
-./local/.zshrc.local:~/.zshrc.local
-./ruby/.gemrc:~/.gemrc
-./vim/.vimrc:~/.vimrc
-./zsh/.zshenv:~/.zshenv
-./zsh/.zshrc:~/.zshrc
+# Global editorconfig
 ./.editorconfig:~/.editorconfig
+
+# Config dotfiles
+./config/.asdfrc:~/.asdfrc
+./config/.bash_profile:~/.bash_profile
+./config/.bashrc:~/.bashrc
+./config/.Brewfile:~/.Brewfile
+./config/.gitconfig:~/.gitconfig
+./config/.gemrc:~/.gemrc
+./config/.vimrc:~/.vimrc
+./config/.zplug:~/.zplug.zsh
+./config/.zshenv:~/.zshenv
+./config/.zshrc:~/.zshrc
+
+# Config dot directories
+./config/hammerspoon:~/.hammerspoon
+
+# Man pages
+#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
+
+# Local dotfiles
+#./local/.tool-versions:~/.tool-versions
+#./local/.zshenv.local:~/.zshenv.local
+#./local/.zshrc.local:~/.zshrc.local
+
+# Misc local files
+#./local/.default-npm-packages:~/.default-npm-packages
+
+# Local secrets
+# ??

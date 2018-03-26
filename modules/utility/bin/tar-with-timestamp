@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Creates an timestamped tarball
+#
+# usage:
+#   tar-with-timestamp /path/to/archive
+#
+
+local src=${1}
+local timestamp="$(date +%Y_%m_%d_%H_%M_%S)"
+local target="${src}_${timestamp}.tar.gz"
+
+tar -zcvf ${target} ${src}

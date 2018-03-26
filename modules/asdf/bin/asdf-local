@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Set the local version of a package
+#
+# usage:
+#   asdf-local [package]
+#
+# example:
+#   asdf-local nodejs
+#
+
+# The plugin to use
+plugin=$1
+if [[ "${plugin}" == "" ]]; then
+  echo "Usage: asdf-local [plugin]"
+  exit
+fi
+
+# Get the latest version
+version=$(asdf list ${plugin} | tail)
+
+# Set the local version
+asdf local ${plugin} ${version}

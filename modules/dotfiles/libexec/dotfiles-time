@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Profile the shell startup time
+#
+
+time zsh -i -c exit

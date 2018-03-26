@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Query IP addresses
+#
+# usage:
+#   ip-address
+#   ip-address public
+#   ip-address internal
+#
+
+public_ip() {
+  echo $(dig +short myip.opendns.com @resolver1.opendns.com)
+}
+
+internal_ip() {
+  echo $(ipconfig getifaddr en0)
+}
+
+case "$1" in
+  public)
+    echo $(public_ip)
+    ;;
+  internal)
+    echo $(internal_ip)
+    ;;
+  *)
+    echo "Public:   $(public_ip)"
+    echo "Internal: $(internal_ip)"
+    ;;
+esac
