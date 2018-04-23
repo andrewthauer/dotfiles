@@ -15,6 +15,7 @@
 
 # Config dot directories
 ./config/hammerspoon:~/.hammerspoon
+./config/vim:~/.vim
 
 # Man pages
 #./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
