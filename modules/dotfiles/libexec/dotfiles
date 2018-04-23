@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 #
 # description:
 #   Run dotfiles commands
@@ -11,12 +11,11 @@
 set -e
 
 abs_dirname() {
-  local path
-  path="$(exec realpath "$1")"
+  local path="$(realpath "$1")"
   echo "${path%/*}"
 }
 
-DOTFILES_ROOT=$(cd $(abs_dirname "$0")/..; pwd)
+DOTFILES_ROOT="$(cd $(abs_dirname "$0")/..; pwd)"
 export DOTFILES_ROOT="${DOTFILES_ROOT}"
 
 bin_path="$(abs_dirname "$0")"
