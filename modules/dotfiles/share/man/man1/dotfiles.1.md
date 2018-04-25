@@ -1,6 +1,6 @@
 % DOTFILES(1) | Dotfiles User Manual
 % Andrew Thauer
-% Latests Version
+% Latest Version
 
 # NAME
 

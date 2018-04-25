@@ -1,4 +1,4 @@
-MANPATH = doc/man/man1
+MANPATH = share/man/man1
 
 all: dotfiles.1
 
