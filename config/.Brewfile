@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+b#!/usr/bin/env ruby
 #
 # Homebrew Bundle file
 # - https://github.com/Homebrew/homebrew-bundle
@@ -22,8 +22,10 @@ brew 'autoconf'
 brew 'automake'
 brew 'awscli'
 brew 'bash'
+brew 'bats'
 brew 'coreutils'
 brew 'curl'
+brew 'emacs'
 brew 'fasd'
 brew 'gcc'
 brew 'gettext', link: true
@@ -38,6 +40,7 @@ brew 'libtool'
 brew 'libxml2'
 brew 'libxslt'
 brew 'libyaml'
+brew 'neovim'
 brew 'openssl'
 brew 'openvpn'
 brew 'pandoc'
@@ -82,11 +85,11 @@ cask 'teamsql'
 cask 'typora'
 cask 'veracrypt'
 cask 'visual-studio-code'
-cask 'visual-studio-code-insiders'
 cask 'vmware-fusion'
 
 # caskroom/versions
-cask 'firefoxdeveloperedition'
+cask 'firefox-developer-edition'
+cask 'visual-studio-code-insiders'
 
 # caskroom/fonts
 cask 'font-roboto'

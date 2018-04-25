@@ -8,14 +8,17 @@
 ./config/.Brewfile:~/.Brewfile
 ./config/.gitconfig:~/.gitconfig
 ./config/.gemrc:~/.gemrc
-./config/.vimrc:~/.vimrc
 ./config/.zplug:~/.zplug.zsh
 ./config/.zshenv:~/.zshenv
 ./config/.zshrc:~/.zshrc
 
-# Config dot directories
-./config/hammerspoon:~/.hammerspoon
+# Vim
+/usr/local/bin/vim:/usr/local/bin/vi
+./config/.vimrc:~/.vimrc
 ./config/vim:~/.vim
+
+# Hammerspoon
+./config/hammerspoon:~/.hammerspoon
 
 # Man pages
 #./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
