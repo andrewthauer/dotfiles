@@ -1,4 +1,4 @@
-b#!/usr/bin/env ruby
+#!/usr/bin/env ruby
 #
 # Homebrew Bundle file
 # - https://github.com/Homebrew/homebrew-bundle
