@@ -23,13 +23,13 @@ if [[ -f "${HOME}/.bash_profile" ]]; then
   source "${HOME}/.bash_profile"
 fi
 
+# Prompt
+# PS1=
+
 # Common aliases
 source "${DOTFILES_DIR}/config/shared/aliases.sh"
 
-#
 # Load plugin modules
-#
-
 source "${DOTFILES_DIR}/modules/asdf/init.sh"
 source "${DOTFILES_DIR}/modules/fasd/init.sh"
 source "${DOTFILES_DIR}/modules/node/init.sh"
@@ -41,3 +41,8 @@ source "${DOTFILES_DIR}/modules/utility/init.sh"
 # Aliases
 source "${DOTFILES_DIR}/modules/docker/aliases.sh"
 source "${DOTFILES_DIR}/modules/git/aliases.sh"
+
+# Load the local .bashrc file
+if [[ -f "$HOME/.bashrc.local" ]]; then
+  source "$HOME/.bashrc.local"
+fi
