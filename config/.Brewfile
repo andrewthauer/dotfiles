@@ -4,28 +4,18 @@
 # - https://github.com/Homebrew/homebrew-bundle
 #
 
-#
-# Taps
-#
-
-tap 'caskroom/cask'
-tap 'caskroom/fonts'
+# https://github.com/Homebrew/homebrew-services
 tap 'homebrew/services'
-tap 'caskroom/drivers'
-tap 'caskroom/versions'
 
-#
 # Brews
-#
-
 brew 'autoconf'
 brew 'automake'
 brew 'awscli'
 brew 'bash'
+brew 'bashdb'
 brew 'bats'
 brew 'coreutils'
 brew 'curl'
-brew 'emacs'
 brew 'fasd'
 brew 'gcc'
 brew 'gettext', link: true
@@ -41,11 +31,13 @@ brew 'libxml2'
 brew 'libxslt'
 brew 'libyaml'
 brew 'neovim'
+brew 'nodenv'
 brew 'openssl'
 brew 'openvpn'
 brew 'pandoc'
 brew 'pkg-config'
 brew 'readline'
+brew 'shellcheck'
 brew 'syncthing'
 brew 'tmux'
 brew 'tree'
@@ -54,16 +46,8 @@ brew 'vim', args: ['without-python']
 brew 'yarn', args: ['without-node']
 brew 'zsh'
 
-#
-# Brew - Drivers
-#
-
-brew 'chromedriver'
-
-#
-# Casks - Applications
-#
-
+# caskroom
+tap 'caskroom/cask'
 cask 'beyond-compare'
 cask 'dash'
 cask 'docker'
@@ -88,17 +72,16 @@ cask 'visual-studio-code'
 cask 'vmware-fusion'
 
 # caskroom/versions
-cask 'firefox-developer-edition'
-cask 'visual-studio-code-insiders'
+cask 'caskroom/versions/firefox-developer-edition'
+cask 'caskroom/versions/visual-studio-code-insiders'
 
 # caskroom/fonts
-cask 'font-roboto'
-cask 'font-open-sans'
+cask 'caskroom/fonts/font-roboto'
+cask 'caskroom/fonts/font-open-sans'
 
-#
-# Mac Store Applications
-#
+# caskroom drivers
+cask 'chromedriver'
 
-# MicrosoftOneDrive
-# MicrosoftOneNote
-# MicrosoftRemoteDesktop
+# Local Brewfile
+local_brewfile = File.expand_path('~/.Brewfile.local')
+instance_eval File.read(local_brewfile) if File.exists?(local_brewfile)

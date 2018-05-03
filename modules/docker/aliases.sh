@@ -3,7 +3,7 @@
 #
 
 # Skip if docker is not installed
-if ! [[ -x "$(command -v docker)" ]]; then
+if [[ ! -x "$(command -v docker)" ]]; then
   return
 fi
 

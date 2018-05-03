@@ -3,7 +3,7 @@
 #
 
 # Skip if git is not installed
-if ! [[ -x "$(command -v git)" ]]; then
+if [[ ! -x "$(command -v git)" ]]; then
   return
 fi
 

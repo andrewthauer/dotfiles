@@ -3,7 +3,7 @@
 #
 
 # Skip if homebrew is not installed
-if ! [[ -x "$(command -v brew)" ]]; then
+if [[ ! -x "$(command -v brew)" ]]; then
   return
 fi
 

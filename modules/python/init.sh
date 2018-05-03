@@ -2,13 +2,25 @@
 # Python initialization
 #
 
-# pyenv support (https://github.com/pyenv/pyenv)
-if [[ -d "${HOME}/.pyenv" ]]; then
-  # Add pyenv to the path
-  if ! [[ -x "$(command -v pyenv)" ]]; then
-    export PATH="${HOME}/.pyenv/bin:${PATH}"
-  fi
+# Use asdf if available and plugin is installed
+if [[ -x "$(command -v asdf)" && -d "${ASDF_DIR}/plugins/python" ]]; then
+  ASDF_PYTHON=
 
-  # Initialize pyenv (prepends ~/.pyenv/shims" to $PATH)
-  eval "$(pyenv init -)"
+# Load custom installed pyenv
+elif [[ ! -z "${PYENV_ROOT}" && -s "${PYENV_ROOT}/bin/pyenv" ]]; then
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  eval "$(pyenv init - --no-rehash)"
+
+# Load manually installed pyenv
+elif [[ -s "{$HOME/.pyenv/bin/pyenv" ]]; then
+  export PATH="${HOME}/.pyenv/bin:${PATH}"
+  eval "$(pyenv init - --no-rehash)"
+
+# Load package manager installed pyenv
+elif [[ -x "$(command -v pyenv)" ]]; then
+  eval "$(pyenv init - --no-rehash)"
+
+# Return if requirements are not found
+elif [[ ! -x "$(command -v python)" ]]; then
+  return 1
 fi

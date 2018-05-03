@@ -20,15 +20,14 @@
 # Hammerspoon
 ./config/hammerspoon:~/.hammerspoon
 
-# Man pages
-#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
-
 # Local dotfiles
 #./local/.tool-versions:~/.tool-versions
 #./local/.zshenv.local:~/.zshenv.local
 #./local/.zshrc.local:~/.zshrc.local
 
 # Misc local files
+#./local/.Brewfile.local:~/.Brewfile.local
+#./local/.default-gems:~/.default-gems
 #./local/.default-npm-packages:~/.default-npm-packages
 
 # Local secrets

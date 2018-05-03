@@ -2,29 +2,32 @@
 # Ruby initialization
 #
 
-# rbenv support (https://github.com/rbenv/rbenv)
-if [[ -d "${HOME}/.rbenv" ]]; then
-  # Add rbenv to the path
-  if ! [ -x "$(command -v rbenv)" ]; then
-    export PATH="${HOME}/.rbenv/bin:${PATH}"
-  fi
+# Use asdf if available and plugin is installed
+if [[ -x "$(command -v asdf)" && -d "${ASDF_DIR}/plugins/ruby" ]]; then
+  ASDF_RUBY=
 
-  # Initialize rbenv (prepends ~/.rbenv/shims to path)
+# Load custom installed rbenv
+elif [[ ! -z "${RBENV_ROOT}" && -s "${RBENV_ROOT}/bin/rbenv" ]]; then
+  export PATH="${RBENV_ROOT}/bin:${PATH}"
   eval "$(rbenv init - --no-rehash)"
+
+# Load manually installed rbenv
+elif [[ -s "{$HOME/.rbenv/bin/rbenv" ]]; then
+  export PATH="${HOME}/.rbenv/bin:${PATH}"
+  eval "$(rbenv init - --no-rehash)"
+
+# Load package manager installed rbenv
+elif [[ -x "$(command -v rbenv)" ]]; then
+  eval "$(rbenv init - --no-rehash)"
+
+# Return if requirements are not found
+elif [[ ! -x "$(command -v ruby)" ]]; then
+  return 1
 fi
 
 #
 # Aliases & helpers
 #
 
-# Skip if ruby is not installed
-if ! [[ -x "$(command -v ruby)" ]]; then
-  return
-fi
-
 # Common aliases
 alias be="bundle exec"
-alias rspec="bundle exec rspec"
-alias rake="bundle exec rake"
-alias rails="bundle exec rails"
-alias cap="bundle exec capistrano"

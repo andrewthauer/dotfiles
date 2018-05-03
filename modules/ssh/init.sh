@@ -3,7 +3,7 @@
 #
 
 # Skip if ssh is not installed
-if ! [[ -x "$(command -v ssh)" ]]; then
+if [[ ! -x "$(command -v ssh)" ]]; then
   return
 fi
 

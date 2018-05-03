@@ -7,7 +7,7 @@
 export ASDF_DIR="${ASDF_DIR:-$HOME/.asdf}"
 
 # Skip if asdf is not installed
-if ! [[ -d "${ASDF_DIR}" ]]; then
+if [[ ! -d "${ASDF_DIR}" ]]; then
   unset ASDF_DIR
   return
 fi

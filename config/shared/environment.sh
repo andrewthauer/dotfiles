@@ -6,7 +6,7 @@
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Language
-[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
+export LANG="${LANG:-en_US.UTF-8}"
 LC_CTYPE=${LANG}
 LC_ALL=${LANG}
 

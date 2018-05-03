@@ -3,9 +3,9 @@
 #
 
 # zsh-user plugins
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:2
-zplug "zsh-users/zsh-completions", defer:2
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-completions", defer:0
 
 # local modules
 zplug "${DOTFILES_DIR}/modules/dotenv", from:local, use:"*.sh"
@@ -21,6 +21,9 @@ zplug "${DOTFILES_DIR}/modules/asdf", from:local, use:"init.sh", defer:0
 zplug "${DOTFILES_DIR}/modules/node", from:local, use:"init.sh", defer:1
 zplug "${DOTFILES_DIR}/modules/python", from:local, use:"init.sh", defer:1
 zplug "${DOTFILES_DIR}/modules/ruby", from:local, use:"init.sh", defer:1
+
+# completions
+zplug "lukechilds/zsh-better-npm-completion", defer:2
 
 # docker
 zplug "${DOTFILES_DIR}/modules/docker", from:local, use:"*.sh"

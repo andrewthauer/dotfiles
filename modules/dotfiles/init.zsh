@@ -3,7 +3,7 @@
 dir="${0:h}"
 
 # Ensure dotfiles cmd is in path
-if ! [[ -x "$(command -v dotfiles)" ]]; then
+if [[ ! -x "$(command -v dotfiles)" ]]; then
   path=("${dir}/bin" $path)
   fpath=("${dir}/bin" $fpath)
 fi
