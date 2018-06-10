@@ -4,8 +4,8 @@
 # - https://github.com/Homebrew/homebrew-bundle
 #
 
-# https://github.com/Homebrew/homebrew-services
-tap 'homebrew/services'
+# Taps
+tap 'homebrew/services' # https://github.com/Homebrew/homebrew-services
 
 # Brews
 brew 'autoconf'
@@ -31,7 +31,6 @@ brew 'libxml2'
 brew 'libxslt'
 brew 'libyaml'
 brew 'neovim'
-brew 'nodenv'
 brew 'openssl'
 brew 'openvpn'
 brew 'pandoc'
@@ -52,20 +51,21 @@ cask 'beyond-compare'
 cask 'dash'
 cask 'docker'
 cask 'electrum'
+cask 'firefox'
 cask 'google-chrome'
 cask 'hammerspoon'
 cask 'iterm2'
 cask 'kap'
 cask 'keepassxc'
-cask 'osxfuse'
 cask 'ngrok'
+cask 'osxfuse'
 cask 'postman'
 cask 'powershell'
 cask 'sketch'
 cask 'slack'
 cask 'spotify'
-cask 'the-unarchiver'
 cask 'teamsql'
+cask 'the-unarchiver'
 cask 'typora'
 cask 'veracrypt'
 cask 'visual-studio-code'
@@ -76,6 +76,7 @@ cask 'caskroom/versions/firefox-developer-edition'
 cask 'caskroom/versions/visual-studio-code-insiders'
 
 # caskroom/fonts
+cask 'caskroom/fonts/font-fira-code'
 cask 'caskroom/fonts/font-roboto'
 cask 'caskroom/fonts/font-open-sans'
 

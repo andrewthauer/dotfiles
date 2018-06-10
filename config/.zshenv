@@ -19,7 +19,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $path
-  ${DOTFILES_DIR}/bin
+  ${DOTFILES_DIR}/{local/bin,bin}
 )
 
 # Set the function path

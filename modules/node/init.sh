@@ -60,6 +60,13 @@ fi
 # Aliases & helpers
 #
 
+npm-exec() {
+  "./node_modules/.bin/$1" ${@:2}
+}
+
+# npm
+alias npme="npm-exec"
+
 # npm list
 alias npm-list="npm list --depth=0 2>/dev/null"
 alias npm-list-g="npm list -g --depth=0 2>/dev/null"
