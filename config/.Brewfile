@@ -46,20 +46,17 @@ brew 'yarn', args: ['without-node']
 brew 'zsh'
 
 # caskroom
-tap 'caskroom/cask'
+tap 'homebrew/cask'
 cask 'beyond-compare'
 cask 'dash'
 cask 'docker'
 cask 'electrum'
-cask 'firefox'
 cask 'google-chrome'
 cask 'hammerspoon'
 cask 'iterm2'
 cask 'kap'
 cask 'keepassxc'
-cask 'ngrok'
 cask 'osxfuse'
-cask 'postman'
 cask 'powershell'
 cask 'sketch'
 cask 'slack'
@@ -69,19 +66,20 @@ cask 'the-unarchiver'
 cask 'typora'
 cask 'veracrypt'
 cask 'visual-studio-code'
-cask 'vmware-fusion'
-
-# caskroom/versions
-cask 'caskroom/versions/firefox-developer-edition'
-cask 'caskroom/versions/visual-studio-code-insiders'
-
-# caskroom/fonts
-cask 'caskroom/fonts/font-fira-code'
-cask 'caskroom/fonts/font-roboto'
-cask 'caskroom/fonts/font-open-sans'
 
 # caskroom drivers
 cask 'chromedriver'
+
+# caskroom/versions
+tap 'homebrew/cask-versions'
+cask 'homebrew/cask-versions/firefox-developer-edition'
+cask 'homebrew/cask-versions/visual-studio-code-insiders'
+
+# caskroom/fonts
+tap 'homebrew/cask-fonts'
+cask 'homebrew/cask-fonts/font-fira-code'
+cask 'homebrew/cask-fonts/font-roboto'
+cask 'homebrew/cask-fonts/font-open-sans'
 
 # Local Brewfile
 local_brewfile = File.expand_path('~/.Brewfile.local')

@@ -6,11 +6,8 @@
   default = simple
 
 [alias]
-  addpr = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
-  assume = update-index --assume-unchanged
-  assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+  # List authors
   authors = shortlog -sn
-  autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
   # Shortcut for `git branch`
   br = branch
   # Show local branches with details
@@ -21,16 +18,16 @@
   ci = commit
   # Shortcut for `git checkout`
   co = checkout
-  comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
+  # Cherry pick commits
   cp = cherry-pick
+  # Cherry pick with sign off line
   cps = cherry-pick -s
+  # Display the number of commits
   count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
-  # Delete merged branches
-  # delete-remote-merged = git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
   # Show changes that have been staged
   diffc = diff --cached
   # Show the difference from master
-  # diffm = diff master...`!git branch-name`
+  diffm = diff master...`!git branch-name`
   # Fetch and prune all branches that do not exist in remote
   fetchp = fetch -p
   # Show log with details
@@ -39,29 +36,33 @@
   gslog = log --oneline --graph --decorate
   # Show log (one commit per line)
   glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+  # Display a log of incoming changes
   in = !git wtf HEAD..HEAD@{u}
-  # Delete all branches but master
-  killbranches = !git branch | grep -v '\\bmaster\\b' | xargs git branch -d 2> /dev/null
+  # Delete all merged branches but master
+  killbranches = !git branch --merged | grep -v '\\bmaster\\b'      | xargs git branch -d
+  # Display the last tag info
   lasttag = describe --tags --abbrev=0
   # List all files
   ls = ls-files
   # Show remote
-  ls-merged = `git branch -r --merged | grep -v master`
+  ls-merged = !git branch -r --merged | grep -v master
   # Ammend the last commit
   meh = commit --amend
   # Create a new branch `git [newb] [proj [branchName]`
   newb = "!f() { proj=$1 ticketNum=$2; branchName=$3; git checkout -b \"${proj^^j}-${ticketNum}-${branchName}\"; }; f"
+  # Do not auto commit in order to inspect the result
   nomerge = --no-commit --no-ff $@
   # Stage our files during a merge
   ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
+  # Display a log of outgoing changes
   out = !git wtf HEAD@{u}..HEAD
   # Pull master and rebase current branch on top
   pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
+  # prune
   # Reset to origin/master
-  reset-to-master = !git fetch origin; !git reset --hard origin/master
-  rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
-  serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-  serveall = daemon --verbose --export-all --base-path=. --reuseaddr .
+  reset-to-master = !git fetch origin && git reset --hard origin/master
+  # Reset to origin/[branch]
+  reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
   # Show log with details (one commit per line)
   slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
   # Squash up to master
@@ -70,19 +71,36 @@
   st = status -sb
   # Pull & push the current branch
   sync = !git pull && git push
+  # Update a fork
+  sync-fork = !git fetch upstream && git checkout master && git merge upstream/master
   # Stage the incoming changes
   theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
   # List differences from yesterday
   today = diff @{yesterday}.. --stat
-  unassume = update-index --no-assume-unchanged
-  unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
-  unci = reset HEAD^
+  # Reset to head
   uncommit = reset HEAD^
   # Unstage all files
   unstage = reset HEAD
+  # Display word diff
   wdiff = diff --word-diff=color
+  # Show word diff objects
   wshow = show --word-diff=color
+  # Git worktree
+  wt = worktree
+  # Display a pretty change log
   wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
+
+  #
+  # Advanced
+  #
+
+  # autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
+  # comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
+  # delete-remote-merged = git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
+  # Update the remote
+  # rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
+  # unassume = update-index --no-assume-unchanged
+  # unassumeall = !git assumed | xargs git update-index --no-assume-unchanged
 
 [include]
   path = ~/.dotfiles/local/.gitconfig
