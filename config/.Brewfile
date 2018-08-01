@@ -22,6 +22,7 @@ brew 'gettext', link: true
 brew 'git'
 brew 'git-extras'
 brew 'gpg'
+brew 'hub'
 brew 'httpie'
 brew 'imagemagick'
 brew 'jq'

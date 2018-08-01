@@ -2,7 +2,7 @@
 ./.editorconfig:~/.editorconfig
 
 # Config dotfiles
-./config/.asdfrc:~/.asdfrc
+#./config/.asdfrc:~/.asdfrc
 ./config/.bash_profile:~/.bash_profile
 ./config/.bashrc:~/.bashrc
 ./config/.Brewfile:~/.Brewfile
@@ -21,14 +21,11 @@
 ./config/hammerspoon:~/.hammerspoon
 
 # Local dotfiles
-#./local/.tool-versions:~/.tool-versions
 #./local/.zshenv.local:~/.zshenv.local
 #./local/.zshrc.local:~/.zshrc.local
 
 # Misc local files
 #./local/.Brewfile.local:~/.Brewfile.local
-#./local/.default-gems:~/.default-gems
-#./local/.default-npm-packages:~/.default-npm-packages
 
 # Local secrets
 # ??

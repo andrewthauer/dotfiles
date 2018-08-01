@@ -39,14 +39,5 @@ alias casks="brew cask search"
 alias caskx="brew cask uninstall"
 
 # Composite aliases
-alias brew-upgrade="brew update && brew bundle --global"
+alias brew-upgrade="brew update && brew upgrade"
 alias brew-clean="brew cleanup && brew cask cleanup"
-
-# brew cask repair
-brew_cask_repair() {
-  outdated_cask="${1}"
-  github_user="${GITHUB_USER}"
-
-  cd "$(brew --repository)/Library/Taps/caskroom/homebrew-cask/Casks"
-  cask-repair --pull origin --push $github_user $outdated_cask
-}

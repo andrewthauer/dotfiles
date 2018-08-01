@@ -12,7 +12,7 @@ elif [[ ! -z "${NODENV_ROOT}" && -s "${NODENV_ROOT}/bin/nodenv" ]]; then
   eval "$(nodenv init - --no-rehash)"
 
 # Load manually installed nodenv
-elif [[ -s "{$HOME/.nodenv/bin/nodenv" ]]; then
+elif [[ -s "${HOME}/.nodenv/bin/nodenv" ]]; then
   export PATH="${HOME}/.nodenv/bin:${PATH}"
   eval "$(nodenv init - --no-rehash)"
 
