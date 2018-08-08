@@ -1,5 +1,4 @@
 [core]
-	excludesfile = ~/.dotfiles/git/.gitignore
   mergeoptions = --no-edit
 
 [push]
@@ -103,4 +102,5 @@
   # unassumeall = !git assumed | xargs git update-index --no-assume-unchanged
 
 [include]
-  path = ~/.dotfiles/local/.gitconfig
+  path = ~/.dotfiles/local/git/.gitconfig
+	excludesfile = ~/.dotfiles/local/git/.gitignore

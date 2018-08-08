@@ -16,8 +16,11 @@ zplug "${DOTFILES_DIR}/modules/ssh", from:local, use:"init.sh"
 zplug "${DOTFILES_DIR}/modules/utility", from:local, use:"init.sh"
 zplug "${DOTFILES_DIR}/modules/utility", from:local, use:"bin/*", lazy:true
 
+# multi env
+#zplug "${DOTFILES_DIR}/modules/asdf", from:local, use:"init.sh", defer:0
+#zplug "${DOTFILES_DIR}/modules/anyenv", from:local, use:"init.sh", defer:0
+
 # language support
-# zplug "${DOTFILES_DIR}/modules/asdf", from:local, use:"init.sh", defer:0
 zplug "${DOTFILES_DIR}/modules/node", from:local, use:"init.sh", defer:1
 zplug "${DOTFILES_DIR}/modules/python", from:local, use:"init.sh", defer:1
 zplug "${DOTFILES_DIR}/modules/ruby", from:local, use:"init.sh", defer:1

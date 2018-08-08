@@ -2,23 +2,29 @@
 # Node.js environment initialization
 #
 
+no_rehash_arg="--no-rehash"
+
+# Use anyenv / nodenv if available
+if [[ -x "$(command -v anyenv)" && -d "$(anyenv root)/envs/nodenv" ]]; then
+  # Skip
+
 # Use asdf if available and plugin is installed
-if [[ -x "$(command -v asdf)" && -d "${ASDF_DIR}/plugins/nodejs" ]]; then
+elif [[ -x "$(command -v asdf)" && -d "${ASDF_DIR}/plugins/nodejs" ]]; then
   ASDF_NODEJS=
 
 # Load custom installed nodenv
 elif [[ ! -z "${NODENV_ROOT}" && -s "${NODENV_ROOT}/bin/nodenv" ]]; then
   export PATH="${NODENV_ROOT}/bin:${PATH}"
-  eval "$(nodenv init - --no-rehash)"
+  eval "$(nodenv init - ${no_rehash_arg})"
 
 # Load manually installed nodenv
 elif [[ -s "${HOME}/.nodenv/bin/nodenv" ]]; then
   export PATH="${HOME}/.nodenv/bin:${PATH}"
-  eval "$(nodenv init - --no-rehash)"
+  eval "$(nodenv init - ${no_rehash_arg})"
 
 # Load package manager installed nodenv
 elif [[ -x "$(command -v nodenv)" ]]; then
-  eval "$(nodenv init - --no-rehash)"
+  eval "$(nodenv init - ${no_rehash_arg})"
 
 # Load custom installed NVM
 elif [[ ! -z "${NVM_DIR}" && -s "${NVM_DIR}/nvm.sh)" ]]; then
@@ -74,3 +80,8 @@ alias npm-list-g="npm list -g --depth=0 2>/dev/null"
 # npm outdated
 alias npm-outdated="npm outdated --depth 0 -q"
 alias npm-outdated-g="npm outdated -g --depth 0 -q"
+
+# nodenv
+alias nenv="nodenv"
+alias nenv-a="nodenv alias"
+alias nenv-dpia="nodenv default-packages install --all"

@@ -2,30 +2,30 @@
 ./.editorconfig:~/.editorconfig
 
 # Config dotfiles
-#./config/.asdfrc:~/.asdfrc
-./config/.bash_profile:~/.bash_profile
-./config/.bashrc:~/.bashrc
-./config/.Brewfile:~/.Brewfile
-./config/.gitconfig:~/.gitconfig
-./config/.gemrc:~/.gemrc
-./config/.zplug:~/.zplug.zsh
-./config/.zshenv:~/.zshenv
-./config/.zshrc:~/.zshrc
-
-# Vim
-/usr/local/bin/vim:/usr/local/bin/vi
-./config/.vimrc:~/.vimrc
-./config/vim:~/.vim
-
-# Hammerspoon
+./config/bash/.bash_profile:~/.bash_profile
+./config/bash/.bashrc:~/.bashrc
+./config/brew/.Brewfile:~/.Brewfile
+./config/git/.gitconfig:~/.gitconfig
 ./config/hammerspoon:~/.hammerspoon
+./config/ruby/.gemrc:~/.gemrc
+./config/vim/.vimrc:~/.vimrc
+./config/vim:~/.vim
+./config/vim:~/.config/nvim
+./config/zsh/.zshenv:~/.zshenv
+./config/zsh/.zshrc:~/.zshrc
 
 # Local dotfiles
-#./local/.zshenv.local:~/.zshenv.local
-#./local/.zshrc.local:~/.zshrc.local
+#./local/asdf/.asdfrc:~/.asdfrc
+#./local/brew/.Brewfile.local:~/.Brewfile.local
+#./local/node/default-packages:~/.nodenv/default-packages
+#./local/python/default-packages:~/.pyenv/default-packages
+#./local/ruby/default-gems:~/.rbenv/default-gems
+#./local/zsh/.zshenv.local:~/.zshenv.local
+#./local/zsh/.zshrc.local:~/.zshrc.local
 
-# Misc local files
-#./local/.Brewfile.local:~/.Brewfile.local
+# Misc
+#/usr/local/bin/vim:/usr/local/bin/vi
+#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
 
 # Local secrets
 # ??

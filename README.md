@@ -99,13 +99,13 @@ The `local` directory (git ignored) can be used to customize the dotfiles for a 
 
 The following are part of the standard setup:
 
-- `local/.zshenv.local` - Customize the zsh environment (sourced by `zsh/.zshenv`)
-- `local/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
-- `local/.gitconfig` - This should contain any local git settings (i.e. user/email)
+- `local/zsh/.zshenv.local` - Customize the zsh environment (sourced by `zsh/.zshenv`)
+- `local/zsh/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
+- `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
 
 #### `zplug`
 
-- `local/zplug/zplug.zsh` - Load custom zsh plugins (sourced by `zsh/zplug.zsh`)
+- `local/zsh/zplug-packages.zsh` - Load custom zsh plugins (sourced by `zsh/zplug.zsh`)
 
 #### `.gitconfig`
 
@@ -121,7 +121,7 @@ You can also define local `.gitconfig` files based on specific paths:
 ```conf
 # ~/.dotfiles/local/.gitconfig
 [includeIf "gitdir:~/Code/personal"]
-path = ~/.dotfiles/local/.gitconfig-personal
+path = ~/.dotfiles/local/git/.gitconfig-personal
 ```
 
 ## Reference
