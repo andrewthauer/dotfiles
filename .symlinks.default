@@ -17,6 +17,7 @@
 # Local dotfiles
 #./local/asdf/.asdfrc:~/.asdfrc
 #./local/brew/.Brewfile.local:~/.Brewfile.local
+#./local/git/.gitignore:~/.gitignore
 #./local/node/default-packages:~/.nodenv/default-packages
 #./local/python/default-packages:~/.pyenv/default-packages
 #./local/ruby/default-gems:~/.rbenv/default-gems

@@ -103,4 +103,3 @@
 
 [include]
   path = ~/.dotfiles/local/git/.gitconfig
-	excludesfile = ~/.dotfiles/local/git/.gitignore
