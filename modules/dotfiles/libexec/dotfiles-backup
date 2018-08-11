@@ -21,4 +21,4 @@ rsync \
   --delete \
   --exclude='.git' \
   "${DOTFILES_DIR}/local" \
-  "${targert}"
+  "${target}"
