@@ -13,8 +13,8 @@ fi
 
 # Homebrew
 alias brewc="brew cleanup"
-alias brewC="brew cleanup --force"
 alias brewi="brew install"
+alias brewu="brew uninstall"
 alias brewl="brew list"
 alias brewo="brew outdated"
 alias brewr="brew remove"
