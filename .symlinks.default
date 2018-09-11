@@ -10,7 +10,6 @@
 ./config/ruby/.gemrc:~/.gemrc
 ./config/vim/.vimrc:~/.vimrc
 ./config/vim:~/.vim
-./config/vim:~/.config/nvim
 ./config/zsh/.zshenv:~/.zshenv
 ./config/zsh/.zshrc:~/.zshrc
 
