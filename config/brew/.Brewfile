@@ -35,29 +35,21 @@ brew 'tree'
 brew 'yarn', args: ['without-node']
 brew 'zsh'
 
-# caskroom
+# tap casks
 tap 'homebrew/cask'
+tap 'homebrew/cask-versions'
+tap 'homebrew/cask-fonts'
+
+# homebrew cask
 cask 'dash'
 cask 'docker'
-cask 'google-chrome'
 cask 'hammerspoon'
 cask 'iterm2'
-cask 'spotify'
 cask 'the-unarchiver'
 cask 'visual-studio-code'
 
-# caskroom drivers
-cask 'chromedriver'
-
-# caskroom/versions
-tap 'homebrew/cask-versions'
-cask 'homebrew/cask-versions/firefox-developer-edition'
-
 # caskroom/fonts
-tap 'homebrew/cask-fonts'
 cask 'homebrew/cask-fonts/font-fira-code'
-cask 'homebrew/cask-fonts/font-roboto'
-cask 'homebrew/cask-fonts/font-open-sans'
 
 # Local Brewfile
 local_brewfile = File.expand_path('~/.Brewfile.local')
