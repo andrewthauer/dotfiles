@@ -23,34 +23,14 @@ Here's a list of things that are used:
 
 ## Setup
 
-### Create SSH Key
+### TL;DR;
 
-The setup instructions assume using `git` with `ssh`:
-
-```sh
-# This will create an `id_rsa` key in the `~/.ssh` directory
-SSH_KEY_NAME="id_rsa" sh <(curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/master/bin/ssh-key-gen')
-```
-
-[Add the SSH Key to your GitHub account](https://help.github.com/articles/generating-ssh-keys/#step-4-add-your-ssh-key-to-your-account).
-
-### Dotfiles Setup
-
-Change zsh to the default shell:
-
-```sh
-chsh -s $(which zsh)
-```
-
-Setup the dotfiles repo:
-
-```sh
+```shell
 git clone git@github.com:andrewthauer/dotfiles.git
 cd dotfiles
 ./bin/dotfiles setup
+# ... restart your shell
 ```
-
-Restart your shell
 
 ### System Specific
 
@@ -79,10 +59,6 @@ The following directories are used to organize the dotfiles.
 
 The `config` directory contains common configuration files & directories which may be symlinked to the `~` home directory.
 
-These files following files can be used to customize:
-
-- `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the - `.symlinks.default` file. Each line represents a file to be symlinked using `:` as a delimeter (e.g `./src/file:~/dest/file`)
-
 ### `modules`
 
 Modules are based on topics grouped into a specific directory (i.e. zsh, git, etc.). The following conventions are used:
@@ -103,11 +79,28 @@ The following are part of the standard setup:
 - `local/zsh/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
 - `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
 
-#### `zplug`
+## Configuration
 
-- `local/zsh/zplug-packages.zsh` - Load custom zsh plugins (sourced by `zsh/zplug.zsh`)
+Most configuration is handled via symlinks to the users home directory. Non system specific settings are defined in the `config` directory while local system  configurations & secrets should be added to the `./local` directory.
 
-#### `.gitconfig`
+### Setting up Symlinks
+
+The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the - `.symlinks.default` file. Each line represents a file to be symlinked using `:` as a delimeter (e.g `./src/file:~/dest/file`)
+
+### Zplug
+
+ZSH plugins can be customized via a `local/zsh/zplug-packages.zsh` file.
+
+### Homebrew
+
+You can create a `~/.Brewfile.local` file to add system specific brew packages view `brew bundle`.
+
+### SSH
+
+The `ssh-config-merge` command allows seperate SSH configuration files to be merged. For more
+details [see the command](./modules/ssh/bin/ssh-config-merge).
+
+### Git
 
 You can also define local `.gitconfig` files based on specific paths:
 
