@@ -5,6 +5,9 @@
 #
 
 # Taps
+tap 'homebrew/cask'
+tap 'homebrew/cask-versions'
+tap 'homebrew/cask-fonts'
 tap 'homebrew/services' # https://github.com/Homebrew/homebrew-services
 
 # Brews
@@ -24,21 +27,14 @@ brew 'libtool'
 brew 'libxml2'
 brew 'libxslt'
 brew 'libyaml'
-brew 'neovim'
 brew 'openssl'
 brew 'openvpn'
 brew 'pandoc'
 brew 'pkg-config'
 brew 'readline'
-brew 'syncthing'
 brew 'tree'
 brew 'yarn', args: ['without-node']
 brew 'zsh'
-
-# tap casks
-tap 'homebrew/cask'
-tap 'homebrew/cask-versions'
-tap 'homebrew/cask-fonts'
 
 # homebrew cask
 cask 'dash'
