@@ -10,6 +10,7 @@
 #
 
 public_ip() {
+  # echo $(curl ifconfig.co)
   echo $(dig +short myip.opendns.com @resolver1.opendns.com)
 }
 
