@@ -20,6 +20,7 @@ brew 'fasd'
 brew 'gcc'
 brew 'gettext', link: true
 brew 'git'
+brew 'git-open'
 brew 'gpg'
 brew 'imagemagick'
 brew 'lesspipe'
