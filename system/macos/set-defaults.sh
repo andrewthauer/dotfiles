@@ -26,6 +26,9 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 # Disable animations when opening a Quick Look window
 defaults write -g QLPanelAnimationDuration -float 0
 
+# Prefer tabs when opening windows
+defaults write -g AppleWindowTabbingMode -string "always"
+
 # =============================================================================
 # Input - Keyboard
 # =============================================================================
@@ -172,6 +175,9 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
+
+# Don't show recentt applications
+defaults write com.apple.dock show-recents -bool false
 
 # Make Dock icons of hidden applications translucent
 # defaults write com.apple.dock showhidden -bool true
