@@ -1,3 +1,6 @@
+[include]
+  path = ~/.dotfiles/local/git/.gitconfig
+
 [core]
   mergeoptions = --no-edit
   excludesfile = ~/.gitignore
@@ -101,6 +104,3 @@
   # rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
   # unassume = update-index --no-assume-unchanged
   # unassumeall = !git assumed | xargs git update-index --no-assume-unchanged
-
-[include]
-  path = ~/.dotfiles/local/git/.gitconfig
