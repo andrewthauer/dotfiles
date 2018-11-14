@@ -19,23 +19,26 @@ alias gba="git branch -a"
 alias gbd="git branch -d"
 
 # C
-alias gc="git commit -v"
+alias gci="git commit"
 alias gcb="git checkout -b"
 alias gcf="git config --list"
-alias gcl="git clone --recursive"
-alias gclean="git clean -fd"
-alias gpristine="git reset --hard && git clean -dfx"
 alias gcm="git checkout master"
-alias gcmsg="git commit -m"
+alias gcim="git commit -m"
 alias gco="git checkout"
 
 # D
 alias gd="git diff"
 
+# P
+alias gpushu="git pushu"
+alias gpushf="git pushf"
+
+# R
+alias grm="git rebase -i master"
+
 # S
+alias gsb="git squashbase"
 alias gst="git status"
-alias gstu="git status --untracked-files"
-alias gsyncfork="git fetch upstream && git checkout master && git merge upstream/master"
 
 # W
 alias gwt="git worktree"

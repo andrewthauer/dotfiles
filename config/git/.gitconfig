@@ -13,12 +13,22 @@
   authors = shortlog -sn
   # Shortcut for `git branch`
   br = branch
+  # Delete a branch
+  brd = branch -d
   # Show local branches with details
   branches = branch -vv
   # Rename the branch
   branch-name = !git rev-parse --abbrev-ref HEAD
+  # List configuration
+  cf = config --list
   # Commit the staged changes
   ci = commit
+  # Commit the staged changes with message
+  cim = commit -m
+  # Reset and clean the repo dir
+  clean-pristine = reset --hard && git clean -dfx
+  # Clones recursively
+  cloner = clone --recursive
   # Shortcut for `git checkout`
   co = checkout
   # Cherry pick commits
@@ -27,6 +37,8 @@
   cps = cherry-pick -s
   # Display the number of commits
   count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
+  # Checkout master
+  cm = checkout master
   # Show changes that have been staged
   diffc = diff --cached
   # Show the difference from master
@@ -52,7 +64,7 @@
   # Ammend the last commit
   meh = commit --amend
   # Create a new branch `git [newb] [proj [branchName]`
-  newb = "!f() { proj=$1 ticketNum=$2; branchName=$3; git checkout -b \"${proj^^j}-${ticketNum}-${branchName}\"; }; f"
+  newf = "!f() { ticketNum=$1; branchName=$2; git checkout -b \"feature/${ticketNum}-${branchName}\"; }; f"
   # Do not auto commit in order to inspect the result
   nomerge = --no-commit --no-ff $@
   # Stage our files during a merge
@@ -61,7 +73,12 @@
   out = !git wtf HEAD@{u}..HEAD
   # Pull master and rebase current branch on top
   pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
-  # prune
+  # Push force no-verify
+  pushf= push -f --no-verify
+  # Push upstream
+  pushu= !git push -u origin `git branch-name`
+  # Rebase master
+  rbm = rebase -i master
   # Reset to origin/master
   reset-to-master = !git fetch origin && git reset --hard origin/master
   # Reset to origin/[branch]
@@ -70,8 +87,12 @@
   slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
   # Squash up to master
   squashbase = "!f() { branchName=${1-master}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
+  # Alias for squashbase
+  sb = squashbase
   # Show current branch status with short format
   st = status -sb
+  # Show current branch status with untracked files
+  stu = status --untracked-files
   # Pull & push the current branch
   sync = !git pull && git push
   # Update a fork
