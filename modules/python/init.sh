@@ -6,7 +6,7 @@ no_rehash_arg="--no-rehash"
 
 # Use anyenv / pyenv if available
 if [[ -x "$(command -v anyenv)" && -d "$(anyenv root)/envs/pyenv" ]]; then
-  # Nothing to do
+  echo skip
 
 # Use asdf if available and plugin is installed
 elif [[ -x "$(command -v asdf)" && -d "${ASDF_DIR}/plugins/python" ]]; then

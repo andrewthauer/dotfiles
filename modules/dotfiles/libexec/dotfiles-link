@@ -25,10 +25,12 @@ symlink_item() {
   fi
 
   # Create new symlink
-  if [ -e "$src_file" ]; then
-    ln -s "$src_file" "$dest_file"
-  else
+  if [ ! -e "$src_file" ]; then
+    echo "WARNING: Source does not exist - "$src_file""
+  elif [ -e "$dest_file" ]; then
     echo "WARNING: Destination file already exists - "$dest_file""
+  else
+    ln -s "$src_file" "$dest_file"
   fi
 }
 

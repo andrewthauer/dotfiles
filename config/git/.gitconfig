@@ -25,6 +25,8 @@
   ci = commit
   # Commit the staged changes with message
   cim = commit -m
+  # Commit with a meh message the squashbase
+  cisb = !git commit -m 'meh squash' && git squashbase
   # Reset and clean the repo dir
   clean-pristine = reset --hard && git clean -dfx
   # Clones recursively
@@ -79,6 +81,8 @@
   pushu= !git push -u origin `git branch-name`
   # Rebase master
   rbm = rebase -i master
+  # Rebase master
+  rbc = rebase --continue
   # Reset to origin/master
   reset-to-master = !git fetch origin && git reset --hard origin/master
   # Reset to origin/[branch]

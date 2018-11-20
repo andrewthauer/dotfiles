@@ -6,7 +6,7 @@ no_rehash_arg="--no-rehash"
 
 # Use anyenv / rbenv if available
 if [[ -x "$(command -v anyenv)" && -d "$(anyenv root)/envs/rbenv" ]]; then
-  # Nothing to do
+  echo skip
 
 # Use asdf if available and plugin is installed
 elif [[ -x "$(command -v asdf)" && -d "${ASDF_DIR}/plugins/ruby" ]]; then

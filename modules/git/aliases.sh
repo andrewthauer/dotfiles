@@ -24,6 +24,7 @@ alias gcb="git checkout -b"
 alias gcf="git config --list"
 alias gcm="git checkout master"
 alias gcim="git commit -m"
+alias gcisb="git cisb"
 alias gco="git checkout"
 
 # D
@@ -35,6 +36,7 @@ alias gpushf="git pushf"
 
 # R
 alias grm="git rebase -i master"
+alias grc="git rebase --continue"
 
 # S
 alias gsb="git squashbase"
