@@ -38,15 +38,15 @@ brew 'yarn', args: ['without-node']
 brew 'zsh'
 
 # homebrew cask
-cask 'dash'
-cask 'docker'
-cask 'hammerspoon'
-cask 'iterm2'
-cask 'the-unarchiver'
-cask 'visual-studio-code'
+# cask 'dash'
+# cask 'docker'
+# cask 'hammerspoon'
+# cask 'iterm2'
+# cask 'the-unarchiver'
+# cask 'visual-studio-code'
 
 # caskroom/fonts
-cask 'homebrew/cask-fonts/font-fira-code'
+# cask 'homebrew/cask-fonts/font-fira-code'
 
 # Local Brewfile
 local_brewfile = File.expand_path('~/.Brewfile.local')
