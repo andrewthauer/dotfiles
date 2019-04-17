@@ -10,7 +10,7 @@ ZDOTDIR="${ZDOTDIR:-$HOME}"
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Load common shell environment
-source "${DOTFILES_DIR}/config/shared/environment.sh"
+source "${DOTFILES_DIR}/shell/environment.sh"
 
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
@@ -19,7 +19,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $path
-  ${DOTFILES_DIR}/{local/bin,bin}
+  ${DOTFILES_DIR}/{bin,local/bin}
 )
 
 # Set the function path

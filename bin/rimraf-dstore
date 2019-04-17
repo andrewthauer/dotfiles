@@ -1,15 +1,8 @@
-#
-# macOS Helpers
-#
+#!/usr/bin/env sh
 
-# Skip if not running on macOS
 if [[ "$OSTYPE" != darwin* ]]; then
   return
 fi
-
-#
-# Functions
-#
 
 rimraf_dsstore() {
   local search_path=$1

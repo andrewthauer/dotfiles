@@ -7,7 +7,7 @@
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
 # Load common shell environment
-source "${DOTFILES_DIR}/config/shared/environment.sh"
+source "${DOTFILES_DIR}/shell/environment.sh"
 
 # Load the local .bash_profile file
 if [[ -f "$HOME/.bash_profile.local" ]]; then

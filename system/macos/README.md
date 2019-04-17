@@ -66,5 +66,5 @@ ${DOTFILES_DIR}/system/macos/set-hostname.sh "my-host-name"
 ### Install Homebrew
 
 ```shell
-${DOTFILES_DIR}/modules/brew/install.sh
+${DOTFILES_DIR}/system/macos/install-brew.sh
 ```

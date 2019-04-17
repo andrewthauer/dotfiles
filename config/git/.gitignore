@@ -23,3 +23,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Other
+yarn-error.log
+.tool-versions
+.angulardoc.json

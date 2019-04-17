@@ -1,27 +1,28 @@
 # Global editorconfig
-./.editorconfig:~/.editorconfig
 
 # Config dotfiles
-./config/bash/.bash_profile:~/.bash_profile
-./config/bash/.bashrc:~/.bashrc
-./config/brew/.Brewfile:~/.Brewfile
-./config/git/.gitconfig:~/.gitconfig
 ./config/hammerspoon:~/.hammerspoon
-./config/ruby/.gemrc:~/.gemrc
-./config/vim/.vimrc:~/.vimrc
-./config/vim:~/.vim
-./config/zsh/.zshenv:~/.zshenv
-./config/zsh/.zshrc:~/.zshrc
+./config/git/.gitignore:~/.gitignore
+./vim/.vimrc:~/.vimrc
+./vim:~/.vim
+./.bash_profile:~/.bash_profile
+./.bashrc:~/.bashrc
+./.Brewfile:~/.Brewfile
+./.editorconfig:~/.editorconfig
+./.gitconfig:~/.gitconfig
+./.zshenv:~/.zshenv
+./.zshrc:~/.zshrc
 
 # Local dotfiles
-#./local/asdf/.asdfrc:~/.asdfrc
 #./local/brew/.Brewfile.local:~/.Brewfile.local
 #./local/git/.gitignore:~/.gitignore
+#./local/zsh/.zshenv.local:~/.zshenv.local
+#./local/zsh/.zshrc.local:~/.zshrc.local
+
+# Default packages
 #./local/node/default-packages:~/.nodenv/default-packages
 #./local/python/default-packages:~/.pyenv/default-packages
 #./local/ruby/default-gems:~/.rbenv/default-gems
-#./local/zsh/.zshenv.local:~/.zshenv.local
-#./local/zsh/.zshrc.local:~/.zshrc.local
 
 # Misc
 #/usr/local/bin/vim:/usr/local/bin/vi

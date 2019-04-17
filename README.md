@@ -51,7 +51,7 @@ The following directories are used to organize the dotfiles.
 
 - `bin` - Contains various scripts (added to `$PATH`)
 - `config` - Contains all configuration files
-- `modules` - Contains various topic based modules
+- `modules` - Contains topic based modules
 - `local` - Used for local environment customizations
 - `system` - Used for OS specific settings & scripts
 
@@ -63,7 +63,7 @@ The `config` directory contains common configuration files & directories which m
 
 Modules are based on topics grouped into a specific directory (i.e. zsh, git, etc.). The following conventions are used:
 
-- `_init.zsh` - Used to initialize the module
+- `init.zsh` - Used to initialize the module
 - `aliases.zsh` - Contains various aliases
 - `bin` - Contains executable commands (may be added to `$PATH`)
 - `functions` - Contains functions that can be sourced
@@ -98,7 +98,7 @@ You can create a `~/.Brewfile.local` file to add system specific brew packages v
 ### SSH
 
 The `ssh-config-merge` command allows seperate SSH configuration files to be merged. For more
-details [see the command](./modules/ssh/bin/ssh-config-merge).
+details [see the command](./bin/ssh-config-merge).
 
 ### Git
 

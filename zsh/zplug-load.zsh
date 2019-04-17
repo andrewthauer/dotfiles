@@ -4,8 +4,7 @@
 
 # Zplug settings
 ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
-ZPLUG_LOADFILE="${ZPLUG_LOADFILE:-$DOTFILES_DIR/config/zsh/zplug-packages.zsh}"
-# ZPLUG_LOADFILE_LOCAL=
+ZPLUG_LOADFILE="${ZPLUG_LOADFILE:-$DOTFILES_DIR/zsh/zplug-packages.zsh}"
 
 # Initialize zplug
 if [[ -f "${ZPLUG_HOME}/init.zsh" ]]; then
