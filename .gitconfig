@@ -1,9 +1,6 @@
-[include]
-  path = ~/.dotfiles/local/git/.gitconfig
-
 [core]
   mergeoptions = --no-edit
-  excludesfile = ~/.gitignore
+  # excludesfile = ~/.gitignore
 
 [push]
   default = simple
@@ -117,11 +114,7 @@
   wt = worktree
   # Display a pretty change log
   wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
-
-  #
   # Advanced
-  #
-
   # autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
   # comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
   # delete-remote-merged = git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
@@ -129,3 +122,6 @@
   # rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
   # unassume = update-index --no-assume-unchanged
   # unassumeall = !git assumed | xargs git update-index --no-assume-unchanged
+
+[include]
+  path = ~/.dotfiles/local/git/.gitconfig
