@@ -18,7 +18,7 @@ source "${DOTFILES_DIR}/zsh/zplug-load.zsh"
 source "${DOTFILES_DIR}/zsh/keybinds.zsh"
 source "${DOTFILES_DIR}/zsh/history.zsh"
 
-# Dotfiles module
+# Modules
 source "${DOTFILES_DIR}/modules/dotfiles/init.zsh"
 
 # Load the local zsh file
