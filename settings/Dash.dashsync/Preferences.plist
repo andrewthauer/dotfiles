@@ -830,7 +830,7 @@
 			<key>angular/angular-cli</key>
 			<dict>
 				<key>date</key>
-				<date>2019-05-02T11:38:55Z</date>
+				<date>2019-05-08T13:21:57Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -858,7 +858,7 @@
 			<key>eslint/eslint</key>
 			<dict>
 				<key>date</key>
-				<date>2019-05-06T02:20:18Z</date>
+				<date>2019-05-08T13:22:21Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -942,7 +942,7 @@
 			<key>ngrx/platform</key>
 			<dict>
 				<key>date</key>
-				<date>2019-05-07T02:19:12Z</date>
+				<date>2019-05-08T13:21:08Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -956,7 +956,7 @@
 			<key>palantir/tslint</key>
 			<dict>
 				<key>date</key>
-				<date>2019-05-06T02:18:59Z</date>
+				<date>2019-05-08T13:21:56Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -970,7 +970,7 @@
 			<key>plotly/plotly.js</key>
 			<dict>
 				<key>date</key>
-				<date>2019-05-03T19:49:38Z</date>
+				<date>2019-05-08T13:21:45Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>

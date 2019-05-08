@@ -48,26 +48,12 @@ dotfiles help
 ## Structure
 
 The dotfiles are mostly organzied by topic folder. The following directories
-are are .
+do not follow the specific topic organization:
 
 - `bin` - Contains various scripts (added to `$PATH`)
-- `config` - Contains misc app configuration files
-- `modules` - Contains re-usable modules / plugins
 - `local` - Used for local environment customizations
-
-### `config`
-
-The `config` directory contains common configuration files & directories which may be symlinked to the `~` home directory.
-
-### `modules`
-
-Modules are based on topics grouped into a specific directory (i.e. zsh, git, etc.). The following conventions are used:
-
-- `init.zsh` - Used to initialize the module
-- `aliases.zsh` - Contains various aliases
-- `bin` - Contains executable commands (may be added to `$PATH`)
-- `functions` - Contains functions that can be sourced
-- `modules` - Contains additional submodules
+- `modules` - Contains re-usable modules / plugins
+- `settings` - Contains misc app configuration files
 
 ### `local`
 
@@ -78,6 +64,16 @@ The following are part of the standard setup:
 - `local/zsh/.zshenv.local` - Customize the zsh environment (sourced by `zsh/.zshenv`)
 - `local/zsh/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
 - `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
+
+### `modules`
+
+Modules are based on topics grouped into a specific directory (i.e. zsh, git, etc.). The following conventions are used:
+
+- `init.zsh` - Used to initialize the module
+- `aliases.zsh` - Contains various aliases
+- `bin` - Contains executable commands (may be added to `$PATH`)
+- `functions` - Contains functions that can be sourced
+- `modules` - Contains additional submodules
 
 ## Configuration
 
