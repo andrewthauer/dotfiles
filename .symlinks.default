@@ -3,8 +3,6 @@
 # Config dotfiles
 ./config/hammerspoon:~/.hammerspoon
 ./config/git/.gitignore:~/.gitignore
-./vim/.vimrc:~/.vimrc
-./vim:~/.vim
 ./.bash_profile:~/.bash_profile
 ./.bashrc:~/.bashrc
 ./.Brewfile:~/.Brewfile
@@ -12,6 +10,14 @@
 ./.gitconfig:~/.gitconfig
 ./.zshenv:~/.zshenv
 ./.zshrc:~/.zshrc
+
+# Vim
+./vim:~/.vim
+./vim/.vimrc:~/.vimrc
+./vim:~/.config/nvim
+./vim/.vimrc:~/.config/nvim/init.vim
+/usr/local/bin/nvim:/usr/local/bin/vi
+/usr/local/bin/nvim:/usr/local/bin/vim
 
 # Local dotfiles
 #./local/brew/.Brewfile.local:~/.Brewfile.local

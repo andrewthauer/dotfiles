@@ -21,15 +21,19 @@
   # Commit the staged changes
   ci = commit
   # Commit the staged changes with message
-  cim = commit -m
+  cim = !git commit -m ${1-'chore: meh'}
   # Commit with a meh message the squashbase
-  cisb = !git commit -m 'chore: meh squash' && git squashbase
+  cis = !git commit -m 'chore: meh' && git squash
+  # Commit with a meh message the squashbase
+  cisb = !git commit -m 'chore: meh' && git squashbase
   # Reset and clean the repo dir
   clean-pristine = reset --hard && git clean -dfx
   # Clones recursively
   cloner = clone --recursive
   # Shortcut for `git checkout`
   co = checkout
+  # Checkout default branch
+  cod = !git checkout $(git default-branch)
   # Cherry pick commits
   cp = cherry-pick
   # Cherry pick with sign off line
@@ -38,14 +42,14 @@
   count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
   # Checkout master
   cm = checkout master
+  # Get default branch for repo
+  default-branch = !git symbolic-ref --short refs/remotes/origin/HEAD | sed 's@^origin/@@'
   # Show changes that have been staged
   diffc = diff --cached
   # Show the difference from master
   diffm = diff master...`!git branch-name`
   # Fetch and prune all branches that do not exist in remote
   fetchp = fetch -p
-  # Show log with details
-  gflog = log -p --cc --graph --decorate
   # Show log as tree visually (one commit per line)
   gslog = log --oneline --graph --decorate
   # Show log (one commit per line)
@@ -53,7 +57,7 @@
   # Display a log of incoming changes
   in = !git wtf HEAD..HEAD@{u}
   # Delete all merged branches but master
-  killbranches = !git branch --merged | grep -v '\\bmaster\\b'      | xargs git branch -d
+  killbranches = !git branch --merged | grep -v '\\bmaster\\b' | xargs git branch -d
   # Display the last tag info
   lasttag = describe --tags --abbrev=0
   # List all files
@@ -76,9 +80,13 @@
   pushf= push -f --no-verify
   # Push upstream
   pushu= !git push -u origin `git branch-name`
+  # Rebase
+  rb = rebase
+  # Rebase default branch
+  rbd = "!f() { branchName=$(git default-branch); git squashbase -i $branchName; }; f"
   # Rebase master
   rbm = rebase -i master
-  # Rebase master
+  # Rebase continue
   rbc = rebase --continue
   # Reset to origin/master
   reset-to-master = !git fetch origin && git reset --hard origin/master
@@ -86,8 +94,10 @@
   reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
   # Show log with details (one commit per line)
   slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+  # squash up to
+  squash = !git rebase -i HEAD~${1:-2}
   # Squash up to master
-  squashbase = "!f() { branchName=${1-master}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
+  squashbase = "!f() { defaultBranch=$(git default-branch); branchName=${1-$defaultBranch}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
   # Alias for squashbase
   sb = squashbase
   # Show current branch status with short format

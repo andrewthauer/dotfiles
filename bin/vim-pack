@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Installs or updates a Vim 8 native package
+#
+# usage:
+#   vim-pack vim-scripts/Zenburn
+#
+
+# Plugin directories
+VIM_DIR="${DOTFILES_DIR}/vim"
+VIM_PACK_DIR="${VIM_DIR}/pack/default"
+
+#
+# Functions
+#
+
+pushd () {
+  command pushd "$@" > /dev/null
+}
+
+popd () {
+  command popd "$@" > /dev/null
+}
+
+install_or_update_plugin() {
+  repo="$1"
+  IFS='/'; arr=($repo); unset IFS;
+  plugin="${arr[1]}"
+
+  pushd "${VIM_PACK_DIR}/start"
+
+  if [ ! -d "$plugin" ]; then
+    echo "Installing ${plugin} ..."
+    git clone "https://github.com/${repo}"
+  else
+    pushd ${plugin}
+    echo "Updating ${plugin} ..."
+    git pull
+    popd
+  fi
+
+  popd
+}
+
+#
+# Script
+#
+
+# Ensure directories exist
+mkdir -p "${VIM_PACK_DIR}/opt"
+mkdir -p "${VIM_PACK_DIR}/start"
+
+# Install or update the argument
+install_or_update_plugin $1
