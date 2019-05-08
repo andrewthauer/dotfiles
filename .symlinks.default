@@ -27,36 +27,18 @@
 # Misc
 ./brew/Brewfile:~/.Brewfile
 ./hammerspoon:~/.hammerspoon
+#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
 
 #
 # Local dotfiles
 #
 
-# Root files
-#./local/brew/.Brewfile.local:~/.Brewfile.local
-#./local/git/.gitignore:~/.gitignore
-#./local/zsh/.zshenv.local:~/.zshenv.local
-#./local/zsh/.zshrc.local:~/.zshrc.local
-
-# Default packages
-#./local/node/default-packages:~/.nodenv/default-packages
-#./local/python/default-packages:~/.pyenv/default-packages
-#./local/ruby/default-gems:~/.rbenv/default-gems
+#./local/brew/Brewfile:~/.Brewfile.local
+#./local/zsh/.zshenv:~/.zshenv.local
+#./local/zsh/.zshrc:~/.zshrc.local
 
 #
 # Secrets
 #
 
-# [secrets]
-
-#
-# Other
-#
-
-# Default packages
-#./local/node/default-packages:~/.nodenv/default-packages
-#./local/python/default-packages:~/.pyenv/default-packages
-#./local/ruby/default-gems:~/.rbenv/default-gems
-
-# Misc
-#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
+# ...
