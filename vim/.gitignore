@@ -1,3 +1,4 @@
-pack/plugins
+pack/default
 !.gitkeep
 tmp
+.netrwhist

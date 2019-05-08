@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-# Get current directory name
-DIR="$(dirname ${BASH_SOURCE[0]})"
+VIM_DIR="${DOTFILES_DIR}/vim"
+VIM_PACK_DIR="${VIM_DIR}/pack/default"
 
-# Ensure directories exist
-mkdir -p "${DIR}/settings"
-mkdir -p "${DIR}/pack/plugins/opt"
-mkdir -p "${DIR}/pack/plugins/start"
+# Create a settings directory
+mkdir -p "${VIM_DIR}/settings"
 
-# Install plugins
-git clone https://github.com/editorconfig/editorconfig-vim "${DIR}/pack/plugins/start/editorconfig-vim"
-git clone https://github.com/vim-scripts/Zenburn.git "${DIR}/pack/plugins/start/Zenburn"
+# Install vim plugins
+vim-pack 'editorconfig/editorconfig-vim'
+vim-pack 'vim-scripts/Zenburn'
+vim-pack 'sheerun/vim-polyglot'
+vim-pack 'w0rp/ale'
+vim-pack 'junegunn/fzf'
+vim-pack 'neoclide/coc.nvim'
+vim-pack 'neoclide/coc-tsserver'
