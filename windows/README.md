@@ -23,4 +23,4 @@ Follow the [README](../../readme.md#setup) for general setup.
 
 *NOTE: This is a work in progress ...*
 
-Various windows configuration settings can be symlinked to the user profile directory (making them more portable). Running the PowerShell script `system/windows/setup.ps1` will run the windows setup routines.
+Various windows configuration settings can be symlinked to the user profile directory (making them more portable). Running the PowerShell script `windows/setup.ps1` will run the windows setup routines.

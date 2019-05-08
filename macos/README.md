@@ -57,14 +57,14 @@ cd dotfiles
 
 ```shell
 # macOS default settings
-${DOTFILES_DIR}/system/macos/set-defaults.sh
+${DOTFILES_DIR}/macos/set-defaults.sh
 
 # Set HostName, LocalHostName & ComputerName
-${DOTFILES_DIR}/system/macos/set-hostname.sh "my-host-name"
+${DOTFILES_DIR}/macos/set-hostname.sh "my-host-name"
 ```
 
 ### Install Homebrew
 
 ```shell
-${DOTFILES_DIR}/system/macos/install-brew.sh
+${DOTFILES_DIR}/macos/install-brew.sh
 ```

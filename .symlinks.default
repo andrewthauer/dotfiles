@@ -1,15 +1,17 @@
-# Global editorconfig
-
 # Config dotfiles
-./config/hammerspoon:~/.hammerspoon
-./config/git/.gitignore:~/.gitignore
 ./.bash_profile:~/.bash_profile
 ./.bashrc:~/.bashrc
 ./.Brewfile:~/.Brewfile
 ./.editorconfig:~/.editorconfig
-./.gitconfig:~/.gitconfig
 ./.zshenv:~/.zshenv
 ./.zshrc:~/.zshrc
+
+# Dotfile directories
+./hammerspoon:~/.hammerspoon
+
+# Git
+./git/.gitignore:~/.gitignore
+./git/.gitconfig:~/.gitconfig
 
 # Vim
 ./vim:~/.vim
@@ -19,7 +21,14 @@
 /usr/local/bin/nvim:/usr/local/bin/vi
 /usr/local/bin/nvim:/usr/local/bin/vim
 
+# Misc
+#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
+
+#
 # Local dotfiles
+#
+
+# Root files
 #./local/brew/.Brewfile.local:~/.Brewfile.local
 #./local/git/.gitignore:~/.gitignore
 #./local/zsh/.zshenv.local:~/.zshenv.local
@@ -30,9 +39,8 @@
 #./local/python/default-packages:~/.pyenv/default-packages
 #./local/ruby/default-gems:~/.rbenv/default-gems
 
-# Misc
-#/usr/local/bin/vim:/usr/local/bin/vi
-#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
+#
+# Secrets
+#
 
-# Local secrets
-# ??
+# [secrets]
