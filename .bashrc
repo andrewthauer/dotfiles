@@ -26,9 +26,16 @@ fi
 # Prompt
 # PS1=
 
-# Common shell files
-source "${DOTFILES_DIR}/shell/aliases.sh"
+# Common shell config
 source "${DOTFILES_DIR}/shell/init.sh"
+
+# Aliases
+source "${DOTFILES_DIR}/shell/aliases.sh"
+source "${DOTFILES_DIR}/git/aliases.sh"
+source "${DOTFILES_DIR}/brew/aliases.sh"
+source "${DOTFILES_DIR}/docker/aliases.sh"
+source "${DOTFILES_DIR}/node/aliases.sh"
+source "${DOTFILES_DIR}/ruby/aliases.sh"
 
 # Load the local .bashrc file
 if [[ -f "$HOME/.bashrc.local" ]]; then

@@ -34,9 +34,9 @@ cd dotfiles
 
 ### System Specific
 
-* [macOS](system/macos/README.md)
-* [Linux](system/linux/README.md)
-* [Windows Bash](system/windows/README.md)
+* [macOS](macos/README.md)
+* [Linux](linux/README.md)
+* [Windows Bash](windows/README.md)
 
 ## Commands
 
@@ -47,13 +47,13 @@ dotfiles help
 
 ## Structure
 
-The following directories are used to organize the dotfiles.
+The dotfiles are mostly organzied by topic folder. The following directories
+are are .
 
 - `bin` - Contains various scripts (added to `$PATH`)
-- `config` - Contains all configuration files
-- `modules` - Contains topic based modules
+- `config` - Contains misc app configuration files
+- `modules` - Contains re-usable modules / plugins
 - `local` - Used for local environment customizations
-- `system` - Used for OS specific settings & scripts
 
 ### `config`
 

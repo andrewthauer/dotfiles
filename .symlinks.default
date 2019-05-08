@@ -1,13 +1,12 @@
-# Config dotfiles
+#
+# Common dotfiles
+#
+
 ./.bash_profile:~/.bash_profile
 ./.bashrc:~/.bashrc
-./.Brewfile:~/.Brewfile
-./.editorconfig:~/.editorconfig
 ./.zshenv:~/.zshenv
 ./.zshrc:~/.zshrc
-
-# Dotfile directories
-./hammerspoon:~/.hammerspoon
+./.editorconfig:~/.editorconfig
 
 # Git
 ./git/.gitignore:~/.gitignore
@@ -22,7 +21,8 @@
 /usr/local/bin/nvim:/usr/local/bin/vim
 
 # Misc
-#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
+./brew/Brewfile:~/.Brewfile
+./hammerspoon:~/.hammerspoon
 
 #
 # Local dotfiles
@@ -44,3 +44,15 @@
 #
 
 # [secrets]
+
+#
+# Other
+#
+
+# Default packages
+#./local/node/default-packages:~/.nodenv/default-packages
+#./local/python/default-packages:~/.pyenv/default-packages
+#./local/ruby/default-gems:~/.rbenv/default-gems
+
+# Misc
+#./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1

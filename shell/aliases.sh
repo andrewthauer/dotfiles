@@ -111,13 +111,3 @@ if [[ -x $(command -v python3) ]]; then
 else
   alias http-serve="python -m SimpleHTTPServer"
 fi
-
-#
-# Other modules
-#
-
-source "${DOTFILES_DIR}/modules/docker/aliases.sh"
-source "${DOTFILES_DIR}/modules/git/aliases.sh"
-source "${DOTFILES_DIR}/modules/homebrew/aliases.sh"
-source "${DOTFILES_DIR}/modules/node/aliases.sh"
-source "${DOTFILES_DIR}/modules/ruby/aliases.sh"
