@@ -2,11 +2,15 @@
 # Common dotfiles
 #
 
-./.bash_profile:~/.bash_profile
-./.bashrc:~/.bashrc
+./.editorconfig:~/.editorconfig
+
+# Bash
+./bash/.bash_profile:~/.bash_profile
+./bash/.bashrc:~/.bashrc
+
+# Zsh
 ./.zshenv:~/.zshenv
 ./.zshrc:~/.zshrc
-./.editorconfig:~/.editorconfig
 
 # Git
 ./git/.gitignore:~/.gitignore
