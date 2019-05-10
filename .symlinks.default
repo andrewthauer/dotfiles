@@ -13,7 +13,7 @@
 ./.zshrc:~/.zshrc
 
 # Git
-./git/.gitignore:~/.gitignore
+./git/.gitignore_global:~/.gitignore
 ./git/.gitconfig:~/.gitconfig
 
 # Vim
@@ -21,8 +21,7 @@
 ./vim/.vimrc:~/.vimrc
 ./vim:~/.config/nvim
 ./vim/.vimrc:~/.config/nvim/init.vim
-/usr/local/bin/nvim:/usr/local/bin/vi
-/usr/local/bin/nvim:/usr/local/bin/vim
+/usr/local/bin/vim:/usr/local/bin/vi
 
 # Misc
 ./brew/Brewfile:~/.Brewfile

@@ -1,4 +1,4 @@
-pack/default
 !.gitkeep
-tmp
 .netrwhist
+pack/default
+!pack/install.sh

@@ -110,6 +110,11 @@ augroup filetype_gitcommit
   autocmd FileType gitcommit set textwidth=72 "Word wrap long git messages
 augroup END
 
+augroup filetype_json
+  autocmd!
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup END
+
 augroup filetype_markdown
   autocmd!
   autocmd FileType markdown set wrap linebreak

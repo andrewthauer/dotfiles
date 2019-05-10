@@ -36,6 +36,7 @@ brew 'pkg-config'
 brew 'readline'
 brew 'tmux'
 brew 'tree'
+brew 'vim'
 brew 'yarn', args: ['without-node']
 brew 'zsh'
 

@@ -5,6 +5,9 @@
 [push]
   default = simple
 
+[rerere]
+	enabled = true
+
 [alias]
   # List authors
   authors = shortlog -sn

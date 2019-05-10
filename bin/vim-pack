@@ -11,45 +11,25 @@
 VIM_DIR="${DOTFILES_DIR}/vim"
 VIM_PACK_DIR="${VIM_DIR}/pack/default"
 
-#
-# Functions
-#
-
-pushd () {
-  command pushd "$@" > /dev/null
-}
-
-popd () {
-  command popd "$@" > /dev/null
-}
-
-install_or_update_plugin() {
+install_vim_plugin() {
   repo="$1"
   IFS='/'; arr=($repo); unset IFS;
   plugin="${arr[1]}"
+  pack_start_dir="${VIM_PACK_DIR}/start"
+  plugin_dir="${pack_start_dir}/${plugin}"
 
-  pushd "${VIM_PACK_DIR}/start"
-
-  if [ ! -d "$plugin" ]; then
+  if [ ! -d "${plugin_dir}" ]; then
     echo "Installing ${plugin} ..."
-    git clone "https://github.com/${repo}"
+    git clone "https://github.com/${repo}" "${plugin_dir}"
   else
-    pushd ${plugin}
     echo "Updating ${plugin} ..."
-    git pull
-    popd
+    git -C ${plugin_dir} pull
   fi
-
-  popd
 }
-
-#
-# Script
-#
 
 # Ensure directories exist
 mkdir -p "${VIM_PACK_DIR}/opt"
 mkdir -p "${VIM_PACK_DIR}/start"
 
 # Install or update the argument
-install_or_update_plugin $1
+install_vim_plugin $1
