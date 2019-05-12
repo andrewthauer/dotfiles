@@ -2,7 +2,7 @@
 # Common dotfiles
 #
 
-./.editorconfig:~/.editorconfig
+#./.editorconfig:~/.editorconfig
 
 # Bash
 ./bash/.bash_profile:~/.bash_profile

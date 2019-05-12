@@ -1,7 +1,5 @@
 #
-# Ruby
+# Ruby aliases
 #
 
-if [[ -x "$(command -v ruby)" ]]; then
-  alias be="bundle exec"
-fi
+alias be="bundle exec"
