@@ -4,36 +4,45 @@
 
 #./.editorconfig:~/.editorconfig
 
-# Bash
-./bash/.bash_profile:~/.bash_profile
-./bash/.bashrc:~/.bashrc
+# bash
+./modules/bash/.bash_profile:~/.bash_profile
+./modules/bash/.bashrc:~/.bashrc
 
-# Zsh
-./.zshenv:~/.zshenv
-./.zshrc:~/.zshrc
+# zsh
+./modules/zsh/.zshenv:~/.zshenv
+./modules/zsh/.zshrc:~/.zshrc
 
-# Git
-./git/.gitignore_global:~/.gitignore
-./git/.gitconfig:~/.gitconfig
+# git
+./modules/git/.gitignore_global:~/.gitignore
+./modules/git/.gitconfig:~/.gitconfig
 
-# Vim
-./vim:~/.vim
-./vim/.vimrc:~/.vimrc
-./vim:~/.config/nvim
-./vim/.vimrc:~/.config/nvim/init.vim
+# vim
+./modules/vim:~/.vim
+./modules/vim/.vimrc:~/.vimrc
+./modules/vim:~/.config/nvim
+./modules/vim/.vimrc:~/.config/nvim/init.vim
 /usr/local/bin/vim:/usr/local/bin/vi
 
-# Misc
-./brew/Brewfile:~/.Brewfile
-./hammerspoon:~/.hammerspoon
+# misc
+./modules/brew/Brewfile:~/.Brewfile
+./modules/hammerspoon:~/.hammerspoon
 #./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
+
+#
+# fpaths
+#
+
+#./repos/zsh-users/zsh-completions:./zfunctions
+./repos/docker/cli/contrib/completion/zsh/_docker:./zfunctions/_docker
+./repos/docker/compose/contrib/completion/zsh/_docker-compose:./zfunctions/_docker-compose
+./modules/rust/completion/_rustup:./zfunctions/_rustup
 
 #
 # Theme
 #
 
-./repos/sindresorhus/pure/pure.zsh:./repos/zfunctions/prompt_pure_setup
-./repos/sindresorhus/pure/async.zsh:./repos/zfunctions/async
+./repos/sindresorhus/pure/pure.zsh:./zfunctions/prompt_pure_setup
+./repos/sindresorhus/pure/async.zsh:./zfunctions/async
 
 #
 # Local dotfiles

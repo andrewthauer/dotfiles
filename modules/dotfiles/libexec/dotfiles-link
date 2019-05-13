@@ -93,6 +93,10 @@ symlink_all_items() {
   popd >/dev/null
 }
 
+# Ensure certain directories are in place
+mkdir -p "${DOTFILES_DIR}/repos"
+mkdir -p "${DOTFILES_DIR}/zfunctions"
+
 # Create all symlinks
 echo "Linking Dotfiles ..."
 symlink_all_items

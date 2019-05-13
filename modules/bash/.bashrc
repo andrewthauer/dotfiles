@@ -27,15 +27,15 @@ fi
 # PS1=
 
 # Common shell config
-source "${DOTFILES_DIR}/shell/init.sh"
+source "${DOTFILES_MOD_DIR}/shell/init.sh"
 
 # Aliases
-source "${DOTFILES_DIR}/shell/aliases.sh"
-source "${DOTFILES_DIR}/git/aliases.sh"
-source "${DOTFILES_DIR}/brew/aliases.sh"
-source "${DOTFILES_DIR}/docker/aliases.sh"
-source "${DOTFILES_DIR}/node/aliases.sh"
-source "${DOTFILES_DIR}/ruby/aliases.sh"
+source "${DOTFILES_MOD_DIR}/shell/aliases.sh"
+source "${DOTFILES_MOD_DIR}/git/aliases.sh"
+source "${DOTFILES_MOD_DIR}/brew/aliases.sh"
+source "${DOTFILES_MOD_DIR}/docker/aliases.sh"
+source "${DOTFILES_MOD_DIR}/node/aliases.sh"
+source "${DOTFILES_MOD_DIR}/ruby/aliases.sh"
 
 # Load the local .bashrc file
 if [[ -f "$HOME/.bashrc.local" ]]; then

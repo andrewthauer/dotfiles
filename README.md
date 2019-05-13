@@ -47,12 +47,12 @@ dotfiles help
 
 ## Structure
 
-The dotfiles are mostly organzied by topic folder. The following directories
-do not follow the specific topic organization:
+The dotfiles are mostly organzied modules by topic folder. The following
+directories do not follow the specific topic organization:
 
 - `bin` - Contains various scripts (added to `$PATH`)
 - `local` - Used for local environment customizations
-- `modules` - Contains re-usable modules / plugins
+- `modules` - Contains modules & plugins
 - `shell` - Contains common shell settings & features that work in
   `bash`, `zsh`, etc.
 

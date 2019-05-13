@@ -10,5 +10,5 @@ fi
 
 # Load aliases
 if [[ -x "$(command -v python)" ]]; then
-  source "${DOTFILES_DIR}/python/aliases.sh"
+  source "${DOTFILES_MOD_DIR}/python/aliases.sh"
 fi

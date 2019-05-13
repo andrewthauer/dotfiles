@@ -6,12 +6,12 @@
 # Zsh home directory
 ZDOTDIR="${ZDOTDIR:-$HOME}"
 
-# Dotfiles directories
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-export DOTFILES_REPOS_DIR="${DOTFILES_REPOS_DIR:-$DOTFILES_DIR/repos}"
+# Common dotfiles env setup
+export DOTFILES_DIR="${HOME}/.dotfiles"
+source "${DOTFILES_DIR}/env.sh"
 
 # Load common shell environment
-source "${DOTFILES_DIR}/shell/environment.sh"
+source "${DOTFILES_MOD_DIR}/shell/environment.sh"
 
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
@@ -27,6 +27,7 @@ path=(
 fpath=(
   $fpath
   ${DOTFILES_DIR}/bin
+  ${DOTFILES_DIR}/zfunctions
 )
 
 # Load ~/.zshenv.local

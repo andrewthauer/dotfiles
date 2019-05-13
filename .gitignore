@@ -1,10 +1,18 @@
-!.gitkeep
+# os files
 .DS_Store
-.symlinks
-.tags*
-**/*.local*
-local/*
+
+# editors
+.vscode
+
+# local top level directories
+!.gitkeep
 repos
+zfunctions
+
+# local settings
+local/*
+**/*.local*
 secrets/*
-tmp
-windows/appdata/*
+
+# the symlink definition
+.symlinks

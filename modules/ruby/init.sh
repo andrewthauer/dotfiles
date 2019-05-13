@@ -10,5 +10,5 @@ fi
 
 # Load aliases
 if [[ -x "$(command -v ruby)" ]]; then
-  source "${DOTFILES_DIR}/ruby/aliases.sh"
+  source "${DOTFILES_MOD_DIR}/ruby/aliases.sh"
 fi

@@ -2,9 +2,6 @@
 # Common Shell Environment
 #
 
-# Dotfiles directory
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
 # Language
 export LANG="${LANG:-en_US.UTF-8}"
 LC_CTYPE=${LANG}
