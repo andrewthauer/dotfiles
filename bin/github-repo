@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Installs or updates a github repo
+#
+# usage:
+#   github-repo zsh-users/zsh-completions
+#
+
+DOTFILES_REPOS_DIR="${DOTFILES_DIR}/repos"
+
+install_from_github() {
+  user_repo="$1"
+  target_dir="${2:-$DOTFILES_REPOS_DIR}"
+  IFS='/'; arr=($user_repo); unset IFS;
+  user="${arr[0]}"
+  repo="${arr[1]}"
+  local_repo_dir="${target_dir}/${user}/${repo}"
+
+  mkdir -p "${target_dir}"
+
+  if [ ! -d "${local_repo_dir}" ]; then
+    echo "Installing ${user_repo} ..."
+    mkdir -p "${target_dir}/${user}"
+    git clone "https://github.com/${user}/${repo}" "${local_repo_dir}"
+  else
+    echo "Updating ${user_repo} ..."
+    git -C ${local_repo_dir} pull
+  fi
+}
+
+# Install or update the argument
+install_from_github $1

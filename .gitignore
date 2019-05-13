@@ -1,9 +1,10 @@
-.DS_Store
-.tags*
-local/*
-**/*.local*
-secrets/*
-windows/appdata/*
 !.gitkeep
+.DS_Store
 .symlinks
+.tags*
+**/*.local*
+local/*
+repos
+secrets/*
 tmp
+windows/appdata/*

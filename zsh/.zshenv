@@ -6,8 +6,9 @@
 # Zsh home directory
 ZDOTDIR="${ZDOTDIR:-$HOME}"
 
-# Dotfiles directory
+# Dotfiles directories
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+export DOTFILES_REPOS_DIR="${DOTFILES_REPOS_DIR:-$DOTFILES_DIR/repos}"
 
 # Load common shell environment
 source "${DOTFILES_DIR}/shell/environment.sh"
