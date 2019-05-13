@@ -29,6 +29,13 @@
 #./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
 
 #
+# Theme
+#
+
+./repos/sindresorhus/pure/pure.zsh:./repos/zfunctions/prompt_pure_setup
+./repos/sindresorhus/pure/async.zsh:./repos/zfunctions/async
+
+#
 # Local dotfiles
 #
 
