@@ -11,10 +11,11 @@ COMMANDS=(
   backup
   commands
   help
+  install
   link
+  profile
   reload
   setup
-  time
   update
 )
 

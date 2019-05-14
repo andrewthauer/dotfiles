@@ -51,7 +51,14 @@ cd dotfiles
 ./bin/dotfiles setup
 ```
 
-**NOTE: You many need to run `dotfiles setup` a second time after you restart your shell**
+**NOTE: You many need to run `dotfiles setup` a second time after you restart
+your shell**
+
+### Install Homebrew
+
+```shell
+${DOTFILES_DIR}/brew/install.sh
+```
 
 ### macOS Settings
 
@@ -61,10 +68,4 @@ ${DOTFILES_DIR}/macos/set-defaults.sh
 
 # Set HostName, LocalHostName & ComputerName
 ${DOTFILES_DIR}/macos/set-hostname.sh "my-host-name"
-```
-
-### Install Homebrew
-
-```shell
-${DOTFILES_DIR}/macos/install-brew.sh
 ```

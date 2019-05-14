@@ -1,0 +1,128 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Symlinks a dotfile
+#
+# usage:
+#   symlink path/to/source path/to/dest
+#
+
+set -e
+
+function usage
+{
+  echo "Usage: symlink [path/to/source] [path/to/target]"
+  echo "";
+  echo "  -s | --source     : The source file or directory to symlink";
+  echo "  -t | --target     : The destination file/directory location";
+  echo "  -v | --verbose    : Show verbose logging";
+  echo "  -d | --dry-run    : Dry run without modifying the file system";
+  echo "  -h | --help       : This message";
+}
+
+function parse_args
+{
+  # positional args
+  args=()
+
+  # named args
+  while [ "$1" != "" ]; do
+  case "$1" in
+    -s|--source)    source="$1";    shift;;
+    -t|--target)    target="$2";    shift;;
+    -d|--dry-run)   dry_run=1;      ;;
+    -h|--help)      usage;          exit;; # quit and show usage
+    *)              args+=("$1")    # if no match, add it to the positional args
+  esac
+  shift # move to next kv pair
+  done
+
+  # restore positional args
+  set -- "${args[@]}"
+
+  # set positionals to vars
+  if [[ -z "${source}" && -z ${target} ]]; then
+    source="${args[1]}"
+    target="${args[2]}"
+  fi
+
+  # validate required args
+  if [[ -z "${source}" || -z "${target}" ]]; then
+    echo "Invalid arguments"
+    usage
+    exit;
+  fi
+}
+
+expand_path() {
+  eval path=$1
+  echo $path
+}
+
+get_source() {
+  local src="$1"
+
+  local filename=$(basename $src)
+  local src_file="$(cd $(dirname $src); pwd)/$filename"
+
+  echo "${src_file}"
+}
+
+get_destination() {
+  local src="$1"
+  local dest="$2"
+
+  # get sub directory
+  local rel_dir="$(dirname ${src#./})"
+  local top_dir="$(echo $rel_dir | cut -d "/" -f1)"
+  local sub_dir="${rel_dir#$top_dir}"
+
+  # the destination file
+  local dest_file=
+  if [ -n $dest ]; then
+    dest_file="$(expand_path "$dest")"
+  else
+    dest_file="${base_dest_dir}${sub_dir}/${filename}"
+  fi
+
+  echo "${dest_file}"
+}
+
+symlink_item() {
+  local src="$(get_source "$1")"
+  local dest="$(get_destination "$1" "$2")"
+  local dry_run="$3"
+
+  echo "Symlinking: $src -> $dest"
+
+  # Dry run
+  if [[ -n "$dry_run" ]]; then
+    return;
+  fi
+
+  # Remove existing symlinks
+  if [ -L "$dest" ]; then
+    rm $dest
+  fi
+
+  # Create new symlink
+  if [ ! -e "$src" ]; then
+    echo "Source does not exist - "$src""
+  elif [ -e "$dest" ]; then
+    echo "Destination file already exists - "$dest""
+  else
+    ln -s "$src" "$dest"
+  fi
+}
+
+run() {
+  parse_args "$@"
+
+  if [[ -n "${dry_run}" ]]; then
+    echo "Arg: { source: ${source}, target: ${target}, dry-run: ${dry_run:-0} }"
+  fi
+
+  symlink_item "$source" "$target" "$dry_run"
+}
+
+run $@;

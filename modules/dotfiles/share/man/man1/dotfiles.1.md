@@ -16,23 +16,29 @@ Provides helper commands to control common dotfiles related functions.
 
 # COMMANDS
 
-setup
-: Initial setup of the dotfiles (idempotent)
-
-link
-: Creates symbolic links for configuration files
-
-update
-: Updates the dotfiles with the latest plugin versions
-
 backup
 : Backup the local dotfiles configuration files
 
-time
-: Displays the load time for the current shell environment
-
 help
 : Displays a summary of the dotfiles commands
+
+install
+: Installs a package locally
+
+link
+: Creates a symbolic link
+
+profile
+: Displays the load time for the current shell environment
+
+reload
+: Reloads the current environment shell
+
+setup
+: Initial setup of the dotfiles (idempotent)
+
+update
+: Updates the dotfiles with the latest plugin versions
 
 # EXAMPLES
 

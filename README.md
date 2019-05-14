@@ -70,7 +70,11 @@ Modules directories are based on topics grouped into a specific directory
 
 ### `local`
 
-The `local` directory (git ignored) can be used to customize the dotfiles for a particular environment. It is also a good place to store an secret information (i.e. in `local/secrets`). Files located here can be symlinked to the \$HOME directory either manually or via the `.symlinks` file and then running `dotfiles symlink`.
+The `local` directory (git ignored) can be used to customize the dotfiles for
+a particular environment. It is also a good place to store an secret
+information (i.e. in `local/secrets`). Files located here can be symlinked to
+the \$HOME directory either manually or via the `.symlinks` file and then
+running `dotfiles symlink`.
 
 The following are part of the standard setup:
 
@@ -80,20 +84,25 @@ The following are part of the standard setup:
 
 ## Configuration
 
-Most configuration is handled via symlinks to the users home directory. Non system specific settings are defined in the `config` directory while local system configurations & secrets should be added to the `./local` directory.
+Most configuration is handled via symlinks to the users home directory. Non
+system specific settings are defined in the `config` directory while local
+system configurations & secrets should be added to the `./local` directory.
 
-### Setting up Symlinks
+### Packges
 
-The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the - `.symlinks.default` file. Each line represents a file to be symlinked using `:` as a delimeter (e.g `./src/file:~/dest/file`)
+The `packages.sh` (or `local/package.sh`) file is used to install 3rd party
+dependencies & symlink various files. This is can be run with the
+`dotfiles update` command.
 
 ### Homebrew
 
-You can create a `~/.Brewfile.local` file to add system specific brew packages view `brew bundle`.
+You can create a `~/.Brewfile.local` file to add system specific brew packages
+view `brew bundle`.
 
 ### SSH
 
-The `ssh-config-merge` command allows seperate SSH configuration files to be merged. For more
-details [see the command](./bin/ssh-config-merge).
+The `ssh-config-merge` command allows seperate SSH configuration files to be
+merged. For more details [see the command](./bin/ssh-config-merge).
 
 ### Git
 

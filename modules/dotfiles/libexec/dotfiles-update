@@ -6,16 +6,34 @@
 
 set -e
 
-# Install repos
-echo "Installing packages ..."
-"${DOTFILES_DIR}/packages.sh"
+ensure_directories() {
+  mkdir -p "${DOTFILES_DIR}/repos"
+  mkdir -p "${DOTFILES_DIR}/zfunctions"
+}
 
-# Symlink files
-echo ""
-dotfiles-link
+run_packages_script() {
+  local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
-# Reload the shell
-echo ""
-dotfiles-reload
+  pushd ${DOTFILES_DIR} >/dev/null
+
+  local_packages_script="${DOTFILES_DIR}/local/packages.sh"
+
+  if [ -e "${local_packages_script}" ]; then
+    echo "Found local script at '${local_packages_script}'"
+    ${local_packages_script}
+  else
+    ${DOTFILES_DIR}/packages.sh
+  fi
+
+  popd >/dev/null
+}
+
+run() {
+  ensure_directories
+  run_packages_script
+  dotfiles-reload
+}
+
+run
 
 exit 0
