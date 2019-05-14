@@ -28,19 +28,13 @@
 ./modules/hammerspoon:~/.hammerspoon
 #./modules/dotfiles/doc/man/man1/dotfiles.1:/usr/local/share/man/man1/dotfiles.1
 
-#
 # fpaths
-#
-
 #./repos/zsh-users/zsh-completions:./zfunctions
 ./repos/docker/cli/contrib/completion/zsh/_docker:./zfunctions/_docker
 ./repos/docker/compose/contrib/completion/zsh/_docker-compose:./zfunctions/_docker-compose
 ./modules/rust/completion/_rustup:./zfunctions/_rustup
 
-#
-# Theme
-#
-
+# theme
 ./repos/sindresorhus/pure/pure.zsh:./zfunctions/prompt_pure_setup
 ./repos/sindresorhus/pure/async.zsh:./zfunctions/async
 
@@ -52,8 +46,5 @@
 #./local/zsh/.zshenv:~/.zshenv.local
 #./local/zsh/.zshrc:~/.zshrc.local
 
-#
-# Secrets
-#
-
+# secrets
 # ...

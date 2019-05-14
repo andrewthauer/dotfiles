@@ -17,7 +17,6 @@ This is my system configuration files, settings, etc.
 Here's a list of things that are used:
 
 - [zsh](https://github.com/zsh-users/zsh)
-- [zplug](https://github.com/zplug/zplug)
 - [homebrew](https://github.com/homebrew/homebrew) (macOS)
 - [zsh-users](https://github.com/zsh-users) (some modules)
 
@@ -51,20 +50,11 @@ The dotfiles are mostly organzied modules by topic folder. The following
 directories do not follow the specific topic organization:
 
 - `bin` - Contains various scripts (added to `$PATH`)
-- `local` - Used for local environment customizations
 - `modules` - Contains modules & plugins
-- `shell` - Contains common shell settings & features that work in
+- `local` (git ignored) - Used for local environment customizations
+- `repos` (git ignored) - External package dependencies
+- `zfunctions` (git ignored) - Contains common shell settings & features that work in
   `bash`, `zsh`, etc.
-
-### `local`
-
-The `local` directory (git ignored) can be used to customize the dotfiles for a particular environment. It is also a good place to store an secret information (i.e. in `local/secrets`). Files located here can be symlinked to the \$HOME directory either manually or via the `.symlinks` file and then running `dotfiles symlink`.
-
-The following are part of the standard setup:
-
-- `local/zsh/.zshenv.local` - Customize the zsh environment (sourced by `zsh/.zshenv`)
-- `local/zsh/.zshrc.local` - Customize the zsh (sourced by `zsh/.zshrc`)
-- `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
 
 ### `modules`
 
@@ -78,6 +68,16 @@ Modules directories are based on topics grouped into a specific directory
 - `functions` - Contains functions that can be sourced
 - `modules` - Contains additional submodules
 
+### `local`
+
+The `local` directory (git ignored) can be used to customize the dotfiles for a particular environment. It is also a good place to store an secret information (i.e. in `local/secrets`). Files located here can be symlinked to the \$HOME directory either manually or via the `.symlinks` file and then running `dotfiles symlink`.
+
+The following are part of the standard setup:
+
+- `local/zsh/.zshenv` - Customize the zsh environment (sourced by `.zshenv`.
+- `local/zsh/.zshrc` - Customize the interactive zsh shell (sourced by `.zshrc`)
+- `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
+
 ## Configuration
 
 Most configuration is handled via symlinks to the users home directory. Non system specific settings are defined in the `config` directory while local system configurations & secrets should be added to the `./local` directory.
@@ -85,10 +85,6 @@ Most configuration is handled via symlinks to the users home directory. Non syst
 ### Setting up Symlinks
 
 The `.symlinks` file is used to control which files are symlinked when running `dotfiles symlink`. If this file does not exist it will fallback to the - `.symlinks.default` file. Each line represents a file to be symlinked using `:` as a delimeter (e.g `./src/file:~/dest/file`)
-
-### Zplug
-
-ZSH plugins can be customized via a `local/zsh/zplug-packages.zsh` file.
 
 ### Homebrew
 

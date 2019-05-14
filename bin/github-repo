@@ -4,30 +4,78 @@
 #   Installs or updates a github repo
 #
 # usage:
-#   github-repo zsh-users/zsh-completions
+#   github-repo acme/package
+#   github-repo acme/package --post-install 'make'
 #
 
-DOTFILES_REPOS_DIR="${DOTFILES_DIR}/repos"
+set -e
 
-install_from_github() {
-  user_repo="$1"
-  target_dir="${2:-$DOTFILES_REPOS_DIR}"
-  IFS='/'; arr=($user_repo); unset IFS;
-  user="${arr[0]}"
-  repo="${arr[1]}"
-  local_repo_dir="${target_dir}/${user}/${repo}"
+function usage
+{
+  echo "usage: $(basename $0) user/repo --post-install 'make'"
+  echo "";
+  echo "  -r | --repo            : The github user/repo";
+  echo "  -x | --post-install    : An optional post install command";
+  echo "  -h | --help            : This message";
+}
 
-  mkdir -p "${target_dir}"
+function parse_args
+{
+  # positional args
+  args=()
 
-  if [ ! -d "${local_repo_dir}" ]; then
-    echo "Installing ${user_repo} ..."
-    mkdir -p "${target_dir}/${user}"
-    git clone "https://github.com/${user}/${repo}" "${local_repo_dir}"
-  else
-    echo "Updating ${user_repo} ..."
-    git -C ${local_repo_dir} pull
+  # named args
+  while [ "$1" != "" ]; do
+  case "$1" in
+    -r|--repo)          repo="$2";          shift;;
+    -x|--post-install)  post_install="$2";  shift;;
+    -h|--help)          usage;              exit;; # quit and show usage
+    *)                  args+=("$1")        # if no match, add it to the positional args
+  esac
+  shift # move to next kv pair
+  done
+
+  # restore positional args
+  set -- "${args[@]}"
+
+  # set positionals to vars
+  if [[ -z "${repo}" ]]; then
+    repo="${args[0]}"
+  fi
+
+  # validate required args
+  if [[ -z "${repo}" ]]; then
+    echo "Invalid arguments"
+    usage
+    exit;
   fi
 }
 
-# Install or update the argument
-install_from_github $1
+run() {
+  parse_args "$@"
+
+  IFS='/'; arr=($repo); unset IFS;
+  user="${arr[0]}"
+  proj="${arr[1]}"
+
+  target_base_dir="${DOTFILES_REPOS_DIR}"
+  target_dir="${target_base_dir}/${repo}"
+
+  if [ ! -d "${target_dir}" ]; then
+    echo "Installing ${repo} ..."
+    mkdir -p "${target_dir}"
+    git clone "https://github.com/${repo}" "${target_dir}"
+  else
+    echo "Updating ${repo} ..."
+    git -C ${target_dir} pull
+  fi
+
+  if [ ! -z "${post_install}" ]; then
+    echo "Running post install ..."
+    pushd ${target_dir} > /dev/null
+    ${post_install}
+    popd > /dev/null
+  fi
+}
+
+run "$@";

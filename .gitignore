@@ -4,13 +4,15 @@
 # editors
 .vscode
 
-# local top level directories
+# keep these files
 !.gitkeep
+
+# local top level directories
+local
 repos
 zfunctions
 
 # local settings
-local/*
 **/*.local*
 secrets/*
 

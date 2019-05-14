@@ -8,7 +8,6 @@ set -e
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 DOTFILES_SRC_DIR=$(cd ${DOTFILES_ROOT}/../..; pwd)
-ZPLUG_HOME="${ZPLUG_HOME:-$HOME/.zplug}"
 
 # Ensure the dotfiles home symlink is created and valid
 if [[ -d "${DOTFILES_DIR}" ]] && [[ ! -L "${DOTFILES_DIR}" ]]; then
@@ -25,21 +24,5 @@ else
   echo "Dotfiles home is valid ... ${DOTFILES_DIR} -> ${DOTFILES_SRC_DIR}"
 fi
 
-# Symlink directories
-dotfiles-link
-
-# Initialize zplug
-if [[ ! -d "${ZPLUG_HOME}" ]]; then
-  echo "Installing zplug ..."
-  git clone https://github.com/zplug/zplug "${ZPLUG_HOME}"
-fi
-
-# Install and update zplug packages
-echo "\nUpdating zplug ..."
-source "${ZPLUG_HOME}/init.zsh" || true
-zplug install || true
-zplug clear || true
-
-# Reload zsh
-echo "\nReloading ..."
-source "$HOME/.zshrc"
+# Run update
+dotfiles-update

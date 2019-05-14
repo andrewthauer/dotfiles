@@ -8,20 +8,22 @@
 #     brew link --force gettext
 #
 
-dotenv-read() {
+set -o errexit -o pipefail -o noclobber -o nounset
+
+dotenv_read () {
   local file="${DOTENV_FILE:-${1:-.env}}"
   cat "${file}" | grep -v "^#" | grep -v -e "^$"
 }
 
-dotenv-exec() {
+dotenv_exec() {
   env $(dotenv-read) "${@:1}"
 }
 
-dotenv-export() {
+dotenv_export() {
   export $(dotenv-read | xargs)
 }
 
-dotenv-subst() {
+dotenv_subst() {
   if ! [ -x "$(command -v envsubst)" ]; then
     echo "Command 'envsubst' not found. Please install the 'gettext' package"
     exit 1
@@ -34,13 +36,13 @@ dotenv-subst() {
 # Execute
 #
 
-local cmd=$1
-local args=${@:2}
-local dotenv_cmd="dotenv-${cmd}"
+cmd=$1
+args=${@:2}
+dotenv_cmd="dotenv_${cmd}"
 
 # Execute the command
 if [ $(command -v $dotenv_cmd) ]; then
   $dotenv_cmd $args 2>&1
 else
-  dotenv-read
+  dotenv_read
 fi

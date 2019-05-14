@@ -6,14 +6,16 @@
 
 set -e
 
-echo "Updating zplug ..."
-source "${ZPLUG_HOME}/init.zsh"
-zplug install
-zplug update
-zplug clear
+# Install repos
+echo "Installing packages ..."
+"${DOTFILES_DIR}/packages.sh"
 
-# Reload zsh
-echo "\nReloading shell ..."
-source ~/.zshrc
+# Symlink files
+echo ""
+dotfiles-link
+
+# Reload the shell
+echo ""
+dotfiles-reload
 
 exit 0

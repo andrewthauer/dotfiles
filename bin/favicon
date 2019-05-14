@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Create a favicon
+#
+# usage:
+#   favicon /path/to/image
+#
+
+source=$1
+
+if [[ -z "$source" ]]; then
+  echo "No source file provided"
+  exit 1
+fi
+
+if [[ ! -x "$(command -v convert)" ]]; then
+  echo "ImageMagick not installed"
+  exit 1
+fi
+
+convert $source -define icon:auto-resize=64,48,32,16 favicon.ico
