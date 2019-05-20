@@ -14,3 +14,5 @@ source "${DOTFILES_MOD_DIR}/shell/environment.sh"
 if [[ -f "$HOME/.bash_profile.local" ]]; then
   source "$HOME/.bash_profile.local"
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"

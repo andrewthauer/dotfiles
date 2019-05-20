@@ -64,6 +64,7 @@ defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
 # Example
 # defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Next Tab" "@~\U2192"
+# defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Maximize" "@$\U004D"
 
 # =============================================================================
 # Input - Mouse, Trackpad

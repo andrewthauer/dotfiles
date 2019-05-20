@@ -11,6 +11,8 @@
 [alias]
   # List authors
   authors = shortlog -sn
+  # Backup the current branch
+  backup-branch = !git branch "backup/$(git branch-name)"
   # Shortcut for `git branch`
   br = branch
   # Delete a branch
@@ -53,10 +55,6 @@
   diffm = diff master...`!git branch-name`
   # Fetch and prune all branches that do not exist in remote
   fetchp = fetch -p
-  # Show log as tree visually (one commit per line)
-  gslog = log --oneline --graph --decorate
-  # Show log (one commit per line)
-  glog = log --graph --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
   # Display a log of incoming changes
   in = !git wtf HEAD..HEAD@{u}
   # Delete all merged branches but master
@@ -67,6 +65,14 @@
   ls = ls-files
   # Show remote
   ls-merged = !git branch -r --merged | grep -v master
+  # Show log (one commit per line)
+  log1 = log --oneline
+  # # Show log graph (one commit per line)
+  log1v = log1 --graph --decorate
+  # Show log with details (one commit per line)
+  logd = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+  # Show log graph (one commit per line) with details
+  logdv = logd --graph
   # Ammend the last commit
   meh = commit --amend
   # Create a new branch `git [newb] [proj [branchName]`
@@ -95,8 +101,6 @@
   reset-to-master = !git fetch origin && git reset --hard origin/master
   # Reset to origin/[branch]
   reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
-  # Show log with details (one commit per line)
-  slog = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
   # squash up to
   squash = !git rebase -i HEAD~${1:-2}
   # Squash up to master

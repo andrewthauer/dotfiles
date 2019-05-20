@@ -10,4 +10,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 export PATH="${HOME}/.cargo/bin:${PATH}"
 
 # install some components
-rustup component add rls rust-src rust-analysis rustfmt
+rustup component add \
+  rls \
+  rust-src \
+  rust-analysis \
+  rustfmt \
+  cargo-watch \
+  cargo-web

@@ -64,7 +64,7 @@ ${DOTFILES_DIR}/brew/install.sh
 
 ```shell
 # macOS default settings
-${DOTFILES_DIR}/macos/set-defaults.sh
+${DOTFILES_DIR}/macos/defaults.sh
 
 # Set HostName, LocalHostName & ComputerName
 ${DOTFILES_DIR}/macos/set-hostname.sh "my-host-name"
