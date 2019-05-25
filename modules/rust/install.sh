@@ -16,4 +16,5 @@ rustup component add \
   rust-analysis \
   rustfmt \
   cargo-watch \
+  carge-make \
   cargo-web

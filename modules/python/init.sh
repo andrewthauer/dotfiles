@@ -1,5 +1,5 @@
 #
-# Initialize Python environment
+# Initialize python module
 #
 
 # Initialize pyenv

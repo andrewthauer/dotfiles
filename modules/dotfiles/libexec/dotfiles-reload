@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-#
-# description:
-#   Reloads the environment
-#
-
-echo "Reloading shell ..."
-source ~/.zshrc

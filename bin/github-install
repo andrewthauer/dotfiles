@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # description:
 #   Installs or updates a github repo
@@ -39,7 +39,9 @@ function parse_args
   set -- "${args[@]}"
 
   # set positionals to vars
-  if [[ -z "${repo}" ]]; then repo="${args[0]}"; fi
+  if [[ -z "${repo}" ]]; then
+    repo="${args[0]}";
+  fi
 
   # validate required args
   if [[ -z "${repo}" ]]; then

@@ -37,6 +37,8 @@
   cloner = clone --recursive
   # Shortcut for `git checkout`
   co = checkout
+  # Shortcut for `git checkout -b`
+  cod = checkout -b
   # Checkout default branch
   cod = !git checkout $(git default-branch)
   # Cherry pick commits
@@ -66,13 +68,11 @@
   # Show remote
   ls-merged = !git branch -r --merged | grep -v master
   # Show log (one commit per line)
-  log1 = log --oneline
-  # # Show log graph (one commit per line)
-  log1v = log1 --graph --decorate
+  logl = log --oneline
   # Show log with details (one commit per line)
-  logd = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
-  # Show log graph (one commit per line) with details
-  logdv = logd --graph
+  logp = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
+  # # Show log graph (one commit per line)
+  logv = log --oneline --graph --decorate
   # Ammend the last commit
   meh = commit --amend
   # Create a new branch `git [newb] [proj [branchName]`
@@ -99,7 +99,7 @@
   rbc = rebase --continue
   # Reset to origin/master
   reset-to-master = !git fetch origin && git reset --hard origin/master
-  # Reset to origin/[branch]
+  # Reset to origin/[current-branch]
   reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
   # squash up to
   squash = !git rebase -i HEAD~${1:-2}

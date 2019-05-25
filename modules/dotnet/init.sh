@@ -1,5 +1,5 @@
 #
-# Initialize dotnet environment
+# Initialize dotnet module
 #
 
 # Initialize dotnet

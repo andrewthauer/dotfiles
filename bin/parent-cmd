@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Gets the parent command name
+#
+
+parent_cmd() {
+  PARENT_COMMAND=$(ps -o comm= $PPID)
+  echo $(basename $PARENT_COMMAND)
+}
+
+# Try to execute a `return` statement,
+# but do it in a sub-shell and catch the results.
+# If this script isn't sourced, that will raise an error.
+$(return >/dev/null 2>&1)
+
+# This script is not sourced
+if [ ! "$?" -eq "0" ]; then
+  parent_cmd
+fi

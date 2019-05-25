@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Check if a function exists
+#
+# usage:
+#   function-exists "func_name"
+#
+
+function_exists() {
+  local function_name=$1
+
+  [ -z "$function_name" ] && return 1
+  declare -F "$function_name" > /dev/null 2>&1
+  return $?
+}
+
+function_exists $@

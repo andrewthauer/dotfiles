@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+#
+# description:
+#   Returns the absolute path
+#
+# usage:
+#   abs-dirname path/to
+#
+
+abs_dirname() {
+  local path="$(realpath "$1")"
+  echo "${path%/*}"
+}
+
+abs_dirname $@

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Backup local machine setups & secrets
+#
+# todo:
+#   Implement function to backup secrets and local env files
+#
+
+set -e
+
+target="${1:-$DOTFILES_BACKUP_DIR}"
+
+if [[ ! -d "$target" ]]; then
+  echo "Invalid target directory: '$target'"
+  return 1
+fi
+
+rsync \
+  -arv \
+  --delete \
+  --exclude='.git' \
+  "${DOTFILES_DIR}/local" \
+  "${target}"

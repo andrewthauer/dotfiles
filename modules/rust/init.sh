@@ -1,5 +1,5 @@
 #
-# Initialize Rust environment
+# Initialize rust module
 #
 
 # Initialize rust

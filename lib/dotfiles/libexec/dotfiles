@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Run dotfiles commands
+#
+# usage:
+#   dotfiles
+#   dotfiles [command]
+#
+
+set -e
+
+abs_dirname() {
+  local path="$(realpath "$1")"
+  echo "${path%/*}"
+}
+
+DOTFILES_ROOT="$(cd $(abs_dirname "$0")/..; pwd)"
+export DOTFILES_ROOT="${DOTFILES_ROOT}"
+
+bin_path="$(abs_dirname "$0")"
+export PATH="${bin_path}:${PATH}"
+
+# Parse the arguments
+command=$1
+command_path="dotfiles-${command}"
+args=${@:2}
+
+# Execute the command
+if [ -f "${command_path}" ]; then
+  exec "${command_path}" $args 2>&1
+elif [ $(command -v "dotfiles-${command}") ]; then
+  exec "dotfiles-${command}" $args 2>&1
+else
+  exec dotfiles-help
+fi

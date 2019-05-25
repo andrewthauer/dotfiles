@@ -1,5 +1,5 @@
 #
-# Initialize Ruby environment
+# Initialize ruby module
 #
 
 # initialize rbenv

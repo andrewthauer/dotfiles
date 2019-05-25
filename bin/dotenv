@@ -32,17 +32,17 @@ dotenv_subst() {
   dotenv-exec envsubst < "${1}"
 }
 
-#
-# Execute
-#
+exec_dotenv() {
+  cmd=$1
+  args=${@:2}
+  dotenv_cmd="dotenv_${cmd}"
 
-cmd=$1
-args=${@:2}
-dotenv_cmd="dotenv_${cmd}"
+  # Execute the command
+  if [ $(command -v $dotenv_cmd) ]; then
+    $dotenv_cmd $args 2>&1
+  else
+    dotenv_read
+  fi
+}
 
-# Execute the command
-if [ $(command -v $dotenv_cmd) ]; then
-  $dotenv_cmd $args 2>&1
-else
-  dotenv_read
-fi
+exec_dotenv $@

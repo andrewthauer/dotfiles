@@ -1,5 +1,5 @@
 #
-# Initialize Node environment
+# Initialize nodejs module
 #
 
 # Initialize nodenv
@@ -14,7 +14,8 @@ if [[ -x "$(command -v node)" ]]; then
   source "${DOTFILES_MOD_DIR}/node/aliases.sh"
 
   # Load better npm completions (assumes zsh)
-  if [[ -s "${DOTFILES_REPOS_DIR}/lukechilds/zsh-better-npm-completion" ]]; then
-    source "${DOTFILES_REPOS_DIR}/lukechilds/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh"
+  npm_completions_dir="${DOTFILES_REPOS_DIR}/lukechilds/zsh-better-npm-completion"
+  if [[ "${ZSH_NAME}" == "zsh" && -s "${npm_completions_dir}" ]]; then
+    source "${npm_completions_dir}/zsh-better-npm-completion.plugin.zsh"
   fi
 fi

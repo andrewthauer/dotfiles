@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
 # description:
 #   Symlinks a dotfile
@@ -28,7 +28,7 @@ function parse_args
   # named args
   while [ "$1" != "" ]; do
   case "$1" in
-    -s|--source)    source="$1";    shift;;
+    -s|--source)    source="$2";    shift;;
     -t|--target)    target="$2";    shift;;
     -d|--dry-run)   dry_run=1;      ;;
     -h|--help)      usage;          exit;; # quit and show usage
@@ -42,8 +42,8 @@ function parse_args
 
   # set positionals to vars
   if [[ -z "${source}" && -z ${target} ]]; then
-    source="${args[1]}"
-    target="${args[2]}"
+    source="${args[0]}"
+    target="${args[1]}"
   fi
 
   # validate required args

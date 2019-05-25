@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Display the dotfiles help
+#
+# usage:
+#   dotfiles help [options]
+#
+# examples:
+#   dotfiles help
+#   dotfiles help --manual
+#
+
+set -e
+
+# Provide dotfiles completions
+if [ "$1" = "--complete" ]; then
+  echo "--manual"
+  exit 0
+fi
+
+if [[ "$1" == "--manual" ]]; then
+  man -M "${DOTFILES_ROOT}/share/man" dotfiles
+else
+  cat "${DOTFILES_ROOT}/share/usage.txt"
+fi

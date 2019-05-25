@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Returns the list of available commands
+#
+
+set -e
+
+# The list of commands
+COMMANDS=(
+  backup
+  commands
+  help
+  profile
+  setup
+)
+
+# Print out commands
+{ for cmd in "${COMMANDS[@]}"; do
+    echo $cmd
+  done
+} | sort | uniq

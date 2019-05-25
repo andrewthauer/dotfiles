@@ -1,0 +1,7 @@
+Usage: dotfiles [command]
+
+COMMANDS:
+  backup          Backup the dotfiles local settings
+  help            Displays this message
+  setup           Run the dotfiles setup
+  profile         Displays the load time for the zsh environment

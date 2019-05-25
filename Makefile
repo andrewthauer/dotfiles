@@ -1,4 +1,4 @@
-SUBDIRS = modules/dotfiles
+SUBDIRS = lib/dotfiles
 
 all: $(SUBDIRS)
 

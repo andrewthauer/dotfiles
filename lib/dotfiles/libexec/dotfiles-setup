@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Setup script for install dotfiles
+#
+
+set -e
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+DOTFILES_SRC_DIR=$(cd ${DOTFILES_ROOT}/../..; pwd)
+
+symlink_dotfiles_root() {
+  # Ensure the dotfiles home symlink is created and valid
+  if [[ -d "${DOTFILES_DIR}" ]] && [[ ! -L "${DOTFILES_DIR}" ]]; then
+    echo >&2 "Error: Dotfiles home is a real directory"
+    exit 1
+  elif [[ ! -L "${DOTFILES_DIR}" ]]; then
+    echo "Creating dotfiles home symlink ... ${DOTFILES_DIR} -> ${DOTFILES_SRC_DIR}"
+    ln -s "${DOTFILES_SRC_DIR}" "${DOTFILES_DIR}"
+  elif [[ ! -d "$(readlink "${DOTFILES_DIR}")" ]]; then
+    echo "Replacing dotfiles home symlink ... ${DOTFILES_DIR} -> ${DOTFILES_SRC_DIR}"
+    rm ${DOTFILES_DIR}
+    ln -s "${DOTFILES_SRC_DIR}" "${DOTFILES_DIR}"
+  else
+    echo "Dotfiles home is valid ... ${DOTFILES_DIR} -> ${DOTFILES_SRC_DIR}"
+  fi
+}
+
+ensure_dotfiles_directories() {
+  mkdir -p "${DOTFILES_DIR}/local"
+  mkdir -p "${DOTFILES_DIR}/repos"
+  mkdir -p "${DOTFILES_DIR}/zfunctions"
+}
+
+run_packages_script() {
+  local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+  pushd ${DOTFILES_DIR} >/dev/null
+
+  local_packages_script="${DOTFILES_DIR}/local/packages.sh"
+
+  if [ -e "${local_packages_script}" ]; then
+    echo "Found local script at '${local_packages_script}'"
+    ${local_packages_script}
+  else
+    ${DOTFILES_DIR}/packages.sh
+  fi
+
+  popd >/dev/null
+}
+
+run() {
+  symlink_dotfiles_root
+  ensure_dotfiles_directories
+  run_packages_script
+}
+
+run
+
+exit 0

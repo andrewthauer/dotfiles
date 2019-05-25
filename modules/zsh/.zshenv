@@ -6,12 +6,9 @@
 # Zsh home directory
 ZDOTDIR="${ZDOTDIR:-$HOME}"
 
-# Common dotfiles env setup
+# Load common shell environment
 export DOTFILES_DIR="${HOME}/.dotfiles"
 source "${DOTFILES_DIR}/env.sh"
-
-# Load common shell environment
-source "${DOTFILES_MOD_DIR}/shell/environment.sh"
 
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
