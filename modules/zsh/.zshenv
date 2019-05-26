@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 #
-# Defines environment variables
+# Defines zsh environment
 #
 
 # Zsh home directory
@@ -15,7 +15,6 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs
 path=(
-  /usr/local/{bin,sbin}
   $path
   ${DOTFILES_DIR}/{bin,local/bin}
 )

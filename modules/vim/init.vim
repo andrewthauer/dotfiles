@@ -1,1 +1,1 @@
-/Users/andrew/.dotfiles/modules/vim/.vimrc
+/Users/andrew/Code/andrewthauer/dotfiles/modules/vim/.vimrc

@@ -2,13 +2,12 @@
 # Initialize python module
 #
 
-# Initialize pyenv
-if [[ -x "$(command -v pyenv)" || -s "${HOME}/.pyenv/bin/pyenv" ]]; then
-  export PATH="${HOME}/.pyenv/bin:${PATH}"
+# initialize pyenv
+if [[ -x "$(command -v pyenv)" ]]; then
   eval "$(pyenv init - --no-rehash)"
 fi
 
-# Load aliases
+# load aliases
 if [[ -x "$(command -v python)" ]]; then
   source "${DOTFILES_MOD_DIR}/python/aliases.sh"
 fi

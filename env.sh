@@ -2,13 +2,16 @@
 # Common environment settings
 #
 
-# exported variables
+# Exported variables
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 export DOTFILES_REPOS_DIR="${DOTFILES_REPOS_DIR:-$DOTFILES_DIR/repos}"
 
-# local variables
+# Local variables (during sourcing)
 DOTFILES_MOD_DIR="${DOTFILES_MOD_DIR:-$DOTFILES_DIR/modules}"
 DOTFILES_LOCAL_DIR="${DOTFILES_LOCAL_DIR:-$DOTFILES_DIR/local}"
+
+# Set path
+export PATH="${PATH}:${DOTFILES_DIR}/bin:${DOTFILES_DIR}/local/bin"
 
 # Language
 export LANG="${LANG:-en_US.UTF-8}"

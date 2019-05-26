@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # description:
 #   Runs the git contrib rerere_train.sh script

@@ -9,8 +9,7 @@
 
 set -e
 
-function usage
-{
+usage() {
   echo "Usage: symlink [path/to/source] [path/to/target]"
   echo "";
   echo "  -s | --source     : The source file or directory to symlink";
@@ -20,8 +19,7 @@ function usage
   echo "  -h | --help       : This message";
 }
 
-function parse_args
-{
+parse_args() {
   # positional args
   args=()
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # description:
 #   Runs github sub commands
@@ -9,8 +9,7 @@
 
 set -e
 
-function usage
-{
+usage() {
   echo "Usage: github [command]"
   echo "";
   echo "COMMANDS:";

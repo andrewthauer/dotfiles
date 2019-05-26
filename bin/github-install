@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # description:
 #   Installs or updates a github repo
@@ -10,8 +10,7 @@
 
 set -e
 
-function usage
-{
+usage() {
   echo "Usage: $(basename $0) [repo] --post-install [command]"
   echo "";
   echo "  -r | --repo            : The github repo in the format of user/repo";
@@ -19,8 +18,7 @@ function usage
   echo "  -h | --help            : This message";
 }
 
-function parse_args
-{
+parse_args() {
   # positional args
   args=()
 

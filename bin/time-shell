@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # description:
 #   Profile the shell startup time
@@ -14,8 +14,6 @@ if [[ "${CMD}" == "zsh" ]]; then
   time -p zsh --interactive -c exit
 elif [[ "${CMD}" == "bash" ]]; then
   time -p bash --login -c exit
-elif [[ "${CMD}" == "sh" ]]; then
-  time -p sh --login -c exit
 else
   echo "Unsupported shell: ${CMD}"
 fi

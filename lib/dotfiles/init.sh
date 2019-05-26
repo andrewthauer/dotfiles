@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 DIR="${DOTFILES_DIR}/lib/dotfiles"
 

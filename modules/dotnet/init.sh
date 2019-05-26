@@ -4,8 +4,9 @@
 
 # Initialize dotnet
 if [[ -x "$(command -v dotnet)" ]]; then
-  export DOTNET_ROOT="/usr/local/share/dotnet"
-  export PATH="${PATH}:${DOTNET_ROOT}"
+  # prepend dotnet to the path if not already added
+  DOTNET_ROOT="$(dirname $(command -v dotnet))"
+  [[ ":$PATH:" =~ ":$DOTNET_ROOT:" ]] || export PATH="$DOTNET_ROOT:$PATH"
 
   # Will only be executed on the first call to 'dotnet'
   dotnet() {
