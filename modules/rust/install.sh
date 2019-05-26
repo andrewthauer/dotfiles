@@ -3,18 +3,40 @@
 # Installs the Rust language tools
 #
 
-# install rustup
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+DEFAULT_COMPONENTS=(
+  rls
+  rust-src
+  rust-analysis
+  rustfmt
+)
 
-# set the cargo path
-export PATH="${HOME}/.cargo/bin:${PATH}"
-
-# install some components
-rustup component add \
-  rls \
-  rust-src \
-  rust-analysis \
-  rustfmt \
-  cargo-watch \
-  carge-make \
+DEFAULT_CRATES=(
+  cargo-watch
+  carge-make
   cargo-web
+)
+
+install_components() {
+  for comp in "${DEFAULT_COMPONENTS[@]}"; do
+    rustup component add $comp
+  done
+}
+
+install_crates() {
+  for crate in "${DEFAULT_CRATES[@]}"; do
+    cargo install $crate
+  done
+}
+
+# check if rust is installed with rustup
+if [[ ! -x $(command -v rustup) ]]; then
+  # install rust
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+else
+  # update rust
+  rustup update
+fi
+
+# install some packages
+install_components
+install_crates
