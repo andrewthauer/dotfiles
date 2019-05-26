@@ -36,8 +36,12 @@ bakcyn='\e[46m'   # Cyan
 bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 
-print_before_the_prompt () {
-  printf "\n[$txtred%s] $bldgrn%s $txtpur%n \n$txtrst" "$USER" "$PWD" "$(vcprompt -f "%n")"
+print_before_the_prompt() {
+  if [[ -x $(command -v vcprompt) ]]; then
+    printf "\n[$txtred%s] $bldgrn%s $txtpur%n \n$txtrst" "$USER" "$PWD" "$(vcprompt -f "%n")"
+  else
+    printf "\n[$txtred%s] $bldgrn%s \n$txtrst" "$USER" "$PWD"
+  fi
 }
 
 PROMPT_COMMAND=print_before_the_prompt

@@ -34,3 +34,8 @@ export LESSCHARSET='utf-8'
 if type lesspipe.sh >/dev/null 2>&1; then
   export LESSOPEN='|lesspipe.sh %s'
 fi
+
+# Load local environment
+if [[ -f "${DOTFILES_LOCAL_DIR}/env.sh" ]]; then
+  source ${DOTFILES_LOCAL_DIR}/env.sh
+fi
