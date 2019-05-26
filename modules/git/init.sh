@@ -3,5 +3,5 @@
 #
 
 if [[ -x "$(command -v git)" ]]; then
-  source "${DOTFILES_MOD_DIR}/git/aliases.sh"
+  source "${DOTFILES_MODULES_DIR}/git/aliases.sh"
 fi

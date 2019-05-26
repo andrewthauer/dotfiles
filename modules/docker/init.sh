@@ -3,5 +3,5 @@
 #
 
 if [[ -x "$(command -v docker)" ]]; then
-  source "${DOTFILES_MOD_DIR}/docker/aliases.sh"
+  source "${DOTFILES_MODULES_DIR}/docker/aliases.sh"
 fi

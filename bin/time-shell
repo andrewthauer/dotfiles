@@ -7,7 +7,7 @@
 #   time-shell
 #
 
-source "${DOTFILES_DIR}/bin/parent-cmd"
+source "${DOTFILES_BIN_DIR}/parent-cmd"
 CMD="$(parent_cmd)"
 
 if [[ "${CMD}" == "zsh" ]]; then

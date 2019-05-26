@@ -22,8 +22,8 @@ path=(
 # Set the function path
 fpath=(
   $fpath
-  ${DOTFILES_DIR}/bin
-  ${DOTFILES_DIR}/zfunctions
+  ${DOTFILES_BIN_DIR}
+  ${DOTFILES_ZFUNC_DIR}
 )
 
 # Load ~/.zshenv.local

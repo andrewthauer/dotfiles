@@ -10,7 +10,7 @@
 # local top level directories
 local
 repos
-zfunctions
+zfunc*
 
 # local settings
 **/*.local*

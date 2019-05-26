@@ -9,11 +9,11 @@ if [[ -f "${HOME}/.bash_profile" ]]; then
 fi
 
 # Bash setup
-source "${DOTFILES_MOD_DIR}/bash/completion.sh"
-source "${DOTFILES_MOD_DIR}/bash/prompt.sh"
+source "${DOTFILES_MODULES_DIR}/bash/completion.sh"
+source "${DOTFILES_MODULES_DIR}/bash/prompt.sh"
 
 # Common shell config & modules
-source "${DOTFILES_MOD_DIR}/init.sh"
+source "${DOTFILES_MODULES_DIR}/init.sh"
 
 # Load the local .bashrc file
 if [[ -f "$HOME/.bashrc.local" ]]; then

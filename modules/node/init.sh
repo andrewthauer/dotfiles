@@ -10,7 +10,7 @@ fi
 # load node helpers
 if [[ -x "$(command -v node)" ]]; then
   # load aliases
-  source "${DOTFILES_MOD_DIR}/node/aliases.sh"
+  source "${DOTFILES_MODULES_DIR}/node/aliases.sh"
 
   # load better npm completions (assumes zsh)
   npm_completions_dir="${DOTFILES_REPOS_DIR}/lukechilds/zsh-better-npm-completion"
