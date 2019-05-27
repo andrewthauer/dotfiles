@@ -16,5 +16,5 @@ zfunc*
 **/*.local*
 secrets/*
 
-# the symlink definition
-.symlinks
+# tests (temporary)
+test/

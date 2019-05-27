@@ -24,6 +24,7 @@ brew 'gettext', link: true
 brew 'git'
 brew 'git-open'
 brew 'gpg'
+brew 'make'
 brew 'neovim'
 brew 'openssl'
 brew 'openvpn'

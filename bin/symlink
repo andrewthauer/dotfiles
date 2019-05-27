@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # description:
-#   Symlinks a dotfile
+#   Symlinks files & directories
 #
 # usage:
 #   symlink path/to/source path/to/dest
@@ -9,64 +9,19 @@
 
 set -e
 
-usage() {
-  echo "Usage: symlink [path/to/source] [path/to/target]"
-  echo "";
-  echo "  -s | --source     : The source file or directory to symlink";
-  echo "  -t | --target     : The destination file/directory location";
-  echo "  -v | --verbose    : Show verbose logging";
-  echo "  -d | --dry-run    : Dry run without modifying the file system";
-  echo "  -h | --help       : This message";
-}
-
-parse_args() {
-  # positional args
-  args=()
-
-  # named args
-  while [ "$1" != "" ]; do
-  case "$1" in
-    -s|--source)    source="$2";    shift;;
-    -t|--target)    target="$2";    shift;;
-    -d|--dry-run)   dry_run=1;      ;;
-    -h|--help)      usage;          exit;; # quit and show usage
-    *)              args+=("$1")    # if no match, add it to the positional args
-  esac
-  shift # move to next kv pair
-  done
-
-  # restore positional args
-  set -- "${args[@]}"
-
-  # set positionals to vars
-  if [[ -z "${source}" && -z ${target} ]]; then
-    source="${args[0]}"
-    target="${args[1]}"
-  fi
-
-  # validate required args
-  if [[ -z "${source}" || -z "${target}" ]]; then
-    echo "Invalid arguments"
-    usage
-    exit;
-  fi
-}
-
 expand_path() {
   eval path=$1
   echo $path
 }
 
-get_source() {
+expand_source() {
   local src="$1"
-
   local filename=$(basename $src)
   local src_file="$(cd $(dirname $src); pwd)/$filename"
-
   echo "${src_file}"
 }
 
-get_destination() {
+expand_destination() {
   local src="$1"
   local dest="$2"
 
@@ -87,8 +42,8 @@ get_destination() {
 }
 
 symlink_item() {
-  local src="$(get_source "$1")"
-  local dest="$(get_destination "$1" "$2")"
+  local src="$(expand_source "$1")"
+  local dest="$(expand_destination "$1" "$2")"
   local dry_run="$3"
 
   echo "Symlinking: $src -> $dest"
@@ -114,12 +69,8 @@ symlink_item() {
 }
 
 run() {
-  parse_args "$@"
-
-  if [[ -n "${dry_run}" ]]; then
-    echo "Arg: { source: ${source}, target: ${target}, dry-run: ${dry_run:-0} }"
-  fi
-
+  local source=$1
+  local target=$2
   symlink_item "$source" "$target" "$dry_run"
 }
 

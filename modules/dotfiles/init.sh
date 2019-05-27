@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR="${DOTFILES_DIR}/lib/dotfiles"
+DIR="${DOTFILES_MODULES_DIR}/dotfiles"
 
 if [[ "${ZSH_NAME}" == "zsh" ]]; then
   # Ensure dotfiles cmd is in path

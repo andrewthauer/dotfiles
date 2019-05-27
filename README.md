@@ -27,7 +27,7 @@ Here's a list of things that are used:
 ```shell
 git clone git@github.com:andrewthauer/dotfiles.git
 cd dotfiles
-./bin/dotfiles setup
+make
 # ... restart your shell
 ```
 
@@ -40,7 +40,6 @@ cd dotfiles
 ## Commands
 
 ```sh
-# Display available dotfiles commands
 dotfiles help
 ```
 
@@ -57,17 +56,7 @@ directories do not follow the specific topic organization:
 - `zfunctions` (git ignored) - Contains common shell settings & features that work in
   `bash`, `zsh`, etc.
 
-### `modules`
-
-Modules directories are based on topics grouped into a specific directory
-(i.e. zsh, git, etc.). The following conventions are used:
-
-- `init.{sh,zsh}` - Used to initialize the module
-- `aliases.{sh,zsh}` - Contains various aliases
-- `bin` - Contains executable commands (may be added to `$PATH`)
-- `completions` - Contains related zsh completions
-- `functions` - Contains functions that can be sourced
-- `modules` - Contains additional submodules
+## Customization
 
 ### `local`
 
@@ -83,13 +72,13 @@ The following are part of the standard setup:
 - `local/zsh/.zshrc` - Customize the interactive zsh shell (sourced by `.zshrc`)
 - `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
 
-## Configuration
+### Configuration
 
 Most configuration is handled via symlinks to the users home directory. Non
 system specific settings are defined in the `config` directory while local
 system configurations & secrets should be added to the `./local` directory.
 
-### Packges
+### Packages
 
 The `packages.sh` (or `local/package.sh`) file is used to install 3rd party
 dependencies & symlink various files. This is can be run with the
