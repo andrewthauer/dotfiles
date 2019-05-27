@@ -17,33 +17,40 @@
 #   -> # ~/.ssh/config
 #
 
-ssh_config_merge() {
-  # The target file
-  local target_config="${1}"
-  [ -z "$target_config" ] && target_config="$HOME/.ssh/config"
+set -e
 
-  # Truncate the file
-  if [ -e "$HOME/.ssh/config" ]; then
-    echo "Do you want to replace the existing '$target_config' file [y/N]?"
-    read reply
-    if [[ $reply =~ ^[Yy]$ ]]; then
-      cat /dev/null >! $target_config
-    else
-      return 1
-    fi
+# The source files
+SRC_PATHS="$1"
+[ -z "$SRC_PATHS" ] && SRC_PATHS="$SSH_CONFIGS"
+
+# The target file
+TARGET="$2"
+[ -z "$TARGET" ] && TARGET="$HOME/.ssh/config"
+
+# Truncate the file
+if [ -e "$HOME/.ssh/config" ]; then
+  echo "Do you want to replace the existing '$TARGET' file [y/N]?"
+  read reply
+  if [[ $reply =~ ^[Yy]$ ]]; then
+    cat /dev/null > $TARGET
+  else
+    return 1
   fi
+fi
 
-  # Append configs to the ~/.ssh/config
-  for conf in "${SSH_CONFIGS[@]}"; do
-    cat "$conf" >> $target_config
-    echo "" >> $target_config
-  done
+# Convert the source paths into an array
+IFS=':' read -r -a SSH_CONFIGS <<< "$SRC_PATHS"
 
-  # Update permissions
-  chmod 600 "$target_config"
+# Append configs to the ~/.ssh/config
+for conf in "${SSH_CONFIGS[@]}"; do
+  echo "Appending: $conf"
+  cat "$conf" >> $TARGET
+  echo "" >> $TARGET
+done
 
-  # Done
-  echo "SSH config: '$target_config' updated"
-}
+# Update permissions
+chmod 600 "$TARGET"
 
-ssh_config_merge
+# Done
+echo "Created: $TARGET"
+exit 0
