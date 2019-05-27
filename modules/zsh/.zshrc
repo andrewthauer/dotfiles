@@ -9,7 +9,6 @@ source "${DOTFILES_MODULES_DIR}/zsh/keybinds.zsh"
 source "${DOTFILES_MODULES_DIR}/zsh/history.zsh"
 source "${DOTFILES_MODULES_DIR}/zsh/completion.zsh"
 source "${DOTFILES_MODULES_DIR}/zsh/plugins.zsh"
-source "${DOTFILES_MODULES_DIR}/zsh/aliases.zsh"
 
 # Common config & modules
 source "${DOTFILES_MODULES_DIR}/init.sh"

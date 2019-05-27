@@ -2,7 +2,10 @@
 #
 # Dotenv helpers & aliases
 #
-# Note:
+# usage:
+#   dotenv [cmd] | [env_file]
+#
+# note:
 #   On macOS `envsubst` requires gettext:
 #     brew install gettext
 #     brew link --force gettext
@@ -10,17 +13,27 @@
 
 set -o errexit -o pipefail -o noclobber -o nounset
 
+usage() {
+  echo "Usage: dotenv [command]"
+  echo "";
+  echo "COMMANDS:";
+  echo "  read       Reads the variables from a .env file";
+  echo "  exec       Executes a command with the variables from the .env file";
+  echo "  export     Exports the contents of a .env file";
+  echo "  subst      Substutes environment variables in the specified file";
+}
+
 dotenv_read () {
   local file="${DOTENV_FILE:-${1:-.env}}"
   cat "${file}" | grep -v "^#" | grep -v -e "^$"
 }
 
 dotenv_exec() {
-  env $(dotenv-read) "${@:1}"
+  env $(dotenv_read) ${@:1}
 }
 
 dotenv_export() {
-  export $(dotenv-read | xargs)
+  export $(dotenv_read ${1:-''} | xargs)
 }
 
 dotenv_subst() {
@@ -29,20 +42,25 @@ dotenv_subst() {
     exit 1
   fi
 
-  dotenv-exec envsubst < "${1}"
+  dotenv_exec envsubst < "${1}"
 }
 
-exec_dotenv() {
-  cmd=$1
+run() {
+  cmd=${1:-}
   args=${@:2}
-  dotenv_cmd="dotenv_${cmd}"
+  sub_cmd="dotenv_${cmd}"
 
   # Execute the command
-  if [ $(command -v $dotenv_cmd) ]; then
-    $dotenv_cmd $args 2>&1
+  if [ $(command -v $sub_cmd) ]; then
+    $sub_cmd $args 2>&1
   else
-    dotenv_read
+    if [[ -f ".env" ]]; then
+      dotenv_read '.env'
+    else
+      usage
+    fi
   fi
 }
 
-exec_dotenv $@
+run $@
+exit 0

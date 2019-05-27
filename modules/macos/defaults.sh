@@ -147,8 +147,8 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # Dock
 # =============================================================================
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 48
+# Set the icon size of Dock items (in pixels)
+defaults write com.apple.dock tilesize -int 42
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "genie"
@@ -325,7 +325,7 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 # =============================================================================
 
 # Use custom theme for Terminal.app
-open "${DOTFILES_DIR}/macos/Tower.terminal"
+open "${DOTFILES_MODULES_DIR}/macos/Zenburn.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.Terminal "Default Window Settings" -string "Tower"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Tower"

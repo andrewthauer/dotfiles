@@ -15,6 +15,3 @@ zfunc*
 # local settings
 **/*.local*
 secrets/*
-
-# tests (temporary)
-test/

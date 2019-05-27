@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 #
 # Common environment settings
 #
@@ -15,16 +16,11 @@ DOTFILES_ZFUNC_DIR="${DOTFILES_ZFUNC_DIR:-$DOTFILES_DIR/zfunc}"
 # Append dotfiles/bin to path
 export PATH="${PATH}:${DOTFILES_DIR}/bin"
 
-# Language
-export LANG="${LANG:-en_US.UTF-8}"
-LC_CTYPE=${LANG}
-LC_ALL=${LANG}
-
 # Editor
 export EDITOR=vim
 export VISUAL="${EDITOR}"
 
-# ls colors
+# Colors
 export CLICOLOR=1
 
 # Pager
@@ -35,12 +31,4 @@ export LESSCHARSET='utf-8'
 # Set the Less input preprocessor
 if type lesspipe.sh >/dev/null 2>&1; then
   export LESSOPEN='|lesspipe.sh %s'
-fi
-
-# Load local environment
-if [[ -f "${DOTFILES_LOCAL_DIR}/env.sh" ]]; then
-  source ${DOTFILES_LOCAL_DIR}/env.sh
-
-  # Append dotfiles/local/bin to path
-  export PATH="${PATH}:${DOTFILES_LOCAL_DIR}/bin"
 fi

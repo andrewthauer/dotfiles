@@ -141,4 +141,4 @@
   # unassumeall = !git assumed | xargs git update-index --no-assume-unchanged
 
 [include]
-  path = ~/.dotfiles/local/git/.gitconfig
+  path = ~/.gitconfig.local

@@ -3,9 +3,11 @@
 # Excuted by bash at login pre-bash
 #
 
-# Load common shell environment
+# Dotfiles dir
 export DOTFILES_DIR="${HOME}/.dotfiles"
-source "${DOTFILES_DIR}/env.sh"
+
+# Load common shell environment
+source "${DOTFILES_DIR}/env"
 
 # Load the local .bash_profile file
 if [[ -f "$HOME/.bash_profile.local" ]]; then
