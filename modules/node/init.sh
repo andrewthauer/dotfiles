@@ -17,4 +17,5 @@ if [[ -x "$(command -v node)" ]]; then
   if [[ "${ZSH_NAME}" == "zsh" && -s "${npm_completions_dir}" ]]; then
     source "${npm_completions_dir}/zsh-better-npm-completion.plugin.zsh"
   fi
+  unset npm_completions_dir
 fi

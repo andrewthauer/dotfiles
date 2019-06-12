@@ -8,7 +8,7 @@
 #
 
 source "${DOTFILES_BIN_DIR}/parent-cmd"
-CMD="$(parent_cmd)"
+CMD="$(parent-cmd)"
 
 if [[ "${CMD}" == "zsh" ]]; then
   time -p zsh --interactive -c exit
