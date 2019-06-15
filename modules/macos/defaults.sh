@@ -48,6 +48,7 @@ defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
 # TODO - Disable keyboard shorcuts in System Preferences > Mission Control
 # - Mission Control
+# - Show Notification -> Center Ctrl+Option+F8
 # - Application windows
 # - Show Desktop
 # - Show Dashboard
