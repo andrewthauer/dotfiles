@@ -4,6 +4,7 @@ REPOS_DIR = $(DOTFILES_DIR)/repos
 ZFUNC_DIR = $(DOTFILES_DIR)/zfunc
 
 export DOTFILES_REPOS_DIR := $(REPOS_DIR)
+OS = $(shell uname)
 GITHUB_INSTALL = $(BIN_DIR)/github-install
 SYMLINK = $(BIN_DIR)/symlink
 
@@ -35,12 +36,15 @@ git:
 
 .PHONY: hammerspoon
 hammerspoon:
-	# TODO: Make conditional for Darwin (macos) only
+ifeq ($(shell uname), Darwin)
 	@$(SYMLINK) $(CURDIR)/hammerspoon ~/.hammerspoon
+endif
 
 .PHONY: homebrew
 homebrew:
+ifeq ($(shell uname), Darwin)
 	@$(SYMLINK) $(CURDIR)/homebrew/Brewfile ~/.Brewfile
+endif
 
 .PHONY: rust
 rust:

@@ -4,8 +4,15 @@ PACK_START_DIR = $(CURDIR)/pack/default/start
 
 GITHUB_INSTALL = $(BIN_DIR)/github-install
 SYMLINK = $(BIN_DIR)/symlink
+YARN := $(shell command -v yarn 2> /dev/null)
 
-all: link update
+all: setup link update
+
+setup:
+	mkdir -p "$(CURDIR)/pack"
+	mkdir -p "$(CURDIR)/pack/default"
+	mkdir -p "$(CURDIR)/pack/default/opt"
+	mkdir -p "$(CURDIR)/pack/default/start"
 
 link:
 	@$(SYMLINK) $(CURDIR) ~/.vim
@@ -23,7 +30,11 @@ update:
 	@$(SYMLINK) $(REPOS_DIR)/sheerun/vim-polyglot $(PACK_START_DIR)/vim-polyglot
 	@$(GITHUB_INSTALL) junegunn/fzf
 	@$(SYMLINK) $(REPOS_DIR)/junegunn/fzf $(PACK_START_DIR)/fzf
+ifdef YARN
 	@$(GITHUB_INSTALL) neoclide/coc.nvim --post-install "yarn install --frozen-lockfile"
 	@$(SYMLINK) $(REPOS_DIR)/neoclide/coc.nvim $(PACK_START_DIR)/coc.nvim
+else
+	@echo yarn not found
+endif
 
 .PHONY: all link update

@@ -22,6 +22,11 @@ Here's a list of things that are used:
 
 ## Setup
 
+### Pre-requisites
+
+- git
+- make
+
 ### TL;DR;
 
 ```shell

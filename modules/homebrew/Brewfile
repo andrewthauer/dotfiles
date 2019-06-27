@@ -22,30 +22,16 @@ brew 'fasd'
 brew 'gcc'
 brew 'gettext', link: true
 brew 'git'
-brew 'git-open'
 brew 'gpg'
 brew 'make'
 brew 'neovim'
 brew 'openssl'
-brew 'openvpn'
-brew 'pandoc'
 brew 'pkg-config'
 brew 'readline'
 brew 'tmux'
 brew 'tree'
 brew 'vcprompt'
-brew 'yarn', args: ['without-node']
 brew 'zsh'
-
-# homebrew cask
-# cask 'docker'
-
-# macos apps
-# cask 'dash'
-# cask 'hammerspoon'
-
-# caskroom/fonts
-# cask 'homebrew/cask-fonts/font-fira-code'
 
 # Local Brewfile
 local_brewfile = File.expand_path('~/.Brewfile.local')
