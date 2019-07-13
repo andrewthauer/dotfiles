@@ -21,6 +21,7 @@ usage() {
   echo "  exec       Executes a command with the variables from the .env file";
   echo "  export     Exports the contents of a .env file";
   echo "  subst      Substutes environment variables in the specified file";
+  echo "  help       Prints this message";
 }
 
 dotenv_read () {

@@ -7,6 +7,7 @@ alias dk='docker'
 # Images
 alias di='docker images'
 alias dbld='docker build'
+alias dhist='docker history'
 alias drmi='docker rmi'
 alias drmi_all='docker rmi $* $(docker images -a -q)'
 alias drmi_dang='docker rmi $* $(docker images -q -f dangling=true)'
