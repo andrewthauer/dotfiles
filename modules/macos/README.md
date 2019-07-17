@@ -24,6 +24,10 @@ defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder
 # Install macOS Command Line Tools
 xcode-select --install
 
+# Allow homebrew shell versions for startup
+sudo echo "/usr/local/bin/bash" >> /etc/shells
+sudo echo "/usr/local/bin/zsh" >> /etc/shells
+
 # Change your default shell to zsh
 chsh -s $(which zsh)
 ```
