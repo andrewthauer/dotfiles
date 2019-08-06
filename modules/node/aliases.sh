@@ -1,5 +1,5 @@
 #
-# Node
+# Node aliases
 #
 
 # npm list
