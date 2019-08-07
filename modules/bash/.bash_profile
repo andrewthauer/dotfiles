@@ -11,6 +11,7 @@ source "${DOTFILES_DIR}/env"
 
 # Source the .bashrc file
 if [[ -f "$HOME/.bashrc" ]]; then
+  BASH_PROFILE_LOADED=true
   source "${HOME}/.bashrc"
 fi
 

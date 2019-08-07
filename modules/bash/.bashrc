@@ -3,8 +3,8 @@
 # Executes commands at the start of an interactive session
 #
 
-# Load the ~/.bash_profile if it exists
-if [[ -f "${HOME}/.bash_profile" ]]; then
+# Load the ~/.bash_profile if has not been loaded
+if [[ -f "${HOME}/.bash_profile" && -z $BASH_PROFILE_LOADED ]]; then
   source "${HOME}/.bash_profile"
 fi
 
