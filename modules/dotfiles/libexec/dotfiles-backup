@@ -7,4 +7,4 @@
 #   Implement function to backup secrets and local env files
 #
 
-${DOTFILES_BIN_DIR}/backup-dotfiles $@
+${DOTFILES_DIR}/bin/backup-dotfiles $@

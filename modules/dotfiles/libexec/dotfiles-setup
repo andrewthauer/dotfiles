@@ -4,4 +4,6 @@
 #   Setup script for install dotfiles
 #
 
-${DOTFILES_DIR}/setup.sh
+pushd ${DOTFILES_DIR} > /dev/null
+make
+popd

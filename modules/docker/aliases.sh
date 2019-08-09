@@ -13,6 +13,11 @@ alias drmi='docker rmi'
 alias drmi_all='docker rmi $* $(docker images -a -q)'
 alias drmi_dang='docker rmi $* $(docker images -q -f dangling=true)'
 
+function drmit() {
+  # remove all tags for image name
+  docker images | grep "$1" | awk '{system("docker rmi " "'"$1:"'" $2)}'
+}
+
 # Containers
 alias dps='docker ps'
 alias dpsa='docker ps -a'

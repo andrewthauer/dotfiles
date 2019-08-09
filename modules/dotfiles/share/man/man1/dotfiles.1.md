@@ -22,6 +22,9 @@ backup
 help
 : Displays a summary of the dotfiles commands
 
+init
+: Manually initialize a specific module
+
 profile
 : Displays the load time for the current shell environment
 

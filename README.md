@@ -55,10 +55,9 @@ directories do not follow the specific topic organization:
 
 - `bin` - Contains various scripts (added to `$PATH`)
 - `modules` - Contains modules & plugins
-- `lib` - Contains local library packages
 - `local` (git ignored) - Used for local environment customizations
 - `repos` (git ignored) - External package dependencies
-- `zfunctions` (git ignored) - Contains common shell settings & features that work in
+- `zfunc` (git ignored) - Contains common shell settings & features that work in
   `bash`, `zsh`, etc.
 
 ## Customization

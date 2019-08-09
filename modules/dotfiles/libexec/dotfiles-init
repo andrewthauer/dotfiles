@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Sources a specific module
+#
+
+module=${1}
+if [[ -z ${module} ]]; then
+  echo "No module name provided"
+  exit 1
+fi
+
+mod_init_path="${DOTFILES_DIR}/modules/${module}/init.sh"
+if [[ ! -f ${module_path} ]]; then
+  echo "Invalid module entry: ${mod_init_path}"
+  exit 1
+fi
+
+# ensure env vars are set
+source "${DOTFILES_DIR}/env.sh"
+
+source "${module_path}"
+
+exit 0

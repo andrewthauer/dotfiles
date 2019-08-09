@@ -7,7 +7,7 @@
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
 # Load common shell environment
-source "${DOTFILES_DIR}/env"
+source "${DOTFILES_DIR}/env.sh"
 
 # Source the .bashrc file
 if [[ -f "$HOME/.bashrc" ]]; then

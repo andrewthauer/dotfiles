@@ -7,7 +7,7 @@
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
 # Load common shell env
-source "${DOTFILES_DIR}/env"
+source "${DOTFILES_DIR}/env.sh"
 
 # Zsh home directory
 ZDOTDIR="${ZDOTDIR:-$HOME}"

@@ -15,3 +15,7 @@ else
   # Setup completions
   source "${DIR}/completions/dotfiles.bash"
 fi
+
+# shortcut aliases
+alias dot="dotfiles"
+alias doti="dotfiles init"
