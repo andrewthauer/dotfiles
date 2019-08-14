@@ -3,6 +3,9 @@
 # Excuted by bash at login pre-bash
 #
 
+# Already loaded flag
+BASH_PROFILE_LOADED=true
+
 # Dotfiles dir
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
@@ -11,7 +14,6 @@ source "${DOTFILES_DIR}/env.sh"
 
 # Source the .bashrc file
 if [[ -f "$HOME/.bashrc" ]]; then
-  BASH_PROFILE_LOADED=true
   source "${HOME}/.bashrc"
 fi
 

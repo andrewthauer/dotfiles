@@ -1,10 +1,13 @@
 #
 # Kubernetes aliases
 #
-# See - https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
+# general
 alias k="kubectl"
+alias kcheat="open https://kubernetes.io/docs/reference/kubectl/cheatsheet"
 
-# resources
-alias kgpa="kubectl get pods --all-namespaces"
-alias kgpau="kgpa -o jsonpath="{..image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c"
+# viewing resources
+alias kgc="kubectl config get-contexts"
+alias kpods="kubectl get pods"
+alias kpodsa="kubectl get pods --all-namespaces"
+alias kpodsi="kpods -o jsonpath="{..image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c"

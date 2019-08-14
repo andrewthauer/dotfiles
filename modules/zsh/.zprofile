@@ -3,6 +3,9 @@
 # Executes commands at login pre-zshrc
 #
 
+# Already loaded flag
+ZSH_PROFILE_LOADED=true
+
 # Dotfiles dir
 export DOTFILES_DIR="${HOME}/.dotfiles"
 

@@ -4,7 +4,7 @@
 #
 
 # Ensure the profile is loaded
-if [[ -f "${HOME}/.zprofile" ]]; then
+if [[ -f "${HOME}/.zprofile" && ! -z $ZSH_PROFILE_LOADED ]]; then
   source "${HOME}/.zprofile"
 fi
 

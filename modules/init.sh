@@ -24,7 +24,6 @@ source "${MODULES_DIR}/python/init.sh"
 source "${MODULES_DIR}/ruby/init.sh"
 source "${MODULES_DIR}/rust/init.sh"
 
-# Initialize fasd if installed
-if [[ -x "$(command -v fasd)" ]]; then
-  eval "$(fasd --init auto)"
-fi
+# platform tools
+source "${MODULES_DIR}/aws/init.sh"
+source "${MODULES_DIR}/gcloud/init.sh"
