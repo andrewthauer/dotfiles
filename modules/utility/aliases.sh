@@ -2,7 +2,11 @@
 # Common Aliases
 #
 
+# Go to the dotfiles directory
 alias dotdir="cd ${DOTFILES_DIR}"
+
+# Reloads the current shell
+alias reload="exec $SHELL -l"
 
 #
 # Directories
@@ -42,10 +46,12 @@ else
 fi
 
 # Displays process with grep
-function psg() { ps aux | { head -1; grep -v grep | grep -i "$1"; } }
+function psg() {
+  ps aux | { head -1; grep -v grep | grep -i "$1"; }
+}
 
 # Displays user owned processes status.
-function psu {
+function psu() {
   ps -U "${1:-$LOGNAME}" -o "pid,%cpu,%mem,command" "${(@)argv[2,-1]}"
 }
 
@@ -57,16 +63,24 @@ function psu {
 alias lstcp="lsof -i -n -P | grep TCP"
 
 #
+# SSH
+#
+
+# local port forwarding
+# - ssh -L <local_port>:<remote_host>:<remote_port> user@<remote_server>
+alias sshl="ssh -L"
+
+# remote port forward
+# - ssh -R <remote_port>:<local_host>:<local_port> user@<remote_server>
+alias sshr="ssh -R "
+
+#
 # Clipboard
 #
 
 # Mac OS X Everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o="open"
-elif [[ "$OSTYPE" == cygwin* ]]; then
-  alias o="cygstart"
-  alias pbcopy="tee > /dev/clipboard"
-  alias pbpaste="cat /dev/clipboard"
 else
   alias o="xdg-open"
 
@@ -86,11 +100,13 @@ alias pbp="pbpaste"
 # File Download
 #
 
-if [[ -x "$(command -v curl)" ]]; then
-  alias get="curl --continue-at - --location --progress-bar --remote-name --remote-time"
-elif [[ -x "$(command -v wget)" ]]; then
-  alias get="wget --continue --progress=bar --timestamping"
-fi
+get() {
+  if [[ -x "$(command -v curl)" ]]; then
+    curl --continue-at - --location --progress-bar --remote-name --remote-time
+  elif [[ -x "$(command -v wget)" ]]; then
+    wget --continue --progress=bar --timestamping
+  fi
+}
 
 #
 # Archives
@@ -106,8 +122,10 @@ untar() {
 #
 
 # Serves a directory via HTTP
-if [[ -x $(command -v python3) ]]; then
-  alias http-serve="python3 -m http.server"
-else
-  alias http-serve="python -m SimpleHTTPServer"
-fi
+http-serve() {
+  if [[ -x $(command -v python3) ]]; then
+    python3 -m http.server
+  else
+    python -m SimpleHTTPServer
+  fi
+}

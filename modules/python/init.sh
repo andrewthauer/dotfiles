@@ -2,12 +2,29 @@
 # Initialize python module
 #
 
-# initialize pyenv
-if [[ -x "$(command -v pyenv)" ]]; then
+_pyenv_init() {
+  # expensive function call
   eval "$(pyenv init - --no-rehash)"
+  unset -f "$0"
+}
+
+_pyenv_lazy_init() {
+  # python() { unset -f "$0"; _pyenv_init; $0 "$@"; }
+
+  triggers=(python python2 python3 pip pip2 pipe3)
+  for cmd in "${triggers[@]}"; do
+    eval "${cmd}() { unset -f ${triggers}; _pyenv_init; ${cmd} \$@; }"
+  done
+
+  unset -f "$0"
+}
+
+# initialize pyenv (lazy)
+if command_exists "pyenv"; then
+  _pyenv_lazy_init
 fi
 
-# load aliases
-if [[ -x "$(command -v python)" ]]; then
+if command_exists "python"; then
+  # load aliases
   source "${DOTFILES_MODULES_DIR}/python/aliases.sh"
 fi

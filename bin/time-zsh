@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+#
+# description:
+#   Profile the shell startup time of zsh
+#
+# usage:
+#   profile-zsh
+#   profile-zsh -p (profile with zprof)
+#   profile-zsh -r (repeat 10 times)
+#
+
+time_cmd="/usr/bin/time"
+
+# profile with zsh/zprof
+if [[ "$1" == "-p" ]]; then
+  ZPROF=true $time_cmd zsh -i -l -c "zprof; exit;"
+
+# repeat startup time 10 times
+elif [[ "$1" == "-r" ]]; then
+  for i in $(seq 1 10); do $time_cmd zsh -i -l -c exit; done
+
+# single startup time
+else
+  $time_cmd zsh -i -l -c exit
+fi

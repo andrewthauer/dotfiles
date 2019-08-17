@@ -4,4 +4,4 @@
 #   Profile the shell startup time
 #
 
-time zsh -i -c exit
+/usr/bin/time zsh -i -l -c exit

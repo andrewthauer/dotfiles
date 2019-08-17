@@ -7,6 +7,6 @@
 #   vpn [profile_dir]
 
 (
-  [[ ! -z $1 ]] && cd "${OPENVPN_PROFILE_DIR}/$1"
+  [[ -n $1 ]] && cd "${OPENVPN_PROFILE_DIR}/$1"
   sudo openvpn --config client.ovpn
 )

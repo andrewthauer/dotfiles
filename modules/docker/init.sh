@@ -2,6 +2,7 @@
 # Initialize docker module
 #
 
-if [[ -x "$(command -v docker)" ]]; then
+if command_exists "docker"; then
+  # load aliases
   source "${DOTFILES_MODULES_DIR}/docker/aliases.sh"
 fi

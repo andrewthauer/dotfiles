@@ -3,6 +3,9 @@
 # Executes commands at the start of an interactive session
 #
 
+# Enable zprof performance profiling
+[[ -n $ZPROF ]] && zmodload zsh/zprof
+
 # Zsh config (order matters)
 source "${DOTFILES_MODULES_DIR}/zsh/environment.zsh"
 source "${DOTFILES_MODULES_DIR}/zsh/keybinds.zsh"

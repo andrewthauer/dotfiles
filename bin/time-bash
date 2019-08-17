@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Profile the shell startup time of bash
+#
+# usage:
+#   time-bash
+#
+
+time -p bash --login -c exit

@@ -9,8 +9,9 @@ BASH_PROFILE_LOADED=true
 # Dotfiles dir
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
-# Load common shell environment
-source "${DOTFILES_DIR}/env.sh"
+# Load common shell env & profile
+source "${DOTFILES_DIR}/modules/shared/env.sh"
+source "${DOTFILES_DIR}/modules/shared/profile.sh"
 
 # Source the .bashrc file
 if [[ -f "$HOME/.bashrc" ]]; then

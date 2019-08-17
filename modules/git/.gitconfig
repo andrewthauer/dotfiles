@@ -25,12 +25,12 @@
   cf = config --list
   # Commit the staged changes
   ci = commit
-  # Commit the staged changes with message
-  cim = !git commit -m ${1-'chore: meh'}
+  # Commit ammend
+  cia = !git commit --amend
   # Commit with a meh message the squashbase
-  cis = !git commit -m 'chore: meh' && git squash
+  cis = !git commit -m 'chore: squash' && git squash
   # Commit with a meh message the squashbase
-  cisb = !git commit -m 'chore: meh' && git squashbase
+  cisb = !git commit -m 'chore: squash' && git squashbase
   # Reset and clean the repo dir
   clean-pristine = reset --hard && git clean -dfx
   # Clones recursively
@@ -38,7 +38,7 @@
   # Shortcut for `git checkout`
   co = checkout
   # Shortcut for `git checkout -b`
-  cod = checkout -b
+  cob = checkout -b
   # Checkout default branch
   cod = !git checkout $(git default-branch)
   # Cherry pick commits

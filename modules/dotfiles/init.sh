@@ -2,9 +2,9 @@
 
 DIR="${DOTFILES_MODULES_DIR}/dotfiles"
 
-if [[ "${ZSH_NAME}" == "zsh" ]]; then
+if [[ -n "${ZSH_NAME}" ]]; then
   # Ensure dotfiles cmd is in path
-  if [[ ! -x "$(command -v dotfiles)" ]]; then
+  if [[ ! $+commands[dotfiles] ]]; then
     path=("${DIR}/bin" $path)
     fpath=("${DIR}/bin" $fpath)
   fi

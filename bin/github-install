@@ -68,7 +68,7 @@ run() {
     git -C ${target_dir} pull
   fi
 
-  if [ ! -z "${post_install}" ]; then
+  if [ -n "${post_install}" ]; then
     echo "Running post install ..."
     pushd ${target_dir} >/dev/null
     ${post_install}
