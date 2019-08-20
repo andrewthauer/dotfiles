@@ -19,7 +19,7 @@
   brd = branch -d
   # Show local branches with details
   branches = branch -vv
-  # Rename the branch
+  # Show the current branch name
   branch-name = !git rev-parse --abbrev-ref HEAD
   # List configuration
   cf = config --list
@@ -27,9 +27,9 @@
   ci = commit
   # Commit ammend
   cia = !git commit --amend
-  # Commit with a meh message the squashbase
+  # Commit then squashbase
   cis = !git commit -m 'chore: squash' && git squash
-  # Commit with a meh message the squashbase
+  # Commit then squashbase
   cisb = !git commit -m 'chore: squash' && git squashbase
   # Reset and clean the repo dir
   clean-pristine = reset --hard && git clean -dfx
@@ -45,36 +45,36 @@
   cp = cherry-pick
   # Cherry pick with sign off line
   cps = cherry-pick -s
-  # Display the number of commits
-  count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
   # Checkout master
   cm = checkout master
   # Get default branch for repo
   default-branch = !git symbolic-ref --short refs/remotes/origin/HEAD | sed 's@^origin/@@'
   # Show changes that have been staged
   diffc = diff --cached
-  # Show the difference from master
-  diffm = diff master...`!git branch-name`
+  # Shows the files changed between
+  diffn = diff --name-only
+  # Shows the files changed between
+  diffs = diff --stat
   # Fetch and prune all branches that do not exist in remote
   fetchp = fetch -p
   # Display a log of incoming changes
   in = !git wtf HEAD..HEAD@{u}
   # Delete all merged branches but master
-  killbranches = !git branch --merged | grep -v '\\bmaster\\b' | xargs git branch -d
+  kill-branches = !git branch --merged | grep -v '\\bmaster\\b' | xargs git branch -d
   # Display the last tag info
   lasttag = describe --tags --abbrev=0
   # List all files
-  ls = ls-files
+  lsf = ls-files
   # Show remote
   ls-merged = !git branch -r --merged | grep -v master
   # Show log (one commit per line)
   logl = log --oneline
   # Show log with details (one commit per line)
   logp = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
-  # # Show log graph (one commit per line)
+  # Show log with file stats
+  logs = log --stat --pretty=short --graph
+  # Show log graph (one commit per line)
   logv = log --oneline --graph --decorate
-  # Ammend the last commit
-  meh = commit --amend
   # Create a new branch `git [newb] [proj [branchName]`
   newf = "!f() { ticketNum=$1; branchName=$2; git checkout -b \"feature/${ticketNum}-${branchName}\"; }; f"
   # Do not auto commit in order to inspect the result
@@ -83,30 +83,26 @@
   ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
   # Display a log of outgoing changes
   out = !git wtf HEAD@{u}..HEAD
-  # Pull master and rebase current branch on top
-  pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
   # Push force no-verify
   pushf= push -f --no-verify
   # Push upstream
   pushu= !git push -u origin `git branch-name`
   # Rebase
   rb = rebase
-  # Rebase default branch
+  # Rebase default branch (master, develop, etc)
   rbd = "!f() { branchName=$(git default-branch); git squashbase -i $branchName; }; f"
-  # Rebase master
-  rbm = rebase -i master
-  # Rebase continue
+  # Shortcut for `git rebase --continue`
   rbc = rebase --continue
+  # Shortcut for `git rebase --interactive`
+  rbi = rebase --interactive
   # Reset to origin/master
   reset-to-master = !git fetch origin && git reset --hard origin/master
   # Reset to origin/[current-branch]
   reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
   # squash up to
   squash = !git rebase -i HEAD~${1:-2}
-  # Squash up to master
+  # Squash up to default branch (master, develop, etc)
   squashbase = "!f() { defaultBranch=$(git default-branch); branchName=${1-$defaultBranch}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
-  # Alias for squashbase
-  sb = squashbase
   # Show current branch status with short format
   st = status -sb
   # Show current branch status with untracked files
@@ -134,7 +130,13 @@
   # Advanced
   # autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
   # comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
+  # Display the number of commits
+  # count = "!f() { defaultBranch=$(git default-branch); compareBranch=${1:-$defaultBranch}; git rev-list --count HEAD ^$compareBranch; }; f"
   # delete-remote-merged = git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
+  # Show changed files between commits
+  # difff = "!f() { a=$(git branch-name); b=$(git default-branch); git diff --name-only ${1:-$a} $(git merge-base ${1:-$a} ${2:-$b}); }; f"
+  # Pull default branch and rebase current branch on top
+  # pullbase = "!f() { defaultBranch=$(git default-branch); branchName=${1-$defaultBranch}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
   # Update the remote
   # rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
   # unassume = update-index --no-assume-unchanged
