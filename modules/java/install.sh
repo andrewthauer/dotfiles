@@ -3,19 +3,23 @@
 # Installs java toolchain
 #
 
-# install jenv
-brew install jenv
+# install version manager
+brew install jenv maven gradle
 exec $SHELL -l
 
 # make sure JAVA_HOME is set
 jenv enable-plugin export
 exec $SHELL -l
 
-# add maven plugin
-# jenv enable-plugin maven
+# enable plugins
+jenv enable-plugin maven
+jenv enable-plugin gradle
 
-# install latest java
+# install java versions
 brew cask install java
+brew cask install homebrew/cask-versions/adoptopenjdk8
+
+# add java home
 jenv add $(/usr/libexec/java_home)
 
 # add all other versions (if installed)
@@ -27,5 +31,4 @@ done
 
 # set default global version
 jenv global system
-VERSION=$(jenv versions | grep -v "[a-zA-Z]" | tail -n 1 | tr -d ' ')
-jenv global $VERSION
+jenv global 1.8

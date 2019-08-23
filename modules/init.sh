@@ -22,11 +22,13 @@ source "${MODULES_DIR}/redis/init.sh"
 
 # language support
 source "${MODULES_DIR}/dotnet/init.sh"
+source "${MODULES_DIR}/go/init.sh"
 source "${MODULES_DIR}/java/init.sh"
 source "${MODULES_DIR}/node/init.sh"
 source "${MODULES_DIR}/python/init.sh"
 source "${MODULES_DIR}/ruby/init.sh"
 source "${MODULES_DIR}/rust/init.sh"
+source "${MODULES_DIR}/scala/init.sh"
 
 # platform tools
 source "${MODULES_DIR}/aws/init.sh"

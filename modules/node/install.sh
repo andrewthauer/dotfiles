@@ -3,12 +3,12 @@
 # Installs node toolchain
 #
 
-# install node
+# install version manager
 brew install node-build nodenv
 exec $SHELL -l
 
-# install latest node version
-VERSION=$(nodenv install -list | grep -v "[a-zA-Z]" | tail -n 1)
+# install latest version
+VERSION=$(nodenv install --list | grep -v "[a-zA-Z]" | tail -n 1 | tr -d ' ')
 nodenv install $VERSION
 
 # set default global version

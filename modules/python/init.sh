@@ -9,9 +9,7 @@ _pyenv_init() {
 }
 
 _pyenv_lazy_init() {
-  # python() { unset -f "$0"; _pyenv_init; $0 "$@"; }
-
-  triggers=(python python2 python3 pip pip2 pipe3)
+  triggers=(pyenv python python2 python3 pip pip2 pipe3)
   for cmd in "${triggers[@]}"; do
     eval "${cmd}() { unset -f ${triggers}; _pyenv_init; ${cmd} \$@; }"
   done

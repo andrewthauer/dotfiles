@@ -3,12 +3,12 @@
 # Installs ruby toolchain
 #
 
-# install rbenv
+# install version manager
 brew install ruby-build rbenv
 exec $SHELL -l
 
-# install latest ruby version
-VERSION=$(rbenv install -list | grep -v "[a-zA-Z]" | tail -n 1)
+# install latest version
+VERSION=$(rbenv install --list | grep -v "[a-zA-Z]" | tail -n 1 | tr -d ' ')
 rbenv install $VERSION
 
 # set default global version

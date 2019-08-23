@@ -10,9 +10,7 @@ _nodenv_init() {
 }
 
 _nodenv_lazy_init() {
-  # node() { unset -f "$0"; _nodenv_init; $0 "$@"; }
-
-  triggers=(node npm npx yarn)
+  triggers=(nodenv node npm npx yarn)
   for cmd in "${triggers[@]}"; do
     eval "${cmd}() { unset -f ${triggers}; _nodenv_init; ${cmd} \$@; }"
   done

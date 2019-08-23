@@ -9,9 +9,7 @@ _rbenv_init() {
 }
 
 _rbenv_lazy_init() {
-  # ruby() { unset -f "$0"; _rbenv_init; $0 "$@"; }
-
-  triggers=(ruby bundle rake)
+  triggers=(rbenv ruby bundle rake)
   for cmd in "${triggers[@]}"; do
     eval "${cmd}() { unset -f ${triggers}; _rbenv_init; ${cmd} \$@; }"
   done
