@@ -107,14 +107,14 @@ merged. For more details [see the command](./bin/ssh-config-merge).
 
 You can also define local `.gitconfig` files based on specific paths:
 
-```conf
+```ini
 # ~/.dotfiles/local/git/.gitconfig-personal
 [user]
   name = Your Name
   email = your@email.com
 ```
 
-```conf
+```ini
 # ~/.dotfiles/local/git/.gitconfig
 [includeIf "gitdir:~/Code/personal"]
 path = ~/.dotfiles/local/git/.gitconfig-personal
