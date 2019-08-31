@@ -16,7 +16,7 @@ $(SUBDIRS):
 
 .DEFAULT: $(SUBDIRS)
 	@for dir in $(SUBDIRS); do \
-      $(MAKE) -C $$dir $(MAKECMDGOALS); \
-    done
+		$(MAKE) -C $$dir $(MAKECMDGOALS); \
+	done
 
 .PHONY: all setup $(SUBDIRS)

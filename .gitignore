@@ -4,14 +4,19 @@
 # editors
 .vscode
 
-# keep these files
-!.gitkeep
+# local config directory
+/local/**
+!/local/README.md
 
-# local top level directories
-local
-repos
-zfunc*
+# repos directory (external dependencies)
+/repos/**
 
-# local settings
+# zsh fpath directory
+/zfunc/**
+
+# anything else local or secrets
 **/*.local*
-secrets/*
+**/secrets
+
+# keep these files
+!/**/.gitkeep

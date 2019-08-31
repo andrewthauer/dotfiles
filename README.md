@@ -17,7 +17,7 @@ This is my system configuration files, settings, etc.
 Here's a list of things that are used:
 
 - [zsh](https://github.com/zsh-users/zsh)
-- [homebrew](https://github.com/homebrew/homebrew) (macOS)
+- [homebrew](https://github.com/homebrew/homebrew)
 - [zsh-users](https://github.com/zsh-users) (some modules)
 
 ## Setup
@@ -63,32 +63,40 @@ follow the specific topic organization:
 - `repos` (git ignored) - External dependencies (downloaded)
 - `zfunc` (git ignored) - Added to zsh's `fpath`
 
+## Configuration
+
+Most common configuration is handled by symlinking files to the users `$HOME`
+home directory. This is handled by `Make` files. Local system configs & secrets
+should be added to the `local` directory and never committed.
+
+### Symlinking
+
+Configuration files are symlinked with the `bin/symlink` script which does
+some special handling for directories and relative paths. This script is used
+in the `modules/Makefile` for any stock settings.
+
 ## Customization
 
-### `local`
-
 The `local` directory (git ignored) can be used to customize the dotfiles for
-a particular environment. It is also a good place to store an secret
-information (i.e. in `local/secrets`). Files located here can be symlinked to
-the \$HOME directory either manually or via the `.symlinks` file and then
-running `dotfiles symlink`.
+a particular environment. It is also a good place to store an secret information
+(e.g. in `local/secrets`). Custom files can be [symlinked](#symlinking) as
+required. [See here](local/README.md) for an example.
 
-The following are part of the standard setup:
+The following sections describe various common customizations:
 
-- `local/zsh/.zshenv` - Customize the zsh environment (sourced by `.zshenv`.
-- `local/zsh/.zshrc` - Customize the interactive zsh shell (sourced by `.zshrc`)
-- `local/git/.gitconfig` - This should contain any local git settings (i.e. user/email)
+### Zsh
 
-### Configuration
+These files can be used to customize a `zsh` shell for a particular machine:
 
-Most configuration is handled via symlinks to the users home directory. Non
-system specific settings are defined in the `config` directory while local
-system configurations & secrets should be added to the `./local` directory.
+- `local/zsh/.zprofile` - Customize the zsh login (sourced by `modules/zsh/.zprofile`)
+- `local/zsh/.zshrc` - Customize the interactive zsh shell (sourced by `modules/zsh/.zshrc`)
 
 ### Homebrew
 
 You can create a `~/.Brewfile.local` file to add system specific brew packages
 view `brew bundle`.
+
+- `local/homebrew/Brewfile` - Custom brew bundle (called by `modules/homebrew/Brewfile`)
 
 ### SSH
 
@@ -100,14 +108,14 @@ merged. For more details [see the command](./bin/ssh-config-merge).
 You can also define local `.gitconfig` files based on specific paths:
 
 ```conf
-# ~/.dotfiles/local/.gitconfig-personal
+# ~/.dotfiles/local/git/.gitconfig-personal
 [user]
   name = Your Name
   email = your@email.com
 ```
 
 ```conf
-# ~/.dotfiles/local/.gitconfig
+# ~/.dotfiles/local/git/.gitconfig
 [includeIf "gitdir:~/Code/personal"]
 path = ~/.dotfiles/local/git/.gitconfig-personal
 ```
