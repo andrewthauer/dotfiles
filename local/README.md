@@ -16,20 +16,20 @@ SUBDIRS =
 all: local secrets
 
 local:
-	@$(SYMLINK) $(CURDIR)/git/.gitconfig ~/.gitconfig.local
-	@$(SYMLINK) $(CURDIR)/homebrew/Brewfile ~/.Brewfile.local
-	@$(SYMLINK) $(CURDIR)/zsh/.zprofile ~/.zprofile.local
-	@$(SYMLINK) $(CURDIR)/zsh/.zshrc ~/.zshrc.local
+    @$(SYMLINK) $(CURDIR)/git/.gitconfig ~/.gitconfig.local
+    @$(SYMLINK) $(CURDIR)/homebrew/Brewfile ~/.Brewfile.local
+    @$(SYMLINK) $(CURDIR)/zsh/.zprofile ~/.zprofile.local
+    @$(SYMLINK) $(CURDIR)/zsh/.zshrc ~/.zshrc.local
 
 secrets:
-	@$(SYMLINK) $(CURDIR)/secrets/aws ~/.aws
-	@$(SYMLINK) $(CURDIR)/secrets/gnupg ~/.gnupg
-	@$(SYMLINK) $(CURDIR)/secrets/ssh/id_rsa ~/.ssh/id_rsa
+    @$(SYMLINK) $(CURDIR)/secrets/aws ~/.aws
+    @$(SYMLINK) $(CURDIR)/secrets/gnupg ~/.gnupg
+    @$(SYMLINK) $(CURDIR)/secrets/ssh/id_rsa ~/.ssh/id_rsa
 
 .DEFAULT: $(SUBDIRS)
-	@for dir in $(SUBDIRS); do \
-      $(MAKE) -C $$dir $(MAKECMDGOALS); \
-  done
+    @for dir in $(SUBDIRS); do \
+        $(MAKE) -C $$dir $(MAKECMDGOALS); \
+    done
 
 .PHONY: all local secrets
 ```
