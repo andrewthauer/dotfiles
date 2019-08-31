@@ -29,6 +29,8 @@ Here's a list of things that are used:
 
 ### TL;DR;
 
+For a partially setup machine you can:
+
 ```shell
 git clone git@github.com:andrewthauer/dotfiles.git
 cd dotfiles
@@ -38,9 +40,11 @@ make
 
 ### System Specific
 
-- [macOS](macos/README.md)
-- [Linux](linux/README.md)
-- [Windows Bash](windows/README.md)
+For brand new systems:
+
+- [macOS](modules/macos/README.md)
+- [Linux](modules/linux/README.md)
+- [Windows Bash](modules/windows/README.md)
 
 ## Commands
 
@@ -50,15 +54,14 @@ dotfiles help
 
 ## Structure
 
-The dotfiles are mostly organzied modules by topic folder. The following
-directories do not follow the specific topic organization:
+The dotfiles are mostly organized by topics. The following directories do not
+follow the specific topic organization:
 
 - `bin` - Contains various scripts (added to `$PATH`)
 - `modules` - Contains modules & plugins
 - `local` (git ignored) - Used for local environment customizations
-- `repos` (git ignored) - External package dependencies
-- `zfunc` (git ignored) - Contains common shell settings & features that work in
-  `bash`, `zsh`, etc.
+- `repos` (git ignored) - External dependencies (downloaded)
+- `zfunc` (git ignored) - Added to zsh's `fpath`
 
 ## Customization
 
@@ -81,12 +84,6 @@ The following are part of the standard setup:
 Most configuration is handled via symlinks to the users home directory. Non
 system specific settings are defined in the `config` directory while local
 system configurations & secrets should be added to the `./local` directory.
-
-### Packages
-
-The `packages.sh` (or `local/package.sh`) file is used to install 3rd party
-dependencies & symlink various files. This is can be run with the
-`dotfiles update` command.
 
 ### Homebrew
 

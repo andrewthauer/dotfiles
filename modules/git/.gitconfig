@@ -6,7 +6,7 @@
   default = simple
 
 [rerere]
-	enabled = true
+  enabled = true
 
 [alias]
   # List authors

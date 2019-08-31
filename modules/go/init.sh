@@ -4,6 +4,7 @@
 
 _goenv_init() {
   # expensive function call
+  # export GOENV_GOPATH_PREFIX="$HOME/.goenv/versions"
   eval "$(goenv init - --no-rehash)"
   unset -f "$0"
 }

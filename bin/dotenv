@@ -19,8 +19,8 @@ usage() {
   echo "COMMANDS:";
   echo "  read       Reads the variables from a .env file";
   echo "  exec       Executes a command with the variables from the .env file";
-  echo "  export     Exports the contents of a .env file";
-  echo "  subst      Substutes environment variables in the specified file";
+  echo "  export     Exports the contents of a .env file to the current shells environment";
+  echo "  subst      Substitutes environment variables in the specified file";
   echo "  help       Prints this message";
 }
 

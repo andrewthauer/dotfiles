@@ -2,11 +2,11 @@
 # Common Aliases
 #
 
-# Go to the dotfiles directory
-alias dotdir="cd ${DOTFILES_DIR}"
-
 # Reloads the current shell
 alias reload="exec $SHELL -l"
+
+# Go to the dotfiles directory
+[[ -n "${DOTFILES_DIR}" ]] && alias dotdir="cd ${DOTFILES_DIR}"
 
 #
 # Directories
@@ -67,12 +67,12 @@ alias lstcp="lsof -i -n -P | grep TCP"
 #
 
 # local port forwarding
-# - ssh -L <local_port>:<remote_host>:<remote_port> user@<remote_server>
+#   ssh -L <local_port>:<remote_host>:<remote_port> user@<remote_server>
 alias sshl="ssh -L"
 
 # remote port forward
-# - ssh -R <remote_port>:<local_host>:<local_port> user@<remote_server>
-alias sshr="ssh -R "
+#   ssh -R <remote_port>:<local_host>:<local_port> user@<remote_server>
+alias sshr="ssh -R"
 
 #
 # Clipboard
