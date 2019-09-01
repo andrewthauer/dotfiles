@@ -32,6 +32,8 @@ if command_exists "jenv"; then
 # initialize with sdkman (lazy)
 elif [[ -n "${SDKMAN_DIR}" ]]; then
   sdk_candidate_enabled "java" && sdk_lazy_init_cmd "${JAVA_LAZY_TRIGGERS[@]}"
+
+  # TODO: Split these into their own modules?
   sdk_candidate_enabled "maven" && sdk_lazy_init_cmd "mvn"
   sdk_candidate_enabled "gradle" && sdk_lazy_init_cmd "gradle"
 fi

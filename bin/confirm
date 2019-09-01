@@ -5,11 +5,11 @@
 #
 # usage:
 #   confirm && echo continuing ...
-#   confirm "Do you want to continue? [y/N]'" && echo continuing ...
+#   confirm "Do you want to continue? [y/N]" && echo continuing ...
 #
 
 confirm() {
-  local msg=$1
+  msg=$1
 
   [[ -z "$1" ]] && msg="Are you sure?"
   confirm_msg="${msg} [y/N]?"
@@ -17,12 +17,11 @@ confirm() {
   echo "$confirm_msg "
   read answer
 
-  case "${answer}" in
-    [yY]|[yY][eE][sS])
-      return 0
+  case "${answer}" in [yY]|[yY][eE][sS])
+    exit 0
   esac
 
-  return 1
+  exit 1
 }
 
 confirm $@

@@ -5,37 +5,13 @@
 
 set -e
 
-install_with_sdk() {
-  # need to source sdkman since it is a shell function
-  source "${DOTFILES_DIR}/modules/sdkman/init.sh"
-
-  # install latest version
-  sdk install java
-
-  # install build tools
-  sdk install maven
-  sdk install gradle
-
-  # reload shell
-  exec $SHELL -l
-}
-
-# install version manager
-install_with_jenv() {
-  brew install jenv maven gradle
-  exec $SHELL -l
+install_jenv() {
+  return
+  brew install jenv
 
   # make sure JAVA_HOME is set
   jenv enable-plugin export
   exec $SHELL -l
-
-  # enable plugins
-  jenv enable-plugin maven
-  jenv enable-plugin gradle
-
-  # install java versions
-  brew cask install java
-  brew cask install homebrew/cask-versions/adoptopenjdk8
 
   # add java home
   jenv add $(/usr/libexec/java_home)
@@ -52,17 +28,85 @@ install_with_jenv() {
   jenv global 1.8
 }
 
-run() {
+install_sdk() {
+  "${DOTFILES_DIR}/modules/sdkman/install.sh"
+}
+
+install_with_brew() {
+  # install latest version
+  brew cask install java
+
+  # install java 8
+  # brew cask install homebrew/cask-versions/adoptopenjdk8
+}
+
+install_with_sdk() {
+  # need to source sdkman since it is a shell function
+  source "${DOTFILES_DIR}/modules/sdkman/init.sh"
+
+  # install latest version
+  sdk install java
+
+  # reload shell
+  exec $SHELL -l
+}
+
+install_version_manager() {
   PS3="Which java version manager do you want to use?: "
-  options=("SDKMAN" "jenv" "Quit")
+  options=("jenv" "sdkman" "none" "quit")
   select opt in "${options[@]}"; do
   case $opt in
-    "SDKMAN")   echo "Using $opt ..."; install_with_sdk; break;;
-    "jenv")     echo "Using $opt ..."; install_with_jenv; break;;
-    "Quit")     break;;
+    "jenv")     echo "Using $opt ..."; install_jenv; break;;
+    "sdkman")   echo "Using $opt ..."; install_sdk; break;;
+    "none")     break;;
+    "quit")     exit 0;;
     *)          echo "invalid option $REPLY";;
   esac
   done
+  VERSION_MANAGER="$opt"
+}
+
+install_java() {
+  PS3="How do you want to install java?: "
+  options=("homebrew" "sdkman" "skip" "quit")
+  select opt in "${options[@]}"; do
+  case $opt in
+    "homebrew")   echo "Using $opt ..."; install_with_brew; break;;
+    "sdkman")     echo "Using $opt ..."; install_with_sdk; break;;
+    "skip")       break;;
+    "quit")       exit 0;;
+    *)            echo "invalid option $REPLY";;
+  esac
+  done
+}
+
+install_maven() {
+  if confirm "Do you want to install maven"; then
+    if [[ "$VERSION_MANAGER" == "jen" ]]; then
+      brew install maven
+      jenv enable-plugin maven
+    elif [[ "$VERSION_MANAGER" == "sdkman" ]]; then
+      sdk install maven
+    fi
+  fi
+}
+
+install_gradle() {
+  if confirm "Do you want to install gradle"; then
+    if [[ "$VERSION_MANAGER" == "jen" ]]; then
+      brew install gradle
+      jenv enable-plugin gradle
+    elif [[ "$VERSION_MANAGER" == "sdkman" ]]; then
+      sdk install gradle
+    fi
+  fi
+}
+
+run() {
+  install_version_manager
+  install_java
+  install_maven
+  install_gradle
 }
 
 run

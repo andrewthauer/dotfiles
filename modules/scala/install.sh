@@ -29,12 +29,12 @@ install_with_sdk() {
 
 run() {
   PS3="How do you want to install scala?: "
-  options=("SDKMAN" "homebrew" "Quit")
+  options=("homebrew" "sdkman" "quit")
   select opt in "${options[@]}"; do
   case $opt in
-    "SDKMAN")     echo "Using $opt ..."; install_with_sdk; break;;
     "homebrew")   echo "Using $opt ..."; install_with_brew; break;;
-    "Quit")       break;;
+    "sdkman")     echo "Using $opt ..."; install_with_sdk; break;;
+    "quit")       break;;
     *)            echo "invalid option $REPLY";;
   esac
   done
