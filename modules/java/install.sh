@@ -52,4 +52,18 @@ install_with_jenv() {
   jenv global 1.8
 }
 
-install_with_sdk
+run() {
+  PS3="Which version manager do you want to use?: "
+  options=("SDKMAN" "jenv" "Quit")
+  select opt in "${options[@]}"; do
+  case $opt in
+    "SDKMAN")   echo "Using $opt ..."; install_with_sdk; break;;
+    "jenv")     echo "Using $opt ..."; install_with_jenv; break;;
+    "Quit")     break;;
+    *)          echo "invalid option $REPLY";;
+  esac
+  done
+}
+
+run
+exit 0
