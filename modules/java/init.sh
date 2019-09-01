@@ -22,6 +22,14 @@ if command_exists "jenv"; then
   _jenv_lazy_init
 fi
 
+# lazy triggers for sdkman
+if function_exists "_sdk_lazy_init_cmd"; then
+  _sdk_lazy_init_cmd "java"
+  _sdk_lazy_init_cmd "javac"
+  _sdk_lazy_init_cmd "maven"
+  _sdk_lazy_init_cmd "gradle"
+fi
+
 if command_exists "java"; then
   # load aliases
   source "${DOTFILES_MODULES_DIR}/java/aliases.sh"

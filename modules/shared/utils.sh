@@ -9,7 +9,7 @@
 #   command_exists "command"
 #
 # example:
-#   if command_exists "node"; then echo "node installed"
+#   if command_exists "node"; then echo "exists!"
 #
 function command_exists {
   command -v "$1" >/dev/null 2>&1
@@ -20,6 +20,20 @@ function command_exists {
   # elif [[ -n $BASH_VERSION ]]; then
   #   command -v "$1" >/dev/null 2>&1
   # fi
+}
+
+#
+# Checks if a function exists
+#
+# usage:
+#   function_exists "func_name"
+#
+# example:
+#   if function_exists "command_exists"; then echo "exists!"
+#
+function function_exists {
+  declare -f -F $1 > /dev/null
+  return $?
 }
 
 #

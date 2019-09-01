@@ -14,7 +14,7 @@ source "${DOTFILES_DIR}/modules/shared/env.sh"
 source "${DOTFILES_DIR}/modules/shared/profile.sh"
 
 # Source the .bashrc file
-if [[ -f "$HOME/.bashrc" ]]; then
+if [[ -f "$HOME/.bashrc" && -z $BASH_RC_LOADED ]]; then
   source "${HOME}/.bashrc"
 fi
 
