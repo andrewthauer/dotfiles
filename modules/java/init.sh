@@ -2,32 +2,33 @@
 # Initialize java module
 #
 
+JAVA_LAZY_TRIGGERS=(java javac mvn gradle)
+
 _jenv_init() {
-  # expensive function call
+  # cleanup
+  unset -f $0
+  unset -f ${JAVA_LAZY_TRIGGERS[@]}
+  unset JAVA_LAZY_TRIGGERS
+
+  # expensive operation
   eval "$(jenv init - --no-rehash)"
-  unset -f "$0"
 }
 
 _jenv_lazy_init() {
-  triggers=(jenv java javac mvn)
+  triggers=($@)
   for cmd in "${triggers[@]}"; do
-    eval "${cmd}() { unset -f ${triggers}; _jenv_init; ${cmd} \$@; }"
+    eval "${cmd}() { _jenv_init; ${cmd} \$@; }"
   done
-
-  unset -f "$0"
+  unset -f $0
 }
 
-# initialize jenv (lazy)
-if command_exists "jenv"; then
-  _jenv_lazy_init
-fi
+# initialize with sdkman (lazy)
+if [[ -n "$SDKMAN_DIR" ]] && function_exists "_sdk_lazy_init_cmd"; then
+  _sdk_lazy_init_cmd "${JAVA_LAZY_TRIGGERS[@]}"
 
-# lazy triggers for sdkman
-if function_exists "_sdk_lazy_init_cmd"; then
-  _sdk_lazy_init_cmd "java"
-  _sdk_lazy_init_cmd "javac"
-  _sdk_lazy_init_cmd "maven"
-  _sdk_lazy_init_cmd "gradle"
+# initialize with jenv (lazy)
+elif command_exists "jenv"; then
+  _jenv_lazy_init "${JAVA_LAZY_TRIGGERS[@]}"
 fi
 
 if command_exists "java"; then

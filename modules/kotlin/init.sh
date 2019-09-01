@@ -2,10 +2,10 @@
 # Initialize kotlin module
 #
 
-# lazy triggers for sdkman
-if function_exists "_sdk_lazy_init_cmd"; then
-  _sdk_lazy_init_cmd "kotlin"
-  _sdk_lazy_init_cmd "kotlinc"
+# initialize with sdkman (lazy)
+if [[ -n "$SDKMAN_DIR" ]] && function_exists "_sdk_lazy_init_cmd"; then
+  triggers=(kotlin kotlinc)
+  _sdk_lazy_init_cmd "${triggers[@]}"
 fi
 
 if command_exists "kotlin"; then

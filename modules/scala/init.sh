@@ -2,10 +2,10 @@
 # Initialize scala module
 #
 
-# lazy triggers for sdkman
-if function_exists "_sdk_lazy_init_cmd"; then
-  _sdk_lazy_init_cmd "sbt"
-  _sdk_lazy_init_cmd "scala"
+# initialize with sdkman (lazy)
+if [[ -n "$SDKMAN_DIR" ]] && function_exists "_sdk_lazy_init_cmd"; then
+  triggers=(sbt scala)
+  _sdk_lazy_init_cmd "${triggers[@]}"
 fi
 
 if command_exists "scala" || command_exists "sbt"; then

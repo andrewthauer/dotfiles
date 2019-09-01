@@ -14,7 +14,7 @@ _dotnet_init() {
 }
 
 _dotnet_lazy_init() {
-  dotnet() { unset -f "$0"; _dotnet_init; $0 "$@"; }
+  dotnet() { unset -f $0; _dotnet_init; $0 "$@"; }
 }
 
 # initialize dotnet (lazy)

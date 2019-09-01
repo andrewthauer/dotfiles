@@ -2,24 +2,29 @@
 # Initialize ruby module
 #
 
+RUBY_LAZY_TRIGGERS=(rbenv ruby bundle rake)
+
 _rbenv_init() {
-  # expensive function call
+  # cleanup
+  unset -f $0
+  unset -f ${RUBY_LAZY_TRIGGERS[@]}
+  unset RUBY_LAZY_TRIGGERS
+
+  # expensive operation
   eval "$(rbenv init - --no-rehash)"
-  unset -f "$0"
 }
 
 _rbenv_lazy_init() {
-  triggers=(rbenv ruby bundle rake)
+  triggers=($@)
   for cmd in "${triggers[@]}"; do
-    eval "${cmd}() { unset -f ${triggers}; _rbenv_init; ${cmd} \$@; }"
+    eval "${cmd}() { _rbenv_init; ${cmd} \$@; }"
   done
-
-  unset -f "$0"
+  unset -f $0
 }
 
 # initialize rbenv (lazy)
 if command_exists "rbenv"; then
-  _rbenv_lazy_init
+  _rbenv_lazy_init "${RUBY_LAZY_TRIGGERS[@]}"
 fi
 
 if command_exists "ruby"; then
