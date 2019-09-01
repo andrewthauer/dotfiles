@@ -3,10 +3,12 @@
 #
 
 _rust_init() {
+  # cleanup
+  unset -f "$0"
+
   # prepend cargo to the path if not already added
   CARGO_BIN_PATH="$HOME/.cargo/bin"
   [[ ":$PATH:" =~ ":$CARGO_BIN_PATH:" ]] || export PATH="$CARGO_BIN_PATH:$PATH"
-  unset -f "$0"
 }
 
 # initialize rust

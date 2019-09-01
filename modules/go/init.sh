@@ -11,7 +11,7 @@ _goenv_init() {
   unset GO_LAZY_TRIGGERS
 
   # expensive operation
-  # export GOENV_GOPATH_PREFIX="$HOME/.goenv/versions"
+  export GOENV_GOPATH_PREFIX="$HOME/.goenv/versions"
   eval "$(goenv init - --no-rehash)"
 }
 
