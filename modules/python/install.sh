@@ -3,6 +3,8 @@
 # Installs python toolchain
 #
 
+set -e
+
 # install version manager
 brew install pyenv
 exec $SHELL -l

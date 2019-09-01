@@ -3,6 +3,8 @@
 # Installs sdkman to manage jdks & sdks
 #
 
+set -e
+
 SDKMAN_DIR="${HOME}/.sdkman"
 
 # check if it's already installed

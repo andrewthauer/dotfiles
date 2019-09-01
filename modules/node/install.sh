@@ -3,6 +3,8 @@
 # Installs node toolchain
 #
 
+set -e
+
 # install version manager
 brew install node-build nodenv
 exec $SHELL -l

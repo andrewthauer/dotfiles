@@ -3,6 +3,8 @@
 # Installs go toolchain
 #
 
+set -e
+
 # install version manager
 brew install goenv
 exec $SHELL -l

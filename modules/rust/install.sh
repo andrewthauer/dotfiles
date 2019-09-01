@@ -3,6 +3,8 @@
 # Installs the Rust language tools
 #
 
+set -e
+
 DEFAULT_COMPONENTS=(
   rls
   rust-src
