@@ -53,7 +53,7 @@ install_with_jenv() {
 }
 
 run() {
-  PS3="Which version manager do you want to use?: "
+  PS3="Which java version manager do you want to use?: "
   options=("SDKMAN" "jenv" "Quit")
   select opt in "${options[@]}"; do
   case $opt in
