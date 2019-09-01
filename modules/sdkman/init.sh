@@ -18,31 +18,29 @@ sdk_candidate_enabled() {
 }
 
 sdk_lazy_init_cmd() {
-  triggers=($@)
-  for cmd in "${triggers[@]}"; do
+  # append triggers
+  for cmd in "$@"; do
     SDK_LAZY_TRIGGERS+=($cmd)
-    eval "${cmd}() { _sdk_init; ${cmd} \$@; }"
   done
+
+  # register lazy loaded trigger (force overrides existing)
+  __lazyfunc _sdk_init "${SDK_LAZY_TRIGGERS[@]}"
 }
 
 _sdk_init() {
-  # cleanup
-  unset -f $0
-  unset -f sdk_lazy_init_cmd
-  unset -f ${SDK_LAZY_TRIGGERS[@]}
-  unset SDK_LAZY_TRIGGERS
-
   # expensive operation
   source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+  unset -f sdk_lazy_init_cmd
+  unset SDK_LAZY_TRIGGERS
 }
 
-_sdk_lazy_init() {
-  sdk_lazy_init_cmd "sdk"
-  unset -f $0
-}
+# _sdk_lazy_init() {
+#   sdk_lazy_init_cmd "sdk"
+#   unset -f $0
+# }
 
 # initialize sdkman if installed (lazy)
 if [[ -d "${HOME}/.sdkman" ]]; then
   export SDKMAN_DIR="${HOME}/.sdkman"
-  _sdk_lazy_init
+  sdk_lazy_init_cmd "sdk"
 fi

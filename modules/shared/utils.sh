@@ -9,7 +9,7 @@
 #   command_exists "command"
 #
 # example:
-#   if command_exists "node"; then echo "exists!"
+#   command_exists "node" && echo "exists!"
 #
 function command_exists {
   command -v "$1" >/dev/null 2>&1
@@ -29,7 +29,7 @@ function command_exists {
 #   function_exists "func_name"
 #
 # example:
-#   if function_exists "command_exists"; then echo "exists!"
+#   function_exists "command_exists" && echo "exists!"
 #
 function function_exists {
   declare -f -F $1 > /dev/null
@@ -40,17 +40,30 @@ function function_exists {
 # lazy load function helper
 #
 # usage:
-#   __lazyfunc [command to hook] [lazy function]
+#   __lazyfunc [lazy_function] [commands_to_hook...]
 #
 # example:
-#   __lazyfunc node _nodenv_init
-#
-# see: https://dev.to/zanehannanau/bash-lazy-completion-evaluation-2a2d
+#   __lazyfunc _nodenv_init nodenv node npm
 #
 function __lazyfunc {
-  if command_exists "$1" || [[ -n $LAZYFUNC_FORCE_REDEFINE ]]; then
-    local fn="$1"
-    shift
-    eval "$fn () { unset -f "$fn" ; eval \"\$( $@ )\" ; $fn \$@ ; }"
-  fi
+  local lazyfunc="$1"
+  local hooks=(${@:2})
+
+  for cmd in "${hooks[@]}"; do
+    eval "${cmd}() { __lazyfunc_exec ${lazyfunc} ${hooks[@]}; ${cmd} \$@; }"
+  done
+}
+
+#
+# lazy load function executor
+#
+# usage:
+#   __lazyfunc_exec [lazy_function] [commands_to_hook...]
+#
+__lazyfunc_exec() {
+  local lazyfunc=$1
+  local hooks=(${@:2})
+  unset -f "${hooks[@]}"
+  eval "${lazyfunc}"
+  unset "${lazyfunc}"
 }
