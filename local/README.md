@@ -25,6 +25,7 @@ secrets:
     @$(SYMLINK) $(CURDIR)/secrets/aws ~/.aws
     @$(SYMLINK) $(CURDIR)/secrets/gnupg ~/.gnupg
     @$(SYMLINK) $(CURDIR)/secrets/ssh/id_rsa ~/.ssh/id_rsa
+    @$(SYMLINK) $(CURDIR)/secrets/ssh/id_rsa.pub ~/.ssh/id_rsa.pub
 
 .DEFAULT: $(SUBDIRS)
     @for dir in $(SUBDIRS); do \
