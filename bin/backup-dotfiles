@@ -9,7 +9,7 @@
 
 set -e
 
-TARGET_DIR="${DOTFILES_BACKUP_DIR}"
+TARGET_DIR="${1:-$DOTFILES_BACKUP_DIR}"
 
 if [[ ! -d "${TARGET_DIR}" ]]; then
   echo "Invalid target directory: '${TARGET_DIR}'"
