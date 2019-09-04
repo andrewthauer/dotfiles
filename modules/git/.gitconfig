@@ -41,6 +41,8 @@
   cob = checkout -b
   # Checkout default branch
   cod = !git checkout $(git default-branch)
+  # Display the number of commits
+  count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
   # Cherry pick commits
   cp = cherry-pick
   # Cherry pick with sign off line

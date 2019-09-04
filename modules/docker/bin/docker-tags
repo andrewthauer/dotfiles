@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Gets all tags for a given docker image
+#
+# usage:
+#   docker-tags [user/image]
+#
+# examples:
+#
+# retrieve all tags for a single library
+#   docker-tags "library/redis"
+#
+
+set -e
+
+if [ -x jq ]; then
+  echo "jq is not installed"
+  exit 1
+fi
+
+registry='https://registry.hub.docker.com/v2/repositories'
+image=$1
+
+curl -s "${registry}/${image}/tags/" | jq -r '."results"[]["name"]'

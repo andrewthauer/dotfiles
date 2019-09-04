@@ -6,17 +6,17 @@ alias dk='docker'
 
 # Images
 alias di='docker images'
-alias dbld='docker build'
+alias dbuild='docker build'
 alias dhist='docker history'
 alias dpull="docker pull"
+alias dpull_all='docker images --format "{{.Repository}}:{{.Tag}}" | grep ':latest' | xargs -L1 docker pull'
 alias drmi='docker rmi'
 alias drmi_all='docker rmi $* $(docker images -a -q)'
 alias drmi_dang='docker rmi $* $(docker images -q -f dangling=true)'
+alias drmi_tags='docker-rmi-all-tags'
 
-function drmit() {
-  # remove all tags for image name
-  docker images | grep "$1" | awk '{system("docker rmi " "'"$1:"'" $2)}'
-}
+# Registry
+alias di_tags='docker-tags $*'
 
 # Containers
 alias dps='docker ps'
@@ -61,3 +61,13 @@ alias dcdn='docker-compose down'
 alias dcl='docker-compose logs'
 alias dclf='docker-compose logs -f'
 alias dctail='docker-compose logs --tail=all -f'
+
+#
+# Remove all tags for image name
+#
+# usage:
+#   docker_rmi_all_tags my_image
+#
+function docker_rmi_all_tags() {
+  docker images | grep "$1" | awk '{system("docker rmi " "'"$1:"'" $2)}'
+}

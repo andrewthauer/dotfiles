@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Gets the absolute path of the git install (following symlinks)
+#
+# usage:
+#   git install-path
+#
+
+echo $(realpath $(which git) | awk -F'/bin/git' '{print $1}')
