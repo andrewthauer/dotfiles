@@ -6,9 +6,6 @@ Here is an example `local/Makefile` for symlnking local settings:
 
 ```makefile
 DOTFILES_DIR = $(CURDIR)/..
-BIN_DIR = $(DOTFILES_DIR)/bin
-REPOS_DIR = $(DOTFILES_DIR)/repos
-GITHUB_INSTALL = $(BIN_DIR)/github-install
 SYMLINK = $(BIN_DIR)/symlink
 
 SUBDIRS =

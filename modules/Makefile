@@ -20,8 +20,8 @@ bash:
 
 .PHONY: docker
 docker:
-	# @$(GITHUB_INSTALL) docker/cli
-	# @$(GITHUB_INSTALL) docker/compose
+	# @$(GITHUB_INSTALL) docker/cli $(REPOS_DIR)
+	# @$(GITHUB_INSTALL) docker/compose $(REPOS_DIR)
 	# @$(SYMLINK) $(REPOS_DIR)/docker/cli/contrib/completion/zsh/_docker $(ZFUNC_DIR)/_docker
 	# @$(SYMLINK) $(REPOS_DIR)/docker/compose/contrib/completion/zsh/_docker-compose $(ZFUNC_DIR)/_docker-compose
 
@@ -64,13 +64,13 @@ zsh:
 	@$(SYMLINK) $(CURDIR)/zsh/.zshenv ~/.zshenv
 	@$(SYMLINK) $(CURDIR)/zsh/.zshrc ~/.zshrc
 	# misc
-	@$(GITHUB_INSTALL) zsh-users/zsh-history-substring-search
-	@$(GITHUB_INSTALL) zsh-users/zsh-syntax-highlighting
+	@$(GITHUB_INSTALL) zsh-users/zsh-history-substring-search $(REPOS_DIR)
+	@$(GITHUB_INSTALL) zsh-users/zsh-syntax-highlighting $(REPOS_DIR)
 	# completions
-	@$(GITHUB_INSTALL) zsh-users/zsh-completions
-	@$(GITHUB_INSTALL) lukechilds/zsh-better-npm-completion
+	@$(GITHUB_INSTALL) zsh-users/zsh-completions $(REPOS_DIR)
+	@$(GITHUB_INSTALL) lukechilds/zsh-better-npm-completion $(REPOS_DIR)
 	# prompt
-	@$(GITHUB_INSTALL) sindresorhus/pure
+	@$(GITHUB_INSTALL) sindresorhus/pure $(REPOS_DIR)
 	@$(SYMLINK) $(REPOS_DIR)/sindresorhus/pure/pure.zsh $(ZFUNC_DIR)/prompt_pure_setup
 	@$(SYMLINK) $(REPOS_DIR)/sindresorhus/pure/async.zsh $(ZFUNC_DIR)/async
 
