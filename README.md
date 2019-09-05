@@ -1,5 +1,7 @@
 # Dotfiles
 
+> These are my dotfiles 🎉 ...
+
 ```
      _       _    __ _ _
   __| | ___ | |_ / _(_) | ___  ___
@@ -8,130 +10,135 @@
  \__,_|\___/ \__|_| |_|_|\___||___/
 ```
 
-> These are my dotfiles ...
+![license](https://img.shields.io/github/license/andrew/dotfiles?style=flat-square)
+![for hackers](https://img.shields.io/badge/built%20for-hackers-50dd7e.svg?logo=dependabot&style=flat-square)
+![awesome](https://img.shields.io/badge/pretty-awesome-ffc24b.svg?logo=sourcegraph&style=flat-square)
 
-## Overview
+## Features
 
-This is my system configuration files, settings, etc.
+- **extremely fast startup!** with lazy loading for expensive operations.
+- **limited dependencies** make it very portable.
+- **[`stow`](https://www.gnu.org/software/stow/) powered:** symlink dotfiles and
+  thus keep them always up-to-date.
+- **topical organization:** organize dotfiles by topic for easy reuse across
+  different machines.
+- **posix compliant** so it works with most shells (`bash`, `zsh`).
+- **optimized for zsh** with auto-completion & syntax highlighting.
+- **pure** pretty, fast, minimal command prompt.
+- **useful aliases & utilities** for maximum productivity.
+- **vim & nvim** work interchangeably.
+- **[homebrew](https://github.com/homebrew/homebrew) compatible** packages with
+  smart fallbacks.
 
-Here's a list of things that are used:
+## Pre-requisites
 
-- [zsh](https://github.com/zsh-users/zsh)
-- [homebrew](https://github.com/homebrew/homebrew)
-- [zsh-users](https://github.com/zsh-users) (some modules)
+The following packages are required:
 
-## Setup
+- `git`
+- `make`
+- `stow`
 
-### Pre-requisites
-
-- git
-- make
-
-### TL;DR;
-
-For a partially setup machine you can:
+## Installation
 
 ```shell
-git clone git@github.com:andrewthauer/dotfiles.git
-cd dotfiles
+git clone git@github.com:andrewthauer/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 make
-# ... restart your shell
+# now restart your shell ...
 ```
 
-### System Specific
+To install on a brand new system see:
 
-For brand new systems:
-
-- [macOS](modules/macos/README.md)
-- [Linux](modules/linux/README.md)
-- [Windows Bash](modules/windows/README.md)
-
-## Commands
-
-```sh
-dotfiles help
-```
-
-## Structure
-
-The dotfiles are mostly organized by topics. The following directories do not
-follow the specific topic organization:
-
-- `bin` - Contains various scripts (added to `$PATH`)
-- `modules` - Contains modules & plugins
-- `local` (git ignored) - Used for local environment customizations
-- `repos` (git ignored) - External dependencies (downloaded)
-- `zfunc` (git ignored) - Added to zsh's `fpath`
+- [macOS](macos/README.md)
+- [Linux](linux/README.md)
+- [Windows](windows/README.md)
 
 ## Configuration
 
 Most common configuration is handled by symlinking files to the users `$HOME`
-home directory. This is handled by `Make` files. Local system configs & secrets
-should be added to the `local` directory and never committed.
+home directory. This is handled by `stow`. Local system configs & secrets should
+be added to the `local` directory and never committed.
 
-### Symlinking
+### Local Customization
 
-Configuration files are symlinked with the `bin/symlink` script which does
-some special handling for directories and relative paths. This script is used
-in the `modules/Makefile` for any stock settings.
+The `local` directory (git ignored) can be used to customize the dotfiles for a
+particular environment. It is also a good place to store an secret information
+you don't want to commit to source control.
 
-## Customization
+_NOTE: Make sure you create a `local/.stow-local-ignore` file to avoid
+symlinking unwanted paths_
 
-The `local` directory (git ignored) can be used to customize the dotfiles for
-a particular environment. It is also a good place to store an secret information
-(e.g. in `local/secrets`). Custom files can be [symlinked](#symlinking) as
-required. [See here](local/README.md) for an example.
+### Zsh / Bash
 
-The following sections describe various common customizations:
+The following files will be sourced automatically if they exist. They can be
+added to `dotfiles/local` and then symlinked to `~` by running `stow local` from
+the `dotfiles` directory.
 
-### Zsh
-
-These files can be used to customize a `zsh` shell for a particular machine:
-
-- `local/zsh/.zprofile` - Customize the zsh login (sourced by `modules/zsh/.zprofile`)
-- `local/zsh/.zshrc` - Customize the interactive zsh shell (sourced by `modules/zsh/.zshrc`)
+- sourced by `zsh`
+  - `~/.profile`
+  - `~/.zshenv.local`
+  - `~/.zprofile.local`
+  - `~/.zshrc.local`
+  - `~/.shell/*.sh`
+- sourced by `bash`
+  - `~/.profile`
+  - `~/.bash_profile.local`
+  - `~/.bashrc.local`
+  - `~/.shell/*.sh`
 
 ### Homebrew
 
-You can create a `~/.Brewfile.local` file to add system specific brew packages
-view `brew bundle`.
-
-- `local/homebrew/Brewfile` - Custom brew bundle (called by `modules/homebrew/Brewfile`)
+Homebrew makes it easy to install system wide dependencies. There is a
+`brew bundle` file that contains commonly used system packages. You can create a
+`~/.Brewfile.local` file to install any system specific brews.
 
 ### SSH
 
-The `ssh-config-merge` command allows seperate SSH configuration files to be
-merged. For more details [see the command](./bin/ssh-config-merge).
+Use the `ssh-key-gen` command to create an `ssh` key in a single step. The
+`ssh-config-merge` command can merge multiple `ssh` configuration files together
+(`config.base`, `config.personal`, `config.work`, etc.). For more details
+[see the command](./bin/ssh-config-merge).
+
+To create an `ssh` key:
+
+```shell
+# This will create an `id_rsa` key in the `~/.ssh` directory
+SSH_KEY_NAME="id_rsa" sh <(curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/master/bin/ssh-key-gen')
+```
+
+_[Add the SSH Key to your GitHub account](https://help.github.com/articles/generating-ssh-keys/#step-4-add-your-ssh-key-to-your-account)_
 
 ### Git
 
-You can also define local `.gitconfig` files based on specific paths:
+A `local/.config/git/credentials` file will include your git credentials:
 
 ```ini
-# ~/.dotfiles/local/git/.gitconfig-personal
 [user]
   name = Your Name
   email = your@email.com
 ```
 
+You can also add a `local/.config/git/config.local` file to override any
+settings. For example:
+
 ```ini
-# ~/.dotfiles/local/git/.gitconfig
+# for directory specific git overrides:
 [includeIf "gitdir:~/Code/personal"]
-path = ~/.dotfiles/local/git/.gitconfig-personal
+path = /path/to/another/.gitconfig
 ```
-
-## Reference
-
-- [dotfiles.github.io](https://dotfiles.github.io/)
-- [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
-- [Master Your Z Shell with These Outrageously Useful Tips](http://reasoniamhere.com/2014/01/11/outrageously-useful-tips-to-master-your-z-shell/)
 
 ## Inspiration
 
-- [b4b4r07](https://github.com/b4b4r07)
+- [dotfiles.github.io](https://dotfiles.github.io/)
+- [F-dotfiles](https://github.com/Kraymer/F-dotfiles)
+- [Cowboy](https://github.com/cowboy/dotfiles)
 - [holman](https://github.com/holman/dotfiles)
+- [b4b4r07](https://github.com/b4b4r07/dotfiles)
 - [matiasbynens](https://github.com/mathiasbynens/dotfiles)
 - [sorin-ionescu](https://github.com/sorin-ionescu/dotfiles)
-- [ijcd](https://github.com/ijcd/dotfiles)
-- [prezto](https://github.com/sorin-ionescu/prezto) (some modules)
-- [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) (some modules)
+- [prezto](https://github.com/sorin-ionescu/prezto)
+- [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+
+## License
+
+MIT © Andrew Thauer

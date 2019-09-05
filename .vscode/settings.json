@@ -1,0 +1,17 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.trimAutoWhitespace": true,
+  "files.associations": {
+    ".*profile*": "shellscript",
+    ".Brewfile*": "ruby",
+    ".stow*ignore": "gitignore",
+    ".zsh*": "shellscript",
+    "*gitignore*": "gitignore",
+    "*vimrc*": "viml"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "search.useIgnoreFiles": true
+}

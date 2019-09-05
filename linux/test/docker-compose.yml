@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  linux:
+    build: .
+    container_name: dotfiles-ubuntu
+    command: /home/docker/.dotfiles/linux/install.sh
+    volumes:
+      - ../..:/home/docker/.dotfiles

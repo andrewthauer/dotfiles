@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-#
-# description:
-#   Setup script for install dotfiles
-#
-
-pushd ${DOTFILES_DIR} > /dev/null
-make
-popd

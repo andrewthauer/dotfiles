@@ -54,14 +54,14 @@ symlink_item() {
   fi
 
   # Remove existing symlinks
-  if [ -L "$dest" ]; then
+  if [[ -L "$dest" ]]; then
     rm $dest
   fi
 
   # Create new symlink
-  if [ ! -e "$src" ]; then
+  if [[ ! -e "$src" ]]; then
     echo "Source does not exist - "$src""
-  elif [ -e "$dest" ]; then
+  elif [[ -e "$dest" ]]; then
     echo "Destination file already exists - "$dest""
   else
     ln -s "$src" "$dest"

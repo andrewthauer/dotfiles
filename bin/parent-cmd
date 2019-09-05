@@ -15,6 +15,6 @@ parent_cmd() {
 $(return >/dev/null 2>&1)
 
 # This script is not sourced
-if [ ! "$?" -eq "0" ]; then
+if [[ ! "$?" -eq "0" ]]; then
   parent_cmd
 fi

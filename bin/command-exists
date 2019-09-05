@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Check if a command exists
+#
+# usage:
+#   command-exists "cmd_name"
+#
+
+command_exists() {
+  local cmd_name=$1
+  [ -z "$cmd_name" ] && return 1
+  command -v "$cmd_name" >/dev/null 2>&1
+  return $?
+}
+
+command_exists $@

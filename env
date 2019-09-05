@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+#
+# Common environment settings
+#
+
+# Dotfiles directory
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+# Append dotfiles/bin to path
+export PATH="${PATH}:${DOTFILES_DIR}/bin"
+
+# Append dotfiles/local/bin to path
+if [ -d "${DOTFILES_DIR}/local/bin" ]; then
+  export PATH="${PATH}:${DOTFILES_DIR}/local/bin"
+fi
+
+# XDG configuration
+export XDG_DATA_HOME="${XDG_DATA_HOME:-"$HOME/.local/share"}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-"$HOME/.cache"}"
+
+# Editor
+export EDITOR=vi
+export VISUAL="${EDITOR}"
+
+# Colors
+export CLICOLOR=1
+
+# Pager
+export PAGER='less'
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+export LESSCHARSET='utf-8'
+
+# Set the Less input preprocessor
+if type lesspipe.sh >/dev/null 2>&1; then
+  export LESSOPEN='|lesspipe.sh %s'
+fi

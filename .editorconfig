@@ -25,3 +25,15 @@ indent_size = 4
 
 [*.{md,markdown}]
 trim_trailing_whitespace = false
+
+#
+# Area overrides
+#
+
+[**/karabiner/**/*.json]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = false
+insert_final_newline = false

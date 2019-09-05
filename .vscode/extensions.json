@@ -1,0 +1,22 @@
+{
+  "recommendations": [
+    "alefragnani.project-manager",
+    "codezombiech.gitignore",
+    "coenraads.bracket-pair-colorizer",
+    "eamodio.gitlens",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "fallenwood.viml",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.code-runner",
+    "gerane.Theme-Zenburn",
+    "mikestead.dotenv",
+    "naumovs.color-highlight",
+    "redhat.vscode-yaml",
+    "shan.code-settings-sync",
+    "stkb.rewrap",
+    "vincaslt.highlight-matching-tag",
+    "vscode-icons-team.vscode-icons"
+  ]
+}

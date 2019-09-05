@@ -1,0 +1,26 @@
+# Comments and blank lines are allowed.
+
+\.git
+\.gitignore
+
+^/*.*log
+
+^/README.*
+^/LICENSE.*
+^/COPYING
+
+#
+# custom
+#
+
+# common directories
+local*
+scripts
+secrets
+settings
+test*
+tmp*
+
+# common files
+Makefile
+install.sh

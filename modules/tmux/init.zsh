@@ -1,3 +1,0 @@
-#
-# Initialize tmux module
-#

@@ -1,18 +1,12 @@
 # os files
 .DS_Store
 
-# editors
-.vscode
+# log files
+*.*log
 
-# local config directory
-/local/**
-!/local/README.md
-
-# repos directory (external dependencies)
-/repos/**
-
-# zsh fpath directory
-/zfunc/**
+# ignore these directories
+/local
+/tmp
 
 # anything else local or secrets
 **/*.local*

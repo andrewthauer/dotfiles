@@ -1,1 +1,10 @@
-../modules/git/bin/git-rerere-train
+#!/usr/bin/env bash
+#
+# description:
+#   Runs the git contrib rerere_train.sh script
+#
+# usage:
+#   git rerere-train
+#
+
+$(git install-path)/share/git-core/contrib/rerere-train.sh "$*"

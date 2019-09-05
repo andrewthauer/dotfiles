@@ -1,1 +1,0 @@
-/Users/andrew/Code/andrewthauer/dotfiles/modules/vim/.vimrc
