@@ -1,4 +1,16 @@
 #
+# Requires a script once
+#
+__SOURCED_SCRIPTS=()
+require_once() {
+  value=$1
+  if [[ ! "${__SOURCED_SCRIPTS[@]}" =~ "${value}" ]]; then
+    source "~/.shell/${value}-init.sh"
+    __SOURCED_SCRIPTS+=(${value})
+  fi
+}
+
+#
 # Sources files in a glob
 #
 # note:
