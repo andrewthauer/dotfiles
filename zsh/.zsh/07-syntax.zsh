@@ -2,7 +2,10 @@
 # Post completion script
 #
 
-[ -z ${BREW_PREFIX} ] && BREW_PREFIX="$(brew --prefix)"
+# Exit if prefix is not set
+if [ -z ${BREW_PREFIX} ]; then
+  return 1
+fi
 
 # Load zsh prompt syntax highlighting
 # - https://github.com/zsh-users/zsh-syntax-highlighting

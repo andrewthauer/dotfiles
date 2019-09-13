@@ -22,26 +22,6 @@ source_files_in() {
   unset file;
 }
 
-#
-# Sources common shell scripts in ~/.shell
-#
-source_shell_scripts() {
-  if [ -d "${HOME}/.shell" ]; then
-    for file in ${HOME}/.shell/*.sh; do
-      # eval function name for profiling
-      if [ -n "$PROFILE_STARTUP" ]; then
-        fn=`basename $file`
-        eval "$fn() { source $file }; $fn"
-      else
-        [ -f "$file" ] && source "$file"
-      fi
-    done
-
-    unset file;
-  fi
-  unset -f $0
-}
-
 # Sources bash specific scripts in ~/.bash
 #
 source_bash_scripts() {
@@ -60,7 +40,32 @@ source_bash_scripts() {
 source_zsh_scripts() {
   if [ -d "${HOME}/.zsh" ]; then
     for file in ${HOME}/.zsh/*.zsh; do
-      [ -f "$file" ] && source "$file"
+      # eval function name for profiling
+      if [ -n "$PROFILE_STARTUP" ]; then
+        fn=`basename $file`
+        eval "$fn() { source $file }; $fn"
+      else
+        [ -f "$file" ] && source "$file"
+      fi
+    done
+    unset file;
+  fi
+  unset -f $0
+}
+
+#
+# Sources common shell scripts in ~/.shell
+#
+source_shell_scripts() {
+  if [ -d "${HOME}/.shell" ]; then
+    for file in ${HOME}/.shell/*.sh; do
+      # eval function name for profiling
+      if [ -n "$PROFILE_STARTUP" ]; then
+        fn=`basename $file`
+        eval "$fn() { source $file }; $fn"
+      else
+        [ -f "$file" ] && source "$file"
+      fi
     done
     unset file;
   fi

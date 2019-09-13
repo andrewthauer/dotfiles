@@ -31,7 +31,6 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 # Various completions for zsh
 # - https://github.com/zsh-users/zsh-completions
 # - NOTE: Must be loaded before running compinit
-[ -z ${BREW_PREFIX} ] && BREW_PREFIX="$(brew --prefix)"
 if [[ -n ${BREW_PREFIX} && -d "${BREW_PREFIX}/share/zsh-completions" ]]; then
   fpath=("${BREW_PREFIX}/share/zsh-completions" $fpath)
 fi

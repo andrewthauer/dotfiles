@@ -1,0 +1,3 @@
+/.zsh/functions/*
+!/.zsh/functions/async
+!/.zsh/functions/prompt_pure_setup
