@@ -1,8 +1,4 @@
 #
-# Core Utilities
-#
-
-#
 # Sources files in a glob
 #
 # note:
@@ -13,25 +9,16 @@
 #   source_files_in ${HOME}/.shell sh
 #
 source_files_in() {
-  # $pattern=$1
-  echo "$1"
-
-  # for file in $(ls ${HOME}/.shell | grep "\\-init.sh" | sort); do
-
-  if [ -n $ZSH_VERSION ]; then
-    echo zsh
-    echo $=~pattern
-    for file in $=~1; do
-      echo $file
+  if [[ -n ${ZSH_VERSION} ]]; then
+    for file in ${~1}; do
       [ -f "$file" ] && source "$file"
     done
-  elif [ -n $BASH_VERSION ]; then
-    echo bash
-    for file in $pattern; do
+  else
+    # NOTE: This does not work in bash
+    for file in ${1}; do
       [ -f "$file" ] && source "$file"
     done
   fi
-
   unset file;
 }
 
