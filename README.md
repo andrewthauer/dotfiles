@@ -79,11 +79,13 @@ the `dotfiles` directory.
   - `~/.zshenv.local`
   - `~/.zprofile.local`
   - `~/.zshrc.local`
+  - `~/.zsh/*.zsh`
   - `~/.shell/*.sh`
 - sourced by `bash`
   - `~/.profile`
   - `~/.bash_profile.local`
   - `~/.bashrc.local`
+  - `~/.bash/*.sh`
   - `~/.shell/*.sh`
 
 ### Homebrew
