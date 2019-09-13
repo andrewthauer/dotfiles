@@ -4,7 +4,7 @@
 #
 
 # Enable zprof performance profiling
-[ -n $ZPROF ] && zmodload zsh/zprof
+[ -n $PROFILE_STARTUP ] && zmodload zsh/zprof
 
 # Load core utilities used by other scripts
 source "${DOTFILES_DIR}/lib/init.sh"

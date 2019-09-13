@@ -20,8 +20,9 @@
 - **limited dependencies** make it very portable.
 - **[`stow`](https://www.gnu.org/software/stow/) powered:** symlink dotfiles and
   thus keep them always up-to-date.
-- **topical organization:** organize dotfiles by topic for easy reuse across
+- **topical organization** to organize dotfiles by topic for easy reuse across
   different machines.
+- **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.
 - **pure** pretty, fast, minimal command prompt.
@@ -128,6 +129,26 @@ settings. For example:
 [includeIf "gitdir:~/Code/personal"]
 path = /path/to/another/.gitconfig
 ```
+
+## Testing
+
+A fresh machine setup can be tested by running `docker-compose` up in the
+[linux/test](./linux/test) directory. This will run the linux install script
+that is intended to bootstrap a new system. _NOTE: There is currently no `macos`
+tests but the overall process is very similar._
+
+## Profiling
+
+It is very important to make sure the shell startup is fast. To help ensure this
+there is built-in support for profiling the startup time.
+
+- The `time-zsh` command can be used to profile `zsh` startup time
+  - `time-zsh -r` loads `zsh` multiple times to get an average
+  - `time-zsh -p` runs `zsh` with the `zprof` module for an execution summary.
+    This helps determine areas that are having the largest affect on the startup
+    time.
+- The `time-bash` command will display the excution time for loading a `bash`
+  shell
 
 ## Inspiration
 

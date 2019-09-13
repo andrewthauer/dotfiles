@@ -29,7 +29,7 @@ source_shell_scripts() {
   if [ -d "${HOME}/.shell" ]; then
     for file in ${HOME}/.shell/*.sh; do
       # eval function name for profiling
-      if [ -n "$ZPROF" ]; then
+      if [ -n "$PROFILE_STARTUP" ]; then
         fn=`basename $file`
         eval "$fn() { source $file }; $fn"
       else
