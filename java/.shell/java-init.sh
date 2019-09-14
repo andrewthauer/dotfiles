@@ -5,6 +5,8 @@
 # - https://sdkman.io/
 #
 
+require_once "sdkman"
+
 JAVA_LAZY_TRIGGERS=(java javac)
 
 _jenv_init() {
@@ -26,6 +28,8 @@ elif [ -n "${SDKMAN_DIR}" ]; then
   sdk_candidate_enabled "maven" && sdk_lazy_init_cmd "mvn"
   sdk_candidate_enabled "gradle" && sdk_lazy_init_cmd "gradle"
   unset -f _jenv_init
+
+# otherwise nothing
 else
   unset -f _jenv_init
 fi
