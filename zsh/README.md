@@ -1,6 +1,7 @@
 # Zsh
 
-This package loads the base `zsh` shell setup along with any registerd packages.
+This package loads the base `zsh` shell setup along with any registered
+packages.
 
 ## Features
 

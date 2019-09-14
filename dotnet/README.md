@@ -1,6 +1,6 @@
 # DotNet (.NET)
 
-This package intializes the `.NET Core` SDK into the current shell.
+This package initializes the `.NET Core` SDK into the current shell.
 
 ## Resources
 

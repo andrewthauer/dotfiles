@@ -1,6 +1,6 @@
 # Bash
 
-This package loads the base `bash` shell setup along with any registerd
+This package loads the base `bash` shell setup along with any registered
 packages.
 
 ## Resources

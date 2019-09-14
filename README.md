@@ -146,7 +146,7 @@ there is built-in support for profiling the startup time.
   - `time-zsh -p` runs `zsh` with the `zprof` module for an execution summary.
     This helps determine areas that are having the largest affect on the startup
     time.
-- The `time-bash` command will display the excution time for loading a `bash`
+- The `time-bash` command will display the execution time for loading a `bash`
   shell
 
 ## Inspiration

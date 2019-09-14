@@ -1,6 +1,6 @@
 # Rust-lang
 
-This package initializes the [rust](https://www.rust-lang.org) langauge
+This package initializes the [rust](https://www.rust-lang.org) language
 environment.
 
 ## Resources

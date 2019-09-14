@@ -5,7 +5,6 @@
 #
 
 # Brews
-brew 'aspell'
 brew 'autoconf'
 brew 'automake'
 brew 'bash'
