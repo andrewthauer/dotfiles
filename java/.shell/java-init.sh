@@ -12,7 +12,6 @@ _jenv_init() {
   # ensure sdkman is loaded first to allow path priority to jenv
   function_exists "_sdk_init" && _sdk_init
   eval "$(jenv init - --no-rehash)"
-  unset JAVA_LAZY_TRIGGERS
 }
 
 # initialize with jenv (lazy)
@@ -27,8 +26,8 @@ elif [ -n "${SDKMAN_DIR}" ]; then
   sdk_candidate_enabled "maven" && sdk_lazy_init_cmd "mvn"
   sdk_candidate_enabled "gradle" && sdk_lazy_init_cmd "gradle"
   unset -f _jenv_init
-
 else
-  unset JAVA_LAZY_TRIGGERS
   unset -f _jenv_init
 fi
+
+unset JAVA_LAZY_TRIGGERS

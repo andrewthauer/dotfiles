@@ -19,4 +19,4 @@ _init_kubectl() {
 }
 
 # initialize kubectl completions (lazy)
-kubectl() { unset -f "$0"; _init_kubectl; $0 "$@"; }
+lazyfunc _init_kubectl "kubectl"
