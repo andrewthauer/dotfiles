@@ -11,7 +11,7 @@
 __SOURCED_FILES=()
 source_file() {
   file=$1
-  if [ -f ${file} ] && [[ ! "${__SOURCED_FILES[@]}" =~ "${file}" ]]; then
+  if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[@]}" =~ "${file}" ]]; then
     source "$file"
     __SOURCED_FILES+=(${file})
   fi
@@ -25,7 +25,7 @@ source_file() {
 #
 source_files_in() {
   for file in $@; do
-    if [ -n "$PROFILE_STARTUP" ]; then
+    if [[ -n "$PROFILE_STARTUP" ]]; then
       # eval function name for profiling
       fn=`basename $file`
       eval "$fn() { source $file }; $fn"
@@ -45,6 +45,6 @@ source_files_in() {
 #
 require_once() {
   module=$1
-  file="${HOME}/.shell/${1}-init.sh"
+  file="${HOME}/.shell/${1}_init.sh"
   source_file "$file"
 }

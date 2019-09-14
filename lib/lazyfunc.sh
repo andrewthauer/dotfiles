@@ -1,4 +1,8 @@
 #
+# Utilities for lazy loading functions by trigger/hooks
+#
+
+#
 # lazy load function helper
 #
 # usage:

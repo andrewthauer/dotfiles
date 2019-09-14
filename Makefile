@@ -7,7 +7,7 @@ PKG_LANG_CORE = node python ruby
 PKG_LANG_SYS = golang rust
 PKG_LANG_JVM = java kotlin scala sdkman
 PKG_TOOLS = kubernetes redis
-PKG_MACOS = macos hammerspoon karabiner
+PKG_MACOS = macos keyboard
 PKG_ALL = $(PKG_CORE) $(PKG_LANG_CORE) $(PKG_LANG_SYS) $(PKG_JVM) $(PKG_TOOLS) $(PKG_MACOS)
 
 all: setup link $(SUBDIRS)

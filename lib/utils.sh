@@ -1,4 +1,8 @@
 #
+# General utilities
+#
+
+#
 # Check if a command exists
 #
 # usage:
