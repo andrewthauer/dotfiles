@@ -6,7 +6,7 @@ fi
 
 run() {
   local search_path=$1
-  if [ -v $1 ]; then
+  if [[ -v $1 ]]; then
     search_path="."
   fi
   find "${search_path}" -iname ".DS_Store" -delete

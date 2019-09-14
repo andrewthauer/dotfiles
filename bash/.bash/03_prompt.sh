@@ -37,7 +37,7 @@ bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 
 print_before_the_prompt() {
-  if [ -x $(command -v vcprompt) ]; then
+  if [[ -x $(command -v vcprompt) ]]; then
     printf "\n[$txtred%s$txtrst] $bldgrn%s $txtpur%n \n$txtrst" "$USER" "$PWD" "$(vcprompt -f "%n")"
   else
     printf "\n[$txtred%s$txtrst] $bldgrn%s \n$txtrst" "$USER" "$PWD"

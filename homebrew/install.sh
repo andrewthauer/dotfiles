@@ -9,7 +9,7 @@ set -e
 sudo -v
 
 # Check if homebrew is installed
-if [ ! -x "$(command -v brew)" ]; then
+if [[ ! -x "$(command -v brew)" ]]; then
   if [[ "${OSTYPE}" == darwin* ]]; then
     # Take ownership of /usr/local
     sudo chown -R "${USER}":admin /usr/local
@@ -26,6 +26,6 @@ if [ ! -x "$(command -v brew)" ]; then
 fi
 
 # Install brews using brew bundle (uses the ~/.Brewfile)
-if [ -x "$(command -v brew)" ]; then
+if [[ -x "$(command -v brew)" ]]; then
   brew bundle --file="${DOTFILES_DIR}/homebrew/.Brewfile"
 fi

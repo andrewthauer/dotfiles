@@ -91,10 +91,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
 else
   alias o="xdg-open"
 
-  if [ -x "$(command -v xclip)" ]; then
+  if [[ -x "$(command -v xclip)" ]]; then
     alias pbcopy="xclip -selection clipboard -in"
     alias pbpaste="xclip -selection clipboard -out"
-  elif [ -x "$(command -v xsel)" ]; then
+  elif [[ -x "$(command -v xsel)" ]]; then
     alias pbcopy="xsel --clipboard --input"
     alias pbpaste="xsel --clipboard --output"
   fi
@@ -108,9 +108,9 @@ alias pbp="pbpaste"
 #
 
 get() {
-  if [ -x "$(command -v curl)" ]; then
+  if [[ -x "$(command -v curl)" ]]; then
     curl --continue-at - --location --progress-bar --remote-name --remote-time
-  elif [ -x "$(command -v wget)" ]; then
+  elif [[ -x "$(command -v wget)" ]]; then
     wget --continue --progress=bar --timestamping
   fi
 }
@@ -130,7 +130,7 @@ untar() {
 
 # Serves a directory via HTTP
 http-serve() {
-  if [ -x $(command -v python3) ]; then
+  if [[ -x $(command -v python3) ]]; then
     python3 -m http.server
   else
     python -m SimpleHTTPServer

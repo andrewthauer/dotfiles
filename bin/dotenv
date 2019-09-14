@@ -38,7 +38,7 @@ dotenv_export() {
 }
 
 dotenv_subst() {
-  if ! [ -x "$(command -v envsubst)" ]; then
+  if [[ ! -x "$(command -v envsubst)" ]]; then
     echo "Command 'envsubst' not found. Please install the 'gettext' package"
     exit 1
   fi

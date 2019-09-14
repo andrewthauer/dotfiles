@@ -14,7 +14,7 @@ _rust_init() {
 }
 
 # initialize rust
-if [ -s "${HOME}/.cargo" ]; then
+if [[ -s "${HOME}/.cargo" ]]; then
   _rust_init
 else
   unset -f _rust_init

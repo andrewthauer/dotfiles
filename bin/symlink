@@ -32,7 +32,7 @@ expand_destination() {
 
   # the destination file
   local dest_file=
-  if [ -n $dest ]; then
+  if [[ -n $dest ]]; then
     dest_file="$(expand_path "$dest")"
   else
     dest_file="${base_dest_dir}${sub_dir}/${filename}"

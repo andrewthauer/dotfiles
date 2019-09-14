@@ -14,7 +14,7 @@ sudo -v
 hostname="$1"
 
 # Make sure hostname
-if ! [ ! -n "$hostname" ]; then
+if [[ -z "$hostname" ]]; then
   echo "Hostname was not supplied"
   exit 1
 fi

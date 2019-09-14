@@ -5,7 +5,7 @@
 #
 
 # skip the rest if sdkman is not installed
-if ! [ -d "${HOME}/.sdkman" ]; then
+if [[ ! -d "${HOME}/.sdkman" ]]; then
   return
 fi
 
@@ -14,7 +14,7 @@ SDK_LAZY_TRIGGERS=()
 
 sdk_candidate_enabled() {
   candidate=${1}
-  [ -s "$SDKMAN_DIR/candidates/$candidate/current" ]
+  [[ -s "$SDKMAN_DIR/candidates/$candidate/current" ]]
 }
 
 sdk_lazy_init_cmd() {
@@ -35,7 +35,7 @@ _sdk_init() {
 }
 
 # initialize sdkman if installed (lazy)
-if [ -d "${HOME}/.sdkman" ]; then
+if [[ -d "${HOME}/.sdkman" ]]; then
   export SDKMAN_DIR="${HOME}/.sdkman"
   sdk_lazy_init_cmd "sdk"
 fi

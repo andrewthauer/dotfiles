@@ -4,7 +4,7 @@
 #
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 # Load the ~/.bash_profile if has not been loaded
 BASH_RC_LOADED=true
@@ -21,6 +21,6 @@ source_files_in ~/.bash/*.sh
 source_files_in ~/.shell/*.sh
 
 # Load the local .bashrc file
-if [ -f "$HOME/.bashrc.local" ]; then
+if [[ -f "$HOME/.bashrc.local" ]]; then
   source "$HOME/.bashrc.local"
 fi

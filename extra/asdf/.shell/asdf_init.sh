@@ -4,7 +4,7 @@
 # - https://github.com/asdf-vm/asdf
 #
 
-if ! [ -d "${HOME}/.asdf" ]; then
+if [[ ! -d "${HOME}/.asdf" ]]; then
   return
 fi
 
@@ -15,9 +15,9 @@ export ASDF_DIR="${ASDF_DIR:-$HOME/.asdf}"
 source "${ASDF_DIR}/asdf.sh"
 
 # Setup completions
-if [ -n "${ZSH_NAME}" ]; then
+if [[ -n "${ZSH_NAME}" ]]; then
   source "${ASDF_DIR}/completions/asdf.zsh"
-elif [ -n "${BASH_VERSION}" ]; then
+elif [[ -n "${BASH_VERSION}" ]]; then
   source "${ASDF_DIR}/completions/asdf.bash"
 fi
 

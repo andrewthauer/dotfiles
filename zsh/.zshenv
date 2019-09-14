@@ -31,6 +31,6 @@ fpath=(
 )
 
 # Load local zshenv (if exists)
-if [ -f "${HOME}/.zshenv.local" ]; then
+if [[ -f "${HOME}/.zshenv.local" ]]; then
   source "${HOME}/.zshenv.local"
 fi

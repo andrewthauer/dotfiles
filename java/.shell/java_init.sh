@@ -22,7 +22,7 @@ if command_exists "jenv"; then
   lazyfunc _jenv_init "${JAVA_LAZY_TRIGGERS[@]}"
 
 # initialize with sdkman (lazy)
-elif [ -n "${SDKMAN_DIR}" ]; then
+elif [[ -n "${SDKMAN_DIR}" ]]; then
   sdk_candidate_enabled "java" && sdk_lazy_init_cmd "${JAVA_LAZY_TRIGGERS[@]}"
   # TODO: Split these into their own modules?
   sdk_candidate_enabled "maven" && sdk_lazy_init_cmd "mvn"

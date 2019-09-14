@@ -23,7 +23,7 @@ declare -A ASDF_PLUGINS=(
 )
 
 # Install asdf (if required)
-if [ ! -d "${HOME}/.asdf" ]; then
+if [[ ! -d "${HOME}/.asdf" ]]; then
   echo "Installing asdf -- ${ASDF_VERISON}"
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch ${ASDF_VERSION}
 

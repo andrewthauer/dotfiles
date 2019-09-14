@@ -4,8 +4,8 @@
 #
 
 # Load local profile (if exists)
-if [ -f "${HOME}/.profile.local" ]; then
+if [[ -f "${HOME}/.profile.local" ]]; then
   source "${HOME}/.profile.local"
-elif [ -f "${HOME}/.zprofile.local" ]; then
+elif [[ -f "${HOME}/.zprofile.local" ]]; then
   source "${HOME}/.zprofile.local"
 fi

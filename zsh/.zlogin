@@ -4,6 +4,6 @@
 #
 
 # Load local login (if exists)
-if [ -f "${HOME}/.zlogin.local" ]; then
+if [[ -f "${HOME}/.zlogin.local" ]]; then
   source "${HOME}/.zlogin.local"
 fi

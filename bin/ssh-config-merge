@@ -18,14 +18,14 @@ set -e
 
 # The source files
 SRC_PATHS="$1"
-[ -z "$SRC_PATHS" ] && SRC_PATHS="$SSH_CONFIGS"
+[[ -z "$SRC_PATHS" ]] && SRC_PATHS="$SSH_CONFIGS"
 
 # The target file
 TARGET="$2"
-[ -z "$TARGET" ] && TARGET="$HOME/.ssh/config"
+[[ -z "$TARGET" ]] && TARGET="$HOME/.ssh/config"
 
 # Truncate the file
-if [ -e "$HOME/.ssh/config" ]; then
+if [[ -e "$HOME/.ssh/config" ]]; then
   echo "Do you want to replace the existing '$TARGET' file [y/N]?"
   read reply
   if [[ $reply =~ ^[Yy]$ ]]; then

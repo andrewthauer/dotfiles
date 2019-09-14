@@ -13,7 +13,7 @@
 #
 function command_exists {
   # use fastest shell specific method
-  if [ -n "$ZSH_VERSION" ]; then
+  if [[ -n "$ZSH_VERSION" ]]; then
     [ $+commands[$1] ]
   else
     command -v "$1" > /dev/null 2>&1

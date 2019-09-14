@@ -12,7 +12,7 @@ sudo -v
 xcode-select --install
 
 # Clone this repo
-if [ ! -d "${DOTFILES_DIR}" ]; then
+if [[ ! -d "${DOTFILES_DIR}" ]]; then
   git clone "https://github.com/andrewthauer/dotfiles.git" ~/.dotfiles
 fi
 
@@ -35,7 +35,7 @@ files=(
   ~/.zshrc
 )
 for file in ${files[@]}; do
-  [ ! -L "${file}" ] && mv "${file}" "${file}.old"
+  [[ ! -L "${file}" ]] && mv "${file}" "${file}.old"
 done
 
 # Setup the dotfiles

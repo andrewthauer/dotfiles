@@ -10,9 +10,9 @@ fi
 
 _init_kubectl() {
   # load kubectl completions
-  if [ -n $ZSH_VERSION ]; then
+  if [[ -n $ZSH_VERSION ]]; then
     source <(kubectl completion zsh)
-  elif [ -n $BASH_VERSION ]; then
+  elif [[ -n $BASH_VERSION ]]; then
     source <(kubectl completion bash)
   fi
   unset -f $0

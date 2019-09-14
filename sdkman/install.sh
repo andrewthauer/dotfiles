@@ -8,7 +8,7 @@ set -e
 SDKMAN_DIR="${HOME}/.sdkman"
 
 # check if it's already installed
-if [ -d "${SDKMAN_DIR}" ]; then
+if [[ -d "${SDKMAN_DIR}" ]]; then
   echo "sdkman is already installed"
   exit 0
 fi

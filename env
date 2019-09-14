@@ -10,7 +10,7 @@ export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 export PATH="${PATH}:${DOTFILES_DIR}/bin"
 
 # Append dotfiles/local/bin to path
-if [ -d "${DOTFILES_DIR}/local/bin" ]; then
+if [[ -d "${DOTFILES_DIR}/local/bin" ]]; then
   export PATH="${PATH}:${DOTFILES_DIR}/local/bin"
 fi
 

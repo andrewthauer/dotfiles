@@ -10,9 +10,9 @@ export DOTFILES_DIR="${HOME}/.dotfiles"
 source "${DOTFILES_DIR}/env"
 
 # Load local profile (if exists)
-if [ -f "${HOME}/.profile.local" ]; then
+if [[ -f "${HOME}/.profile.local" ]]; then
   source "${HOME}/.profile.local"
-elif [ -f "$HOME/.bash_profile.local" ]; then
+elif [[ -f "$HOME/.bash_profile.local" ]]; then
   source "$HOME/.bash_profile.local"
 fi
 
