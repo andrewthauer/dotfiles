@@ -17,8 +17,8 @@ unset BASH_RC_LOADED
 source "${DOTFILES_DIR}/lib/init.sh"
 
 # Source scripts
-source_bash_scripts
-source_shell_scripts
+source_files_in ~/.bash/*.sh
+source_files_in ~/.shell/*.sh
 
 # Load the local .bashrc file
 if [ -f "$HOME/.bashrc.local" ]; then

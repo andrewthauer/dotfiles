@@ -10,8 +10,8 @@
 source "${DOTFILES_DIR}/lib/init.sh"
 
 # Source scripts
-source_shell_scripts
-source_zsh_scripts
+source_files_in ~/.zsh/*.zsh
+source_files_in ~/.shell/*.sh
 
 # Load the local zsh file
 if [ -f "$HOME/.zshrc.local" ]; then
