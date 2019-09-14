@@ -1,6 +1,5 @@
 DOTFILES_DIR = $(CURDIR)/..
 BIN_DIR = $(DOTFILES_DIR)/bin
-REPOS_DIR = $(DOTFILES_DIR)/repos
 VIM_PACK_DIR = $(CURDIR)/.vim/pack
 PACK_START_DIR = $(VIM_PACK_DIR)/default/start
 
