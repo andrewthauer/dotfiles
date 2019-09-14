@@ -1,14 +1,20 @@
 DOTFILES_DIR = ${HOME}/.dotfiles
+MODULES_DIR = $(DOTFILES_DIR)/modules
 
 SUBDIRS = vim zsh local
 
-PKG_CORE = bash fasd docker git homebrew local utility vim tmux zsh
+PKG_CORE = bash fasd git homebrew local vim tmux utility zsh
 PKG_LANG_CORE = node python ruby
-PKG_LANG_SYS = golang rust
-PKG_LANG_JVM = java kotlin scala sdkman
-PKG_TOOLS = kubernetes redis
-PKG_MACOS = macos keyboard
-PKG_ALL = $(PKG_CORE) $(PKG_LANG_CORE) $(PKG_LANG_SYS) $(PKG_JVM) $(PKG_TOOLS) $(PKG_MACOS)
+PKG_LANG_EXTRA = dotnet golang java kotlin rust scala sdkman
+PKG_TOOLS_CORE = docker
+PKG_TOOLS_EXTRA = asdf gcloud kubernetes redis
+PKG_OS_MAC = macos
+
+PKG_ALL_ROOT = $(PKG_CORE)
+PKG_ALL_MOD = $(PKG_LANG_CORE) $(PKG_LANG_EXTRA) $(PKG_TOOLS_CORE) $(PKG_TOOLS_EXTRA)
+
+PKG_DEFAULT = $(PKG_CORE)
+PKG_DEFAULT_MODS = $(PKG_LANG_CORE) $(PKG_TOOLS_CORE)
 
 all: setup link $(SUBDIRS)
 
@@ -17,19 +23,25 @@ setup:
 	@stow -t ${HOME} stow
 
 link: setup
-	@stow -t ${HOME} $(PKG_CORE) $(PKG_LANG_CORE)
+	@stow -t ${HOME} $(PKG_DEFAULT)
+	@stow -t ${HOME} -d $(MODULES_DIR) $(PKG_DEFAULT_MODS)
 ifeq ($(shell uname), Darwin)
-	@stow -t ${HOME} $(PKG_MACOS)
+	@stow -t ${HOME} $(PKG_OS_MAC)
 endif
 
-linkall: setup
-	@stow -t ${HOME} $(PKG_ALL)
-
 unlink: setup
-	@stow -D -t ${HOME} $(PKG_ALL)
+	@stow -D -t ${HOME} $(PKG_ALL_ROOT)
+	@stow -D -t ${HOME} -d $(MODULES_DIR) $(PKG_ALL_MOD)
+ifeq ($(shell uname), Darwin)
+	@stow -D -t ${HOME} $(PKG_OS_MAC)
+endif
 
 chklink: setup
-	@stow -n -v -t ${HOME} $(PKG_ALL)
+	@stow -n -v -t ${HOME} $(PKG_ALL_ROOT)
+	@stow -n -v -t ${HOME} -d $(MODULES_DIR) $(PKG_ALL_MOD)
+ifeq ($(shell uname), Darwin)
+	@stow -n -v -t ${HOME} $(PKG_OS_MAC)
+endif
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)

@@ -46,7 +46,7 @@ make
 popd > /dev/null
 
 # macOS default settings
-${DOTFILES_DIR}/macos/defaults.sh
+${DOTFILES_DIR}/macos/settings/defaults.sh
 
 echo "Start zsh ..."
 zsh
