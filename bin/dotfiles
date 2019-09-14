@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Dotfiles root command
+#
+# usage:
+#   dotfiles [cmd]
+#
+
+set -o errexit -o pipefail -o noclobber -o nounset
+
+usage() {
+  echo "Usage: dotfiles [command]"
+  echo "";
+  echo "COMMANDS:";
+  echo "  backup     Backups up the local dotfiles directory";
+  echo "  help       Prints this message";
+}
+
+main() {
+  cmd=${1:-}
+  args=${@:2}
+  sub_cmd="dotfiles-${cmd}"
+
+  # Execute the command
+  if [[ -x $(command -v $sub_cmd) ]]; then
+    $sub_cmd $args 2>&1
+  else
+    usage
+  fi
+}
+
+main $@
+exit 0

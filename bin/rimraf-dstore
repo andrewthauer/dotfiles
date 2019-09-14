@@ -4,7 +4,7 @@ if [[ "$OSTYPE" != darwin* ]]; then
   return
 fi
 
-run() {
+main() {
   local search_path=$1
   if [[ -v $1 ]]; then
     search_path="."
@@ -12,4 +12,5 @@ run() {
   find "${search_path}" -iname ".DS_Store" -delete
 }
 
-run
+main
+exit 0

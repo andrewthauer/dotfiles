@@ -102,12 +102,12 @@ install_gradle() {
   fi
 }
 
-run() {
+main() {
   install_version_manager
   install_java
   install_maven
   install_gradle
 }
 
-run
+main
 exit 0

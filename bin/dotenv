@@ -46,13 +46,13 @@ dotenv_subst() {
   dotenv_exec envsubst < "${1}"
 }
 
-run() {
+main() {
   cmd=${1:-}
   args=${@:2}
   sub_cmd="dotenv_${cmd}"
 
   # Execute the command
-  if [ $(command -v $sub_cmd) ]; then
+  if [[ -x $(command -v $sub_cmd) ]]; then
     $sub_cmd $args 2>&1
   else
     if [[ -f ".env" ]]; then
@@ -63,5 +63,5 @@ run() {
   fi
 }
 
-run $@
+main $@
 exit 0

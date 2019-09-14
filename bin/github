@@ -22,7 +22,7 @@ exec_github() {
   github_cmd="github-${cmd}"
 
   # Execute the command
-  if [ $(command -v $github_cmd) ]; then
+  if [[ -x $(command -v $github_cmd) ]]; then
     $github_cmd $args 2>&1
   else
     usage

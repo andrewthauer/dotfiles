@@ -68,10 +68,10 @@ symlink_item() {
   fi
 }
 
-run() {
+main() {
   local source=$1
   local target=$2
   symlink_item "$source" "$target" "$dry_run"
 }
 
-run $@;
+main $@;

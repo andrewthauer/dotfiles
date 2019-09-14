@@ -52,7 +52,7 @@ parse_args() {
   fi
 }
 
-run() {
+main() {
   parse_args "$@"
 
   IFS='/'; arr=($repo); unset IFS;
@@ -82,4 +82,5 @@ run() {
   fi
 }
 
-run $@;
+main $@;
+exit 0

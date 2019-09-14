@@ -28,7 +28,7 @@ install_with_sdk() {
   exec $SHELL -l
 }
 
-run() {
+main() {
   PS3="How do you want to install scala?: "
   options=("homebrew" "sdkman" "quit")
   select opt in "${options[@]}"; do
@@ -41,5 +41,5 @@ run() {
   done
 }
 
-run
+main
 exit 0
