@@ -4,7 +4,7 @@
 
 [core]
   mergeoptions = --no-edit
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore_global
 
 [push]
   default = simple

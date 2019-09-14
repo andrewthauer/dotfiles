@@ -1,6 +1,0 @@
-# karabiner-elements
-/.config/karabiner/*
-!/.config/karabiner/karabiner.json
-
-# hammerspoon
-/.hammerspoon/Spoons/*

@@ -12,5 +12,18 @@
 **/*.local*
 **/secrets
 
+# keyboard
+**/karabiner/*
+!karabiner.json
+**/.hammerspoon/Spoons/*
+
+# vim
+**/nvim/pack
+
+# zsh
+.zsh/functions/*
+!.zsh/functions/async
+!.zsh/functions/prompt_pure_setup
+
 # keep these files
 !/**/.gitkeep
