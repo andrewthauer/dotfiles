@@ -31,6 +31,8 @@ files=(
   ~/.profile
   ~/.bash_profile
   ~/.bashrc
+  ~/.zlogin
+  ~/.zlogout
   ~/.zshenv
   ~/.zprofile
   ~/.zshrc
