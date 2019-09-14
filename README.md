@@ -28,8 +28,7 @@
 - **pure** pretty, fast, minimal command prompt.
 - **useful aliases & utilities** for maximum productivity.
 - **vim & nvim** work interchangeably.
-- **[homebrew](https://github.com/homebrew/homebrew) compatible** packages with
-  smart fallbacks.
+- **[homebrew](https://brew.sh) compatible** packages with smart fallbacks.
 
 ## Pre-requisites
 
