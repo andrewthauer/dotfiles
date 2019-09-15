@@ -3,10 +3,10 @@ MODULES_DIR = $(DOTFILES_DIR)/modules
 
 SUBDIRS = vim zsh local
 
-PKG_CORE = bash fasd git homebrew local vim tmux utility zsh
+PKG_CORE = bash git homebrew local vim tmux utility zsh
 PKG_LANG_CORE = node python ruby
 PKG_LANG_EXTRA = dotnet golang java kotlin rust scala sdkman
-PKG_TOOLS_CORE = docker
+PKG_TOOLS_CORE = fasd docker
 PKG_TOOLS_EXTRA = asdf gcloud kubernetes redis
 PKG_OS_MAC = macos
 
