@@ -76,8 +76,8 @@ symlinking unwanted paths_
 ### Zsh / Bash
 
 The following files will be sourced automatically if they exist. They can be
-added to `dotfiles/local` and then symlinked to `~` by running `stow local` from
-the `dotfiles` directory.
+added to `dotfiles/@local` and then symlinked to `~` by running `stow local`
+from the `dotfiles` directory.
 
 - sourced by `zsh`
   - `~/.profile`
