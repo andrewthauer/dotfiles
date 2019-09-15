@@ -4,9 +4,20 @@
 # - https://github.com/clvv/fasd
 #
 
-# Initialize fasd (if installed)
+# Ensure fasd is installed
 if ! command_exists "fasd"; then
-  return
+  return 1
+fi
+
+# Initialize and return if bash
+if [[ -n "${BASH_VERSION}" ]]; then
+  eval "$(fasd --init auto)"
+  return 0
+fi
+
+# Exit if not zsh
+if [[ -z "${ZSH_VERSION}" ]]; then
+  return 1
 fi
 
 #

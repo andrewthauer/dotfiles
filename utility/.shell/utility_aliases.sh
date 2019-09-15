@@ -13,7 +13,7 @@
 alias reload="exec $SHELL -l"
 
 # Clear the screen
-alias cls="clear"
+alias clr="clear"
 
 #
 # Directories
