@@ -2,14 +2,14 @@
 
 set -e
 
-# Set the target directory
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
 # Prompt for admin password upfront
 sudo -v
 
 # Install pre-requisites
 xcode-select --install
+
+# Set the target directory
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Clone this repo
 if [[ ! -d "${DOTFILES_DIR}" ]]; then
@@ -26,16 +26,7 @@ grep -q "${BREW_PREFIX}/bin/zsh" /etc/shells && echo "${BREW_PREFIX}/bin/zsh" | 
 chsh -s "${BREW_PREFIX}/bin/zsh"
 
 # Rename existing dotfiles
-files=(
-  ~/.profile
-  ~/.bash_profile
-  ~/.bashrc
-  ~/.zlogin
-  ~/.zlogout
-  ~/.zshenv
-  ~/.zprofile
-  ~/.zshrc
-)
+files=(~/.profile ~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
 for file in ${files[@]}; do
   [[ ! -L "${file}" ]] && mv "${file}" "${file}.old"
 done

@@ -1,6 +1,6 @@
 # Linux
 
-> Setup a new linux box (debian)
+> Setup a new linux box
 
 ## Setup
 
@@ -13,8 +13,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
 The linux install process can be tested with docker:
 
 ```shell
-cd test
-docker-compose up
+cd docker-test
+docker-compose run --rm --service-ports ubuntu bash
+
+# Then once in the docker command line
+/dotfiles/@linux/install.sh
+
+# ... Follow any prompts as required
 ```
 
 _NOTE: This is a work in progress_
