@@ -56,9 +56,12 @@ To install on a brand new system see:
 ## Configuration
 
 Most common configuration is handled by symlinking files to the `$HOME`
-directory. This is handled by `stow`. Local system configs & secrets should be
-added to the `local` directory and never committed. Additional modules are
-stored in `modules` and can be added & removed.
+directory. This is handled by `stow`.
+
+- OS specific packages are prefixed with `@`.
+- Additional modules are stored in `modules` and can be added & removed.
+- Local system configs & secrets should be added to the `@local` directory and
+  never committed.
 
 ```
 stow -t ~ [pkg-name]
