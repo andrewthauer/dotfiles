@@ -8,6 +8,7 @@ get_os_family() {
   os_info[/etc/debian_version]="debian"
   os_info[/etc/fedora-release]="fedora"
   os_info[/etc/redhat-release]="rhel"
+  os_info[/etc/arch-release]="arch"
   os_info[/etc/alpine-release]="alpine"
   for f in ${!os_info[@]}; do
     [[ -f $f ]] && os_family="${os_info[$f]}"
@@ -24,9 +25,11 @@ install_dependencies() {
   if [[ "${os_family}" == "debian" ]]; then
     sudo apt-get update && sudo apt-get install -y build-essential ${packages}
   elif [[ "${os_family}" == "fedora" ]]; then
-    sudo dnf groupinstall "Development Tools" && sudo dnf install -y ${packages}
+    sudo dnf groupinstall "Development Tools" && sudo dnf install -y ${packages} libxcrypt-compat
   elif [[ "${os_family}" == "rhel" ]]; then
     sudo yum groupinstall "Development Tools" && sudo yum install -y ${packages}
+  elif [[ "${os_family}" == "arch" ]]; then
+    sudo pacman -S base-devel ${packages}
   else
     echo "OS family: '${os_family}' not supported"
     exit 1

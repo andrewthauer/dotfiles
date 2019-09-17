@@ -109,10 +109,6 @@ zstyle ':completion:*:history-words' menu yes
 # Environmental Variables
 zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
 
-# Populate hostname completion. But allow ignoring custom entries from static
-# */etc/hosts* which might be uninteresting.
-zstyle -a ':prezto:module:completion:*:hosts' etc-host-ignores '_etc_host_ignores'
-
 # Completion for host names
 zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${=${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
@@ -156,9 +152,5 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' l
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-domain' ignored-patterns '<->.<->.<->.<->' '^[-[:alnum:]]##(.[-[:alnum:]]##)##' '*@*'
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
 
-#
-# Aliases
-#
-
-# clear completions
+# Clear completion alias
 alias clearcomp="rm -f ~/.zcompdump; compinit"

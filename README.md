@@ -82,19 +82,14 @@ The following files will be sourced automatically if they exist. They can be
 added to `dotfiles/@local` and then symlinked to `~` by running `stow local`
 from the `dotfiles` directory.
 
-- sourced by `zsh`
-  - `~/.profile`
-  - `~/.zshenv.local`
-  - `~/.zprofile.local`
-  - `~/.zshrc.local`
-  - `~/.zsh/*.zsh`
-  - `~/.shell/*.sh`
-- sourced by `bash`
-  - `~/.profile`
-  - `~/.bash_profile.local`
-  - `~/.bashrc.local`
-  - `~/.bash/*.sh`
-  - `~/.shell/*.sh`
+The following files are sourced by `zsh` in the order: `~/.profile`,
+`~/.zshenv.local`, `~/.zprofile.local`, `~/.zshrc.local`, `~/.zsh/*.zsh`,
+`~/.shell/*.sh`
+
+### Bash
+
+The following files are sourced by `bash` in the order: `~/.profile`,
+`~/.bash_profile.local`, `~/.bashrc.local`, `~/.bash/*.sh`, `~/.shell/*.sh`
 
 ### Homebrew
 

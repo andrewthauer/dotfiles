@@ -12,8 +12,10 @@ hs.window.animationDuration = 0.0
 hs.loadSpoon("SpoonInstall")
 
 -- load various modules
+require('mouse')
+require('window')
 require('keybinds')
-require('cheatsheet')
+-- require('cheatsheet')
 require('watcher')
 
 -- notification that config was loaded
