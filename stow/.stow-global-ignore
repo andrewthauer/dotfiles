@@ -16,6 +16,7 @@
 
 # common directories
 local*
+install
 scripts
 secrets
 settings
@@ -24,4 +25,4 @@ tmp*
 
 # common files
 Makefile
-install.sh
+install.*

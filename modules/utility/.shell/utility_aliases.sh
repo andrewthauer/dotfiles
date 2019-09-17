@@ -121,7 +121,8 @@ get() {
 
 # untar a file
 untar() {
-  "tar -xf $1 -C $2"
+  [[ -n "$2" ]] && mkdir -p $2
+  tar -xf $1 -C ${2:-.}
 }
 
 #
