@@ -4,14 +4,15 @@ SPOONS_DIR = $(HAMMERSPOON_DIR)/Spoons
 
 SPOON_INSTALL_URL = https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/SpoonInstall.spoon.zip
 
-all: setup plugins
+all: defaults plugins
 
-vim: all
+@macos: all
 
-setup:
+defaults:
+	$(CURDIR)/settings/defaults.sh
+
+plugins:
 	@mkdir -p "$(SPOONS_DIR)"
-
-plugins: setup
 	@curl $(SPOON_INSTALL_URL) | tar -xz -C $(SPOONS_DIR)
 
-.PHONY: all setup plugins
+.PHONY: all defaults plugins

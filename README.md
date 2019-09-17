@@ -47,7 +47,13 @@ make
 # now restart your shell ...
 ```
 
-To install on a brand new system see:
+To install on a brand new system:
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
+```
+
+Also see:
 
 - [macOS](macos/README.md)
 - [Linux](linux/README.md)
@@ -135,11 +141,10 @@ path = /path/to/another/.gitconfig
 ## Testing
 
 A fresh machine setup can be tested by running `docker-compose` up in the
-[linux/test](./linux/test) directory. This will run the linux install script
-that is intended to bootstrap a new system. _NOTE: There is currently no `macos`
-tests but the overall process is very similar._
+[test](./test) directory. This will run the install script that is intended to
+bootstrap a new system.
 
-## Profiling
+### Profiling
 
 It is very important to make sure the shell startup is fast. To help ensure this
 there is built-in support for profiling the startup time.

@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile-ubuntu
     container_name: dotfiles-ubuntu
-    command: /dotfiles/@linux/install.sh
+    command: /dotfiles/install.sh
     volumes:
-      - ../..:/dotfiles:ro
+      - ..:/dotfiles:ro
 
   # not implemented yet
   fedora:

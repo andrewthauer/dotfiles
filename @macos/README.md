@@ -1,11 +1,19 @@
 # macOS
 
-> Setup a new macOS machine
+> `macOS` system specific setting & configuration
 
 ## Setup
 
+For a fresh system install run:
+
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/macos/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
+```
+
+The `macOS` default settings can be configured with:
+
+```shell
+./settings/defaults.sh
 ```
 
 ## Keyboard
@@ -69,41 +77,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
     <td>Move window right one screen</td>
   </tr>
 </table>
-
-## Testing
-
-### Install VirtualBox
-
-https://medium.com/@twister.mr/installing-macos-to-virtualbox-1fcc5cf22801
-
-### Create the image
-
-Go to the app store and download macOS installer
-
-```
-mkdir -p ~/Downloads/macos
-cd ~/Downloads/macos
-
-hdiutil create -o ~/mojave.cdr -size 6000m -layout SPUD -fs HFS+J
-hdiutil attach mojave.cdr.dmg -noverify -mountpoint /Volumes/install_build
-sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/install_build
-mv mojave.cdr.dmg InstallSystem.dmg
-hdiutil detach /Volumes/Install\ macOS\ Mojave
-hdiutil convert InstallSystem.dmg -format UDTO -o mojave.iso
-```
-
-Setup the VirtualBox
-
-```sh
-VBoxManage modifyvm "MacOS" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
-VBoxManage setextradata "MacOS" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac11,3"
-VBoxManage setextradata "MacOS" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
-VBoxManage setextradata "MacOS" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
-VBoxManage setextradata "MacOS" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
-VBoxManage setextradata "MacOS" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 1
-
-# VBoxManage setextradata "macOS" VBoxInternal2/EfiGopMode 4
-```
 
 ## Resources
 
