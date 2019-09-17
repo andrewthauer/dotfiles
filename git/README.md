@@ -5,7 +5,7 @@ aliases.
 
 ## Usage
 
-See [gitconfig](.gitconfig) & [git-aliases.sh](.shell/git-aliases.sh).
+See [gitconfig](.gitconfig) & [git-aliases.sh](.shell/git_aliases.sh).
 
 ## Resources
 
