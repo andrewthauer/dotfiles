@@ -75,11 +75,11 @@ stow -t ~ [pkg-name]
 
 ### Local Customization
 
-The `local` directory (git ignored) can be used to customize the dotfiles for a
+The `@local` directory (git ignored) can be used to customize the dotfiles for a
 particular environment. It is also a good place to store an secret information
 you don't want to commit to source control.
 
-_NOTE: Make sure you create a `local/.stow-local-ignore` file to avoid
+_NOTE: Make sure you create a `@local/.stow-local-ignore` file to avoid
 symlinking unwanted paths_
 
 ### Zsh / Bash
@@ -121,7 +121,7 @@ _[Add the SSH Key to your GitHub account](https://help.github.com/articles/gener
 
 ### Git
 
-A `local/.config/git/credentials` file will include your git credentials:
+A `@local/.config/git/credentials` file will include your git credentials:
 
 ```ini
 [user]
@@ -129,7 +129,7 @@ A `local/.config/git/credentials` file will include your git credentials:
   email = your@email.com
 ```
 
-You can also add a `local/.config/git/config.local` file to override any
+You can also add a `@local/.config/git/config.local` file to override any
 settings. For example:
 
 ```ini
