@@ -12,7 +12,7 @@ sudo -v
 if [[ ! -x "$(command -v brew)" ]]; then
   if [[ "${OSTYPE}" == darwin* ]]; then
     # Take ownership of /usr/local
-    sudo chown -R "${USER}":admin /usr/local
+    # sudo chown -R "${USER}":admin /usr/local
 
     # Install standard homebrew
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

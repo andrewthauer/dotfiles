@@ -7,15 +7,20 @@ set -e
 
 # Get the appropriate package manager script
 get_os_family() {
-  declare -A os_info;
-  os_info[/Applications/Safari.app]="macos"
-  os_info[/etc/debian_version]="debian"
-  os_info[/etc/fedora-release]="fedora"
-  os_info[/etc/redhat-release]="rhel"
-  os_info[/etc/arch-release]="arch"
-  os_info[/etc/alpine-release]="alpine"
-  for f in ${!os_info[@]}; do
-    [[ -f $f ]] && os_family="${os_info[$f]}"
+  # ideally we would use an associative array here
+  # but this needs to work in bash < v4 for macos
+  os_info=(
+    "/etc/auto_master::macos"
+    "/etc/debian_version::debian"
+    "/etc/fedora-release::fedora"
+    "/etc/redhat-release::rhel"
+    "/etc/arch-release::arch"
+    "/etc/alpine-release::alpine"
+  )
+  for kv in ${os_info[@]}; do
+    key="${kv%%::*}"
+    val="${kv##*::}"
+    [[ -f "$key" ]] && os_family="${val}"
   done
   echo "${os_family}"
 }
@@ -40,7 +45,11 @@ install_prerequisites() {
   packages="curl file git"
 
   if [[ "${os_family}" == "macos" ]]; then
-    xcode-select --install
+    if [[ ! -d "$(xcode-select -p)" ]]; then
+      xcode-select --install
+    else
+      echo "xcode command line tools installed"
+    fi
   elif [[ "${os_family}" == "debian" ]]; then
     sudo apt-get update && sudo apt-get install -y build-essential ${packages}
   elif [[ "${os_family}" == "fedora" ]]; then
@@ -71,9 +80,6 @@ install_dotfiles_deps() {
 }
 
 clone_dotfiles() {
-  # Set the target directory
-  export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
   # Clone this repo
   if [[ ! -d "${DOTFILES_DIR}" ]]; then
     git clone "https://github.com/andrewthauer/dotfiles.git" ~/.dotfiles
@@ -88,11 +94,13 @@ setup_zsh() {
   fi
 
   # Add availble shells
-  grep -q "${BIN_PREFIX}/bin/bash" /etc/shells && echo "${BIN_PREFIX}/bin/bash" | sudo tee -a /etc/shells
-  grep -q "${BIN_PREFIX}/bin/zsh" /etc/shells && echo "${BIN_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
+  [[ ! $(grep "${BIN_PREFIX}/bin/bash" /etc/shells) ]] && echo "${BIN_PREFIX}/bin/bash" | sudo tee -a /etc/shells
+  [[ ! $(grep "${BIN_PREFIX}/bin/zsh" /etc/shells) ]] && echo "${BIN_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
 
   # Change default shell to zsh
-  chsh -s "${BIN_PREFIX}/bin/zsh"
+  if [[ "${SHELL}" != "${BIN_PREFIX}/bin/zsh" ]]; then
+    sudo chsh -s "${BIN_PREFIX}/bin/zsh"
+  fi
 }
 
 setup_dotfiles() {
@@ -111,11 +119,11 @@ setup_dotfiles() {
 }
 
 system_specific_setup() {
-  os_family=$(get_os_family)
-  makefile="${DOTFILES_DIR}/@${os_family}/Makefile"
+  os_family="$(get_os_family)"
+  makefile="${DOTFILES_DIR}/@${os_family}"
 
   # Execute system specific makefile if it exists
-  if [[ -f "${makefile}" ]]; then
+  if [[ -d "${makefile}" ]]; then
     make -C "${makefile}"
   fi
 }
@@ -129,6 +137,7 @@ main() {
   clone_dotfiles
   install_brew
   install_dotfiles_deps
+  setup_zsh
   setup_dotfiles
   system_specific_setup
 
@@ -137,5 +146,9 @@ main() {
   # zsh
 }
 
+# Set the target directory
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+# Run the script
 main "$@"
 exit 0

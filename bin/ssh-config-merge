@@ -16,20 +16,15 @@
 
 set -e
 
-# The source files
-SRC_PATHS="$1"
-[[ -z "$SRC_PATHS" ]] && SRC_PATHS="$SSH_CONFIGS"
-
 # The target file
-TARGET="$2"
-[[ -z "$TARGET" ]] && TARGET="$HOME/.ssh/config"
+target="${target:-$HOME/.ssh/config}"
 
 # Truncate the file
 if [[ -e "$HOME/.ssh/config" ]]; then
-  echo "Do you want to replace the existing '$TARGET' file [y/N]?"
+  echo "Do you want to replace the existing '$target' file [y/N]?"
   read reply
   if [[ $reply =~ ^[Yy]$ ]]; then
-    cat /dev/null > $TARGET
+    cat /dev/null > $target
   else
     return 1
   fi
@@ -38,13 +33,13 @@ fi
 # Append configs to the ~/.ssh/config
 for conf in ~/.ssh/config.*; do
   echo "Appending: $conf"
-  cat "$conf" >> $TARGET
-  echo "" >> $TARGET
+  cat "$conf" >> $target
+  echo "" >> $target
 done
 
 # Update permissions
-chmod 600 "$TARGET"
+chmod 600 "$target"
 
 # Done
-echo "Created: $TARGET"
+echo "Created: $target"
 exit 0
