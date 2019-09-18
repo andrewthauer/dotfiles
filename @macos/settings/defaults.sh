@@ -326,10 +326,11 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 # =============================================================================
 
 # Use custom theme for Terminal.app
-open "${DOTFILES_DIR}/@macos/settings/Zenburn Tower.terminal"
+TERMINAL_THEME="Zenburn Tower"
+open "${DOTFILES_DIR:-$HOME/.dotfiles}/@macos/settings/${TERMINAL_THEME}.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.Terminal "Default Window Settings" -string "Tower"
-defaults write com.apple.Terminal "Startup Window Settings" -string "Tower"
+defaults write com.apple.Terminal "Default Window Settings" -string "${TERMINAL_THEME}"
+defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_THEME}"
 
 # Set the default shell to zsh
 # NOTE: This causes terminal to prompt to terminate on close
