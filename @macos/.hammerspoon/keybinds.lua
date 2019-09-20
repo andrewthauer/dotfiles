@@ -55,3 +55,11 @@ hs.hotkey.bind(hyper, "b", function() hs.application.launchOrFocus("Firefox Deve
 hs.hotkey.bind(hyper, "c", function() hs.application.launchOrFocus("Visual Studio Code") end)
 hs.hotkey.bind(hyper, "s", function() hs.application.launchOrFocus("Slack") end)
 hs.hotkey.bind(hyper, "t", function() hs.application.launchOrFocus("Terminal") end)
+
+-- Keep the monitor from going to sleep
+spoon.SpoonInstall:andUse("Caffeine", {
+  start = true,
+  hotkeys = {
+    toggle = { hyper, "p" }
+  }
+})
