@@ -2,6 +2,12 @@
 #
 # macOS default configuration settings
 #
+# reference:
+#   defaults domains | awk '{gsub(", ", "\n", $0)}1' | sort
+#
+
+# Default dotfiles home directory
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 # Prompt for admin password upfront
 sudo -v
@@ -326,8 +332,8 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 # =============================================================================
 
 # Use custom theme for Terminal.app
-TERMINAL_THEME="Zenburn Tower"
-open "${DOTFILES_DIR:-$HOME/.dotfiles}/@macos/settings/${TERMINAL_THEME}.terminal"
+TERMINAL_THEME="Zenburn"
+open "${DOTFILES_DIR}/@macos/settings/${TERMINAL_THEME}.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.Terminal "Default Window Settings" -string "${TERMINAL_THEME}"
 defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_THEME}"
@@ -335,6 +341,13 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_
 # Set the default shell to zsh
 # NOTE: This causes terminal to prompt to terminate on close
 # defaults write com.apple.Terminal Shell -string "/usr/local/bin/zsh"
+
+# =============================================================================
+# Other applications
+# =============================================================================
+
+# Dash doc sync folder path
+defaults write com.kapeli.dashdoc "syncFolderPath" -string "~/.config"
 
 # =============================================================================
 # Kill affected applications
