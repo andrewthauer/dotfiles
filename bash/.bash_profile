@@ -9,6 +9,10 @@ export DOTFILES_DIR="${HOME}/.dotfiles"
 # Load common shell env
 source "${DOTFILES_DIR}/.env"
 
+# Append to path
+export PATH="${DOTFILES_DIR}/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
+
 # Load local profile (if exists)
 if [[ -f "${HOME}/.profile.local" ]]; then
   source "${HOME}/.profile.local"

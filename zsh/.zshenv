@@ -18,18 +18,6 @@ ZSH_CACHE_DIR="${ZSH_CACHE_DIR:-$HOME/.zsh/cache}"
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
 
-# Set the list of directories that Zsh searches for programs
-path=(
-  $path
-  ${DOTFILES_DIR}/bin
-)
-
-# Set the function path
-fpath=(
-  "${HOME}/.zsh/functions"
-  $fpath
-)
-
 # Load local zshenv (if exists)
 if [[ -f "${HOME}/.zshenv.local" ]]; then
   source "${HOME}/.zshenv.local"
