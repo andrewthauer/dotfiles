@@ -4,8 +4,8 @@
 # - https://redis.io/topics/rediscli
 #
 
-if command_exists "redis-cli"; then
-  return
+if ! command_exists "redis-cli"; then
+  return 1
 fi
 
 alias r="redis-cli"

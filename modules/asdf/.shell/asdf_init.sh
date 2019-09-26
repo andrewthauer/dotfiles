@@ -5,7 +5,7 @@
 #
 
 if [[ ! -d "${HOME}/.asdf" ]]; then
-  return
+  return 1
 fi
 
 # The home directory

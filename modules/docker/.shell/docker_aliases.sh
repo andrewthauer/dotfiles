@@ -3,7 +3,7 @@
 #
 
 if ! command_exists "docker"; then
-  return
+  return 1
 fi
 
 alias dk='docker'

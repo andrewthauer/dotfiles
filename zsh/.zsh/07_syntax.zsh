@@ -24,6 +24,7 @@ fi
 
 # Load zsh auto suggestions
 # - https://github.com/zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#555555,bold,underline"
 if [[ -d "${BREW_PREFIX}/share/zsh-autosuggestions" ]]; then
   source "${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi

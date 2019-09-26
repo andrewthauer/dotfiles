@@ -3,7 +3,7 @@
 #
 
 if ! command_exists "node"; then
-  return
+  return 1
 fi
 
 # npm list

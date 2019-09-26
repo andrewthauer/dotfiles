@@ -5,11 +5,10 @@
 *.*log
 
 # ignore these directories
-/*local*
+/@local
 /tmp
 
 # anything else local or secrets
-**/*.local*
 **/secrets
 
 # keyboard

@@ -42,8 +42,8 @@ brew 'docker-completion'
 
 # Node (nodenv) plugins - https://github.com/nodenv/nodenv/wiki/Plugins
 # brew 'node', link: false
-brew 'node-build' # used by nodenv
 brew 'yarn'
+brew 'node-build' # used by nodenv
 brew 'nodenv'
 tap 'nodenv/nodenv'
 brew 'nodenv/nodenv/nodenv-aliases'

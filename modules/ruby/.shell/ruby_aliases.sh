@@ -3,7 +3,7 @@
 #
 
 if ! command_exists "ruby"; then
-  return
+  return 1
 fi
 
 alias be="bundle exec"
