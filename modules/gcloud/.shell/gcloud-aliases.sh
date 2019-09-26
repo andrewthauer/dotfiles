@@ -5,7 +5,7 @@
 #
 
 if ! command_exists "gcloud"; then
-  return
+  return 1
 fi
 
 # alias gc-config-ls="gcloud config list"

@@ -14,8 +14,17 @@ _rbenv_init() {
 # initialize rbenv (lazy)
 if command_exists "rbenv"; then
   lazyfunc _rbenv_init "${RUBY_LAZY_TRIGGERS[@]}"
+  unset RUBY_LAZY_TRIGGERS
 else
   unset -f _rbenv_init
 fi
 
-unset RUBY_LAZY_TRIGGERS
+#
+# Aliases
+#
+
+if ! command_exists "ruby"; then
+  return 1
+fi
+
+alias be="bundle exec"

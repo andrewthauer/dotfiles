@@ -45,6 +45,6 @@ source_files_in() {
 #
 require_once() {
   module=$1
-  file="${HOME}/.shell/${1}_init.sh"
+  file="${HOME}/.shell/${1}.sh"
   source_file "$file"
 }

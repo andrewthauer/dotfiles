@@ -20,6 +20,7 @@ _jenv_init() {
 if command_exists "jenv"; then
   JAVA_LAZY_TRIGGERS+=(jenv)
   lazyfunc _jenv_init "${JAVA_LAZY_TRIGGERS[@]}"
+  unset JAVA_LAZY_TRIGGERS
 
 # initialize with sdkman (lazy)
 elif [[ -n "${SDKMAN_DIR}" ]]; then
@@ -28,10 +29,9 @@ elif [[ -n "${SDKMAN_DIR}" ]]; then
   sdk_candidate_enabled "maven" && sdk_lazy_init_cmd "mvn"
   sdk_candidate_enabled "gradle" && sdk_lazy_init_cmd "gradle"
   unset -f _jenv_init
+  unset JAVA_LAZY_TRIGGERS
 
 # otherwise nothing
 else
   unset -f _jenv_init
 fi
-
-unset JAVA_LAZY_TRIGGERS

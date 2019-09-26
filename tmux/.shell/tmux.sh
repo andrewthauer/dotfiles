@@ -3,7 +3,7 @@
 #
 
 if command_exists "tmux"; then
-  return
+  return 1
 fi
 
 alias tmuxa="tmux new-session -A"

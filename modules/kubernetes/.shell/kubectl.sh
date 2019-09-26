@@ -1,12 +1,31 @@
 #
-# kubectl aliases
+# Initialize kubectl environment
 #
+# - https://kubernetes.io/docs/tasks/tools/install-kubectl/
 # - https://kubernetes.io/docs/reference/kubectl/cheatsheet
 #
 
 if ! command_exists "kubectl"; then
-  return
+  return 1
 fi
+
+_init_kubectl() {
+  # load kubectl completions
+  if [[ -n $ZSH_VERSION ]]; then
+    source <(kubectl completion zsh)
+  elif [[ -n $BASH_VERSION ]]; then
+    source <(kubectl completion bash)
+  fi
+  unset -f $0
+}
+
+# initialize kubectl completions (lazy)
+lazyfunc _init_kubectl "kubectl"
+
+#
+# Aliases
+#
+
 # general
 alias k="kubectl"
 alias kcheat="open https://kubernetes.io/docs/reference/kubectl/cheatsheet"

@@ -14,8 +14,7 @@ _pyenv_init() {
 # initialize pyenv (lazy)
 if command_exists "pyenv"; then
   lazyfunc _pyenv_init "${PYTHON_LAZY_TRIGGERS[@]}"
+  unset PYTHON_LAZY_TRIGGERS
 else
   unset -f _pyenv_init
 fi
-
-unset PYTHON_LAZY_TRIGGERS
