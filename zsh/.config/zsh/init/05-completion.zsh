@@ -44,12 +44,14 @@ fi
 # cache time of 20 hours, so it should almost always regenerate the first time a
 # shell is opened each day.
 autoload -Uz compinit
-_comp_files=(${HOME}/.zcompdump(Nm-20))
+_zcompdump="${XDG_CACHE_HOME}/zsh/zcompdump"
+_comp_files=(${_zcompdump}(Nm-20))
 if (( $#_comp_files )); then
-  compinit -i -C
+  compinit -i -C -d "$_zcompdump"
 else
-  compinit -i
+  compinit -i -d "$_zcompdump"
 fi
+unset _zcompdump
 unset _comp_files
 
 #
@@ -58,7 +60,7 @@ unset _comp_files
 
 # Use caching to make completion for commands such as dpkg and apt usable.
 zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "${HOME}/.zcompcache"
+zstyle ':completion::complete:*' cache-path "${ZSH_CACHE_DIR}/zcompcache"
 
 # Case-insensitive (all), partial-word, and then substring completion.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'

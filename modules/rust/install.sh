@@ -34,6 +34,8 @@ install_crates() {
 if [[ ! -x $(command -v rustup) ]]; then
   # install rust
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  mv ~/.rustup ${XDG_DATA_HOME}/rustup
+  mv ~/.cargo ${XDG_DATA_HOME}/cargo
 else
   # update rust
   rustup update

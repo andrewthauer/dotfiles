@@ -14,6 +14,6 @@ defaults:
 hammerspoon:
 	@mkdir -p "$(SPOONS_DIR)"
 	@curl $(SPOON_INSTALL_URL) | tar -xz -C $(SPOONS_DIR)
-	defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"
+	defaults write org.hammerspoon.Hammerspoon MJConfigFile "${XDG_CONFIG_HOME:-$HOME/.config}/hammerspoon/init.lua"
 
 .PHONY: all defaults hammerspoon

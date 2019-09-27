@@ -10,7 +10,7 @@ PKG_SYS_MAC = @macos
 PKG_CORE = bash git homebrew vim tmux zsh
 PKG_TOOLS_CORE = fasd docker utility
 PKG_LANG_CORE = node python ruby
-PKG_EXTRA_TOOLS = asdf gcloud kubernetes redis
+PKG_EXTRA_TOOLS = asdf aws gcloud kubernetes redis
 PKG_EXTRA_LANG = dotnet golang java kotlin rust scala sdkman
 PKG_ALL_SYS = $(PKG_SYS_LOCAL) $(PKG_SYS_MAC)
 PKG_ALL_ROOT = $(PKG_CORE) $(PKG_ALL_SYS)
@@ -18,7 +18,7 @@ PKG_ALL_MOD = $(PKG_TOOLS_CORE) $(PKG_LANG_CORE) $(PKG_EXTRA_TOOLS) $(PKG_EXTRA_
 PKG_DEFAULT = $(PKG_CORE) $(PKG_SYS_LOCAL)
 PKG_DEFAULT_MODS = $(PKG_LANG_CORE) $(PKG_TOOLS_CORE)
 
-all: setup link $(SUBDIRS)
+all: setup link xdg $(SUBDIRS)
 
 setup:
 	@mkdir -p $(CURDIR)/$(PKG_SYS_LOCAL)
@@ -38,6 +38,12 @@ unlink: setup
 chklink: setup
 	@stow -n -v -t ${HOME} $(PKG_ALL_ROOT)
 	@stow -n -v -t ${HOME} -d $(MODULES_DIR) $(PKG_ALL_MOD)
+
+xdg:
+	@mkdir -p $(XDG_DATA_HOME)/bash
+	@mkdir -p $(XDG_CACHE_HOME)/bash
+	@mkdir -p $(XDG_CONFIG_HOME)/less
+	@mkdir -p $(XDG_CACHE_HOME)/less
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)

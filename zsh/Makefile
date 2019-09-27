@@ -1,6 +1,5 @@
 DOTFILES_DIR = $(CURDIR)/..
 BIN_DIR = $(DOTFILES_DIR)/bin
-LOCAL_SHARE_DIR = $(HOME)/.local/share
 
 GITHUB_INSTALL = $(BIN_DIR)/github-install
 
@@ -9,7 +8,9 @@ all: setup link plugins
 zsh: all
 
 setup:
-	@mkdir -p "$(LOCAL_SHARE_DIR)"
+	@mkdir -p $(XDG_CONFIG_HOME)/zsh
+	@mkdir -p $(XDG_DATA_HOME)/zsh
+	@mkdir -p $(XDG_CACHE_HOME)/zsh
 
 link: setup
 	@stow -d $(DOTFILES_DIR) -t ~ -S zsh

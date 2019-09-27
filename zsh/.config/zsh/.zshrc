@@ -12,13 +12,13 @@ source "${DOTFILES_DIR}/lib/init.sh"
 # Do not throw errors when file globs do not match anything
 setopt NULL_GLOB
 
-# Source scripts
-source_files_in ~/.zsh/*.zsh
+# Source zsh core scripts
+source_files_in $XDG_CONFIG_HOME/zsh/init/*.zsh
+
+# Source common shell scripts
 source_files_in ~/.shell/*.sh
-# source_files_in ~/.local/share/zsh/*.zsh
-# source_files_in ~/.local/share/shell/*.sh
 
 # Load the local zsh file
-if [[ -f "$HOME/.zshrc.local" ]]; then
-  source "$HOME/.zshrc.local"
+if [[ -f "${XDG_CONFIG_HOME}/zsh/.zshrc.local" ]]; then
+  source "${XDG_CONFIG_HOME}/zsh/.zshrc.local"
 fi

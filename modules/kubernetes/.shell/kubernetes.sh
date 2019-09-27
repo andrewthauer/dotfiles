@@ -1,9 +1,18 @@
 #
-# Initialize kubectl environment
+# Initialize kubernetes environment
+#
+
+# Helm config
+if command_exists "helm"; then
+  # XDG specification
+  export HELM_HOME="${XDG_DATA_HOME}/helm"
+fi
+
+#
+# Kubectl
 #
 # - https://kubernetes.io/docs/tasks/tools/install-kubectl/
 # - https://kubernetes.io/docs/reference/kubectl/cheatsheet
-#
 
 if ! command_exists "kubectl"; then
   return 1

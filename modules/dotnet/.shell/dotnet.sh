@@ -16,4 +16,12 @@ if command_exists "dotnet"; then
   lazyfunc _dotnet_init "dotnet"
 else
   unset -f _dotnet_init
+  return 1
 fi
+
+#
+# XDG specifications
+#
+
+export DOTNET_CLI_HOME="${XDG_DATA_HOME}/dotnet"
+export MONO_REGISTRY_PATH="${XDG_DATA_HOME}/mono/registry"

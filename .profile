@@ -22,11 +22,18 @@ export VISUAL="${EDITOR}"
 export CLICOLOR=1
 
 # Pager
-export PAGER='less'
-export LESS='-F -g -i -M -R -S -w -X -z-4'
-export LESSCHARSET='utf-8'
+PAGER='less'
+export LESSHISTFILE="${XDG_CACHE_HOME}/less/history"
+LESSKEY="${XDG_CONFIG_HOME}/less/keys"
+LESS='-F -g -i -M -R -S -w -X -z-4'
+LESSCHARSET='utf-8'
 
 # Set the Less input preprocessor
 if type lesspipe.sh >/dev/null 2>&1; then
   export LESSOPEN='|lesspipe.sh %s'
+fi
+
+# Load a local profile (if exists)
+if [[ -f "${XDG_CONFIG_HOME}/.profile.local" ]]; then
+  source "${XDG_CONFIG_HOME}/.profile.local"
 fi

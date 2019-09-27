@@ -5,19 +5,34 @@
 # - https://github.com/syndbg/goenv
 #
 
-GO_LAZY_TRIGGERS=(goenv go)
+export GOENV_ROOT="${XDG_DATA_HOME}/goenv"
 
 _goenv_init() {
   # expensive operation
-  export GOENV_GOPATH_PREFIX="$HOME/.goenv/versions"
-  eval "$(goenv init - --no-rehash)"
+  # eval "$(goenv init - --no-rehash)"
+
+  # faster alternative to `goenv init`
+  export GOENV_SHELL="${SHELL}"
+  export GOENV_GOPATH_PREFIX="${GOENV_ROOT}/versions"
+  export PATH="${GOENV_ROOT}/shims:${PATH}"
+
+  # Rehash in the background
+  # (goenv rehash &) 2> /dev/null
+
+  unset -f "$0"
 }
 
-# initialize goenv (lazy)
+# Load package manager installed goenv into shell session
 if command_exists "goenv"; then
-  lazyfunc _goenv_init "${GO_LAZY_TRIGGERS[@]}"
-else
-  unset -f _goenv_init
-fi
+  _goenv_init
 
-unset GO_LAZY_TRIGGERS
+# Load manually installed goenv into the shell session
+elif [[ -s "${GOENV_ROOT}/bin/goenv" ]]; then
+  export PATH="${GOENV_ROOT}/bin:${PATH}"
+  _goenv_init
+
+# Return if requirements not found
+elif ! command_exists "go"; then
+  unset -f _goenv_init
+  return 1
+fi

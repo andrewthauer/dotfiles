@@ -22,6 +22,15 @@
   thus keep them always up-to-date.
 - **topical organization** to organize dotfiles by topic for easy reuse across
   different machines.
+- [XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+  compliance when possible to keep `$HOME` clean
+  - See
+    [Arch Linux wiki for XDG Base Directory Support](https://wiki.archlinux.org/index.php/XDG_Base_Directory)
+  - See [Debian DotFilesList](https://wiki.debian.org/DotFilesList)
+  - See
+    [grawity's notes](https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes)
+    and
+    [environ notes](https://github.com/grawity/dotfiles/blob/master/.environ.notes)
 - **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.

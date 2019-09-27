@@ -4,17 +4,33 @@
 # = https://github.com/pyenv/pyenv
 #
 
-PYTHON_LAZY_TRIGGERS=(python python2 python3 pip pip2 pip3)
+export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
 
 _pyenv_init() {
   # expensive operation
-  eval "$(pyenv init - --no-rehash)"
+  # eval "$(pyenv init - --no-rehash)"
+
+  # faster alternative to `pyenv init`
+  export PYENV_SHELL="${SHELL}"
+  export PATH="${PYENV_ROOT}/shims:${PATH}"
+
+  # Rehash in the background
+  # (pyenv rehash &) 2> /dev/null
+
+  unset -f "$0"
 }
 
-# initialize pyenv (lazy)
+# Load package manager installed pyenv into shell session
 if command_exists "pyenv"; then
-  lazyfunc _pyenv_init "${PYTHON_LAZY_TRIGGERS[@]}"
-  unset PYTHON_LAZY_TRIGGERS
-else
+  _pyenv_init
+
+# Load manually installed pyenv into the shell session
+elif [[ -s "${PYENV_ROOT}/bin/pyenv" ]]; then
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  _pyenv_init
+
+# Return if requirements not found
+elif ! command_exists "python"; then
   unset -f _pyenv_init
+  return 1
 fi

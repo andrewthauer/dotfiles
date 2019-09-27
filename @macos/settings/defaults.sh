@@ -347,7 +347,7 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_
 # =============================================================================
 
 # Dash doc sync folder path
-defaults write com.kapeli.dashdoc "syncFolderPath" -string "~/.config"
+defaults write com.kapeli.dashdoc "syncFolderPath" -string "${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # =============================================================================
 # Kill affected applications

@@ -5,7 +5,7 @@
 
 set -e
 
-rustup completions bash >| "~/.local/share/bash-completion/rustup"
-rustup completions zsh >| "~/.local/share/zfunctions/_rustup"
+rustup completions bash >| "${XDG_DATA_HOME}/bash-completion/rustup"
+rustup completions zsh >| "${XDG_DATA_HOME}/zsh/functions/_rustup"
 
 exit 0

@@ -4,27 +4,50 @@
 # - https://github.com/rbenv/rbenv
 #
 
-RUBY_LAZY_TRIGGERS=(rbenv ruby bundle rake)
+export RBENV_ROOT="${XDG_DATA_HOME}/rbenv"
 
 _rbenv_init() {
   # expensive operation
-  eval "$(rbenv init - --no-rehash)"
+  # eval "$(rbenv init - --no-rehash)"
+
+  # faster alternative to `rbenv init`
+  export RBENV_SHELL="${SHELL}"
+  export PATH="${RBENV_ROOT}/shims:${PATH}"
+
+  # Rehash in the background
+  # (rbenv rehash &) 2> /dev/null
+
+  unset -f "$0"
 }
 
-# initialize rbenv (lazy)
+# Load package manager installed rbenv into shell session
 if command_exists "rbenv"; then
-  lazyfunc _rbenv_init "${RUBY_LAZY_TRIGGERS[@]}"
-  unset RUBY_LAZY_TRIGGERS
-else
+  _rbenv_init
+
+# Load manually installed rbenv into the shell session
+elif [[ -s "${RBENV_ROOT}/bin/rbenv" ]]; then
+  export PATH="${RBENV_ROOT}/bin:${PATH}"
+  _rbenv_init
+
+# Return if requirements not found
+elif ! command_exists "ruby"; then
   unset -f _rbenv_init
-fi
-
-#
-# Aliases
-#
-
-if ! command_exists "ruby"; then
   return 1
 fi
 
-alias be="bundle exec"
+#
+# Bundler
+#
+
+if command_exists "bundle"; then
+  # Change bundler home to xdg cache
+  export BUNDLE_USER_HOME="${XDG_CACHE_HOME}/bundle"
+
+  # For bundler
+  if [[ -z "${GITHUB_TOKEN}" ]]; then
+    BUNDLE_GITHUB__COM="${GITHUB_TOKEN}:x-oauth-basic"
+  fi
+
+  # Aliases
+  alias be="bundle exec"
+fi

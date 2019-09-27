@@ -4,9 +4,12 @@
 # - https://sdkman.io/
 #
 
+export SDKMAN_DIR="${XDG_DATA_HOME}/sdkman"
+
 # skip the rest if sdkman is not installed
-if [[ ! -d "${HOME}/.sdkman" ]]; then
-  return
+if [[ ! -d "${SDKMAN_DIR}" ]]; then
+  unset SDKMAN_DIR
+  return 1
 fi
 
 # globabl registry of commands that trigger sdkman init
@@ -31,11 +34,12 @@ _sdk_init() {
   # expensive operation
   source "${SDKMAN_DIR}/bin/sdkman-init.sh"
   unset -f sdk_lazy_init_cmd
+  unset -f "$0"
   unset SDK_LAZY_TRIGGERS
 }
 
 # initialize sdkman if installed (lazy)
-if [[ -d "${HOME}/.sdkman" ]]; then
-  export SDKMAN_DIR="${HOME}/.sdkman"
+if [[ -d "${SDKMAN_DIR}" ]]; then
   sdk_lazy_init_cmd "sdk"
+  # _sdk_init
 fi

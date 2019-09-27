@@ -5,6 +5,8 @@
 
 set -e
 
+# source /dev/stdin <<< "$(curl https://raw.github.com/andrewthauer/dotfiles/master/lib/os.sh)"
+
 # Get the appropriate package manager script
 get_os_family() {
   # ideally we would use an associative array here
@@ -39,6 +41,7 @@ package_mgr_cmd() {
 
   echo "${cmd}"
 }
+
 
 install_prerequisites() {
   os_family=$(get_os_family)
