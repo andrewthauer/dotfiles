@@ -38,6 +38,8 @@ setopt PUSHD_TO_HOME        # Push to home directory when no argument is given.
 setopt CDABLE_VARS          # Change directory to a path stored in a variable.
 setopt MULTIOS              # Write to multiple descriptors.
 setopt EXTENDED_GLOB        # Use extended globbing syntax.
+# setopt NULL_GLOB          # Do not throw errors when file globs do not match anything
+# setopt CSH_NULL_GLOB      # Only throw errors when no globs match anything
 
 unsetopt AUTO_NAME_DIRS     # Do not auto add variable-stored paths to ~ list.
 unsetopt CLOBBER            # Do not overwrite existing files with > and >>.
