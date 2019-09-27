@@ -8,6 +8,8 @@ HAS_YARN := $(shell command -v yarn 2> /dev/null)
 
 all: setup link plugins
 
+vim: all
+
 setup:
 	@mkdir -p "$(VIM_PACK_DIR)"
 	@mkdir -p "$(VIM_PACK_DIR)/default"
@@ -31,5 +33,3 @@ ifdef HAS_YARN
 else
 	@echo yarn not found
 endif
-
-vim: all

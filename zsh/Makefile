@@ -6,6 +6,8 @@ GITHUB_INSTALL = $(BIN_DIR)/github-install
 
 all: setup link plugins
 
+zsh: all
+
 setup:
 	@mkdir -p "$(LOCAL_SHARE_DIR)"
 
@@ -17,5 +19,3 @@ unlink:
 
 plugins: setup
 	@$(GITHUB_INSTALL) -n sindresorhus/pure $(LOCAL_SHARE_DIR)
-
-zsh: all
