@@ -4,9 +4,10 @@
 #   Starts an OpenVPN session
 #
 # usage:
-#   vpn [profile_dir]
+#   vpn [profile_dir_name]
 
 (
+  OPENVPN_PROFILE_DIR="${OPENVPN_PROFILE_DIR:-$HOME/.config/ovpn-profiles}"
   [[ -n $1 ]] && cd "${OPENVPN_PROFILE_DIR}/$1"
   sudo openvpn --config client.ovpn
 )
