@@ -33,6 +33,10 @@ alias kcheat="open https://kubernetes.io/docs/reference/kubectl/cheatsheet"
 # config & contexts
 alias kgc="kubectl config get-contexts"
 
+# describe
+alias kdesc="kubectl describe"
+alias kdescp="kubectl describe pods"
+
 # resources
 alias kpods="kubectl get pods"
 alias kpodsa="kubectl get pods --all-namespaces"

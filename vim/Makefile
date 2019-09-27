@@ -8,8 +8,6 @@ HAS_YARN := $(shell command -v yarn 2> /dev/null)
 
 all: setup link plugins
 
-vim: all
-
 setup:
 	@mkdir -p "$(VIM_PACK_DIR)"
 	@mkdir -p "$(VIM_PACK_DIR)/default"
@@ -23,7 +21,7 @@ link:
 unlink:
 	@stow -D -d $(DOTFILES_DIR) -t ~ -S vim
 
-plugins:
+plugins: setup
 	@$(GITHUB_INSTALL) -n editorconfig/editorconfig-vim $(PACK_START_DIR)
 	@$(GITHUB_INSTALL) -n vim-scripts/Zenburn $(PACK_START_DIR)
 	@$(GITHUB_INSTALL) -n sheerun/vim-polyglot $(PACK_START_DIR)
@@ -34,4 +32,4 @@ else
 	@echo yarn not found
 endif
 
-.PHONY: all vim setup link unlink plugins
+vim: all

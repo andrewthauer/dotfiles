@@ -12,9 +12,14 @@ path=(
 
 # Set the function path
 fpath=(
-  ~/.zsh/functions
+  ~/.local/share/zsh/functions
   $fpath
 )
+
+# Add pure prompt to fpath (if exists)
+if [[ -d "${HOME}/.local/share/pure" ]]; then
+  fpath+="${HOME}/.local/share/pure"
+fi
 
 # Load local profile (if exists)
 if [[ -f "${HOME}/.zprofile.local" ]]; then

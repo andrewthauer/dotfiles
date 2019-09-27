@@ -1,5 +1,10 @@
 DOTFILES_DIR = ${HOME}/.dotfiles
 MODULES_DIR = $(DOTFILES_DIR)/modules
+
+# Sub directories with makefiles
+SUBDIRS = vim zsh
+
+# Package bundles
 PKG_SYS_LOCAL = @local
 PKG_SYS_MAC = @macos
 PKG_CORE = bash git homebrew vim tmux zsh
@@ -12,7 +17,6 @@ PKG_ALL_ROOT = $(PKG_CORE) $(PKG_ALL_SYS)
 PKG_ALL_MOD = $(PKG_TOOLS_CORE) $(PKG_LANG_CORE) $(PKG_EXTRA_TOOLS) $(PKG_EXTRA_LANG)
 PKG_DEFAULT = $(PKG_CORE) $(PKG_SYS_LOCAL)
 PKG_DEFAULT_MODS = $(PKG_LANG_CORE) $(PKG_TOOLS_CORE)
-SUBDIRS = vim
 
 all: setup link $(SUBDIRS)
 

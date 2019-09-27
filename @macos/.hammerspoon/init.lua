@@ -15,7 +15,6 @@ hs.loadSpoon("SpoonInstall")
 require('mouse')
 require('window')
 require('keybinds')
--- require('cheatsheet')
 require('watcher')
 
 -- notification that config was loaded
