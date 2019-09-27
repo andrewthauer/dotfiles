@@ -11,8 +11,9 @@ all: defaults plugins
 defaults:
 	$(CURDIR)/settings/defaults.sh
 
-plugins:
+hammerspoon:
 	@mkdir -p "$(SPOONS_DIR)"
 	@curl $(SPOON_INSTALL_URL) | tar -xz -C $(SPOONS_DIR)
+	defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"
 
-.PHONY: all defaults plugins
+.PHONY: all defaults hammerspoon
