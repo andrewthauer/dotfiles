@@ -14,4 +14,4 @@ promptinit
 # Load the pure prompt
 # NOTE: The async & prompt_pure_setup need to be in the fpath
 #       before promptinit is calls
-prompt pure
+prompt "${ZSH_PROMPT}"

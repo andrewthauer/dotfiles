@@ -20,9 +20,10 @@ fpath=(
   $fpath
 )
 
-# Add pure prompt to fpath (if exists)
-if [[ -d "${XDG_DATA_HOME}/pure" ]]; then
-  fpath+="${XDG_DATA_HOME}/pure"
+# Prompt
+ZSH_PROMPT="pure"
+if [[ -d "${XDG_DATA_HOME}/${ZSH_PROMPT}" ]]; then
+  fpath+="${XDG_DATA_HOME}/${ZSH_PROMPT}"
 fi
 
 # Load local profile (if exists)

@@ -19,4 +19,4 @@ unlink:
 	@stow -D -d $(DOTFILES_DIR) -t ~ -S zsh
 
 plugins: setup
-	@$(GITHUB_INSTALL) -n sindresorhus/pure $(LOCAL_SHARE_DIR)
+	@$(GITHUB_INSTALL) -n sindresorhus/pure $(XDG_DATA_HOME)
