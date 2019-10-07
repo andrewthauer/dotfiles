@@ -3,14 +3,19 @@
 #
 
 require_once "sdkman"
-require_once "java"
 
-# initialize sbt with sdkman (lazy)
-if ! command_exists "sbt" && sdk_candidate_enabled "sbt"; then
-  sdk_lazy_init_cmd "sbt"
+# Load scala with sdkman candidate
+if [[ -d "${SDKMAN_DIR}/candidates/scala" ]]; then
+  require_once "java"
+  export SCALA_HOME="${SDKMAN_DIR}/candidates/scala/current"
+  export PATH="${SCALA_HOME}/bin:${PATH}"
+  unset SCALA_HOME
 fi
 
-# initialize scala with sdkman (lazy)
-if ! command_exists "scala" && sdk_candidate_enabled "scala"; then
-  sdk_lazy_init_cmd "scala"
+# Load sbt with sdkman candidate
+if [[ -d "${SDKMAN_DIR}/candidates/sbt" ]]; then
+  require_once "java"
+  export SBT_HOME="${SDKMAN_DIR}/candidates/sbt/current"
+  export PATH="${SBT_HOME}/bin:${PATH}"
+  unset SBT_HOME
 fi

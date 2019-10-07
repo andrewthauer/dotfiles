@@ -12,7 +12,7 @@ install_with_brew() {
 
 install_with_sdk() {
   # need to source sdkman since it is a shell function
-  source "${DOTFILES_DIR}/sdkman/.shell/sdkman-init.sh"
+  source "${DOTFILES_DIR}/modules/sdkman/.shell/sdkman.sh"
 
   # install latest version
   sdk install kotlin

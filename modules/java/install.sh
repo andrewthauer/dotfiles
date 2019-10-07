@@ -6,7 +6,6 @@
 set -e
 
 install_jenv() {
-  return
   brew install jenv
 
   # make sure JAVA_HOME is set
@@ -28,7 +27,7 @@ install_jenv() {
   jenv global 1.8
 }
 
-install_sdk() {
+install_sdkman() {
   "${DOTFILES_DIR}/sdkman/install.sh"
 }
 
@@ -42,7 +41,7 @@ install_with_brew() {
 
 install_with_sdk() {
   # need to source sdkman since it is a shell function
-  source "${DOTFILES_DIR}/sdkman/.shell/sdkman-init.sh"
+  source "${DOTFILES_DIR}/modules/sdkman/.shell/sdkman.sh"
 
   # install latest version
   sdk install java
@@ -57,7 +56,7 @@ install_version_manager() {
   select opt in "${options[@]}"; do
   case $opt in
     "jenv")     echo "Using $opt ..."; install_jenv; break;;
-    "sdkman")   echo "Using $opt ..."; install_sdk; break;;
+    "sdkman")   echo "Using $opt ..."; install_sdkman; break;;
     "none")     break;;
     "quit")     exit 0;;
     *)          echo "invalid option $REPLY";;

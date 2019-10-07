@@ -5,7 +5,7 @@
 
 set -e
 
-SDKMAN_DIR="${HOME}/.sdkman"
+export SDKMAN_DIR="${XDG_DATA_HOME}/sdkman"
 
 # check if it's already installed
 if [[ -d "${SDKMAN_DIR}" ]]; then
