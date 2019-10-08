@@ -4,13 +4,13 @@
 #
 
 # Dotfiles dir
-export DOTFILES_DIR="${DOTFILES_DIR:=${HOME}/.dotfiles}"
+export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
 # Load common shell env
 source "${DOTFILES_DIR}/.profile"
 
 # Zsh home directory
-ZDOTDIR="${ZDOTDIR:=${XDG_CONFIG_HOME}/zsh}"
+ZDOTDIR="${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}"
 
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path

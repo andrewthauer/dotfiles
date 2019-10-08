@@ -25,7 +25,7 @@ if command_exists "nodenv"; then
   _nodenv_init
 
 # Load manually installed nodenv into the shell session
-elif [[ -s "${NODENV_ROOT:=$HOME/.nodenv}/bin/nodenv" ]]; then
+elif [[ -s "${NODENV_ROOT:-$HOME/.nodenv}/bin/nodenv" ]]; then
   export PATH="${NODENV_ROOT}/bin:${PATH}"
   _nodenv_init
 
