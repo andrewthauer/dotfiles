@@ -69,7 +69,7 @@ brew 'rbenv'
 # brew 'rbenv-default-gems'
 
 # Local Brewfile
-local_brewfile = File.expand_path("~/.config/brew/.Brewfile.local")
+local_brewfile = File.expand_path("~/.config/homebrew/Brewfile.local")
 instance_eval File.read(local_brewfile) if File.exists?(local_brewfile)
 
 #

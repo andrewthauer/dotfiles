@@ -4,7 +4,6 @@
   "editor.trimAutoWhitespace": true,
   "files.associations": {
     ".*profile*": "shellscript",
-    ".Brewfile*": "ruby",
     ".stow*ignore": "gitignore",
     ".zsh*": "shellscript",
     "*gitignore*": "gitignore",

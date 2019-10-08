@@ -5,7 +5,10 @@
 # - https://docs.brew.sh/Homebrew-on-Linux
 #
 
-# linuxbrew initialization (if applicable)
+# XDG specification
+export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/homebrew/Brewfile"
+
+# Linuxbrew initialization (if applicable)
 if [[ "$OSTYPE" == linux* ]]; then
   if [[ -x "$(command -v brew)" ]]; then
     [[ -z ${BREW_PREFIX} ]] && BREW_PREFIX="$(brew --prefix)"
@@ -37,7 +40,7 @@ alias brewupg="brew update && brew upgrade"
 alias brewuses="brew uses --installed"
 
 # Homebrew Bundle
-alias brewb="brew bundle --global"
+alias brewb="brew bundle"
 alias brewbh="brewb --help"
 alias brewbi="brewb install"
 alias brewbl="brewb list"
