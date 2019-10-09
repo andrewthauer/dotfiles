@@ -9,27 +9,32 @@ export GOENV_ROOT="${XDG_DATA_HOME}/goenv"
 
 _goenv_init() {
   # expensive operation
-  # eval "$(goenv init - --no-rehash)"
+  eval "$(goenv init - --no-rehash)"
 
-  # faster alternative to `goenv init`
+  # Rehash in the background
+  # (goenv rehash &) 2> /dev/null
+}
+
+_goenv_lazy_init() {
+  unset -f "$0"
+
+  # faster alternative to full 'goenv init'
   export GOENV_SHELL="${SHELL}"
   export GOENV_GOPATH_PREFIX="${GOENV_ROOT}/versions"
   export PATH="${GOENV_ROOT}/shims:${PATH}"
 
-  # Rehash in the background
-  # (goenv rehash &) 2> /dev/null
-
-  unset -f "$0"
+  # lazy initialize
+  lazyfunc _goenv_init goenv
 }
 
 # Load package manager installed goenv into shell session
 if command_exists "goenv"; then
-  _goenv_init
+  _goenv_lazy_init
 
 # Load manually installed goenv into the shell session
 elif [[ -s "${GOENV_ROOT}/bin/goenv" ]]; then
   export PATH="${GOENV_ROOT}/bin:${PATH}"
-  _goenv_init
+  _goenv_lazy_init
 
 # Return if requirements not found
 elif ! command_exists "go"; then

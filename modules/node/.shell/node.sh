@@ -8,26 +8,31 @@ export NODENV_ROOT="${XDG_DATA_HOME}/nodenv"
 
 _nodenv_init() {
   # expensive operation
-  # eval "$(nodenv init - --no-rehash)"
+  eval "$(nodenv init - --no-rehash)"
 
-  # faster alternative to `nodenv init`
+  # Rehash in the background
+  # (nodenv rehash &) 2> /dev/null"
+}
+
+_nodenv_lazy_init() {
+  unset -f "$0"
+
+  # faster alternative to full 'nodenv init'
   export NODENV_SHELL="${SHELL}"
   export PATH="${NODENV_ROOT}/shims:${PATH}"
 
-  # Rehash in the background
-  # (nodenv rehash &) 2> /dev/null
-
-  unset -f "$0"
+  # lazy initialize
+  lazyfunc _nodenv_init nodenv
 }
 
 # Load package manager installed nodenv into shell session
 if command_exists "nodenv"; then
-  _nodenv_init
+  _nodenv_lazy_init
 
 # Load manually installed nodenv into the shell session
 elif [[ -s "${NODENV_ROOT:-$HOME/.nodenv}/bin/nodenv" ]]; then
   export PATH="${NODENV_ROOT}/bin:${PATH}"
-  _nodenv_init
+  _nodenv_lazy_init
 
 # Return if requirements not found
 elif ! command_exists "node"; then

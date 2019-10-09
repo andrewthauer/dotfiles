@@ -8,26 +8,31 @@ export RBENV_ROOT="${XDG_DATA_HOME}/rbenv"
 
 _rbenv_init() {
   # expensive operation
-  # eval "$(rbenv init - --no-rehash)"
-
-  # faster alternative to `rbenv init`
-  export RBENV_SHELL="${SHELL}"
-  export PATH="${RBENV_ROOT}/shims:${PATH}"
+  eval "$(rbenv init - --no-rehash)"
 
   # Rehash in the background
   # (rbenv rehash &) 2> /dev/null
+}
 
+_rbenv_lazy_init() {
   unset -f "$0"
+
+  # faster alternative to full 'rbenv init'
+  export RBENV_SHELL="${SHELL}"
+  export PATH="${RBENV_ROOT}/shims:${PATH}"
+
+  # lazy initialize
+  lazyfunc _rbenv_init rbenv
 }
 
 # Load package manager installed rbenv into shell session
 if command_exists "rbenv"; then
-  _rbenv_init
+  _rbenv_lazy_init
 
 # Load manually installed rbenv into the shell session
 elif [[ -s "${RBENV_ROOT}/bin/rbenv" ]]; then
   export PATH="${RBENV_ROOT}/bin:${PATH}"
-  _rbenv_init
+  _rbenv_lazy_init
 
 # Return if requirements not found
 elif ! command_exists "ruby"; then
