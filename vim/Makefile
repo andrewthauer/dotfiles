@@ -16,6 +16,7 @@ setup:
 	@mkdir -p "$(VIM_PACK_DIR)/default/opt"
 	@mkdir -p "$(VIM_PACK_DIR)/default/start"
 	@mkdir -p "$(HOME)/.config/nvim"
+	@mkdir -p $(XDG_DATA_HOME)/vim/{undo,swap,backup}
 
 link:
 	@stow -d $(DOTFILES_DIR) -t ~ -S vim

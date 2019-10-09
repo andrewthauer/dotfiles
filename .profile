@@ -2,6 +2,8 @@
 #
 # Common environment settings
 #
+# - https://wiki.archlinux.org/index.php/XDG_Base_Directory
+#
 
 # Dotfiles directory
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
@@ -13,6 +15,9 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-"$HOME/.cache"}"
 
 # Terminal
 export TERM=xterm
+
+# Vim
+export VIMINIT=":source $XDG_CONFIG_HOME/nvim/init.vim"
 
 # Editor
 export EDITOR=vi

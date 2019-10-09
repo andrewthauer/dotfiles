@@ -4,6 +4,23 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:is_nvim = has('nvim')
+let g:is_vim8 = v:version >= 800 ? 1 : 0
+
+" ================ XDG Specification =================
+
+if !g:is_nvim && g:is_vim8
+  " Set alternative vim locations
+  set undodir=$XDG_DATA_HOME/vim/undo
+  set directory=$XDG_DATA_HOME/vim/swap
+  set backupdir=$XDG_DATA_HOME/vim/backup
+  set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
+
+  " Use the neovim runtime location
+  set runtimepath=$XDG_CONFIG_HOME/nvim,$VIMRUNTIME,$XDG_CONFIG_HOME/nvim/after
+  let &packpath = &runtimepath
+endif
+
 " ================ General Config ====================
 
 set history=1000                "Store lots of :cmdline history
@@ -123,11 +140,11 @@ augroup END
 " ================ Other Setting ====================
 
 " Load all settings
-for fpath in split(globpath("~/.vim/settings", '*.vim'), '\n')
+for fpath in split(globpath(expand("$XDG_CONFIG_HOME/nvim/settings"), '*.vim'), '\n')
   exec 'source' fpath
 endfor
 
-" Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
+" " Include user's local vim config
+if filereadable(expand("$XDG_CONFIG_HOME/nvim/init.local.vim"))
+  source $XDG_CONFIG_HOME/nvim/init.local.vim
 endif
