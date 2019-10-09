@@ -42,7 +42,6 @@ package_mgr_cmd() {
   echo "${cmd}"
 }
 
-
 install_prerequisites() {
   os_family=$(get_os_family)
   packages="curl file git"
