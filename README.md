@@ -26,11 +26,6 @@
   compliance when possible to keep `$HOME` clean
   - See
     [Arch Linux wiki for XDG Base Directory Support](https://wiki.archlinux.org/index.php/XDG_Base_Directory)
-  - See [Debian DotFilesList](https://wiki.debian.org/DotFilesList)
-  - See
-    [grawity's notes](https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes)
-    and
-    [environ notes](https://github.com/grawity/dotfiles/blob/master/.environ.notes)
 - **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.
@@ -64,9 +59,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
 
 Also see:
 
-- [macOS](macos/README.md)
-- [Linux](linux/README.md)
-- [Windows](windows/README.md)
+- [macOS](@macos/README.md)
+- [Linux](@linux/README.md)
+- [Windows](@windows/README.md)
 
 ## Configuration
 
@@ -91,26 +86,30 @@ you don't want to commit to source control.
 _NOTE: Make sure you create a `@local/.stow-local-ignore` file to avoid
 symlinking unwanted paths_
 
-### Zsh / Bash
+### Zsh
 
 The following files will be sourced automatically if they exist. They can be
 added to `dotfiles/@local` and then symlinked to `~` by running `stow local`
 from the `dotfiles` directory.
 
-The following files are sourced by `zsh` in the order: `~/.profile`,
-`~/.zshenv.local`, `~/.zprofile.local`, `~/.zshrc.local`, `~/.zsh/*.zsh`,
-`~/.shell/*.sh`
+Since `zsh` does not directly support the XDG spec. , the `~/.zshenv` file sets
+the `ZDOTDIR` environment variable. This will make `zsh` source the subsequent
+standard files from `$XDG_CONFIG_HOME/zsh`. You can also add `.local` versions
+of each which will be sourced if they exist (e.g.
+`$XDG_CONFIG_HOME/zsh/.zshrc.local`).
 
 ### Bash
 
-The following files are sourced by `bash` in the order: `~/.profile`,
-`~/.bash_profile.local`, `~/.bashrc.local`, `~/.bash/*.sh`, `~/.shell/*.sh`
+Bash also does not support the XDG spec, so the standard files are sourced
+(`~/.bash_profile`, `~/.bashrc`). All additional support files are sourced from
+`$XDG_CONFIG_HOME/bash`.
 
 ### Homebrew
 
 Homebrew makes it easy to install system wide dependencies. There is a
-`brew bundle` file that contains commonly used system packages. You can create a
-`~/.Brewfile.local` file to install any system specific brews.
+`brew bundle` file that contains commonly used system packages. You can also
+create a `$XDG_CONFIG_HOME/homebrew/Brewfile.local` file to install any system
+specific brews.
 
 ### SSH
 
