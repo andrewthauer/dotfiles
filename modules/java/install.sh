@@ -5,30 +5,18 @@
 
 set -e
 
+# Directory of this script
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+install_sdkman() {
+  "${DIR}/../sdkman/install.sh"
+}
+
 install_jenv() {
   brew install jenv
 
   # make sure JAVA_HOME is set
   jenv enable-plugin export
-  exec $SHELL -l
-
-  # add java home
-  jenv add $(/usr/libexec/java_home)
-
-  # add all other versions (if installed)
-  # TODO: make cross platform
-  jvm_dir="/Library/Java/JavaVirtualMachines"
-  for dir in "$jvm_dir"/*; do
-    jenv add "$dir/Contents/Home"
-  done
-
-  # set default global version
-  jenv global system
-  jenv global 1.8
-}
-
-install_sdkman() {
-  "${DOTFILES_DIR}/sdkman/install.sh"
 }
 
 install_with_brew() {
@@ -41,28 +29,10 @@ install_with_brew() {
 
 install_with_sdk() {
   # need to source sdkman since it is a shell function
-  source "${DOTFILES_DIR}/modules/sdkman/.shell/sdkman.sh"
+  source "${SDKMAN_DIR:-~/.sdkman/bin/sdkman-init.sh}"
 
   # install latest version
   sdk install java
-
-  # reload shell
-  exec $SHELL -l
-}
-
-install_version_manager() {
-  PS3="Which java version manager do you want to use?: "
-  options=("jenv" "sdkman" "none" "quit")
-  select opt in "${options[@]}"; do
-  case $opt in
-    "jenv")     echo "Using $opt ..."; install_jenv; break;;
-    "sdkman")   echo "Using $opt ..."; install_sdkman; break;;
-    "none")     break;;
-    "quit")     exit 0;;
-    *)          echo "invalid option $REPLY";;
-  esac
-  done
-  VERSION_MANAGER="$opt"
 }
 
 install_java() {
@@ -81,31 +51,37 @@ install_java() {
 
 install_maven() {
   if confirm "Do you want to install maven"; then
-    if [[ "$VERSION_MANAGER" == "jen" ]]; then
-      brew ls --versions maven && brew upgrade maven || brew install maven
-      jenv enable-plugin maven
-    elif [[ "$VERSION_MANAGER" == "sdkman" ]]; then
-      sdk install maven
-    fi
+    sdk install maven
+    jenv enable-plugin maven
   fi
 }
 
 install_gradle() {
   if confirm "Do you want to install gradle"; then
-    if [[ "$VERSION_MANAGER" == "jen" ]]; then
-      brew ls --versions gradle && brew upgrade gradle || brew install gradle
-      jenv enable-plugin gradle
-    elif [[ "$VERSION_MANAGER" == "sdkman" ]]; then
-      sdk install gradle
-    fi
+    sdk install gradle
+    jenv enable-plugin gradle
   fi
 }
 
 main() {
-  install_version_manager
+  # Install java versions
+  install_sdkman
+  install_jenv
   install_java
+
+  # Add versions to jenv
+  ${DIR}/.local/bin/jenv-add-all
+  ${DIR}/.local/bin/jenv-global-latest
+
+  # Install java tools
   install_maven
   install_gradle
+
+  # Stow this dotfiles module
+  stow -t ~ -d ${DIR}/.. $(basename "${DIR}")
+
+  # reload the current shell
+  exec $SHELL -l
 }
 
 main

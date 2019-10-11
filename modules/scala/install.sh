@@ -15,8 +15,13 @@ install_with_brew() {
 }
 
 install_with_sdk() {
+  if [[ ! -d "${SDKMAN_DIR:-~/.sdkman}" ]]; then
+    echo "sdkman was not found"
+    exit 0
+  fi
+
   # need to source sdkman since it is a shell function
-  source "${DOTFILES_DIR}/modules/sdkman/.shell/sdkman.sh"
+  source "${SDKMAN_DIR:-~/.sdkman/bin/sdkman-init.sh}"
 
   # install build tool
   sdk install sbt
@@ -29,6 +34,7 @@ install_with_sdk() {
 }
 
 main() {
+  # Install scala
   PS3="How do you want to install scala?: "
   options=("homebrew" "sdkman" "quit")
   select opt in "${options[@]}"; do
@@ -39,6 +45,9 @@ main() {
     *)            echo "invalid option $REPLY";;
   esac
   done
+
+  # Stow this dotfiles module
+  stow -t ~ -d ${DIR}/.. $(basename "${DIR}")
 }
 
 main

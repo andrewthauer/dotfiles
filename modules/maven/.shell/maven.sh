@@ -17,7 +17,8 @@ elif ! command_exists "mvn"; then
 fi
 
 #
-# XDG specifications
+# Aliases
 #
 
-# mvn -gs "$XDG_CONFIG_HOME"/maven/settings.xml
+# Override the cache location
+alias mvn="mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml""
