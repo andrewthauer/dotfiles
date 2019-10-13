@@ -70,22 +70,10 @@ function psu() {
 alias lstcp="lsof -i -n -P | grep TCP"
 
 #
-# SSH
-#
-
-# local port forwarding
-#   ssh -L <local_port>:<remote_host>:<remote_port> user@<remote_server>
-alias sshl="ssh -L"
-
-# remote port forward
-#   ssh -R <remote_port>:<local_host>:<local_port> user@<remote_server>
-alias sshr="ssh -R"
-
-#
 # Clipboard
 #
 
-# Mac OS X Everywhere
+# macOS open everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o="open"
 else
@@ -106,6 +94,13 @@ alias pbp="pbpaste"
 #
 # File Download
 #
+
+wget() {
+  # Override the wgetrc location
+  export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
+  unset -f "$0"
+  wget $@
+}
 
 get() {
   if [[ -x "$(command -v curl)" ]]; then

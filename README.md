@@ -63,6 +63,14 @@ Also see:
 - [Linux](@linux/README.md)
 - [Windows](@windows/README.md)
 
+## Core Packages
+
+- [bash](bash/README.md)
+- [git](git/README.md)
+- [homebrew](homebrew/README.md)
+- [ssh](ssh/README.md)
+- [zsh](zsh/README.md)
+
 ## Configuration
 
 Most common configuration is handled by symlinking files to the `$HOME`
@@ -85,66 +93,6 @@ you don't want to commit to source control.
 
 _NOTE: Make sure you create a `@local/.stow-local-ignore` file to avoid
 symlinking unwanted paths_
-
-### Zsh
-
-The following files will be sourced automatically if they exist. They can be
-added to `dotfiles/@local` and then symlinked to `~` by running `stow local`
-from the `dotfiles` directory.
-
-Since `zsh` does not directly support the XDG spec. , the `~/.zshenv` file sets
-the `ZDOTDIR` environment variable. This will make `zsh` source the subsequent
-standard files from `$XDG_CONFIG_HOME/zsh`. You can also add `.local` versions
-of each which will be sourced if they exist (e.g.
-`$XDG_CONFIG_HOME/zsh/.zshrc.local`).
-
-### Bash
-
-Bash also does not support the XDG spec, so the standard files are sourced
-(`~/.bash_profile`, `~/.bashrc`). All additional support files are sourced from
-`$XDG_CONFIG_HOME/bash`.
-
-### Homebrew
-
-Homebrew makes it easy to install system wide dependencies. There is a
-`brew bundle` file that contains commonly used system packages. You can also
-create a `$XDG_CONFIG_HOME/homebrew/Brewfile.local` file to install any system
-specific brews.
-
-### SSH
-
-Use the `ssh-key-gen` command to create an `ssh` key in a single step. The
-`ssh-config-merge` command can merge multiple `ssh` configuration files together
-(`config.base`, `config.personal`, `config.work`, etc.). For more details
-[see the command](./bin/ssh-config-merge).
-
-To create an `ssh` key:
-
-```shell
-# This will create an `id_rsa` key in the `~/.ssh` directory
-SSH_KEY_NAME="id_rsa" sh <(curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/master/bin/ssh-key-gen')
-```
-
-_[Add the SSH Key to your GitHub account](https://help.github.com/articles/generating-ssh-keys/#step-4-add-your-ssh-key-to-your-account)_
-
-### Git
-
-A `@local/.config/git/credentials` file will include your git credentials:
-
-```ini
-[user]
-  name = Your Name
-  email = your@email.com
-```
-
-You can also add a `@local/.config/git/config.local` file to override any
-settings. For example:
-
-```ini
-# for directory specific git overrides:
-[includeIf "gitdir:~/Code/personal"]
-path = /path/to/another/.gitconfig
-```
 
 ## Testing
 

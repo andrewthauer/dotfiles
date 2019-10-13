@@ -7,8 +7,8 @@ SUBDIRS = vim zsh
 # Package bundles
 PKG_SYS_LOCAL = @local
 PKG_SYS_MAC = @macos
-PKG_CORE = bash git homebrew vim tmux zsh
-PKG_TOOLS_CORE = fasd docker utility
+PKG_CORE = bash git homebrew vim ssh tmux utility zsh
+PKG_TOOLS_CORE = fasd docker
 PKG_LANG_CORE = node python ruby
 PKG_LANG_JVM = gradle java kotlin maven scala sdkman
 PKG_EXTRA_TOOLS = asdf aws gcloud kubernetes redis
