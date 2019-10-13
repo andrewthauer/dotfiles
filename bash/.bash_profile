@@ -13,9 +13,8 @@ source "${DOTFILES_DIR}/.profile"
 export PATH="${DOTFILES_DIR}/bin:${PATH}"
 export PATH="${HOME}/.local/bin:${PATH}"
 
-# Ensure the data & cache directory exists
+# Ensure the xdg data directory exists
 [[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p "${XDG_DATA_HOME}/bash"
-[[ ! -d "${XDG_CACHE_HOME}/bash" ]] && mkdir -p "${XDG_CACHE_HOME}/bash"
 
 # Load local profile (if exists)
 if [[ -f "${XDG_CONFIG_HOME}/bash/.bash_profile.local" ]]; then

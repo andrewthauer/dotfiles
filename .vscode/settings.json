@@ -3,12 +3,10 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.trimAutoWhitespace": true,
   "files.associations": {
-    ".*profile*": "shellscript",
-    ".stow*ignore": "gitignore",
-    ".zsh*": "shellscript",
-    "*gitignore*": "gitignore",
-    "*vimrc*": "viml",
-    "**/.ssh/config.d/*": "ssh_config"
+    "*ignore": "gitignore",
+    "*profile*": "shellscript",
+    "**/.ssh/config.d/*": "ssh_config",
+    "*vimrc*": "viml"
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,

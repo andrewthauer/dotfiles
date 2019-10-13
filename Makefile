@@ -1,9 +1,3 @@
-DOTFILES_DIR = ${HOME}/.dotfiles
-MODULES_DIR = $(DOTFILES_DIR)/modules
-
-# Sub directories with makefiles
-SUBDIRS = vim zsh
-
 # Package bundles
 PKG_SYS_LOCAL = @local
 PKG_SYS_MAC = @macos
@@ -19,32 +13,41 @@ PKG_ALL_MOD = $(PKG_TOOLS_CORE) $(PKG_LANG_CORE) $(PKG_EXTRA_TOOLS) $(PKG_EXTRA_
 PKG_DEFAULT = $(PKG_CORE) $(PKG_SYS_LOCAL)
 PKG_DEFAULT_MODS = $(PKG_LANG_CORE) $(PKG_TOOLS_CORE)
 
-all: setup link xdg $(SUBDIRS)
+# Dotfiles directories
+DOTFILES_DIR := $(CURDIR)
+MODULES_DIR = $(DOTFILES_DIR)/modules
+LOCAL_DIR = $(DOTFILES_DIR)/$(PKG_SYS_LOCAL)
+
+# XDG directories
+XDG_CONFIG_HOME := $(HOME)/.config
+XDG_DATA_HOME := $(HOME)/.local/share
+XDG_CACHE_HOME := $(HOME)/.cache
+
+# Sub directories with makefiles
+SUBDIRS = vim zsh
+
+all: setup link $(SUBDIRS)
 
 setup:
-	@mkdir -p $(CURDIR)/$(PKG_SYS_LOCAL)
-	@stow -t ${HOME} stow
+	@stow -t $(HOME) stow
+	@mkdir -p $(LOCAL_DIR)
+	@mkdir -p $(XDG_CONFIG_HOME)/less
+	@mkdir -p $(XDG_CACHE_HOME)/less
 
 link: setup
-	@stow -t ${HOME} $(PKG_DEFAULT)
-	@stow -t ${HOME} -d $(MODULES_DIR) $(PKG_DEFAULT_MODS)
+	@stow -t $(HOME) $(PKG_DEFAULT)
+	@stow -t $(HOME) -d $(MODULES_DIR) $(PKG_DEFAULT_MODS)
 ifeq ($(shell uname), Darwin)
-	@stow -t ${HOME} $(PKG_SYS_MAC)
+	@stow -t $(HOME) $(PKG_SYS_MAC)
 endif
 
 unlink: setup
-	@stow -D -t ${HOME} $(PKG_ALL_ROOT)
-	@stow -D -t ${HOME} -d $(MODULES_DIR) $(PKG_ALL_MOD)
+	@stow -D -t $(HOME) $(PKG_ALL_ROOT)
+	@stow -D -t $(HOME) -d $(MODULES_DIR) $(PKG_ALL_MOD)
 
 chklink: setup
-	@stow -n -v -t ${HOME} $(PKG_ALL_ROOT)
-	@stow -n -v -t ${HOME} -d $(MODULES_DIR) $(PKG_ALL_MOD)
-
-xdg:
-	@mkdir -p $(XDG_DATA_HOME)/bash
-	@mkdir -p $(XDG_CACHE_HOME)/bash
-	@mkdir -p $(XDG_CONFIG_HOME)/less
-	@mkdir -p $(XDG_CACHE_HOME)/less
+	@stow -n -v -t $(HOME) $(PKG_ALL_ROOT)
+	@stow -n -v -t $(HOME) -d $(MODULES_DIR) $(PKG_ALL_MOD)
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)
