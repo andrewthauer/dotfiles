@@ -31,7 +31,7 @@ if [[ -e "$HOME/.ssh/config" ]]; then
 fi
 
 # Append configs to the ~/.ssh/config
-for conf in ~/.ssh/config.*; do
+for conf in ~/.ssh/config.d/*; do
   echo "Appending: $conf"
   cat "$conf" >> $target
   echo "" >> $target

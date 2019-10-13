@@ -7,7 +7,8 @@
     ".stow*ignore": "gitignore",
     ".zsh*": "shellscript",
     "*gitignore*": "gitignore",
-    "*vimrc*": "viml"
+    "*vimrc*": "viml",
+    "**/.ssh/config.d/*": "ssh_config"
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
