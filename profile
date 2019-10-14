@@ -16,7 +16,7 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 # Terminal
 export TERM=xterm
 
-# Vim
+# Remap ~/.vimrc
 export VIMINIT=":source $XDG_CONFIG_HOME/nvim/init.vim"
 
 # Editor
@@ -39,6 +39,11 @@ PAGER="less"
 # Set the Less input preprocessor
 if type lesspipe.sh >/dev/null 2>&1; then
   export LESSOPEN="|lesspipe.sh %s"
+fi
+
+# Set brew prefix if macos to avoid using "$(brew --prefix)"
+if [[ "$OSTYPE" == darwin* ]]; then
+  BREW_PREFIX="${BREW_PREFIX:-/usr/local}"
 fi
 
 # Load a local profile (if exists)
