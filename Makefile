@@ -15,7 +15,7 @@ PKG_DEFAULT_MODS = $(PKG_LANG_CORE) $(PKG_TOOLS_CORE)
 
 # Dotfiles directories
 DOTFILES_DIR := $(CURDIR)
-MODULES_DIR = $(DOTFILES_DIR)/modules
+OPT_DIR = $(DOTFILES_DIR)/opt
 LOCAL_DIR = $(DOTFILES_DIR)/$(PKG_SYS_LOCAL)
 
 # XDG directories
@@ -36,18 +36,18 @@ setup:
 
 link: setup
 	@stow -t $(HOME) $(PKG_DEFAULT)
-	@stow -t $(HOME) -d $(MODULES_DIR) $(PKG_DEFAULT_MODS)
+	@stow -t $(HOME) -d $(OPT_DIR) $(PKG_DEFAULT_MODS)
 ifeq ($(shell uname), Darwin)
 	@stow -t $(HOME) $(PKG_SYS_MAC)
 endif
 
 unlink: setup
 	@stow -D -t $(HOME) $(PKG_ALL_ROOT)
-	@stow -D -t $(HOME) -d $(MODULES_DIR) $(PKG_ALL_MOD)
+	@stow -D -t $(HOME) -d $(OPT_DIR) $(PKG_ALL_MOD)
 
 chklink: setup
 	@stow -n -v -t $(HOME) $(PKG_ALL_ROOT)
-	@stow -n -v -t $(HOME) -d $(MODULES_DIR) $(PKG_ALL_MOD)
+	@stow -n -v -t $(HOME) -d $(OPT_DIR) $(PKG_ALL_MOD)
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)

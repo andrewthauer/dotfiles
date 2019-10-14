@@ -3,7 +3,7 @@
 # --------------------------------------------------------------
 
 alias stowh="stow -t ~"
-alias stowm="stow -t ~ -d modules"
+alias stowo="stow -t ~ -d opt"
 alias ustow="stow -D"
 alias ustowh="stow -D -t ~"
-alias ustowm="stow -D -t ~ -d modules"
+alias ustowo="stow -D -t ~ -d opt"
