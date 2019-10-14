@@ -18,7 +18,7 @@ _rbenv_lazy_init() {
   unset -f "$0"
 
   # faster alternative to full 'rbenv init'
-  export RBENV_SHELL="${SHELL}"
+  export RBENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   export PATH="${RBENV_ROOT}/shims:${PATH}"
 
   # lazy initialize

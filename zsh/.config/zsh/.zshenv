@@ -3,6 +3,9 @@
 # Defines zsh environment & changes to use XGD directories
 #
 
+# The current shell type
+export CURRENT_SHELL="zsh"
+
 # Dotfiles dir
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 

@@ -3,6 +3,9 @@
 # Excuted by bash at login pre-bash
 #
 
+# The current shell type
+export CURRENT_SHELL="bash"
+
 # Dotfiles dir
 export DOTFILES_DIR="${HOME}/.dotfiles"
 

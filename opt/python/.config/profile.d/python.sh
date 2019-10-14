@@ -18,7 +18,7 @@ _pyenv_lazy_init() {
   unset -f "$0"
 
   # faster alternative to full 'pyenv init'
-  export PYENV_SHELL="${SHELL}"
+  export PYENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   export PATH="${PYENV_ROOT}/shims:${PATH}"
 
   # lazy initialize

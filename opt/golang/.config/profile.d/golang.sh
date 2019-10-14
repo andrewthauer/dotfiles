@@ -19,7 +19,7 @@ _goenv_lazy_init() {
   unset -f "$0"
 
   # faster alternative to full 'goenv init'
-  export GOENV_SHELL="${SHELL}"
+  export GOENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   export GOENV_GOPATH_PREFIX="${GOENV_ROOT}/versions"
   export PATH="${GOENV_ROOT}/shims:${PATH}"
 

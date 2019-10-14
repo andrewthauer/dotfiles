@@ -17,7 +17,7 @@ _jenv_lazy_init() {
 
   # faster alternative to full 'jenv init'
   export PATH="${JENV_ROOT}/shims:${PATH}"
-  export JENV_SHELL="${SHELL}"
+  export JENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   if [[ -f "${JENV_ROOT}/version" ]]; then
     JENV_VERSION="$(cat ${JENV_ROOT}/version)"
     export JAVA_HOME="${JENV_ROOT}/versions/${JENV_VERSION}"

@@ -18,7 +18,7 @@ _nodenv_lazy_init() {
   unset -f "$0"
 
   # faster alternative to full 'nodenv init'
-  export NODENV_SHELL="${SHELL}"
+  export NODENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   export PATH="${NODENV_ROOT}/shims:${PATH}"
 
   # lazy initialize
