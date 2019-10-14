@@ -25,11 +25,12 @@ if [[ ! -x "$(command -v brew)" ]]; then
   fi
 fi
 
-# Install brews using brew bundle (uses the ~/.Brewfile)
+# Install brews using brew bundle (uses the Brewfile)
 if [[ -x "$(command -v brew)" ]]; then
   echo "Do you want run brew bundle [y/N]?"
   read answer
   case "${answer}" in [yY]|[yY][eE][sS])
-    brew bundle --file="${DOTFILES_DIR}/homebrew/.Brewfile"
+    brewfile="${DOTFILES_DIR}/homebrew/.config/homebrew/Brewfile"
+    HOMEBREW_BUNDLE_FILE="$brewfile" brew bundle
   esac
 fi
