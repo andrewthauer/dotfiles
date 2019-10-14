@@ -1,17 +1,12 @@
 # Package bundles
+PKG_ROOT_ALL = bash git homebrew vim ssh tmux utility zsh
+PKG_OPT_ALL = \
+	aws docker dotnet fasd gcloud golang gradle java kotlin kubernetes maven \
+	node powershell python redis ruby rust scala sdkman
 PKG_SYS_LOCAL = @local
 PKG_SYS_MAC = @macos
-PKG_CORE = bash git homebrew vim ssh tmux utility zsh
-PKG_TOOLS_CORE = fasd docker
-PKG_LANG_CORE = node python ruby
-PKG_LANG_JVM = gradle java kotlin maven scala sdkman
-PKG_EXTRA_TOOLS = asdf aws gcloud kubernetes redis
-PKG_EXTRA_LANG = dotnet golang rust $(PKG_LANG_JVM)
-PKG_ALL_SYS = $(PKG_SYS_LOCAL) $(PKG_SYS_MAC)
-PKG_ALL_ROOT = $(PKG_CORE) $(PKG_ALL_SYS)
-PKG_ALL_MOD = $(PKG_TOOLS_CORE) $(PKG_LANG_CORE) $(PKG_EXTRA_TOOLS) $(PKG_EXTRA_LANG)
-PKG_DEFAULT = $(PKG_CORE) $(PKG_SYS_LOCAL)
-PKG_DEFAULT_MODS = $(PKG_LANG_CORE) $(PKG_TOOLS_CORE)
+PKG_OPT_DEFAULT = fasd docker node python ruby
+PKG_ROOT_DEFAULT = $(PKG_ROOT_ALL)
 
 # Dotfiles directories
 DOTFILES_DIR := $(CURDIR)
@@ -35,19 +30,19 @@ setup:
 	@mkdir -p $(XDG_CACHE_HOME)/less
 
 link: setup
-	@stow -t $(HOME) $(PKG_DEFAULT)
-	@stow -t $(HOME) -d $(OPT_DIR) $(PKG_DEFAULT_MODS)
+	@stow -t $(HOME) $(PKG_ROOT_DEFAULT)
+	@stow -t $(HOME) -d $(OPT_DIR) $(PKG_OPT_DEFAULT)
 ifeq ($(shell uname), Darwin)
 	@stow -t $(HOME) $(PKG_SYS_MAC)
 endif
 
 unlink: setup
-	@stow -D -t $(HOME) $(PKG_ALL_ROOT)
-	@stow -D -t $(HOME) -d $(OPT_DIR) $(PKG_ALL_MOD)
+	@stow -D -t $(HOME) $(PKG_ROOT_ALL)
+	@stow -D -t $(HOME) -d $(OPT_DIR) $(PKG_OPT_ALL)
 
 chklink: setup
-	@stow -n -v -t $(HOME) $(PKG_ALL_ROOT)
-	@stow -n -v -t $(HOME) -d $(OPT_DIR) $(PKG_ALL_MOD)
+	@stow -n -v -t $(HOME) $(PKG_ROOT_ALL)
+	@stow -n -v -t $(HOME) -d $(OPT_DIR) $(PKG_OPT_ALL)
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)
