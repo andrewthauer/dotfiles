@@ -140,7 +140,7 @@ augroup END
 " ================ Other Setting ====================
 
 " Load all settings
-for fpath in split(globpath(expand("$XDG_CONFIG_HOME/nvim/settings"), '*.vim'), '\n')
+for fpath in split(globpath(expand("$XDG_CONFIG_HOME/nvim/init.d"), '*.vim'), '\n')
   exec 'source' fpath
 endfor
 
