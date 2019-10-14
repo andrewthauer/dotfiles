@@ -42,6 +42,6 @@ if type lesspipe.sh >/dev/null 2>&1; then
 fi
 
 # Load a local profile (if exists)
-if [[ -f "${XDG_CONFIG_HOME}/.profile.local" ]]; then
-  source "${XDG_CONFIG_HOME}/.profile.local"
+if [[ -f "${XDG_CONFIG_HOME}/profile.local" ]]; then
+  source "${XDG_CONFIG_HOME}/profile.local"
 fi

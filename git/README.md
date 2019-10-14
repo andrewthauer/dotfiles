@@ -24,7 +24,7 @@ path = /path/to/another/.gitconfig
 
 ## Usage
 
-See [gitconfig](.config/git/config) & [git.sh](.shell/git.sh).
+See [gitconfig](.config/git/config) & [git.sh](.config/profile.d/git.sh).
 
 ## Resources
 

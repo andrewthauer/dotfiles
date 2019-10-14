@@ -21,7 +21,7 @@ source_file() {
 # Sources files in a glob
 #
 # examples:
-#   source_files_in ${HOME}/.shell/*.sh
+#   source_files_in ${XDG_CONFIG_HOME}/profile.d/*.sh
 #
 source_files_in() {
   for file in $@; do
@@ -45,6 +45,6 @@ source_files_in() {
 #
 require_once() {
   module=$1
-  file="${HOME}/.shell/${1}.sh"
+  file="${XDG_CONFIG_HOME}/profile.d/${1}.sh"
   source_file "$file"
 }

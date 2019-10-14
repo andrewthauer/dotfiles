@@ -17,10 +17,10 @@ unset BASH_RC_LOADED
 source "${DOTFILES_DIR}/lib/init.sh"
 
 # Source bash core scripts
-source_files_in $XDG_CONFIG_HOME/bash/init/*.sh
+source_files_in $XDG_CONFIG_HOME/bash/init.d/*.sh
 
 # Source common shell scripts
-source_files_in ~/.shell/*.sh
+source_files_in $XDG_CONFIG_HOME/profile.d/*.sh
 
 # Load the local .bashrc file
 if [[ -f "${XDG_CONFIG_HOME}/bash/.bashrc.local" ]]; then

@@ -7,7 +7,7 @@
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
 # Load common shell env
-source "${DOTFILES_DIR}/.profile"
+source "${DOTFILES_DIR}/profile"
 
 # Append to path
 export PATH="${DOTFILES_DIR}/bin:${PATH}"

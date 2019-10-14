@@ -13,10 +13,10 @@ source "${DOTFILES_DIR}/lib/init.sh"
 setopt NULL_GLOB
 
 # Source zsh core scripts
-source_files_in $XDG_CONFIG_HOME/zsh/init/*.zsh
+source_files_in $XDG_CONFIG_HOME/zsh/init.d/*.zsh
 
 # Source common shell scripts
-source_files_in ~/.shell/*.sh
+source_files_in $XDG_CONFIG_HOME/profile.d/*.sh
 
 # Load the local zsh file
 if [[ -f "${XDG_CONFIG_HOME}/zsh/.zshrc.local" ]]; then
