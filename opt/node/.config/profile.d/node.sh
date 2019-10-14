@@ -19,7 +19,7 @@ _nodenv_lazy_init() {
 
   # faster alternative to full 'nodenv init'
   export NODENV_SHELL="${CURRENT_SHELL:-$SHELL}"
-  export PATH="${NODENV_ROOT}/shims:${PATH}"
+  prepend_path "${NODENV_ROOT}/shims"
 
   # lazy initialize
   lazyfunc _nodenv_init nodenv
@@ -31,7 +31,7 @@ if command_exists "nodenv"; then
 
 # Load manually installed nodenv into the shell session
 elif [[ -s "${NODENV_ROOT:-$HOME/.nodenv}/bin/nodenv" ]]; then
-  export PATH="${NODENV_ROOT}/bin:${PATH}"
+  prepend_path "${NODENV_ROOT}/bin"
   _nodenv_lazy_init
 
 # Return if requirements not found

@@ -19,7 +19,7 @@ _rbenv_lazy_init() {
 
   # faster alternative to full 'rbenv init'
   export RBENV_SHELL="${CURRENT_SHELL:-$SHELL}"
-  export PATH="${RBENV_ROOT}/shims:${PATH}"
+  prepend_path "${RBENV_ROOT}/shims"
 
   # lazy initialize
   lazyfunc _rbenv_init rbenv
@@ -31,7 +31,7 @@ if command_exists "rbenv"; then
 
 # Load manually installed rbenv into the shell session
 elif [[ -s "${RBENV_ROOT}/bin/rbenv" ]]; then
-  export PATH="${RBENV_ROOT}/bin:${PATH}"
+  prepend_path "${RBENV_ROOT}/bin"
   _rbenv_lazy_init
 
 # Return if requirements not found

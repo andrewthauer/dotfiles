@@ -7,7 +7,7 @@ _dotnet_init() {
   DOTNET_ROOT="$(dirname $(command -v dotnet))"
   export MSBuildSDKsPath="${DOTNET_ROOT}/sdk/$(${DOTNET_ROOT}/dotnet --version)/Sdks"
   # prepend dotnet to the path if not already added
-  [[ ":$PATH:" =~ ":$DOTNET_ROOT:" ]] || export PATH="$DOTNET_ROOT:$PATH"
+  prepend_path "${DOTNET_ROOT}"
   unset DOTNET_ROOT
 }
 

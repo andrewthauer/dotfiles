@@ -12,9 +12,12 @@ export DOTFILES_DIR="${HOME}/.dotfiles"
 # Load common shell env
 source "${DOTFILES_DIR}/profile"
 
+# Load core utilities used by other scripts
+source "${DOTFILES_DIR}/lib/init.sh"
+
 # Append to path
-export PATH="${DOTFILES_DIR}/bin:${PATH}"
-export PATH="${HOME}/.local/bin:${PATH}"
+prepend_path "${DOTFILES_DIR}/bin"
+prepend_path "${HOME}/.local/bin"
 
 # Ensure the xdg data directory exists
 [[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p "${XDG_DATA_HOME}/bash"

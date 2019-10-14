@@ -16,7 +16,7 @@ _jenv_lazy_init() {
   unset -f "$0"
 
   # faster alternative to full 'jenv init'
-  export PATH="${JENV_ROOT}/shims:${PATH}"
+  prepend_path "${JENV_ROOT}/shims"
   export JENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   if [[ -f "${JENV_ROOT}/version" ]]; then
     JENV_VERSION="$(cat ${JENV_ROOT}/version)"
@@ -37,7 +37,7 @@ if command_exists "jenv"; then
 
 # Load manually installed jenv into the shell session
 elif [[ -s "${JENV_ROOT}/bin/jenv" ]]; then
-  export PATH="${JENV_ROOT}/bin:${PATH}"
+  prepend_path "${JENV_ROOT}/bin"
   _jenv_lazy_init
 
 # Load java with sdkman candidate
@@ -45,7 +45,7 @@ elif [[ -d "${SDKMAN_DIR}/candidates/java" ]]; then
   require_once "sdkman"
   export JAVA_HOME="${SDKMAN_DIR}/candidates/java/current"
   export JDK_HOME="${JAVA_HOME}"
-  export PATH="${JAVA_HOME}/shims:${PATH}"
+  prepend_path "${JAVA_HOME}/shims"
   unset -f _java_jenv_init
 
 # Return if requirements not found

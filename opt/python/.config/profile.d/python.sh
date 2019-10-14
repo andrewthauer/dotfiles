@@ -19,7 +19,7 @@ _pyenv_lazy_init() {
 
   # faster alternative to full 'pyenv init'
   export PYENV_SHELL="${CURRENT_SHELL:-$SHELL}"
-  export PATH="${PYENV_ROOT}/shims:${PATH}"
+  prepend_path "${PYENV_ROOT}/shims"
 
   # lazy initialize
   lazyfunc _pyenv_init pyenv
@@ -31,7 +31,7 @@ if command_exists "pyenv"; then
 
 # Load manually installed pyenv into the shell session
 elif [[ -s "${PYENV_ROOT}/bin/pyenv" ]]; then
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  prepend_path "${PYENV_ROOT}/bin"
   _pyenv_lazy_init
 
 # Return if requirements not found

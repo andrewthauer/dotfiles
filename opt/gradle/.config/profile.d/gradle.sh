@@ -8,7 +8,7 @@ require_once "sdkman"
 if [[ -d "${SDKMAN_DIR}/candidates/gradle" ]]; then
   require_once "java"
   GRADLE_HOME="${SDKMAN_DIR}/candidates/gradle/current"
-  export PATH="${GRADLE_HOME}/bin:${PATH}"
+  prepend_path "${GRADLE_HOME}/bin"
   unset GRADLE_HOME
 
 # Return if requirements not found

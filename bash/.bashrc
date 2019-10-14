@@ -13,9 +13,6 @@ if [[ -f "${HOME}/.bash_profile" && -z $BASH_PROFILE_LOADED ]]; then
 fi
 unset BASH_RC_LOADED
 
-# Load core utilities used by other scripts
-source "${DOTFILES_DIR}/lib/init.sh"
-
 # Source bash core scripts
 source_files_in $XDG_CONFIG_HOME/bash/init.d/*.sh
 

@@ -21,7 +21,7 @@ _goenv_lazy_init() {
   # faster alternative to full 'goenv init'
   export GOENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   export GOENV_GOPATH_PREFIX="${GOENV_ROOT}/versions"
-  export PATH="${GOENV_ROOT}/shims:${PATH}"
+  prepend_path "${GOENV_ROOT}/shims"
 
   # lazy initialize
   lazyfunc _goenv_init goenv
@@ -33,7 +33,7 @@ if command_exists "goenv"; then
 
 # Load manually installed goenv into the shell session
 elif [[ -s "${GOENV_ROOT}/bin/goenv" ]]; then
-  export PATH="${GOENV_ROOT}/bin:${PATH}"
+  prepend_path "${GOENV_ROOT}/bin"
   _goenv_lazy_init
 
 # Return if requirements not found

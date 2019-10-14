@@ -8,7 +8,7 @@ require_once "sdkman"
 if [[ -d "${SDKMAN_DIR}/candidates/scala" ]]; then
   require_once "java"
   export SCALA_HOME="${SDKMAN_DIR}/candidates/scala/current"
-  export PATH="${SCALA_HOME}/bin:${PATH}"
+  prepend_path "${SCALA_HOME}/bin"
   unset SCALA_HOME
 fi
 
@@ -16,6 +16,6 @@ fi
 if [[ -d "${SDKMAN_DIR}/candidates/sbt" ]]; then
   require_once "java"
   export SBT_HOME="${SDKMAN_DIR}/candidates/sbt/current"
-  export PATH="${SBT_HOME}/bin:${PATH}"
+  prepend_path "${SBT_HOME}/bin"
   unset SBT_HOME
 fi

@@ -8,5 +8,5 @@ require_once "sdkman"
 if [[ -d "${SDKMAN_DIR}/candidates/kotlin" ]]; then
   require_once "java"
   export KOTLIN_HOME="${SDKMAN_DIR}/candidates/kotlin/current"
-  export PATH="${KOTLIN_HOME}/bin:${PATH}"
+  prepend_path "${KOTLIN_HOME}/bin"
 fi

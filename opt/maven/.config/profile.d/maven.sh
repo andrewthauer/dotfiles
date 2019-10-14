@@ -8,7 +8,7 @@ require_once "sdkman"
 if [[ -d "${SDKMAN_DIR}/candidates/maven" ]]; then
   require_once "java"
   MAVEN_HOME="${SDKMAN_DIR}/candidates/maven/current"
-  export PATH="${MAVEN_HOME}/bin:${PATH}"
+  prepend_path "${MAVEN_HOME}/bin"
   unset MAVEN_HOME
 
 # Return if requirements not found
