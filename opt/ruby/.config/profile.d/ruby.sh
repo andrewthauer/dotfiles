@@ -41,6 +41,12 @@ elif ! command_exists "ruby"; then
 fi
 
 #
+# XDG specifications
+#
+
+export GEM_HOME="${XDG_DATA_HOME}/gem"
+
+#
 # Bundler
 #
 
