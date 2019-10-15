@@ -1,5 +1,4 @@
 DOTFILES_DIR = $(CURDIR)/..
-BIN_DIR = $(DOTFILES_DIR)/bin
 VIM_PACK_DIR = $(CURDIR)/.vim/pack
 PACK_START_DIR = $(VIM_PACK_DIR)/default/start
 
@@ -9,7 +8,7 @@ XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
 
 # Commands
-GITHUB_INSTALL = $(BIN_DIR)/github-install
+GITHUB_INSTALL = $(DOTFILES_DIR)/git/.local/bin/github-install
 HAS_YARN := $(shell command -v yarn 2> /dev/null)
 
 all: setup link plugins

@@ -7,7 +7,7 @@ XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
 
 # Commands
-GITHUB_INSTALL = $(BIN_DIR)/github-install
+GITHUB_INSTALL = $(DOTFILES_DIR)/git/.local/bin/github-install
 
 all: setup link plugins
 
