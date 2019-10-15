@@ -27,7 +27,7 @@ alias drmi_dang='docker rmi $* $(docker images -q -f dangling=true)'
 alias drmi_tags='docker-rmi-all-tags'
 
 # Registry
-alias di_tags='docker-tags $*'
+alias di-tags='docker-tags $*'
 
 # Containers
 alias dps='docker ps'
@@ -40,8 +40,8 @@ alias dstop_all='docker stop $* $(docker ps -q -f status=running)'
 alias drestart='docker restart $*'
 alias dattach='docker attach $*'
 alias dexec='docker exec'
-alias drun='docker run --rm $*'
-alias drunit='docker run --rm -it $*'
+alias drun='docker run $*'
+alias drunit='docker run -it $*'
 alias dinspect='docker inspect $*'
 alias dlog='docker logs'
 alias dip='docker inspect --format="{{.NetworkSettings.IPAddress}}" $*'
@@ -72,6 +72,10 @@ alias dcdn='docker-compose down'
 alias dcl='docker-compose logs'
 alias dclf='docker-compose logs -f'
 alias dctail='docker-compose logs --tail=all -f'
+
+# docker machine
+alias dm="docker-machine"
+alias dmls="docker-machine ls"
 
 #
 # Remove all tags for image name
