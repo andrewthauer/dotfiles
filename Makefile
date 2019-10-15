@@ -41,8 +41,14 @@ unlink: setup
 	@stow -D -t $(HOME) -d $(OPT_DIR) $(PKG_OPT_ALL)
 
 chklink: setup
+	@echo "\n--- These are currently unlinked ---\n"
 	@stow -n -v -t $(HOME) $(PKG_ROOT_ALL)
 	@stow -n -v -t $(HOME) -d $(OPT_DIR) $(PKG_OPT_ALL)
+	@echo "\n--- These are potentially bogus links ---\n"
+	@chkstow -a -b -t $(XDG_CONFIG_HOME)
+	@chkstow -a -b -t $(XDG_DATA_HOME)
+	@chkstow -a -b -t $(HOME)/.ssh
+	@chkstow -a -b -t $(HOME)/.
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)

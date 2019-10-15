@@ -1,11 +1,13 @@
 DOTFILES_DIR = $(CURDIR)/..
-VIM_PACK_DIR = $(CURDIR)/.vim/pack
-PACK_START_DIR = $(VIM_PACK_DIR)/default/start
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
+
+# Vim pack directories
+VIM_PACK_DIR = $(XDG_CONFIG_HOME)/nvim/pack
+PACK_START_DIR = $(VIM_PACK_DIR)/default/start
 
 # Commands
 GITHUB_INSTALL = $(DOTFILES_DIR)/git/.local/bin/github-install
