@@ -14,7 +14,7 @@
 # keyboard
 **/karabiner/*
 !karabiner.json
-**/.hammerspoon/Spoons/*
+**/hammerspoon/Spoons/*
 
 # vim
 **/nvim/pack

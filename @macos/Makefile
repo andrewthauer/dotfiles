@@ -1,11 +1,13 @@
 DOTFILES_DIR = $(CURDIR)/..
-HAMMERSPOON_DIR = $(CURDIR)/.hammerspoon
-SPOONS_DIR = $(HAMMERSPOON_DIR)/Spoons
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
+
+# Hammerspoon dir
+HAMMERSPOON_DIR = $(XDG_CONFIG_HOME)/hammerspoon
+SPOONS_DIR = $(HAMMERSPOON_DIR)/Spoons
 
 # SpoonInstall url
 SPOON_INSTALL_URL = https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/SpoonInstall.spoon.zip
