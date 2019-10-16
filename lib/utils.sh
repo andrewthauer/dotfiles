@@ -109,13 +109,39 @@ source_files_in() {
     if [[ -n "$PROFILE_STARTUP" ]]; then
       # eval function name for profiling
       fn=`basename $file`
-      eval "$fn() { source $file }; $fn"
+      eval "$fn() { source_file $file }; $fn"
     else
       source_file "$file"
     fi
   done
 
   unset file;
+}
+
+#
+# Sources a package
+#
+source_pkg() {
+  pkg_name="$1"
+  init_path="${DOTFILES_DIR}/opt/${pkg_name}/.config/profile.d/${pkg_name}.sh"
+  [[ -f "${init_path}" ]] && source $init_path
+}
+
+#
+# Source a list of packages
+#
+source_all_pkgs() {
+  packages=($1)
+  for pkg in ${packages[@]}; do
+    if [[ -n "$PROFILE_STARTUP" ]]; then
+      # eval function name for profiling
+      fn=`basename $pkg`
+      eval "$fn() { source_pkg $pkg }; $fn"
+    else
+      source_pkg "$pkg"
+    fi
+  done
+  unset pkg;
 }
 
 #
