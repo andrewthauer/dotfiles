@@ -12,7 +12,7 @@ PKG_ALL = $(PKG_CORE) $(PKG_OPT)
 # Dotfiles directories
 DOTFILES_DIR := $(CURDIR)
 PKG_DIR = $(DOTFILES_DIR)
-PKG_OPT_DIR = $(DOTFILES_DIR)/opt
+PKG_OPT_DIR = $(DOTFILES_DIR)/pkg
 LOCAL_DIR = $(DOTFILES_DIR)/$(PKG_LOCAL)
 
 # XDG directories
