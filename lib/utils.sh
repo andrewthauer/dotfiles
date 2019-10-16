@@ -1,5 +1,8 @@
 # --------------------------------------------------------------
-# General utilities
+# Various utility functions
+#
+# These are used by other packages so this file must be
+# sourced before other packages are loaded.
 # --------------------------------------------------------------
 
 #
@@ -78,4 +81,71 @@ function append_path {
       PATH="${PATH:+"$PATH:"}$arg"
     fi
   done
+}
+
+#
+# Sources files only once
+#
+# examples:
+#   source_file "/path/to/file.sh"
+#
+__SOURCED_FILES=()
+source_file() {
+  file=$1
+  if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[@]}" =~ "${file}" ]]; then
+    source "$file"
+    __SOURCED_FILES+=(${file})
+  fi
+}
+
+#
+# Sources files in a glob
+#
+# examples:
+#   source_files_in ${XDG_CONFIG_HOME}/profile.d/*.sh
+#
+source_files_in() {
+  for file in $@; do
+    if [[ -n "$PROFILE_STARTUP" ]]; then
+      # eval function name for profiling
+      fn=`basename $file`
+      eval "$fn() { source $file }; $fn"
+    else
+      source_file "$file"
+    fi
+  done
+
+  unset file;
+}
+
+#
+# lazy load function helper
+#
+# usage:
+#   lazyfunc [lazy_function] [commands_to_hook...]
+#
+# example:
+#   lazyfunc _nodenv_init nodenv node npm
+#
+function lazyfunc {
+  local lazyfunc="$1"
+  local hooks=(${@:2})
+
+  for cmd in "${hooks[@]}"; do
+    eval "${cmd}() { __lazyfunc_exec ${lazyfunc} ${hooks[@]}; ${cmd} \$@; }"
+  done
+}
+
+#
+# lazy load function executor
+#
+# usage:
+#   __lazyfunc_exec [lazy_function] [commands_to_hook...]
+#
+__lazyfunc_exec() {
+  local lazyfunc=$1
+  local hooks=(${@:2})
+  unset -f "${hooks[@]}"
+  eval "${lazyfunc}"
+  unset "${lazyfunc}"
 }

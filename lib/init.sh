@@ -4,5 +4,15 @@
 
 # Core shared utils
 source "${DOTFILES_DIR}/lib/utils.sh"
-source "${DOTFILES_DIR}/lib/lazyfunc.sh"
-source "${DOTFILES_DIR}/lib/source-utils.sh"
+
+#
+# Require a module once for the shell session
+#
+# examples:
+#   require_once "utils"
+#
+require_once() {
+  module=$1
+  file="${XDG_CONFIG_HOME}/profile.d/${1}.sh"
+  source_file "$file"
+}
