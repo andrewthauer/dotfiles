@@ -1,12 +1,12 @@
 # Package bundles
 PKG_CORE = \
-	bash git homebrew ssh vim zsh
+	bash git homebrew ssh tmux vim utility zsh
 PKG_OPT = \
 	fasd docker dotnet gcloud golang gradle java kotlin kubernetes maven \
-	node powershell python redis ruby rust scala sdkman tmux utility
+	node python redis ruby rust scala sdkman tmux utility
 PKG_LOCAL = @local
 PKG_MAC = @macos
-PKG_OPT_DEFAULT = docker fasd node python ruby tmux utility
+PKG_OPT_DEFAULT = docker fasd node python ruby
 PKG_ALL = $(PKG_CORE) $(PKG_OPT)
 
 # Dotfiles directories

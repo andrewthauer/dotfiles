@@ -2,8 +2,8 @@
 # Stow dotfiles helpers
 # --------------------------------------------------------------
 
-alias stowh="stow -t ~"
-alias stowo="stow -t ~ -d opt"
 alias ustow="stow -D"
+alias stowh="stow -t ~"
 alias ustowh="stow -D -t ~"
-alias ustowo="stow -D -t ~ -d opt"
+alias stowp="stow -t ~ -d pkg"
+alias ustowp="stow -D -t ~ -d pkg"
