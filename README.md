@@ -22,10 +22,8 @@
   thus keep them always up-to-date.
 - **topical organization** to organize dotfiles by topic for easy reuse across
   different machines.
-- [XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-  compliance when possible to keep `$HOME` clean
-  - See
-    [Arch Linux wiki for XDG Base Directory Support](https://wiki.archlinux.org/index.php/XDG_Base_Directory)
+- **[XDG Compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
+  when possible to keep `$HOME` clean <sup id="a1">[1](#f1)</sup>.
 - **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.
@@ -36,54 +34,46 @@
 
 ## Pre-requisites
 
-The following packages are required:
-
-- `git`
-- `make`
-- `stow`
+- [`make`](https://www.gnu.org/software/make/)
+- [`stow`](https://www.gnu.org/software/stow/stow.html)
 
 ## Installation
 
-```shell
-git clone git@github.com:andrewthauer/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-make
-# now restart your shell ...
-```
+1. Clone the repo
+   `git clone git@github.com:andrewthauer/dotfiles.git ~/.dotfiles`
+2. Change directories `~/.dotfiles`
+3. Run `make` to run core setup
+4. Install desired package via `stow <directory>`
+5. Restart your shell ...
 
-To install on a brand new system:
+### For Brand New Systems:
 
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
 ```
 
-Also see:
+See
 
 - [macOS](@macos/README.md)
 - [Linux](@linux/README.md)
 - [Windows](@windows/README.md)
 
-## Core Packages
+## Documentation
 
-- [bash](bash/README.md)
-- [git](git/README.md)
-- [homebrew](homebrew/README.md)
-- [ssh](ssh/README.md)
-- [zsh](zsh/README.md)
+Each directory contains a `README.md` file that describes it's purpose. Most
+directories are topic packages that can be installed by running
+`stow <directory>`. This will create symlinks to the appropriate locations
+within the `$HOME` directory.
 
-## Configuration
-
-Most common configuration is handled by symlinking files to the `$HOME`
-directory. This is handled by `stow`.
+## Directories
 
 - OS specific packages are prefixed with `@`.
-- Optional packages are stored in `opt` and can be added & removed.
 - Local system configs & secrets should be added to the `@local` directory and
   never committed.
-
-```
-stow -t ~ [pkg-name]
-```
+- These are currently special folders:
+  - `bin` - General purpose scripts which are added to the path
+  - `lib` - Core utilities used throughout. Must be sourced up front
+  - `test` - Used to run some basic tests
 
 ### Local Customization
 
@@ -92,7 +82,7 @@ particular environment. It is also a good place to store an secret information
 you don't want to commit to source control.
 
 _NOTE: Make sure you create a `@local/.stow-local-ignore` file to avoid
-symlinking unwanted paths_
+symlinking unwanted paths._
 
 ## Testing
 
@@ -128,3 +118,8 @@ there is built-in support for profiling the startup time.
 ## License
 
 MIT © Andrew Thauer
+
+---
+
+<i id="f1">1</i>
+[Arch Linux wiki for XDG Base Directory Support](https://wiki.archlinux.org/index.php/XDG_Base_Directory)

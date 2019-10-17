@@ -1,19 +1,15 @@
 # Package bundles
-PKG_CORE = \
-	bash git homebrew ssh tmux vim utility zsh
-PKG_OPT = \
-	fasd docker dotnet gcloud golang gradle java kotlin kubernetes maven \
-	node python redis ruby rust scala sdkman tmux utility
+PKG_ALL = \
+	aws bash fasd docker dotnet gcloud git golang gradle homebrew java \
+	kotlin kubernetes maven node python redis ruby rust scala sdkman \
+	shell ssh tmux utility vim zsh
 PKG_LOCAL = @local
 PKG_MAC = @macos
-PKG_OPT_DEFAULT = docker fasd node python ruby
-PKG_ALL = $(PKG_CORE) $(PKG_OPT)
 
-# Dotfiles directories
-DOTFILES_DIR := $(CURDIR)
-PKG_DIR = $(DOTFILES_DIR)
-PKG_OPT_DIR = $(DOTFILES_DIR)/pkg
-LOCAL_DIR = $(DOTFILES_DIR)/$(PKG_LOCAL)
+# Default packages
+DEFAULT_PKGS = \
+	bash docker fasd git homebrew node python ruby shell ssh tmux utility vim zsh \
+	$(PKG_LOCAL)
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -27,31 +23,27 @@ SUBDIRS = vim zsh
 all: setup link $(SUBDIRS)
 
 setup:
-	@stow -t $(HOME) -d $(PKG_DIR) -S stow
-	@mkdir -p $(LOCAL_DIR)
+	@stow -t $(HOME) -d $(CURDIR) -S stow
+	@mkdir -p $(CURDIR)/$(PKG_LOCAL)
 	@mkdir -p $(XDG_CONFIG_HOME)/less
 	@mkdir -p $(XDG_CACHE_HOME)/less
 
 link: setup
-	@stow -t $(HOME) -d $(PKG_DIR) -S $(PKG_CORE)
-	@stow -t $(HOME) -d $(PKG_DIR) -S $(PKG_LOCAL)
-	@stow -t $(HOME) -d $(PKG_OPT_DIR) -S $(PKG_OPT_DEFAULT)
+	@stow -t $(HOME) -d $(CURDIR) -S $(DEFAULT_PKGS)
 ifeq ($(shell uname), Darwin)
-	@stow -t $(HOME) -S $(PKG_MAC)
+	@stow -t $(HOME) -d $(CURDIR) -S $(PKG_MAC)
 endif
 
 unlink: setup
-	# @stow -D -t $(HOME) -d $(PKG_DIR) -S $(PKG_ALL)
+	@stow -D -t $(HOME) -d $(CURDIR) -S $(PKG_ALL)
 
 chklink: setup
 	@echo "\n--- These are currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(PKG_DIR) $(PKG_ALL)
-	@stow -n -v -t $(HOME) -d $(PKG_OPT_DIR) $(PKG_ALL)
+	@stow -n -v -t $(HOME) -d $(CURDIR) $(PKG_ALL)
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
 	@chkstow -a -b -t $(HOME)/.ssh
-	@chkstow -a -b -t $(HOME)/.
 
 clean:
 	@rm -f $(HOME)/.bashrc

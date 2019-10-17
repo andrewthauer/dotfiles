@@ -9,8 +9,11 @@ export CURRENT_SHELL="zsh"
 # Dotfiles dir
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
+# XDG configuration
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 # Load common shell env
-source "${DOTFILES_DIR}/profile"
+source "${XDG_CONFIG_HOME}/profile"
 
 # Zsh home directory
 ZDOTDIR="${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}"

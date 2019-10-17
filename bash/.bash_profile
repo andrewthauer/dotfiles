@@ -9,11 +9,14 @@ export CURRENT_SHELL="bash"
 # Dotfiles dir
 export DOTFILES_DIR="${HOME}/.dotfiles"
 
+# XDG configuration
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 # Load common shell env
-source "${DOTFILES_DIR}/profile"
+source "${XDG_CONFIG_HOME}/profile"
 
 # Load core utilities used by other scripts
-source "${DOTFILES_DIR}/lib/init.sh"
+source "${DOTFILES_DIR}/_lib/init.sh"
 
 # Append to path
 prepend_path "${DOTFILES_DIR}/bin"
