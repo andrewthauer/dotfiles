@@ -52,13 +52,6 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Use fn + fkey for special behavior, not fkey alone
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
-# TODO - Disable keyboard shorcuts in System Preferences > Mission Control
-# - Mission Control
-# - Show Notification -> Center Ctrl+Option+F8
-# - Application windows
-# - Show Desktop
-# - Show Dashboard
-
 # =============================================================================
 # Input - Keyboard Shortcuts
 # =============================================================================
@@ -72,6 +65,21 @@ defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 # Example
 # defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Next Tab" "@~\U2192"
 # defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Maximize" "@$\U004D"
+
+# TODO - Disable keyboard shorcuts in System Preferences > Mission Control
+# - Mission Control
+# - Show Notification -> Center Ctrl+Option+F8
+# - Application windows
+# - Show Desktop
+# - Show Dashboard
+
+# Spaces Left
+# defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 79 "<dict><key>enabled</key><false/></dict>"
+# defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 80 "<dict><key>enabled</key><false/></dict>"
+
+# Spaces Right
+# defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 81 "<dict><key>enabled</key><false/></dict>"
+# defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 82 "<dict><key>enabled</key><false/></dict>"
 
 # =============================================================================
 # Input - Mouse, Trackpad

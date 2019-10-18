@@ -2,13 +2,13 @@
 PKG_ALL = \
 	aws bash fasd docker dotnet gcloud git golang gradle homebrew java \
 	kotlin kubernetes maven node python redis ruby rust scala sdkman \
-	shell ssh tmux utility vim zsh
+	shell ssh tmux vim zsh
 PKG_LOCAL = @local
 PKG_MAC = @macos
 
 # Default packages
 DEFAULT_PKGS = \
-	bash docker fasd git homebrew node python ruby shell ssh tmux utility vim zsh \
+	bash docker fasd git homebrew node python ruby shell ssh tmux vim zsh \
 	$(PKG_LOCAL)
 
 # XDG directories
@@ -18,7 +18,7 @@ XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
 
 # Sub directories with makefiles
-SUBDIRS = vim zsh
+SUBDIRS = vim zsh $(PKG_MAC) $(PKG_LOCAL)
 
 all: setup link $(SUBDIRS)
 
@@ -70,4 +70,4 @@ $(SUBDIRS):
 		$(MAKE) -C $$dir $(MAKECMDGOALS); \
 	done
 
-.PHONY: $(SUBDIRS)
+.PHONY: .DEFAULT $(SUBDIRS)
