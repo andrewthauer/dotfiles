@@ -55,7 +55,7 @@ install_prerequisites() {
   elif [[ "${os_family}" == "debian" ]]; then
     sudo apt-get update && sudo apt-get install -y build-essential ${packages}
   elif [[ "${os_family}" == "fedora" ]]; then
-    sudo dnf groupinstall "Development Tools" && sudo dnf install -y libxcrypt-compat ${packages}
+    sudo dnf groupinstall "Development Tools" && sudo dnf install -y libxcrypt-compat util-linux-user ${packages}
   elif [[ "${os_family}" == "rhel" ]]; then
     sudo yum groupinstall "Development Tools" && sudo yum install -y ${packages}
   elif [[ "${os_family}" == "arch" ]]; then
@@ -76,7 +76,7 @@ install_brew() {
 }
 
 install_dotfiles_deps() {
-  packages="bash fasd make neovim stow zsh"
+  packages="bash make stow zsh"
   pkg_mgr_cmd="$(package_mgr_cmd)"
   ${pkg_mgr_cmd} ${packages}
 }
@@ -89,19 +89,20 @@ clone_dotfiles() {
 }
 
 setup_zsh() {
-  # Use brew or fallback to native
-  BIN_PREFIX="$(brew --prefix)"
-  if [[ -z "${BIN_PREFIX}" ]]; then
-    BIN_PREFIX="/usr"
-  fi
+  os_family=$(get_os_family)
 
-  # Add availble shells
-  [[ ! $(grep "${BIN_PREFIX}/bin/bash" /etc/shells) ]] && echo "${BIN_PREFIX}/bin/bash" | sudo tee -a /etc/shells
-  [[ ! $(grep "${BIN_PREFIX}/bin/zsh" /etc/shells) ]] && echo "${BIN_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
+  if [[ "${os_family}" == "macos" ]]; then
+    BREW_PREFIX="$(brew --prefix)"
 
-  # Change default shell to zsh
-  if [[ "${SHELL}" != "${BIN_PREFIX}/bin/zsh" ]]; then
-    sudo chsh -s "${BIN_PREFIX}/bin/zsh"
+    # Add availble shells
+    [[ ! $(grep "${BREW_PREFIX}/bin/bash" /etc/shells) ]] && echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells
+    [[ ! $(grep "${BREW_PREFIX}/bin/zsh" /etc/shells) ]] && echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
+
+    # Change default shell to zsh
+    sudo chsh -s ${BREW_PREFIX}/bin/bash
+  else
+    # Change default shell to zsh
+    chsh -s $(which zsh)
   fi
 }
 
@@ -117,17 +118,8 @@ setup_dotfiles() {
   # Setup the dotfiles
   pushd ${DOTFILES_DIR} > /dev/null
   make
+  git remote set-url origin git@github.com:andrewthauer/dotfiles.git
   popd > /dev/null
-}
-
-system_specific_setup() {
-  os_family="$(get_os_family)"
-  makefile="${DOTFILES_DIR}/@${os_family}"
-
-  # Execute system specific makefile if it exists
-  if [[ -d "${makefile}" ]]; then
-    make -C "${makefile}"
-  fi
 }
 
 main() {
@@ -141,7 +133,6 @@ main() {
   install_dotfiles_deps
   setup_zsh
   setup_dotfiles
-  system_specific_setup
 
   # Start zsh
   # echo "Starting zsh ..."

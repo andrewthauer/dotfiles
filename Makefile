@@ -4,12 +4,14 @@ PKG_ALL = \
 	kotlin kubernetes maven node python redis ruby rust scala sdkman \
 	shell ssh tmux vim zsh
 PKG_LOCAL = @local
-PKG_MAC = @macos
+PKG_MACOS = @macos
+PKG_LINUX = @linux
 
 # Default packages
 DEFAULT_PKGS = \
-	bash docker fasd git homebrew node python ruby shell ssh tmux vim zsh \
-	$(PKG_LOCAL)
+	bash docker fasd git node python ruby shell ssh tmux vim zsh $(PKG_LOCAL)
+DEFAULT_MACOS_PKGS = $(PKG_MACOS) homebrew
+DEFAULT_LINUX_PKGS = $(PKG_LINUX)
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -18,7 +20,19 @@ XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
 
 # Sub directories with makefiles
-SUBDIRS = vim zsh $(PKG_MAC) $(PKG_LOCAL)
+SUBDIRS = vim zsh
+
+# macOS specific settings
+ifeq ($(shell uname), Darwin)
+	DEFAULT_PKGS := $(DEFAULT_PKGS) $(DEFAULT_MACOS_PKGS)
+	SUBDIRS := $(SUBDIRS) $(PKG_MACOS)
+endif
+
+# Linux specific settings
+ifeq ($(shell uname), Linux)
+	DEFAULT_PKGS := $(DEFAULT_PKGS) $(DEFAULT_MACOS_PKGS)
+	SUBDIRS := $(SUBDIRS) $(PKG_LINUX)
+endif
 
 all: setup link $(SUBDIRS)
 
@@ -30,9 +44,6 @@ setup:
 
 link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S $(DEFAULT_PKGS)
-ifeq ($(shell uname), Darwin)
-	@stow -t $(HOME) -d $(CURDIR) -S $(PKG_MAC)
-endif
 
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S $(PKG_ALL)

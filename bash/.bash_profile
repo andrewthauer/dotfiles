@@ -16,7 +16,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 source "${XDG_CONFIG_HOME}/profile"
 
 # Load core utilities used by other scripts
-source "${DOTFILES_DIR}/_lib/init.sh"
+source "${DOTFILES_DIR}/lib/init.sh"
 
 # Append to path
 prepend_path "${DOTFILES_DIR}/bin"
