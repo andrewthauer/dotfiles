@@ -8,10 +8,10 @@ PKG_MACOS = @macos
 PKG_LINUX = @linux
 
 # Default packages
-DEFAULT_PKGS = \
-	bash docker fasd git node python ruby shell ssh tmux vim zsh $(PKG_LOCAL)
-DEFAULT_MACOS_PKGS = $(PKG_MACOS) homebrew
-DEFAULT_LINUX_PKGS = $(PKG_LINUX)
+DEFAULT_PKGS = bash git shell ssh tmux vim zsh
+DEFAULT_MACOS_PKGS = $(DEFAULT_PKGS) $(PKG_MACOS) $(PKG_LOCAL) \
+	docker fasd homebrew node python ruby
+DEFAULT_LINUX_PKGS = $(DEFAULT_PKGS) $(PKG_LINUX) $(PKG_LOCAL)
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
