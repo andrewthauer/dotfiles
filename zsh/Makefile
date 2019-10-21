@@ -25,3 +25,6 @@ unlink:
 
 plugins: setup
 	@$(GITHUB_INSTALL) -n sindresorhus/pure $(XDG_DATA_HOME)
+	@$(GITHUB_INSTALL) -n zsh-users/zsh-syntax-highlighting $(XDG_DATA_HOME)
+	@$(GITHUB_INSTALL) -n zsh-users/zsh-history-substring-search $(XDG_DATA_HOME)
+	@$(GITHUB_INSTALL) -n zsh-users/zsh-autosuggestions $(XDG_DATA_HOME)
