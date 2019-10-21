@@ -56,7 +56,7 @@ function prepend_path {
   for ((i=$#; i > 0; i--));do
     arg=$paths[i]
     if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
-      PATH="${PATH:+"$PATH:"}$arg"
+      PATH="$arg${PATH:+":$PATH"}"
     fi
   done
 }
