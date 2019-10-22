@@ -10,15 +10,11 @@
 ^/LICENSE.*
 ^/COPYING
 
-#
-# custom
-#
+# Ignore anything with a leading underscore
+^/_.*
 
 # common directories
-local*
-install
-scripts
-secrets
+
 settings
 test*
 tmp*

@@ -9,19 +9,11 @@ export CURRENT_SHELL="zsh"
 # Dotfiles dir
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
-# Load common shell env
-source "${XDG_CONFIG_HOME}/profile"
-
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
 
-
-# Set the list of directories that Zsh searches for programs
-path=(
-  ~/.local/bin
-  ${DOTFILES_DIR}/bin
-  $path
-)
+# Load common shell env
+source "${XDG_CONFIG_HOME}/profile"
 
 # Set the function path
 fpath=(

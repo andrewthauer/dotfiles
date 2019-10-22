@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Executed for bash completions
+#
+
+if [[ -d "${XDG_DATA_HOME}/bash_completion.d" ]]; then
+  for file in ${XDG_DATA_HOME}/bash_completion.d/*; do
+    source $file
+  done
+fi

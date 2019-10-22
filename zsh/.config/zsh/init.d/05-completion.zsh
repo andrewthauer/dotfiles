@@ -46,11 +46,16 @@ fi
 autoload -Uz compinit
 _zcompdump="${XDG_CACHE_HOME}/zsh/zcompdump"
 _comp_files=(${_zcompdump}(Nm-20))
-if (( $#_comp_files )); then
+if (($#_comp_files)); then
   compinit -i -C -d "$_zcompdump"
 else
   compinit -i -d "$_zcompdump"
 fi
+
+# Alias for manually clearing completions
+alias clearcomp="rm -f $_zcompdump; compinit -i -C -d "$_zcompdump""
+
+# Clear completion alias
 unset _zcompdump
 unset _comp_files
 
@@ -153,6 +158,3 @@ zstyle ':completion:*:ssh:*' group-order users hosts-domain hosts-host users hos
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-domain' ignored-patterns '<->.<->.<->.<->' '^[-[:alnum:]]##(.[-[:alnum:]]##)##' '*@*'
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
-
-# Clear completion alias
-alias clearcomp="rm -f ~/.zcompdump; compinit"

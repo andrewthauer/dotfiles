@@ -18,7 +18,7 @@ source "${XDG_CONFIG_HOME}/profile"
 # Load core utilities used by other scripts
 source "${DOTFILES_DIR}/lib/init.sh"
 
-# Append to path
+# Append bin directories to path
 prepend_path "${DOTFILES_DIR}/bin"
 prepend_path "${HOME}/.local/bin"
 

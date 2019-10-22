@@ -10,6 +10,12 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
+# Dotfiles dir
+export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+
+# Prepend bin directories to path
+export PATH="${HOME}/.local/bin:${DOTFILES_DIR}/bin:$PATH"
+
 # Terminal
 export TERM=xterm
 
