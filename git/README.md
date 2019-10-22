@@ -14,12 +14,20 @@ A `@local/.config/git/credentials` file will include your git credentials:
 ```
 
 You can also add a `@local/.config/git/config.local` file to override any
-settings. For example:
+settings or provide directory specific settings. For example:
 
 ```ini
-# for directory specific git overrides:
-[includeIf "gitdir:~/Code/personal"]
-path = /path/to/another/.gitconfig
+# @local/.config/git/config.local
+[includeIf "gitdir:/path/to/project"]
+path = /path/to/project/.gitconfig
+
+# /path/to/project/.gitconfig
+[user]
+  name = My Name
+  email = email@organization.org
+
+[core]
+  excludesfile = /path/to/project/.gitignore
 ```
 
 ## Usage
