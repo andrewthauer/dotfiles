@@ -5,6 +5,24 @@
 #
 # usage:
 #   time-bash
+#   time-bash -p (profile ... not implemented yet)
+#   time-bash -r (repeat 10 times)
 #
 
-time -p bash --login -c exit
+time_cmd="/usr/bin/time"
+exit_cmd="exit > /dev/null 2>&1"
+
+# profile with zsh/zprof
+if [[ "$1" == "-p" ]]; then
+  echo "profiling not implemented for bash"
+
+# repeat startup time 10 times
+elif [[ "$1" == "-r" ]]; then
+  for i in $(seq 1 10); do
+    $time_cmd bash -i -c "$exit_cmd";
+  done
+
+# single startup time
+else
+  $time_cmd -p bash -i -c "$exit_cmd"
+fi
