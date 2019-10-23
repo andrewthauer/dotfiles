@@ -15,6 +15,10 @@ alias reload="exec $SHELL -l"
 # Clear the screen
 alias clr="clear"
 
+# Make sudo work with aliases
+# https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
+alias sudo="sudo "
+
 #
 # Directories
 #
