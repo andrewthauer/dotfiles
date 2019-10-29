@@ -54,7 +54,7 @@ set lazyredraw                  "Redraw only when we need to
 syntax on
 
 " Set the color scheme
-colorscheme Zenburn
+colorscheme zenburn
 
 " ================ Turn Off Swap Files ==============
 
