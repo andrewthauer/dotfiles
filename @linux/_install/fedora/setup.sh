@@ -5,6 +5,8 @@
 #     https://gist.github.com/reavon/0bbe99150810baa5623e5f601aa93afc
 # =============================================================================
 
+CUR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
 # Prompt for admin password upfront
 sudo -v
 
@@ -81,8 +83,8 @@ sudo dnf install -y yarn
 # Set yarn global prefix == ~/.local/bin
 yarn config set prefix "${HOME}/.local"
 
+# Install some packages
 yarn global add git-open
-# yarn global add
 
 #
 # Docker
@@ -95,11 +97,19 @@ sudo dnf install -y docker-ce docker-ce-cli docker-compose containerd.io
 # sudo docker run hello-world
 
 #
+# Other system settings
+#
+
+# Install fira-code font
+sudo dnf copr enable evana/fira-code-fonts
+sudo dnf install fira-code-fonts
+
+#
 # Applications
 #
 
 # Install firefox developer edition
-./install-firefox.sh
+$CUR_DIR/../firefox/install-firefox.sh
 
 # Install vscode
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -110,10 +120,5 @@ sudo dnf install code
 # flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # flatpak install flathub com.visualstudio.code
 
-#
-# Other system settings
-#
-
-# Install fira-code font
-sudo dnf copr enable evana/fira-code-fonts
-sudo dnf install fira-code-fonts
+# Install nativefier apps
+# TODO
