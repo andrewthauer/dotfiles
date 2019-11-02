@@ -25,7 +25,7 @@ alias sudo="sudo "
 
 # Listing
 alias l="ls -1A"         # Lists in one column, hidden files.
-alias ll="ls -lh"        # Lists human readable sizes.
+alias ll="ls -alF"       # Lists human readable sizes.
 alias lr="ll -R"         # Lists human readable sizes, recursively.
 alias la="ll -a"         # Lists human readable sizes, hidden files.
 alias lm="la | $PAGER"   # Lists human readable sizes, hidden files through pager.
@@ -81,7 +81,8 @@ alias lstcp="lsof -i -n -P | grep TCP"
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o="open"
 else
-  alias o="xdg-open"
+  alias open="xdg-open"
+  alias o="open"
 
   if [[ -x "$(command -v xclip)" ]]; then
     alias pbcopy="xclip -selection clipboard -in"
@@ -125,7 +126,7 @@ untar() {
 }
 
 #
-# Miscellaneous
+# Http Serving
 #
 
 # Serves a directory via HTTP

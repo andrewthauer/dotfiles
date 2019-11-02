@@ -18,6 +18,7 @@
 
 # vim
 **/nvim/pack
+.netrwhist
 
 # zsh
 .zsh/functions/*
