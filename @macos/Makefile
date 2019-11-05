@@ -12,7 +12,7 @@ SPOONS_DIR = $(HAMMERSPOON_DIR)/Spoons
 # SpoonInstall url
 SPOON_INSTALL_URL = https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/SpoonInstall.spoon.zip
 
-all: defaults plugins
+all: defaults hammerspoon
 
 @macos: all
 

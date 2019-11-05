@@ -99,7 +99,7 @@ setup_zsh() {
     [[ ! $(grep "${BREW_PREFIX}/bin/zsh" /etc/shells) ]] && echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
 
     # Change default shell to zsh
-    sudo chsh -s ${BREW_PREFIX}/bin/bash
+    sudo chsh -s ${BREW_PREFIX}/bin/zsh
   else
     # Change default shell to zsh
     chsh -s $(which zsh)
