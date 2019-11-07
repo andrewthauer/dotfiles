@@ -11,6 +11,10 @@ A `@local/.config/git/credentials` file will include your git credentials:
 [user]
   name = Your Name
   email = your@email.com
+
+# macOS specific
+[credential]
+	helper = osxkeychain
 ```
 
 You can also add a `@local/.config/git/config.local` file to override any
@@ -20,12 +24,17 @@ settings or provide directory specific settings. For example:
 # @local/.config/git/config.local
 [includeIf "gitdir:/path/to/project"]
 path = /path/to/project/.gitconfig
+```
 
+Then create the custom gitconfig file:
+
+```ini
 # /path/to/project/.gitconfig
 [user]
   name = My Name
   email = email@organization.org
 
+# Custom exclue file (optional)
 [core]
   excludesfile = /path/to/project/.gitignore
 ```

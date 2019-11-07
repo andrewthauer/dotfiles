@@ -52,6 +52,12 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Use fn + fkey for special behavior, not fkey alone
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
+# Display smark quotes
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Disable smart dashes
+# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
 # =============================================================================
 # Input - Keyboard Shortcuts
 # =============================================================================

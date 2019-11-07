@@ -5,7 +5,6 @@
 #
 
 # Pre-requisites
-brew 'gcc'
 brew 'git'
 brew 'make'
 brew 'stow'
@@ -29,6 +28,8 @@ brew 'tmux'
 brew 'direnv'
 
 # Other
+brew 'cmake'
+brew 'gcc'
 brew 'git-open'
 brew 'gpg'
 brew 'openvpn'
@@ -64,6 +65,7 @@ tap 'jawshooah/pyenv'
 brew 'ruby-build' # used by rbenv
 brew 'rbenv'
 brew 'rbenv-default-gems'
+brew 'rbenv-aliases'
 
 # Java
 brew 'jenv'
@@ -108,13 +110,6 @@ brew 'jenv'
 # brew 'adr-tools'
 # brew 'rclone'
 # brew 'syncthing', restart_service: :changed
-
-#
-# Local Brewfile
-#
-
-local_brewfile = File.expand_path("~/.config/homebrew/Brewfile.local")
-instance_eval File.read(local_brewfile) if File.exists?(local_brewfile)
 
 #
 # Only macOS beyond here
@@ -168,3 +163,11 @@ cask 'homebrew/cask-fonts/font-fira-code'
 
 # Google Cloud
 # cask 'google-cloud-sdk'
+
+#
+# Local Brewfile's
+#
+
+Dir.glob(File.expand_path('~/.config/homebrew/Brewfile.*')).each do |file|
+  instance_eval File.read(file) if File.exists?(file)
+end

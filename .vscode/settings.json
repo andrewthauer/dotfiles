@@ -3,6 +3,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.trimAutoWhitespace": true,
   "files.associations": {
+    "*gemrc": "yaml",
     "*ignore": "gitignore",
     "*profile*": "shellscript",
     "**/.ssh/config.d/*": "ssh_config",
@@ -10,8 +11,5 @@
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
-  "files.trimTrailingWhitespace": true,
-  "search.exclude": {
-    "**/pack": true
-  }
+  "files.trimTrailingWhitespace": true
 }

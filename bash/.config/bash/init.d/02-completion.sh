@@ -3,12 +3,13 @@
 #
 
 # Load bash completions
-if [[ -f "/etc/bash_completion" ]]; then
-  source "/etc/bash_completion"
-elif [[ -n ${BREW_PREFIX} && -f "${BREW_PREFIX}/etc/bash_completion" ]]; then
-  source "${BREW_PREFIX}/etc/bash_completion"
-elif [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
-  source "/usr/local/etc/profile.d/bash_completion.sh"
+if [[ -e "${BREW_PREFIX}/share/bash-completion/bash_completion" ]]; then
+	export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+	source "${BREW_PREFIX}/share/bash-completion/bash_completion"
+elif [[ -e "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+	source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
+elif [[ -e "/etc/bash_completion" ]]; then
+	source "/etc/bash_completion"
 fi
 
 # Load custom completions

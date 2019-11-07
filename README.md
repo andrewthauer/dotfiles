@@ -22,7 +22,7 @@
   thus keep them always up-to-date.
 - **topical organization** to organize dotfiles by topic for easy reuse across
   different machines.
-- **[XDG Compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
+- **[xdg compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
   when possible to keep `$HOME` clean <sup id="a1">[1](#f1)</sup>.
 - **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).

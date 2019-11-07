@@ -54,6 +54,7 @@ chklink: setup
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
+	@chkstow -a -b -t $(XDG_BIN_HOME)
 	@chkstow -a -b -t $(HOME)/.ssh
 
 clean:

@@ -19,7 +19,7 @@ _rbenv_lazy_init() {
 
   # faster alternative to full 'rbenv init'
   export RBENV_SHELL="${CURRENT_SHELL:-$SHELL}"
-  prepend_path "${RBENV_ROOT}/shims"
+  prepend_path "${RBENV_ROOT:-$HOME/.rbenv}/shims"
 
   # lazy initialize
   lazyfunc _rbenv_init rbenv
@@ -44,7 +44,8 @@ fi
 # XDG specifications
 #
 
-export GEM_HOME="${XDG_DATA_HOME}/gem"
+# export GEM_HOME="${XDG_DATA_HOME}/gem"
+export GEM_SPEC_CACHE="${XDG_CACHE_HOME}/gem/specs"
 
 #
 # Bundler
@@ -53,6 +54,9 @@ export GEM_HOME="${XDG_DATA_HOME}/gem"
 if command_exists "bundle"; then
   # Change bundler home to xdg cache
   export BUNDLE_USER_HOME="${XDG_CACHE_HOME}/bundle"
+  export BUNDLE_USER_CONFIG="${XDG_CONFIG_HOME}/bundle/config"
+  export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle/plugin"
+  export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle/cache"
 
   # For bundler
   if [[ -z "${GITHUB_TOKEN}" ]]; then
