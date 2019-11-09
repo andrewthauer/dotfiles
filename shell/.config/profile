@@ -30,7 +30,7 @@ export VISUAL="${EDITOR}"
 export CLICOLOR=1
 
 # Gnu GPG
-export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
+export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 
 # Pager
 export LESSHISTFILE="${XDG_CACHE_HOME}/less/history"
