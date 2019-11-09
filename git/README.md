@@ -22,20 +22,29 @@ settings or provide directory specific settings. For example:
 
 ```ini
 # @local/.config/git/config.local
+
+# Custom local global core config
+[core]
+  editor = nvim
+
+# Custom directory specific gitconfig
 [includeIf "gitdir:/path/to/project"]
-path = /path/to/project/.gitconfig
+  path = /path/to/project/.gitconfig
 ```
 
-Then create the custom gitconfig file:
+Then create the custom directory specific gitconfig file:
 
 ```ini
 # /path/to/project/.gitconfig
+
+# Override global user config
 [user]
   name = My Name
   email = email@organization.org
 
-# Custom exclue file (optional)
+# Override global core config
 [core]
+  # Custom exclude file (optional)
   excludesfile = /path/to/project/.gitignore
 ```
 
