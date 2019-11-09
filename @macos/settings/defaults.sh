@@ -162,7 +162,15 @@ defaults write com.apple.menuextra.clock FlashDateSeparator -bool false
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 
 # Do not show battery percent
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+# Status items visible
+defaults write com.apple.systemuiserver "NSStatusItem Visible Siri" -bool false
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.airport" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.appleuser" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.bluetooth" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
 
 # =============================================================================
 # Dock
