@@ -8,8 +8,21 @@ set -e
 # Directory of this script
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
+# Export desired directory
+export SDKMAN_DIR="${XDG_DATA_HOME}/sdkman"
+
 install_sdkman() {
-  "${DIR}/../sdkman/install.sh"
+  # check if it's already installed
+  if [[ -d "${SDKMAN_DIR}" ]]; then
+    echo "sdkman is already installed"
+    exit 0
+  fi
+
+  # install sdkman
+  curl -s "https://get.sdkman.io" | bash
+
+  # restart shell
+  exec $SHELL -l
 }
 
 install_jenv() {
@@ -19,40 +32,19 @@ install_jenv() {
   jenv enable-plugin export
 }
 
-install_with_brew() {
-  # install latest version
-  brew cask install --force java
-
-  # install java 8
-  # brew cask install --force homebrew/cask-versions/adoptopenjdk8
-}
-
-install_with_sdk() {
+install_java_latest() {
   # need to source sdkman since it is a shell function
-  source "${SDKMAN_DIR:-~/.sdkman/bin/sdkman-init.sh}"
+  source "${SDKMAN_DIR:-~/.sdkman}/bin/sdkman-init.sh"
 
   # install latest version
   sdk install java
-}
-
-install_java() {
-  PS3="How do you want to install java?: "
-  options=("homebrew" "sdkman" "skip" "quit")
-  select opt in "${options[@]}"; do
-  case $opt in
-    "homebrew")   echo "Using $opt ..."; install_with_brew; break;;
-    "sdkman")     echo "Using $opt ..."; install_with_sdk; break;;
-    "skip")       break;;
-    "quit")       exit 0;;
-    *)            echo "invalid option $REPLY";;
-  esac
-  done
 }
 
 install_maven() {
   if confirm "Do you want to install maven"; then
     sdk install maven
     jenv enable-plugin maven
+    cp -n $DIR/.config/maven/settings.example.xml $DOTFILES_DIR/@local/.config/maven/settings.xml
   fi
 }
 
@@ -67,7 +59,7 @@ main() {
   # Install java versions
   install_sdkman
   install_jenv
-  install_java
+  install_java_latest
 
   # Add versions to jenv
   ${DIR}/.local/bin/jenv-add-all
@@ -78,7 +70,7 @@ main() {
   install_gradle
 
   # Stow this dotfiles module
-  stow -t ~ -d ${DIR}/.. $(basename "${DIR}")
+  stow -t ~ -d ${DIR}/.. $(basename "${DIR}") @local
 
   # reload the current shell
   exec $SHELL -l

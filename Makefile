@@ -1,8 +1,7 @@
 # Package bundles
 PKG_ALL = \
-	aws bash fasd docker dotnet gcloud git golang gradle homebrew java \
-	kotlin kubernetes maven node python redis ruby rust scala sdkman \
-	shell ssh tmux vim zsh
+	aws bash fasd docker dotnet git golang homebrew java kotlin kubernetes \
+	node python redis ruby rust scala shell ssh tmux vim zsh
 PKG_LOCAL = @local
 PKG_MACOS = @macos
 PKG_LINUX = @linux
