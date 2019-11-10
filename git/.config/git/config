@@ -36,7 +36,7 @@
   # Commit then squashbase
   cisb = !git commit -m 'chore: squash' && git squashbase
   # Reset and clean the repo dir
-  clean-pristine = reset --hard && git clean -dfx
+  clean-pristine = !git reset --hard && git clean -fdX
   # Clones recursively
   cloner = clone --recursive
   # Shortcut for `git checkout`
