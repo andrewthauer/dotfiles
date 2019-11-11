@@ -7,9 +7,8 @@ require_once "sdkman"
 # Load maven with sdkman candidate
 if [[ -d "${SDKMAN_DIR}/candidates/maven" ]]; then
   require_once "java"
-  MAVEN_HOME="${SDKMAN_DIR}/candidates/maven/current"
+  export MAVEN_HOME="${SDKMAN_DIR}/candidates/maven/current"
   prepend_path "${MAVEN_HOME}/bin"
-  unset MAVEN_HOME
 
 # Return if requirements not found
 elif ! command_exists "mvn"; then
@@ -20,5 +19,5 @@ fi
 # Aliases
 #
 
-# Override the cache location
+# Override the config/cache location
 alias mvn="mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml""

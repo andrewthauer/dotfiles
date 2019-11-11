@@ -89,6 +89,8 @@
   ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
   # Display a log of outgoing changes
   out = !git wtf HEAD@{u}..HEAD
+  # Pull submodules and all recursively
+  pulla = !git pull && git submodule update --init --recursive && git submodule update --recursive
   # Push force no-verify
   pushf= push -f --no-verify
   # Push upstream
