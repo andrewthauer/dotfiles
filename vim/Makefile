@@ -32,6 +32,7 @@ unlink:
 	@stow -D -d $(DOTFILES_DIR) -t ~ -S vim
 
 plugins: setup
+	@ln -fs $(XDG_DATA_HOME)/nvim/site/pack $(XDG_CONFIG_HOME)/nvim/pack
 	@$(GITHUB_INSTALL) -n editorconfig/editorconfig-vim $(PACK_START_DIR)
 	@$(GITHUB_INSTALL) -n vim-scripts/Zenburn $(PACK_START_DIR)
 	@$(GITHUB_INSTALL) -n sheerun/vim-polyglot $(PACK_START_DIR)

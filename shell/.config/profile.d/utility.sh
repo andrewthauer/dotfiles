@@ -148,3 +148,12 @@ http-serve() {
 if command_exists "direnv"; then
   eval "$(direnv hook $CURRENT_SHELL)"
 fi
+
+#
+# Code directory
+#
+
+if [[ -d "${HOME}/Code" ]]; then
+  CODE_DIR="${CODE_DIR:-$HOME/Code}"
+  alias codedir="cd ${CODE_DIR}"
+fi

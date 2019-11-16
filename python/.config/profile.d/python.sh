@@ -39,3 +39,10 @@ elif ! command_exists "python"; then
   unset -f _pyenv_init
   return 1
 fi
+
+#
+# XDG specifications
+#
+
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc.py"
+export PYLINTHOME="${XDG_CACHE_HOME}/pylint"

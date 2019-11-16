@@ -147,8 +147,10 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=""
 
-# disable feedback sound when changing volume
+# disable feedback sounds
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
+defaults write NSGlobalDomain com.apple.sound.beep.flash -bool false
+defaults write NSGlobalDomain com.apple.sound.beep.volume -int 0
 
 # disable ui sound effects (empty trash, screen capture, etc.)
 defaults write com.apple.systemsound com.apple.sound.uiaudio.enabled -int 0
