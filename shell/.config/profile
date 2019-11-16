@@ -44,11 +44,6 @@ if type lesspipe.sh >/dev/null 2>&1; then
   export LESSOPEN="|lesspipe.sh %s"
 fi
 
-# Set brew prefix if macos to avoid using "$(brew --prefix)"
-if [[ "$OSTYPE" == darwin* ]]; then
-  BREW_PREFIX="${BREW_PREFIX:-/usr/local}"
-fi
-
 # Load other profile files
 if [[ -d "${XDG_CONFIG_HOME}/profile.d" ]]; then
   for file in ${XDG_CONFIG_HOME}/profile.d/*; do
