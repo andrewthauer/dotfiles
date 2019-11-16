@@ -1,5 +1,5 @@
 #
-# VIM aliases
+# Vim environment
 #
 
 # Replace vim with neovim
