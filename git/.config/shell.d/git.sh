@@ -6,9 +6,6 @@ if ! command_exists "git"; then
   return
 fi
 
-# Ensure the xdg config directory exists
-[[ ! -d "${XDG_CONFIG_HOME}/git" ]] && mkdir -p "${XDG_CONFIG_HOME}/git"
-
 #
 # Aliases
 #

@@ -16,8 +16,8 @@ unset BASH_RC_LOADED
 # Source bash core scripts
 source_files_in $XDG_CONFIG_HOME/bash/init.d/*.sh
 
-# Source common shell scripts
-source_files_in $XDG_CONFIG_HOME/profile.d/*.sh
+# Source common interactive shell scripts
+source_files_in $XDG_CONFIG_HOME/shell.d/*.sh
 
 # Load the local .bashrc file
 if [[ -f "${XDG_CONFIG_HOME}/bash/.bashrc.local" ]]; then

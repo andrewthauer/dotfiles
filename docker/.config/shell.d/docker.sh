@@ -6,9 +6,6 @@ if ! command_exists "docker"; then
   return 1
 fi
 
-# Change the docker config location
-export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
-
 #
 # Aliases
 #

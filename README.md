@@ -95,11 +95,7 @@ bootstrap a new system.
 It is very important to make sure the shell startup is fast. To help ensure this
 there is built-in support for profiling the startup time.
 
-- The `time-zsh` command can be used to profile `zsh` startup time
-  - `time-zsh -r` loads `zsh` multiple times to get an average
-  - `time-zsh -p` runs `zsh` with the `zprof` module for an execution summary.
-    This helps determine areas that are having the largest affect on the startup
-    time.
+- The `time-zsh` command can be used to profile `zsh` startup time.
 - The `time-bash` command will display the execution time for loading a `bash`
   shell
 
