@@ -10,7 +10,7 @@
  \__,_|\___/ \__|_| |_|_|\___||___/
 ```
 
-![license](https://img.shields.io/github/license/andrew/dotfiles?style=flat-square)
+![license](https://img.shields.io/github/license/andrewthauer/dotfiles?style=flat-square)
 ![for hackers](https://img.shields.io/badge/built%20for-hackers-50dd7e.svg?logo=dependabot&style=flat-square)
 ![awesome](https://img.shields.io/badge/pretty-awesome-ffc24b.svg?logo=sourcegraph&style=flat-square)
 
