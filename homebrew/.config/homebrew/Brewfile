@@ -158,6 +158,7 @@ cask 'homebrew/cask-fonts/font-fira-code'
 # cask 'postman'
 # cask 'powershell'
 # cask 'veracrypt'
+# cask 'vagrant'
 # cask 'virtualbox'
 
 # DotNet (.NET)
@@ -171,5 +172,6 @@ cask 'homebrew/cask-fonts/font-fira-code'
 #
 
 Dir.glob(File.expand_path('~/.config/homebrew/Brewfile.*')).each do |file|
+  next if file.end_with?('.lock.json')
   instance_eval File.read(file) if File.exists?(file)
 end

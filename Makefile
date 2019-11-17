@@ -68,6 +68,7 @@ clean:
 	@rm -rf $(XDG_CONFIG_HOME)/git
 	@rm -f $(XDG_CONFIG_HOME)/nvim
 	@rm -f $(XDG_CONFIG_HOME)/profile.d/*
+	@rm -f $(XDG_CONFIG_HOME)/shell.d/*
 	@rm -f $(XDG_CONFIG_HOME)/tmux
 	@rm -f $(XDG_CONFIG_HOME)/wgetrc
 	@rm -f $(XDG_CONFIG_HOME)/zsh
