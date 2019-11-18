@@ -13,7 +13,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
 The `macOS` default settings can be configured with:
 
 ```shell
-./settings/defaults.sh
+make defaults
 ```
 
 ## Keyboard

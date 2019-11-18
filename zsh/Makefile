@@ -14,7 +14,7 @@ all: setup link plugins
 zsh: all
 
 setup:
-	@mkdir -p $(XDG_DATA_HOME)/zsh/{functions}
+	@mkdir -p $(XDG_DATA_HOME)/zsh/functions
 	@mkdir -p $(XDG_CACHE_HOME)/zsh
 
 link: setup

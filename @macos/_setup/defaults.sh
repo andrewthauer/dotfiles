@@ -357,21 +357,14 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 
 # Use custom theme for Terminal.app
 TERMINAL_THEME="Zenburn"
-open "${DOTFILES_DIR}/@macos/settings/${TERMINAL_THEME}.terminal"
+open "${DOTFILES_DIR}/@macos/_setup/${TERMINAL_THEME}.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.Terminal "Default Window Settings" -string "${TERMINAL_THEME}"
 defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_THEME}"
 
-# Set the default shell to zsh
-# NOTE: This causes terminal to prompt to terminate on close
-# defaults write com.apple.Terminal Shell -string "/usr/local/bin/zsh"
-
 # =============================================================================
 # Other applications
 # =============================================================================
-
-# Hammerspoon
-defaults write org.hammerspoon.Hammerspoon MJConfigFile "${XDG_CONFIG_HOME}/hammerspoon/init.lua"
 
 # Dash doc sync folder path
 defaults write com.kapeli.dashdoc "syncFolderPath" -string "${XDG_CONFIG_HOME:-$HOME/.config}"

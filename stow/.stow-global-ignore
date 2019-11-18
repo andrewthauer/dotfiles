@@ -1,13 +1,8 @@
 # Comments and blank lines are allowed.
 
 \.DS_Store
-
 \.git
-\.gitignore
-\.prettierignore
-
 ^/*.*log
-
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
@@ -16,11 +11,9 @@
 ^/_.*
 
 # common directories
-settings
 test*
 tmp*
 
 # common files
 Makefile
 install.*
-setup.*

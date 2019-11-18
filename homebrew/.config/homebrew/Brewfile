@@ -137,6 +137,7 @@ cask 'hammerspoon'
 cask 'karabiner-elements'
 cask 'slack'
 cask 'spotify'
+cask 'veracrypt'
 cask 'visual-studio-code'
 
 # Caskroom fonts

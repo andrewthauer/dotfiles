@@ -11,7 +11,7 @@ HAMMERSPOON_DIR = $(XDG_CONFIG_HOME)/hammerspoon
 SPOONS_DIR = $(HAMMERSPOON_DIR)/Spoons
 SPOON_INSTALL_URL = https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/SpoonInstall.spoon.zip
 
-all: link setenv hammerspoon
+all: link setenv hammerspoon xdg
 
 @macos: all
 
@@ -25,8 +25,8 @@ setenv:
 	@launchctl unload $(LAUNCH_AGENTS)/environment.plist
 	@launchctl load $(LAUNCH_AGENTS)/environment.plist
 ifneq ("$(wildcard $(LAUNCH_AGENTS)/environment-local.plist)", "")
-	launchctl unload $(LAUNCH_AGENTS)/environment-local.plist
-	launchctl load $(LAUNCH_AGENTS)/environment-local.plist
+	@launchctl unload $(LAUNCH_AGENTS)/environment-local.plist
+	@launchctl load $(LAUNCH_AGENTS)/environment-local.plist
 endif
 
 hammerspoon:
@@ -34,5 +34,8 @@ hammerspoon:
 	@curl $(SPOON_INSTALL_URL) | tar -xz -C $(SPOONS_DIR)
 	@defaults write org.hammerspoon.Hammerspoon MJConfigFile "$(XDG_CONFIG_HOME)/hammerspoon/init.lua"
 
+xdg:
+	@defaults write com.kapeli.dashdoc "syncFolderPath" -string "$(XDG_CONFIG_HOME)"
+
 defaults:
-	$(CURDIR)/settings/defaults.sh
+	@$(CURDIR)/_setup/defaults.sh
