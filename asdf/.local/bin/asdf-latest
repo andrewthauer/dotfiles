@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Get the latest tool version from asdf
+#
+# usage:
+#   asdf-latest [plugin] [filter]
+#
+# examples:
+#   asdf-latest nodejs
+#   asdf-latest nodejs 8
+#
+
+plugin=$1
+filter=$2
+version=
+number_regex='^[0-9]+([.][0-9]+)?$'
+grep_filter="grep "^$filter""
+grep_rm_alpha="grep -v "[a-zA-Z]""
+sort_versions="sort --version-sort"
+tail_last="tail -n 1"
+
+if [[ -z "${filter}" ]]; then
+  version="$(asdf list-all $plugin | $grep_rm_alpha | $sort_versions | $tail_last)"
+elif ! [[ ${filter} =~ $number_regex ]]; then
+  version="$(asdf list-all $plugin | $grep_filter | $sort_versions | $tail_last)"
+else
+  version="$(asdf list-all $plugin | $grep_filter | $grep_rm_alpha | $sort_versions | $tail_last)"
+fi
+
+echo $version

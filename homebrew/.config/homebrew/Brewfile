@@ -33,11 +33,15 @@ brew 'direnv'
 brew 'gcc'
 brew 'git-open'
 brew 'gpg'
+brew 'jq'
 brew 'openvpn'
 brew 'openssl'
 brew 'pandoc'
 brew 'tree'
 brew 'wget'
+
+# Asdf
+brew 'asdf'
 
 # Docker completion
 brew 'docker-completion'

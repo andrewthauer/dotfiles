@@ -25,8 +25,12 @@ _nodenv_lazy_init() {
   lazyfunc _nodenv_init nodenv
 }
 
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/nodejs" ]]; then
+  echo "using asdf" >/dev/null
+
 # Load package manager installed nodenv into shell session
-if command_exists "nodenv"; then
+elif command_exists "nodenv"; then
   _nodenv_lazy_init
 
 # Load manually installed nodenv into the shell session

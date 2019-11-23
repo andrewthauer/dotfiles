@@ -31,8 +31,12 @@ _jenv_lazy_init() {
   lazyfunc _jenv_init jenv
 }
 
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/java" ]]; then
+  echo "using asdf" >/dev/null
+
 # Load package manager installed jenv into shell session
-if command_exists "jenv"; then
+elif command_exists "jenv"; then
   _jenv_lazy_init
 
 # Load manually installed jenv into the shell session
@@ -41,7 +45,7 @@ elif [[ -s "${JENV_ROOT}/bin/jenv" ]]; then
   _jenv_lazy_init
 
 # Load java with sdkman candidate
-elif [[ -d "${SDKMAN_DIR}/candidates/java" ]]; then
+elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/java" ]]; then
   require_once "sdkman"
   export JAVA_HOME="${SDKMAN_DIR}/candidates/java/current"
   export JDK_HOME="${JAVA_HOME}"

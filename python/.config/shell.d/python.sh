@@ -25,8 +25,12 @@ _pyenv_lazy_init() {
   lazyfunc _pyenv_init pyenv
 }
 
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/python" ]]; then
+  echo "using asdf" >/dev/null
+
 # Load package manager installed pyenv into shell session
-if command_exists "pyenv"; then
+elif command_exists "pyenv"; then
   _pyenv_lazy_init
 
 # Load manually installed pyenv into the shell session

@@ -2,10 +2,13 @@
 # Initialize gradle environment
 #
 
-require_once "sdkman"
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/gradle" ]]; then
+  echo "using asdf" >/dev/null
 
 # Load gradle with sdkman candidate
-if [[ -d "${SDKMAN_DIR}/candidates/gradle" ]]; then
+elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/gradle" ]]; then
+  require_once "sdkman"
   require_once "java"
   export GRADLE_HOME="${SDKMAN_DIR}/candidates/gradle/current"
   prepend_path "${GRADLE_HOME}/bin"

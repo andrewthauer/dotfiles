@@ -27,8 +27,12 @@ _goenv_lazy_init() {
   lazyfunc _goenv_init goenv
 }
 
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/golang" ]]; then
+  echo "using asdf" >/dev/null
+
 # Load package manager installed goenv into shell session
-if command_exists "goenv"; then
+elif command_exists "goenv"; then
   _goenv_lazy_init
 
 # Load manually installed goenv into the shell session

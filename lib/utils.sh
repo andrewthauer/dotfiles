@@ -145,14 +145,25 @@ source_all_pkgs() {
 }
 
 #
-# Require a module once for the shell session
+# Source an interactive shell module (once)
 #
 # examples:
 #   require_once "utils"
 #
 require_once() {
+  file="${XDG_CONFIG_HOME}/shell.d/${1}.sh"
+  source_file "$file"
+}
+
+#
+# Source a shared library module (once)
+#
+# examples:
+#   require_lib "some_lib"
+#
+require_lib() {
   module=$1
-  file="${XDG_CONFIG_HOME}/profile.d/${1}.sh"
+  file="${XDG_DATA_HOME}/lib/${1}.sh"
   source_file "$file"
 }
 

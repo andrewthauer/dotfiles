@@ -2,11 +2,18 @@
 # Initialize kotlin environment
 #
 
-require_once "sdkman"
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/kotlin" ]]; then
+  echo "using asdf" >/dev/null
 
 # Load kotlin with sdkman candidate
-if [[ -d "${SDKMAN_DIR}/candidates/kotlin" ]]; then
+elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/kotlin" ]]; then
+  require_once "sdkman"
   require_once "java"
   export KOTLIN_HOME="${SDKMAN_DIR}/candidates/kotlin/current"
   prepend_path "${KOTLIN_HOME}/bin"
+
+# Return if requirements not found
+elif ! command_exists "kotlin"; then
+  return 1
 fi

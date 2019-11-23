@@ -25,8 +25,12 @@ _rbenv_lazy_init() {
   lazyfunc _rbenv_init rbenv
 }
 
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/ruby" ]]; then
+  echo "using asdf" >/dev/null
+
 # Load package manager installed rbenv into shell session
-if command_exists "rbenv"; then
+elif command_exists "rbenv"; then
   _rbenv_lazy_init
 
 # Load manually installed rbenv into the shell session

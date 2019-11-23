@@ -2,10 +2,13 @@
 # Initialize maven environment
 #
 
-require_once "sdkman"
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/maven" ]]; then
+  echo "using asdf" >/dev/null
 
 # Load maven with sdkman candidate
-if [[ -d "${SDKMAN_DIR}/candidates/maven" ]]; then
+elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/maven" ]]; then
+  require_once "sdkman"
   require_once "java"
   export MAVEN_HOME="${SDKMAN_DIR}/candidates/maven/current"
   prepend_path "${MAVEN_HOME}/bin"
