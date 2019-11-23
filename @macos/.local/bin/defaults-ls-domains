@@ -3,7 +3,8 @@
 # Pretty prints the macos defaults domains
 #
 # usage:
-#   defaults-domains
+#   defaults-ls-domains
+#   defaults-ls-domains | grep com.apple
 #
 
 defaults domains | awk '{gsub(", ", "\n", $0)}1' | sort
