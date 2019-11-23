@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-  <key>Label</key>
-  <string>my.startup</string>
-  <key>ProgramArguments</key>
-  <array>
-    <string>sh</string>
-    <string>-c</string>
-    <string>
+  <dict>
+    <key>Label</key>
+    <string>my.startup</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>sh</string>
+      <string>-c</string>
+      <string>
       launchctl setenv DOCKER_CONFIG ~/.config/docker
       launchctl setenv IDEA_PROPERTIES ~/.config/idea/idea.properties
-    </string>
-  </array>
-  <key>RunAtLoad</key>
-  <true/>
-</dict>
+      launchctl setenv JAVA_HOME ~/.local/share/sdk/java/current
+      </string>
+    </array>
+    <key>RunAtLoad</key>
+    <true />
+  </dict>
 </plist>

@@ -8,8 +8,7 @@ if [[ -d "${XDG_DATA_HOME}/asdf/plugins/maven" ]]; then
 
 # Load maven with sdkman candidate
 elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/maven" ]]; then
-  require_once "sdkman"
-  require_once "java"
+  source_shell_lib "sdkman"
   export MAVEN_HOME="${SDKMAN_DIR}/candidates/maven/current"
   prepend_path "${MAVEN_HOME}/bin"
 

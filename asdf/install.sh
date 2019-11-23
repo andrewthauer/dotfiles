@@ -25,7 +25,7 @@ declare -A ASDF_PLUGINS=(
 # if [[ ! -d "${HOME}/.asdf" ]]; then
 #   ASDF_VERSION=v0.4.3
 #   echo "Installing asdf -- ${ASDF_VERISON}"
-#   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch ${ASDF_VERSION}
+#   git clone https://github.com/asdf-vm/asdf.git ${XDG_DATA_HOME}/asdf --branch ${ASDF_VERSION}
 #   echo "Initializing asdf ..."
 #   source ${HOME}/.asdf/asdf.sh
 # fi

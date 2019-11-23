@@ -8,8 +8,7 @@ if [[ -d "${XDG_DATA_HOME}/asdf/plugins/kotlin" ]]; then
 
 # Load kotlin with sdkman candidate
 elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/kotlin" ]]; then
-  require_once "sdkman"
-  require_once "java"
+  source_shell_lib "sdkman"
   export KOTLIN_HOME="${SDKMAN_DIR}/candidates/kotlin/current"
   prepend_path "${KOTLIN_HOME}/bin"
 

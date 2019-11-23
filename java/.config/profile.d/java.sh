@@ -2,14 +2,12 @@
 # Basic Java environment
 #
 
-SDKMAN_DIR="${SDKMAN_DIR:-$XDG_DATA_HOME/sdkman}"
-
-# Basic java env
-if [[ -d "${SDKMAN_DIR}/candidates/java/current" ]]; then
-  export JAVA_HOME="${SDKMAN_DIR}/candidates/java/current"
-  export JDK_HOME="${JAVA_HOME}"
-else
-  return 1
+# Set the JAVA_HOME
+if [[ -d "${XDG_DATA_HOME}/sdk/java/current" ]]; then
+  export JAVA_HOME="${XDG_DATA_HOME}/sdk/java/current"
+  export JDK_HOME="${JDK_HOME:-$JAVA_HOME}"
+elif [[ -z "${JAVA_HOME}" ]]; then
+  echo "\e[93mJAVA_HOME is not set"
 fi
 
 #

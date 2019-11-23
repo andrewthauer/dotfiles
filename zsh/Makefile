@@ -18,10 +18,10 @@ setup:
 	@mkdir -p $(XDG_CACHE_HOME)/zsh
 
 link: setup
-	@stow -d $(DOTFILES_DIR) -t ~ -S zsh
+	@stow -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(DOTFILES_DIR) -t ~ -S zsh
+	@stow -D -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
 
 plugins: setup
 	@$(GITHUB_INSTALL) -n sindresorhus/pure $(XDG_DATA_HOME)

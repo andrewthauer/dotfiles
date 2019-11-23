@@ -26,10 +26,10 @@ setup:
 	@mkdir -p $(XDG_DATA_HOME)/vim/{undo,site,swap,backup}
 
 link:
-	@stow -d $(DOTFILES_DIR) -t ~ -S vim
+	@stow -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(DOTFILES_DIR) -t ~ -S vim
+	@stow -D -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
 
 plugins: setup
 	@ln -fs $(XDG_DATA_HOME)/nvim/site/pack $(XDG_CONFIG_HOME)/nvim/pack

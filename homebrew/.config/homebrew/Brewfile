@@ -28,94 +28,22 @@ brew 'tmux'
 brew 'direnv'
 
 # Other
+brew 'asdf'
 brew 'cmake'
 brew 'direnv'
 brew 'gcc'
 brew 'git-open'
 brew 'gpg'
-brew 'jq'
+# brew 'jq'
 brew 'openvpn'
 brew 'openssl'
 brew 'pandoc'
 brew 'tree'
 brew 'wget'
 
-# Asdf
-brew 'asdf'
-
 # Docker completion
 brew 'docker-completion'
 # brew 'docker-compose-completion'
-
-# Node (nodenv) plugins - https://github.com/nodenv/nodenv/wiki/Plugins
-# brew 'node', link: false
-brew 'yarn'
-brew 'node-build' # used by nodenv
-brew 'nodenv'
-tap 'nodenv/nodenv'
-brew 'nodenv/nodenv/nodenv-aliases'
-brew 'nodenv/nodenv/nodenv-default-packages'
-brew 'nodenv/nodenv/nodenv-package-json-engine'
-brew 'nodenv/nodenv/nodenv-package-rehash'
-tap 'ouchxp/nodenv'
-brew 'ouchxp/nodenv/nodenv-nvmrc'
-
-# Python (pyenv)
-# brew 'python', link: false
-brew 'pyenv'
-tap 'jawshooah/pyenv'
-# brew 'jawshooah/pyenv/pyenv-default-packages'
-
-# Ruby (rbenv)
-# brew 'ruby', link: false
-brew 'ruby-build' # used by rbenv
-brew 'rbenv'
-brew 'rbenv-default-gems'
-brew 'rbenv-aliases'
-
-# Java
-brew 'jenv'
-
-#
-# Extra (for Brewfile.local)
-#
-
-# Gnu utilities
-# brew 'coreutils'
-# brew 'findutils'
-# brew 'gettext', link: true
-# brew 'gnu-indent'
-# brew 'gnu-sed'
-# brew 'gnutls'
-# brew 'grep'
-# brew 'gnu-tar'
-# brew 'gawk'
-
-# AWS
-# brew 'awscli'
-
-# Bazel build
-# tap 'bazelbuild/tap'
-# brew 'bazelbuild/tap/bazel'
-
-# Go
-# brew 'goenv', args: ['HEAD']
-
-# Kubernetes
-# brew 'kubernetes-cli'
-# brew 'kubernetes-helm'
-# brew 'kubectx'
-# brew 'skaffold'
-# brew 'stern'
-
-# Redis
-# tap 'ringohub/redis-cli'
-# brew 'redis-cli'
-
-# Misc
-# brew 'adr-tools'
-# brew 'rclone'
-# brew 'syncthing', restart_service: :changed
 
 #
 # Only macOS beyond here
@@ -147,30 +75,6 @@ cask 'visual-studio-code'
 # Caskroom fonts
 tap 'homebrew/cask-fonts'
 cask 'homebrew/cask-fonts/font-fira-code'
-
-#
-# Extra (for Brewfile.local)
-#
-
-# cask 'beyond-compare'
-# cask 'chromedriver'
-# cask 'electrum'
-# cask 'displaylink'
-# cask 'google-drive-file-stream'
-# cask 'iterm2'
-# cask 'kap'
-# cask 'osxfuse'
-# cask 'postman'
-# cask 'powershell'
-# cask 'veracrypt'
-# cask 'vagrant'
-# cask 'virtualbox'
-
-# DotNet (.NET)
-# cask 'dotnet-sdk'
-
-# Google Cloud
-# cask 'google-cloud-sdk'
 
 #
 # Local Brewfile's

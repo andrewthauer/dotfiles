@@ -1,7 +1,6 @@
 # Java
 
-This package initializes the `java` environment using
-[jenv](https://github.com/jenv/jenv) & [SDKMAN](https://sdkman.io).
+This package initializes the `java` environment.
 
 ## Setup
 
@@ -19,3 +18,4 @@ stow -t ~ -d ${$DOTFILES_DIR} java @local
 - https://sdkman.io
 - https://maven.apache.org
 - https://gradle.org
+- https://github.com/halcyon/asdf-java

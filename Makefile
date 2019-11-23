@@ -1,13 +1,13 @@
 # Package bundles
 PKG_ALL = \
-	aws bash fasd docker dotnet git golang homebrew java kotlin kubernetes \
-	node python redis ruby rust scala shell ssh tmux vim zsh
+	asdf aws bash fasd docker dotnet git golang homebrew java kotlin \
+	kubernetes node python redis ruby rust scala shell ssh tmux vim zsh
 PKG_LOCAL = @local
 PKG_MACOS = @macos
 PKG_LINUX = @linux
 
 # Default packages
-DEFAULT_PKGS = bash git shell ssh tmux vim zsh
+DEFAULT_PKGS = asdf bash git shell ssh tmux vim zsh
 DEFAULT_MACOS_PKGS = $(DEFAULT_PKGS) $(PKG_MACOS) $(PKG_LOCAL) \
 	docker fasd homebrew node python ruby
 DEFAULT_LINUX_PKGS = $(DEFAULT_PKGS) $(PKG_LINUX) $(PKG_LOCAL)
@@ -17,6 +17,7 @@ XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
+XDG_LIB_HOME := $(HOME)/.local/lib
 
 # Sub directories with makefiles
 SUBDIRS = vim zsh
@@ -54,6 +55,7 @@ chklink: setup
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
 	@chkstow -a -b -t $(XDG_BIN_HOME)
+	@chkstow -a -b -t $(XDG_LIB_HOME)
 	@chkstow -a -b -t $(HOME)/.ssh
 
 clean:

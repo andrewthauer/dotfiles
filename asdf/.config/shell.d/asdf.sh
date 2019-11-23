@@ -11,15 +11,11 @@ export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="${XDG_CONFIG_HOME}/asdf/tool-version
 
 # Use custom asdf location
 if [[ -n "${ASDF_DIR}" && -d "${ASDF_DIR}" ]]; then
-  echo "using custom asdf dir" >/dev/null
+  export ASDF_DIR
 
 # Use git cloned asdf
-elif [[ -f "${ASDF_DATA_DIR}/asdf.sh" ]]; then
-  export ASDF_DIR="${ASDF_DATA_DIR}"
-
-# Use default asdf location
-elif [[ -d "${HOME}/.asdf" ]]; then
-  export ASDF_DIR="${HOME}/.asdf"
+elif [[ -f "${XDG_DATA_HOME}/asdf/bin/asdf.sh" ]]; then
+  export ASDF_DIR="${XDG_DATA_HOME}/asdf"
 
 # Use brew installed asdf
 elif [[ -d "${BREW_PREFIX}/opt/asdf" ]]; then

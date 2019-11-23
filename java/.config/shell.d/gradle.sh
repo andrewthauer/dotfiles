@@ -8,8 +8,7 @@ if [[ -d "${XDG_DATA_HOME}/asdf/plugins/gradle" ]]; then
 
 # Load gradle with sdkman candidate
 elif [[ -d "${XDG_DATA_HOME}/sdkman/candidates/gradle" ]]; then
-  require_once "sdkman"
-  require_once "java"
+  source_shell_lib "sdkman"
   export GRADLE_HOME="${SDKMAN_DIR}/candidates/gradle/current"
   prepend_path "${GRADLE_HOME}/bin"
 

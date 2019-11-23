@@ -4,39 +4,13 @@
 # - https://github.com/nodenv/nodenv
 #
 
-export NODENV_ROOT="${XDG_DATA_HOME}/nodenv"
-
-_nodenv_init() {
-  # expensive operation
-  eval "$(nodenv init - --no-rehash)"
-
-  # Rehash in the background
-  # (nodenv rehash &) 2> /dev/null"
-}
-
-_nodenv_lazy_init() {
-  unset -f "$0"
-
-  # faster alternative to full 'nodenv init'
-  export NODENV_SHELL="${CURRENT_SHELL:-$SHELL}"
-  prepend_path "${NODENV_ROOT}/shims"
-
-  # lazy initialize
-  lazyfunc _nodenv_init nodenv
-}
-
 # Use asdf if installed
 if [[ -d "${XDG_DATA_HOME}/asdf/plugins/nodejs" ]]; then
   echo "using asdf" >/dev/null
 
 # Load package manager installed nodenv into shell session
-elif command_exists "nodenv"; then
-  _nodenv_lazy_init
-
-# Load manually installed nodenv into the shell session
-elif [[ -s "${NODENV_ROOT:-$HOME/.nodenv}/bin/nodenv" ]]; then
-  prepend_path "${NODENV_ROOT}/bin"
-  _nodenv_lazy_init
+elif command_exists "nodenv" || [[ -s "${XDG_DATA_HOME}/nodenv/bin/nodenv" ]]; then
+  source_shell_lib 'nodenv'
 
 # Return if requirements not found
 elif ! command_exists "node"; then
