@@ -1,9 +1,7 @@
 # Node.js
 
-This package initializes the `node.js` environment with
-[nodenv](https://github.com/nodenv/nodenv).
+This package initializes the `node.js` environment.
 
 ## Resources
 
 - https://nodejs.org
-- https://github.com/nodenv/nodenv

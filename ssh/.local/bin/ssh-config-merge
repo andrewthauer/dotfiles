@@ -21,7 +21,7 @@ target="${target:-$HOME/.ssh/config}"
 
 # Truncate the file
 if [[ -e "$HOME/.ssh/config" ]]; then
-  echo "Do you want to replace the existing '$target' file [y/N]?"
+  printf "Do you want to replace the existing '$target' file [y/N]? "
   read reply
   if [[ $reply =~ ^[Yy]$ ]]; then
     cat /dev/null > $target

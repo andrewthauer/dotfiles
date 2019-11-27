@@ -4,17 +4,8 @@
 # - https://github.com/rbenv/rbenv
 #
 
-# Use asdf if installed
-if [[ -d "${XDG_DATA_HOME}/asdf/plugins/ruby" ]]; then
-  echo "using asdf" >/dev/null
-
-# Load package manager installed rbenv into shell session
-elif command_exists "rbenv" || [[ -s "${XDG_DATA_HOME}/rbenv/bin/rbenv" ]]; then
-  source_shell_lib "rbenv"
-
 # Return if requirements not found
-elif ! command_exists "ruby"; then
-  unset -f _rbenv_init
+if ! command_exists "ruby"; then
   return 1
 fi
 

@@ -4,17 +4,8 @@
 # - https://github.com/nodenv/nodenv
 #
 
-# Use asdf if installed
-if [[ -d "${XDG_DATA_HOME}/asdf/plugins/nodejs" ]]; then
-  echo "using asdf" >/dev/null
-
-# Load package manager installed nodenv into shell session
-elif command_exists "nodenv" || [[ -s "${XDG_DATA_HOME}/nodenv/bin/nodenv" ]]; then
-  source_shell_lib 'nodenv'
-
 # Return if requirements not found
-elif ! command_exists "node"; then
-  unset -f _nodenv_init
+if ! command_exists "node"; then
   return 1
 fi
 
@@ -39,7 +30,3 @@ alias npm-list-g="npm list -g --depth=0 2>/dev/null"
 # npm outdated
 alias npm-outdated="npm outdated --depth 0 -q"
 alias npm-outdated-g="npm outdated -g --depth 0 -q"
-
-# nodenv
-alias nodenv-alias="nodenv alias"
-alias nodenv-dpi="nodenv default-packages install --all"

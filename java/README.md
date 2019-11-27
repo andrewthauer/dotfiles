@@ -14,8 +14,8 @@ stow -t ~ -d ${$DOTFILES_DIR} java @local
 
 ## Resources
 
-- https://github.com/jenv/jenv
+- https://github.com/halcyon/asdf-java
 - https://sdkman.io
+- https://github.com/jenv/jenv
 - https://maven.apache.org
 - https://gradle.org
-- https://github.com/halcyon/asdf-java

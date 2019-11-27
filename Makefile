@@ -1,7 +1,7 @@
 # Package bundles
 PKG_ALL = \
-	asdf aws bash fasd docker dotnet git golang homebrew java kotlin \
-	kubernetes node python redis ruby rust scala shell ssh tmux vim zsh
+	asdf aws bash fasd docker git homebrew java node python \
+	ruby shell ssh tmux vim zsh
 PKG_LOCAL = @local
 PKG_MACOS = @macos
 PKG_LINUX = @linux
@@ -17,7 +17,6 @@ XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
-XDG_LIB_HOME := $(HOME)/.local/lib
 
 # Sub directories with makefiles
 SUBDIRS = vim zsh
@@ -39,8 +38,12 @@ all: setup link $(SUBDIRS)
 setup:
 	@stow -t $(HOME) -d $(CURDIR) -S stow
 	@mkdir -p $(CURDIR)/$(PKG_LOCAL)
+	@mkdir -p $(XDG_CONFIG_HOME)/git
 	@mkdir -p $(XDG_CONFIG_HOME)/less
 	@mkdir -p $(XDG_CACHE_HOME)/less
+ifeq ($(shell uname), Darwin)
+	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
+endif
 
 link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S $(DEFAULT_PKGS)
@@ -55,21 +58,27 @@ chklink: setup
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
 	@chkstow -a -b -t $(XDG_BIN_HOME)
-	@chkstow -a -b -t $(XDG_LIB_HOME)
 	@chkstow -a -b -t $(HOME)/.ssh
 
 clean:
 	@rm -f $(HOME)/.bashrc
 	@rm -f $(HOME)/.bash_profile
 	@rm -f $(HOME)/.hushlogin
-	@rm -f $(HOME)/.zshenv
+	@rm -f $(HOME)/.zsh*
+	@rm -rf $(HOME)/.ssh/id_*
 	@rm -rf $(HOME)/.ssh/config.d
+	@rm -f $(HOME)/.stowrc
 	@rm -f $(HOME)/.stow-global-ignore
-	@rm -rf $(XDG_CONFIG_HOME)/homebrew
+	@rm -f $(XDG_CONFIG_HOME)/asdf/*
 	@rm -f $(XDG_CONFIG_HOME)/bash
-	@rm -rf $(XDG_CONFIG_HOME)/git
+	@rm -f $(XDG_CONFIG_HOME)/gem
+	@rm -f $(XDG_CONFIG_HOME)/git/*
+	@rm -f $(XDG_CONFIG_HOME)/homebrew/*
+	@rm -f $(XDG_CONFIG_HOME)/maven/*
 	@rm -f $(XDG_CONFIG_HOME)/nvim
+	@rm -f $(XDG_CONFIG_HOME)/profile
 	@rm -f $(XDG_CONFIG_HOME)/profile.d/*
+	@rm -f $(XDG_CONFIG_HOME)/python
 	@rm -f $(XDG_CONFIG_HOME)/shell.d/*
 	@rm -f $(XDG_CONFIG_HOME)/tmux
 	@rm -f $(XDG_CONFIG_HOME)/wgetrc
