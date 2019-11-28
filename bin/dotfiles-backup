@@ -20,7 +20,7 @@ rsync \
   -arv \
   --delete \
   --exclude='.git' \
-  "${DOTFILES_DIR}/@local" \
+  "${DOTFILES_DIR}/local" \
   "${TARGET_DIR}"
 
 exit 0

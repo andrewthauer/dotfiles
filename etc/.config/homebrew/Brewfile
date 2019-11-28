@@ -1,0 +1,87 @@
+#!/usr/bin/env ruby
+#
+# Homebrew Bundle file
+# - https://github.com/Homebrew/homebrew-bundle
+#
+
+# Pre-requisites
+brew 'git'
+brew 'make'
+brew 'stow'
+
+# Bash
+brew 'bash'
+brew 'bash-completion@2'
+brew 'vcprompt'
+
+# Zsh
+brew 'zsh'
+brew 'zsh-autosuggestions'
+brew 'zsh-completions'
+brew 'zsh-history-substring-search'
+brew 'zsh-syntax-highlighting'
+
+# Core shell packages
+brew 'fasd'
+brew 'fzf'
+brew 'neovim'
+brew 'tmux'
+brew 'direnv'
+
+# Other
+brew 'asdf'
+brew 'cmake'
+brew 'direnv'
+brew 'gcc'
+brew 'git-open'
+brew 'gpg'
+# brew 'jq'
+brew 'openvpn'
+brew 'openssl'
+brew 'pandoc'
+brew 'tree'
+brew 'wget'
+
+# Docker completion
+brew 'docker-completion'
+# brew 'docker-compose-completion'
+
+#
+# Only macOS beyond here
+#
+
+require 'os'
+return unless OS.mac?
+
+# macOS specific taps
+tap 'homebrew/cask'
+tap 'homebrew/cask-versions'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/services'
+
+# Caskroom apps
+cask '1password'
+cask '1password-cli'
+cask 'dash'
+cask 'docker'
+cask 'homebrew/cask-versions/firefox-developer-edition'
+cask 'google-chrome'
+cask 'hammerspoon'
+cask 'karabiner-elements'
+cask 'slack'
+cask 'spotify'
+cask 'veracrypt'
+cask 'visual-studio-code'
+
+# Caskroom fonts
+tap 'homebrew/cask-fonts'
+cask 'homebrew/cask-fonts/font-fira-code'
+
+#
+# Local Brewfile's
+#
+
+Dir.glob(File.expand_path('~/.config/homebrew/Brewfile.*')).each do |file|
+  next if file.end_with?('.lock.json')
+  instance_eval File.read(file) if File.exists?(file)
+end

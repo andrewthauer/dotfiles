@@ -67,11 +67,10 @@ install_prerequisites() {
 }
 
 install_brew() {
-  echo "Do you want to install homebrew [y/N]?"
-  read answer
+  printf "Do you want to install homebrew [y/N]? "; read answer
   case "${answer}" in [yY]|[yY][eE][sS])
     # Install homebrew & default dependencies
-    ${DOTFILES_DIR}/homebrew/install.sh
+    ${DOTFILES_DIR}/opt/homebrew/install.sh ;;
   esac
 }
 

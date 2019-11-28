@@ -5,8 +5,9 @@
 *.*log
 
 # ignore these directories
-/@local
-/tmp
+/local*
+/tmp*
+/opt-local*
 
 # anything else local or secrets
 **/secrets

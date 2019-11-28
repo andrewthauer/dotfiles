@@ -36,7 +36,6 @@ install_java_latest() {
 install_maven() {
   if confirm "Do you want to install maven"; then
     sdk install maven
-    cp -n $DIR/.config/maven/settings.example.xml $DOTFILES_DIR/@local/.config/maven/settings.xml
   fi
 }
 

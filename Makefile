@@ -1,63 +1,63 @@
 # Package bundles
-PKG_ALL = \
-	asdf aws bash fasd docker git homebrew java node python \
-	ruby shell ssh tmux vim zsh
-PKG_LOCAL = @local
-PKG_MACOS = @macos
-PKG_LINUX = @linux
-
-# Default packages
-DEFAULT_PKGS = asdf bash git shell ssh tmux vim zsh
-DEFAULT_MACOS_PKGS = $(DEFAULT_PKGS) $(PKG_MACOS) $(PKG_LOCAL) \
-	docker fasd homebrew node python ruby
-DEFAULT_LINUX_PKGS = $(DEFAULT_PKGS) $(PKG_LINUX) $(PKG_LOCAL)
+OPT_PKGS = \
+	asdf aws docker dotnet git goenv java jenv kotlin kubernetes nodejs \
+	nodenv openvpn postgres python powershell pyenv rbenv redis ruby rust \
+	scala sdkman ssh
+LOCAL_PKG = local
+DEFAULT_OPT_PKGS = asdf git ssh
+SYSTEM_PKG =
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
+# Non standard
 XDG_BIN_HOME := $(HOME)/.local/bin
+XDG_LIB_HOME := $(HOME)/.local/lib
 
 # Sub directories with makefiles
 SUBDIRS = vim zsh
 
 # macOS specific settings
 ifeq ($(shell uname), Darwin)
-	DEFAULT_PKGS := $(DEFAULT_PKGS) $(DEFAULT_MACOS_PKGS)
-	SUBDIRS := $(SUBDIRS) $(PKG_MACOS)
+	SYSTEM_PKG = macos
+	SUBDIRS := $(SUBDIRS) system/$(SYSTEM_PKG)
 endif
 
 # Linux specific settings
 ifeq ($(shell uname), Linux)
-	DEFAULT_PKGS := $(DEFAULT_PKGS) $(DEFAULT_MACOS_PKGS)
-	SUBDIRS := $(SUBDIRS) $(PKG_LINUX)
+	SYSTEM_PKG = linux
+	SUBDIRS := $(SUBDIRS) system/$(SYSTEM_PKG)
 endif
 
 all: setup link $(SUBDIRS)
 
 setup:
 	@stow -t $(HOME) -d $(CURDIR) -S stow
-	@mkdir -p $(CURDIR)/$(PKG_LOCAL)
-	@mkdir -p $(XDG_CONFIG_HOME)/git
-	@mkdir -p $(XDG_CONFIG_HOME)/less
-	@mkdir -p $(XDG_CACHE_HOME)/less
-ifeq ($(shell uname), Darwin)
-	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
-endif
+	@mkdir -p $(CURDIR)/$(LOCAL_PKG)
 
 link: setup
-	@stow -t $(HOME) -d $(CURDIR) -S $(DEFAULT_PKGS)
+	@stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKG)
+	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
+	@stow -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 
 unlink: setup
-	@stow -D -t $(HOME) -d $(CURDIR) -S $(PKG_ALL)
+	@stow -D -t $(HOME) -d $(CURDIR) -S etc
+	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
+	@stow -D -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 
 chklink: setup
-	@echo "\n--- These are currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR) $(PKG_ALL)
+	@echo "\n--- Files from `etc` currently unlinked ---\n"
+	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKG)
+	@echo "\n--- System package files currently unlinked ---\n"
+	@stow -n -v -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
+	@echo "\n--- Optional package files currently unlinked ---\n"
+	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
 	@chkstow -a -b -t $(XDG_BIN_HOME)
+	@chkstow -a -b -t $(XDG_LIB_HOME)
 	@chkstow -a -b -t $(HOME)/.ssh
 
 clean:
@@ -73,7 +73,9 @@ clean:
 	@rm -f $(XDG_CONFIG_HOME)/bash
 	@rm -f $(XDG_CONFIG_HOME)/gem
 	@rm -f $(XDG_CONFIG_HOME)/git/*
+	@rm -f $(XDG_CONFIG_HOME)/hammerspoon
 	@rm -f $(XDG_CONFIG_HOME)/homebrew/*
+	@rm -f $(XDG_CONFIG_HOME)/karabiner
 	@rm -f $(XDG_CONFIG_HOME)/maven/*
 	@rm -f $(XDG_CONFIG_HOME)/nvim
 	@rm -f $(XDG_CONFIG_HOME)/profile
@@ -83,7 +85,8 @@ clean:
 	@rm -f $(XDG_CONFIG_HOME)/tmux
 	@rm -f $(XDG_CONFIG_HOME)/wgetrc
 	@rm -f $(XDG_CONFIG_HOME)/zsh
-	@rm -f $(XDG_BIN_HOME)/*
+	# @rm -f $(XDG_BIN_HOME)/*
+	# @rm -f $(XDG_LIB_HOME)/*
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)

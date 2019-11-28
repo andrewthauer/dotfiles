@@ -20,8 +20,8 @@
 - **limited dependencies** make it very portable.
 - **[`stow`](https://www.gnu.org/software/stow/) powered:** symlink dotfiles and
   thus keep them always up-to-date.
-- **topical organization** to organize dotfiles by topic for easy reuse across
-  different machines.
+- **topical organized** packages by topic for easy reuse across different
+  machines.
 - **[xdg compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
   when possible to keep `$HOME` clean <sup id="a1">[1](#f1)</sup>.
 - **install scripts** for brand new systems and specific topic areas.
@@ -54,9 +54,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
 
 See
 
-- [macOS](@macos/README.md)
-- [Linux](@linux/README.md)
-- [Windows](@windows/README.md)
+- [macOS](sysstem/macos/README.md)
+- [Linux](system/linux/README.md)
+- [Windows](system/windows/README.md)
 
 ## Documentation
 
@@ -67,22 +67,22 @@ within the `$HOME` directory.
 
 ## Directories
 
-- OS specific packages are prefixed with `@`.
-- Local system configs & secrets should be added to the `@local` directory and
-  never committed.
-- These are currently special folders:
-  - `bin` - General purpose scripts which are added to the path
-  - `lib` - Core utilities used throughout. Must be sourced up front
-  - `test` - Used to run some basic tests
+- `bin` - General purpose scripts which are added to the path.
+- `etc` - Common shell configurations.
+- `lib` - Core utilities used throughout. Must be sourced up front.
+- `local` - Local system configs & secrets that should never be committed.
+- `opt` - Optional packages that can be stowed.
+- `stow` - Contains base stow config (must be stowed first).
+- `system` - OS specific package settings.
+- `test` - Used to run some basic tests.
+
+_NOTE: Directories starting with an `_underscore` will be ignored by stow._
 
 ### Local Customization
 
-The `@local` directory (git ignored) can be used to customize the dotfiles for a
+The `local` directory (git ignored) can be used to customize the dotfiles for a
 particular environment. It is also a good place to store an secret information
 you don't want to commit to source control.
-
-_NOTE: Make sure you create a `@local/.stow-local-ignore` file to avoid
-symlinking unwanted paths._
 
 ## Testing
 

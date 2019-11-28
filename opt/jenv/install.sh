@@ -18,7 +18,6 @@ install_jenv() {
 install_maven() {
   if confirm "Do you want to install maven"; then
     jenv enable-plugin maven
-    cp -n $DIR/.config/maven/settings.example.xml $DOTFILES_DIR/@local/.config/maven/settings.xml
   fi
 }
 
