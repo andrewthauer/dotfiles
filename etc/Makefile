@@ -8,9 +8,15 @@ XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
 
 # Commands
-GITHUB_INSTALL = $(DOTFILES_DIR)/git/.local/bin/github-install
+GITHUB_INSTALL = $(DOTFILES_DIR)/opt/git/.local/bin/github-install
+
+# Vim pack directories
+VIM_PACK_DIR = $(XDG_DATA_HOME)/nvim/site/pack
+PACK_START_DIR = $(VIM_PACK_DIR)/default/start
 
 all: setup link vim zsh
+
+etc: all
 
 setup:
 	@mkdir -p $(HOME)/.ssh/config.d

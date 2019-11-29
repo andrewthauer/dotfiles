@@ -1,7 +1,7 @@
 # Package bundles
 OPT_PKGS = \
-	asdf aws docker dotnet git goenv java jenv kotlin kubernetes nodejs \
-	nodenv openvpn postgres python powershell pyenv rbenv redis ruby rust \
+	asdf aws docker dotnet git goenv gradle java jenv kotlin kubernetes nodejs \
+	maven nodenv openvpn postgres python powershell pyenv rbenv redis ruby rust \
 	scala sdkman ssh
 LOCAL_PKG = local
 DEFAULT_OPT_PKGS = asdf git ssh
@@ -16,7 +16,7 @@ XDG_BIN_HOME := $(HOME)/.local/bin
 XDG_LIB_HOME := $(HOME)/.local/lib
 
 # Sub directories with makefiles
-SUBDIRS = vim zsh
+SUBDIRS = etc opt/java
 
 # macOS specific settings
 ifeq ($(shell uname), Darwin)
@@ -35,6 +35,11 @@ all: setup link $(SUBDIRS)
 setup:
 	@stow -t $(HOME) -d $(CURDIR) -S stow
 	@mkdir -p $(CURDIR)/$(LOCAL_PKG)
+	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
+	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
+	@mkdir -p $(XDG_DATA_HOME)/shell.d
+	@mkdir -p $(XDG_BIN_HOME)
+	@mkdir -p $(XDG_LIB_HOME)
 
 link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKG)
@@ -65,7 +70,6 @@ clean:
 	@rm -f $(HOME)/.bash_profile
 	@rm -f $(HOME)/.hushlogin
 	@rm -f $(HOME)/.zsh*
-	@rm -rf $(HOME)/.ssh/id_*
 	@rm -rf $(HOME)/.ssh/config.d
 	@rm -f $(HOME)/.stowrc
 	@rm -f $(HOME)/.stow-global-ignore
@@ -85,8 +89,6 @@ clean:
 	@rm -f $(XDG_CONFIG_HOME)/tmux
 	@rm -f $(XDG_CONFIG_HOME)/wgetrc
 	@rm -f $(XDG_CONFIG_HOME)/zsh
-	# @rm -f $(XDG_BIN_HOME)/*
-	# @rm -f $(XDG_LIB_HOME)/*
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)
