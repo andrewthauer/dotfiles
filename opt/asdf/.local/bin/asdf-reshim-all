@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Clear & reshim all the asdf shims
+#
+# usage:
+#   asdf-reshim-all
+#
+
+if [[ -d "${ASDF_DATA_DIR}/shims" ]]; then
+  rm ${ASDF_DATA_DIR}/shims/*
+  asdf reshim
+else
+  echo "asdf shims directory could not be found"
+  exit 1
+fi

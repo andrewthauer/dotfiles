@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Create asdf aliases
+#
+# usage:
+#   asdf-alias [plugin] [alias] [version]
+#
+# example:
+#   asdf-alias java 11.0 adopt-openjdk-11.0
+#
+
+set -e
+
+usage() {
+  echo "Usage: asdf-alias [plugin] [alias] [version]"
+}
+
+main() {
+  plugin="$1"
+  alias="$2"
+  version="$3"
+  installs_dir="${ASDF_DATA_DIR}/installs"
+
+  if [[ -z "${alias}" ]] || [[ -z "${version}" ]]; then
+    usage
+    exit 1
+  fi
+
+  if [[ ! -d "${installs_dir}/${plugin}" ]]; then
+    echo "The plugin '${plugin}' could not be found"
+    exit 1
+  fi
+
+  if [[ -L "${installs_dir}/${plugin}/${alias}" ]]; then
+    echo "Alias '${alias}' already exits"
+    exit 1
+  fi
+
+  pushd "${installs_dir}/${plugin}" >/dev/null
+  ln -s "${version}" "${alias}"
+  echo "Alias '${alias}' created"
+  popd >/dev/null
+}
+
+main "$@"
