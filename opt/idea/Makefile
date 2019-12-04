@@ -4,19 +4,18 @@ PARENT_DIR = $(CURDIR)/..
 XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
-XDG_BIN_HOME := $(HOME)/.local/bin
 
 # macOS specific
 LAUNCH_AGENTS = $(HOME)/Library/LaunchAgents
-SOURCE_ENV_PLIST = $(CURDIR)/_macos/Library/LaunchAgents/java-env.plist
-TARGET_ENV_PLIST = $(LAUNCH_AGENTS)/java-env.plist
+SOURCE_ENV_PLIST = $(CURDIR)/_macos/Library/LaunchAgents/idea-env.plist
+TARGET_ENV_PLIST = $(LAUNCH_AGENTS)/idea-env.plist
 
-all: setup link
+all: link
 
-java: all
+idea: all
 
 setup:
-	@mkdir -p $(XDG_DATA_HOME)/sdk/{java,maven,maven}
+	@mkdir -p $(XDG_CONFIG_HOME)/idea
 
 link: setup
 	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))

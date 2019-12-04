@@ -22,6 +22,7 @@ SUBDIRS = etc opt/java
 ifeq ($(shell uname), Darwin)
 	SYSTEM_PKG = macos
 	SUBDIRS := $(SUBDIRS) system/$(SYSTEM_PKG)
+	LAUNCH_AGENTS = $(HOME)/Library/LaunchAgents
 endif
 
 # Linux specific settings
@@ -64,6 +65,9 @@ chklink: setup
 	@chkstow -a -b -t $(XDG_BIN_HOME)
 	@chkstow -a -b -t $(XDG_LIB_HOME)
 	@chkstow -a -b -t $(HOME)/.ssh
+ifeq ($(shell uname), Darwin)
+	@chkstow -a -b -t $(LAUNCH_AGENTS)
+endif
 
 clean:
 	@rm -f $(HOME)/.bashrc

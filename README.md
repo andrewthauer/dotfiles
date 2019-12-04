@@ -78,11 +78,15 @@ within the `$HOME` directory.
 
 _NOTE: Directories starting with an `_underscore` will be ignored by stow._
 
-### Local Customization
+## Local Customization
 
 The `local` directory (git ignored) can be used to customize the dotfiles for a
 particular environment. It is also a good place to store an secret information
 you don't want to commit to source control.
+
+## Commands
+
+- `make chklink` - reports links that are not installed or potentially broken.
 
 ## Testing
 
