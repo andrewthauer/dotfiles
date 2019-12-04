@@ -6,7 +6,7 @@
 \set PROMPT1 '%M:%> %n@%/%R%#%x '
 \set PROMPT2 '%M %n@%/%R %# '
 \set COMP_KEYWORD_CASE upper
-\pset null '[null]'
+\pset null '(null)'
 \timing
 \set HISTSIZE 2000
 \x auto
