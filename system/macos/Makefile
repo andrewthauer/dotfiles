@@ -1,4 +1,4 @@
-DOTFILES_DIR = $(CURDIR)/../..
+PARENT_DIR = $(CURDIR)/..
 LAUNCH_AGENTS = $(HOME)/Library/LaunchAgents
 
 # XDG directories
@@ -16,10 +16,10 @@ all: link setenv hammerspoon xdg
 macos: all
 
 link:
-	@stow -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
 
 setenv:
 	@launchctl unload $(LAUNCH_AGENTS)/environment.plist

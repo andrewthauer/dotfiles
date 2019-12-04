@@ -1,4 +1,4 @@
-DOTFILES_DIR = $(CURDIR)/../..
+PARENT_DIR = $(CURDIR)/..
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -14,7 +14,7 @@ setup:
 	@mkdir -p $(XDG_DATA_HOME)/sdk/{java,maven,maven}
 
 link: setup
-	@stow -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(DOTFILES_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
