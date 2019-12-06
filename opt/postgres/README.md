@@ -27,6 +27,8 @@ psql -h [host] -p [port] -U [user] -d [database]
 - `\df` - list all functions
 - `\df+ [fn]` - list function info
 - `\x` - toggle expanded display results
+- `\i` - run sql file in relative path
+- `\ir` - run sql file at absolute path
 
 ## Resources
 

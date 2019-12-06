@@ -28,6 +28,18 @@ brew 'neovim'
 brew 'tmux'
 brew 'direnv'
 
+# Gnu utilities
+brew 'coreutils'
+# brew 'findutils'
+# brew 'gettext', link: true
+# brew 'gnu-indent'
+# brew 'gnu-sed'
+# brew 'gnutls'
+# brew 'grep'
+# brew 'gnu-tar'
+# brew 'gawk'
+brew 'parallel'
+
 # Other
 brew 'asdf'
 brew 'cmake'

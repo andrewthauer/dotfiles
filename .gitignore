@@ -6,8 +6,8 @@
 
 # ignore these directories
 /local*
+/*-local
 /tmp*
-/opt-local*
 
 # anything else local or secrets
 **/secrets
