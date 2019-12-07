@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+#
+# description:
+#   Moves the directory to an xdg path and symlinks inplace
+#
+
+set -e
+
+usage() {
+  echo "Usage: mv-to-xdg [path] [xdg] [parent] [rename_to]"
+  echo "";
+  echo "  [path] - source path (will strip leading dots)"
+  echo "  [xdg] - the xdg target [config | data | cache]"
+  echo "  [parent] - parent directory in xdg target"
+  echo "  [rename_to] - (optional) rename the source file"
+  echo ""
+  echo "Examples:"
+  echo ""
+  echo "  mv-to-xdg ~/.bashrc config"
+  echo "  mv-to-xdg ~/.zhistory cache zsh history"
+}
+
+get_xdg_dir() {
+  if [[ "$1" == 'config' ]]; then
+    echo "${XDG_CONFIG_HOME}"
+  elif [[ "$1" == 'data' ]]; then
+    echo "${XDG_DATA_HOME}"
+  elif [[ "$1" == 'cache' ]]; then
+    echo "${XDG_CACHE_HOME}"
+  fi
+}
+
+main() {
+  # check arguments
+  xdg_dir="$(get_xdg_dir $2)"
+  if [[ -z "$1" || -z "$xdg_dir" ]]; then
+    usage
+    exit 1
+  fi
+
+  # compute paths
+  src_path="$(realpath $1)"
+  src_name=$(basename $src_path)
+  src_dir=$(realpath $src_path)
+  target_parent="${3:-}"
+  target_name="${4:-$src_name}"
+  target_dir="$xdg_dir/$target_parent"
+  target_path="$target_dir/${target_name#.}"
+
+  # move the item to the xdg path
+  echo mkdir -p "$target_dir"
+  echo mv "$src_dir" "$target_path"
+
+  # compute the relative path
+  relative_path="$(realpath --relative-to="$src_path" "$target_path")"
+  relative_path="${relative_path#../}"
+
+  # create a symlink for the original source to the target
+  pushd $src_dir >/dev/null
+  echo ln -s "$relative_path" "$src_name"
+  popd >/dev/null
+}
+
+main $@

@@ -6,6 +6,8 @@
 # usage:
 #   vpn [profile_dir_name]
 
+sudo -v
+
 (
   OPENVPN_PROFILE_DIR="${OPENVPN_PROFILE_DIR:-$HOME/.config/openvpn/profiles}"
   [[ -n $1 ]] && cd "${OPENVPN_PROFILE_DIR}/$1"

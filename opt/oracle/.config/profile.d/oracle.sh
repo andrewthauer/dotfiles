@@ -4,8 +4,7 @@
 
 # Load oracle from brew
 if [[ -f "/usr/local/bin/sqlplus" ]]; then
-  # export ORACLE_HOME="${OIC_DIR}"
-  export DYLD_LIBRARY_PATH="${BREW_PREFIX}/lib"
+  echo "n/a" >/dev/null
 
 # Load oracle from custom directory
 elif [[ -d "${HOME}/.local/lib/oracle/instantclient" ]]; then
