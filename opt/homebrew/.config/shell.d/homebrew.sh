@@ -53,8 +53,6 @@ alias brewbl="brewb list"
 
 # Homebrew Cask
 alias cask="brew cask"
-alias caskc="brew cask cleanup --outdated"
-alias caskC="brew cask cleanup"
 alias caski="brew cask install"
 alias caskl="brew cask list"
 alias casko="brew cask outdated"
@@ -62,5 +60,5 @@ alias casks="brew cask search"
 alias caskx="brew cask uninstall"
 
 # Composite aliases
-alias brewupgrade="brew update && brew upgrade"
+alias brewupgrade="brew update && brew bundle && brew cleanup"
 alias brewclean="brew cleanup && brew cask cleanup"
