@@ -1,9 +1,7 @@
 # Package bundles
-OPT_PKGS = \
-	asdf aws docker dotnet git goenv gradle java jenv kotlin kubernetes nodejs \
-	maven nodenv openvpn postgres python powershell pyenv rbenv redis ruby rust \
-	scala sdkman ssh
-LOCAL_PKG = local
+OPT_PKGS = $(sort $(notdir $(wildcard ./opt/*)))
+LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
+LOCAL_OPT_PKGS = $(sort $(notdir $(wildcard ./opt-local/*)))
 DEFAULT_OPT_PKGS = asdf git ssh
 SYSTEM_PKG =
 
@@ -33,9 +31,12 @@ endif
 
 all: setup link $(SUBDIRS)
 
+dummy:
+	echo $(sort $(notdir $(wildcard ./opt*/*)))
+
 setup:
 	@stow -t $(HOME) -d $(CURDIR) -S stow
-	@mkdir -p $(CURDIR)/$(LOCAL_PKG)
+	@mkdir -p $(CURDIR)/local
 	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
 	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
 	@mkdir -p $(XDG_DATA_HOME)/shell.d
@@ -43,28 +44,29 @@ setup:
 	@mkdir -p $(XDG_LIB_HOME)
 
 link: setup
-	@stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKG)
+	@stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
 	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
 	@stow -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 
 unlink: setup
-	@stow -D -t $(HOME) -d $(CURDIR) -S etc
+	@stow -D -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
+	@stow -D -t $(HOME) -d $(CURDIR)/opt-local -S $(LOCAL_OPT_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 
 chklink: setup
 	@echo "\n--- Files from `etc` currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKG)
+	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
 	@echo "\n--- System package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 	@echo "\n--- Optional package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
+	@stow -n -v -t $(HOME) -d $(CURDIR)/opt-local -S $(LOCAL_OPT_PKGS)
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
 	@chkstow -a -b -t $(XDG_BIN_HOME)
 	@chkstow -a -b -t $(XDG_LIB_HOME)
-	@chkstow -a -b -t $(HOME)/.ssh
 ifeq ($(shell uname), Darwin)
 	@chkstow -a -b -t $(LAUNCH_AGENTS)
 endif
