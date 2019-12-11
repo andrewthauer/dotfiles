@@ -4,16 +4,17 @@
 #   Create asdf aliases
 #
 # usage:
-#   asdf-alias [plugin] [alias] [version]
+#   asdf-alias [plugin] [alias] [version | --rm]
 #
 # example:
 #   asdf-alias java 11.0 adopt-openjdk-11.0
+#   asdf-alias java 11.0 --rm
 #
 
 set -e
 
 usage() {
-  echo "Usage: asdf-alias [plugin] [alias] [version]"
+  echo "Usage: asdf-alias [plugin] [alias] [version | --rm]"
 }
 
 main() {
@@ -22,25 +23,39 @@ main() {
   version="$3"
   installs_dir="${ASDF_DATA_DIR}/installs"
 
+  # ensure valid args
   if [[ -z "${alias}" ]] || [[ -z "${version}" ]]; then
     usage
     exit 1
   fi
 
+  # ensure the plugin exists
   if [[ ! -d "${installs_dir}/${plugin}" ]]; then
     echo "The plugin '${plugin}' could not be found"
     exit 1
   fi
 
+  # check if the alias already exists
   if [[ -L "${installs_dir}/${plugin}/${alias}" ]]; then
-    echo "Alias '${alias}' already exits"
-    exit 1
+    if [[ ${version} == "--rm" ]]; then
+      # remove the alias
+      rm "${installs_dir}/${plugin}/${alias}"
+      echo "Alias '${alias}' removed"
+      exit 0
+    else
+      echo "Alias '${alias}' already exits"
+      exit 1
+    fi
   fi
 
+  # create the alias
   pushd "${installs_dir}/${plugin}" >/dev/null
   ln -s "${version}" "${alias}"
   echo "Alias '${alias}' created"
   popd >/dev/null
+
+  # reshim the plugin
+  asdf reshim ${plugin}
 }
 
 main "$@"
