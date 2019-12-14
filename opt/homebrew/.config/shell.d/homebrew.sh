@@ -1,21 +1,9 @@
 #
-# Initialize homebrew environment
+# Initialize homebrew helpers
 #
 # - https://brew.sh
 # - https://docs.brew.sh/Homebrew-on-Linux
 #
-
-# Linuxbrew initialization (if applicable)
-if [[ "$OSTYPE" == linux* ]]; then
-  if [[ -x "$(command -v brew)" ]]; then
-    [[ -z ${BREW_PREFIX} ]] && BREW_PREFIX="$(brew --prefix)"
-    eval $(${BREW_PREFIX}/bin/brew shellenv)
-  elif [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-  elif [[ -d "~/.linuxbrew" ]]; then
-    eval $(~/.linuxbrew/bin/brew shellenv)
-  fi
-fi
 
 # Check requirements
 if ! command_exists "brew"; then
@@ -23,9 +11,14 @@ if ! command_exists "brew"; then
 fi
 
 #
-# XDG specification
+# Environment
 #
+
+# XDG specification
 export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/homebrew/Brewfile"
+
+# Do not create a lock file
+export HOMEBREW_BUNDLE_NO_LOCK
 
 #
 # Aliases

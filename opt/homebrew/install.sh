@@ -18,7 +18,9 @@ if [[ ! -x "$(command -v brew)" ]]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   elif [[ "${OSTYPE}" == linux* ]]; then
     # Make sure this is in the path
-    export PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+    if [[ ! "$PATH" == */home/linuxbrew/.linuxbrew/bin* ]]; then
+      PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+    fi
 
     # Install linuxbrew
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"

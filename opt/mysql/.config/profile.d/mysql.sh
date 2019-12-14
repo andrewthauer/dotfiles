@@ -10,5 +10,5 @@ export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql/history"
 
 # Add mysql binaries to path
 if [[ -d "/usr/local/opt/mysql-client/bin" ]]; then
-  PATH="/usr/local/opt/mysql-client/bin:$PATH"
+  prepend_path "/usr/local/opt/mysql-client/bin"
 fi

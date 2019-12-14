@@ -14,8 +14,3 @@ source_files_in $XDG_CONFIG_HOME/zsh/init.d/*.zsh
 
 # Source common interactive shell scripts
 source_files_in $XDG_CONFIG_HOME/shell.d/*.sh
-
-# Load the local zsh file
-if [[ -f "${XDG_CONFIG_HOME}/zsh/.zshrc.local" ]]; then
-  source "${XDG_CONFIG_HOME}/zsh/.zshrc.local"
-fi
