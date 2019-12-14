@@ -12,6 +12,11 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 # Load common shell env
 source "${XDG_CONFIG_HOME}/environment"
 
+# Load the common shell login shell profile
+if shopt -q login_shell; then
+  source "${XDG_CONFIG_HOME}/profile"
+fi
+
 # Ensure the xdg data directory exists
 [[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p "${XDG_DATA_HOME}/bash"
 

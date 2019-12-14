@@ -6,9 +6,6 @@
 # Enable zprof performance profiling
 [[ -n $PROFILE_STARTUP ]] && zmodload zsh/zprof
 
-# Do not throw errors when file globs do not match anything
-setopt NULL_GLOB
-
 # Source zsh core scripts
 source_files_in $XDG_CONFIG_HOME/zsh/init.d/*.zsh
 

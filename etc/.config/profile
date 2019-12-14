@@ -1,4 +1,13 @@
 #!/usr/bin/env sh
 #
-# Common login shell
+# Common login shell profile
 #
+
+# Append bin directories to path
+prepend_path "${DOTFILES_DIR}/bin"
+prepend_path "${HOME}/.local/bin"
+
+# Load extra profile files into login shell env
+if [[ -d "${XDG_CONFIG_HOME}/profile.d" ]]; then
+  source_files_in ${XDG_CONFIG_HOME}/profile.d/*
+fi

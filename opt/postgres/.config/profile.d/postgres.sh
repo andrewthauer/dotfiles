@@ -2,11 +2,11 @@
 # Postgres
 #
 
-# Xdg directories
+# Create XDG directories if needed
 [[ ! -d "${XDG_CONFIG_HOME}/pg" ]] && mkdir -p "${XDG_CONFIG_HOME}/pg"
 [[ ! -d "${XDG_CACHE_HOME}/pg" ]] && mkdir "${XDG_CACHE_HOME}/pg"
 
-# Xdg config
+# XDG specification
 export PSQLRC="${XDG_CONFIG_HOME}/pg/psqlrc"
 export PSQL_HISTORY="${XDG_CACHE_HOME}/pg/psql_history"
 export PGPASSFILE="${XDG_CONFIG_HOME}/pg/pgpass"

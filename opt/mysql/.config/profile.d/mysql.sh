@@ -2,10 +2,10 @@
 # MySQL
 #
 
-# Xdg directories
+# Create XDG directories if needed
 [[ ! -d "${XDG_DATA_HOME}/mysql" ]] && mkdir "${XDG_DATA_HOME}/mysql"
 
-# Xdg config
+# XDG config
 export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql/history"
 
 # Add mysql binaries to path

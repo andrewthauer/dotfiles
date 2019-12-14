@@ -2,8 +2,5 @@
 # Vim environment
 #
 
-# Replace vim with neovim
-if [[ -x $(command -v nvim) ]]; then
-  alias vi="nvim"
-  alias vim="nvim"
-fi
+# Remap ~/.vimrc for XDG specification
+export VIMINIT=":source $XDG_CONFIG_HOME/nvim/init.vim"
