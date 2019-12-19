@@ -92,9 +92,9 @@
   # Pull submodules and all recursively
   pulla = !git pull && git submodule update --init --recursive && git submodule update --recursive
   # Push force no-verify
-  pushf= push -f --no-verify
+  pushf = push --force-with-lease --no-verify
   # Push upstream
-  pushu= !git push -u origin `git branch-name`
+  pushu = !git push -u origin `git branch-name`
   # Rebase
   rb = rebase
   # Rebase default branch (master, develop, etc)

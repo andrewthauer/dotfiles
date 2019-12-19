@@ -40,8 +40,6 @@ alias brewuses="brew uses --installed"
 
 # Homebrew Bundle
 alias brewb="brew bundle"
-alias brewbh="brewb --help"
-alias brewbi="brewb install"
 alias brewbl="brewb list"
 
 # Homebrew Cask
@@ -53,5 +51,5 @@ alias casks="brew cask search"
 alias caskx="brew cask uninstall"
 
 # Composite aliases
-alias brewupgrade="brew update && brew bundle && brew cleanup"
-alias brewclean="brew cleanup && brew cask cleanup"
+alias brew-upgrade="brew update && brew bundle && brew cleanup"
+alias brew-clean="brew cleanup && brew cask cleanup"

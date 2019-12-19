@@ -1,7 +1,7 @@
 # Package bundles
 OPT_PKGS = $(sort $(notdir $(wildcard ./opt/*)))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-LOCAL_OPT_PKGS = $(sort $(notdir $(wildcard ./opt-local/*)))
+LOCAL_OPT_PKGS = $(sort $(notdir $(wildcard ./local-opt/*)))
 DEFAULT_OPT_PKGS = asdf git ssh
 SYSTEM_PKG =
 
@@ -35,7 +35,6 @@ dummy:
 	echo $(sort $(notdir $(wildcard ./opt*/*)))
 
 setup:
-	@stow -t $(HOME) -d $(CURDIR) -S stow
 	@mkdir -p $(CURDIR)/local
 	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
 	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
@@ -51,7 +50,7 @@ link: setup
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
-	@stow -D -t $(HOME) -d $(CURDIR)/opt-local -S $(LOCAL_OPT_PKGS)
+	@stow -D -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 
 chklink: setup
@@ -61,7 +60,7 @@ chklink: setup
 	@stow -n -v -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 	@echo "\n--- Optional package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
-	@stow -n -v -t $(HOME) -d $(CURDIR)/opt-local -S $(LOCAL_OPT_PKGS)
+	@stow -n -v -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)

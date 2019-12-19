@@ -59,6 +59,9 @@ brew 'wget'
 brew 'docker-completion'
 # brew 'docker-compose-completion'
 
+# Dev related
+brew 'yarn', args: ["ignore-dependencies"]
+
 #
 # Only macOS beyond here
 #
@@ -77,7 +80,7 @@ cask '1password'
 cask '1password-cli'
 cask 'dash'
 cask 'docker'
-cask 'homebrew/cask-versions/firefox-developer-edition'
+cask 'firefox-developer-edition'
 cask 'google-chrome'
 cask 'hammerspoon'
 cask 'karabiner-elements'
@@ -88,7 +91,7 @@ cask 'visual-studio-code'
 
 # Caskroom fonts
 tap 'homebrew/cask-fonts'
-cask 'homebrew/cask-fonts/font-fira-code'
+cask 'font-fira-code'
 
 #
 # Local Brewfile's

@@ -3,6 +3,12 @@
 This directory contains common shell configurations that are potentially
 relevant to any system. It is designed to work with both `bash` & `zsh`.
 
+## Stow
+
+This package contains configurations for
+[GNU Stow](https://www.gnu.org/software/stow/). The `.stow-global-ignore`
+contains various common patterns to ignore when symlinking dotfiles to `~`.
+
 ## Bash
 
 Bash does not support the XDG spec, so the standard files are sourced
