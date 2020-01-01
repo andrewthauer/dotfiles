@@ -115,6 +115,8 @@
   st = status -sb
   # Show current branch status with untracked files
   stu = status --untracked-files
+  # Switch branches
+  sw = switch
   # Pull & push the current branch
   sync = !git pull && git push
   # Update a fork
