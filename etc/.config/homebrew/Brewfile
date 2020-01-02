@@ -48,7 +48,7 @@ brew 'gcc'
 brew 'git-open'
 brew 'gpg'
 brew 'jq'
-brew 'openvpn'
+# brew 'openvpn'
 brew 'openssl'
 brew 'pandoc'
 # brew 'shfmt'
@@ -61,6 +61,15 @@ brew 'docker-completion'
 
 # Dev related
 brew 'yarn', args: ["ignore-dependencies"]
+
+#
+# Local Brewfile's
+#
+
+Dir.glob(File.expand_path('~/.config/homebrew/Brewfile.*')).each do |file|
+  next if file.end_with?('.lock.json')
+  instance_eval File.read(file) if File.exists?(file)
+end
 
 #
 # Only macOS beyond here
@@ -92,12 +101,3 @@ cask 'visual-studio-code'
 # Caskroom fonts
 tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
-
-#
-# Local Brewfile's
-#
-
-Dir.glob(File.expand_path('~/.config/homebrew/Brewfile.*')).each do |file|
-  next if file.end_with?('.lock.json')
-  instance_eval File.read(file) if File.exists?(file)
-end
