@@ -41,6 +41,7 @@ setup:
 	@mkdir -p $(XDG_DATA_HOME)/shell.d
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
+	@ln -sf .dotfiles/etc/.stow-global-ignore $(HOME)/.stow-global-ignore
 
 link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
