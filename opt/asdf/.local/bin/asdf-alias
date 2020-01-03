@@ -4,18 +4,24 @@
 #   Symlink a short name to an exact version
 #
 # usage:
-#   asdf-alias <name> [<version> | --auto | --remove]
-#   asdf-alias --auto
-#   asdf-alias [--list]
+#   asdf-alias <plugin> <name> [<version> | --auto | --remove]"
+#   asdf-alias <plugin> --auto"
+#   asdf-alias <plugin> [--list]"
 #
-# example:
+# examples:
 #   asdf-alias java 11.0 adopt-openjdk-11.0
-#   asdf-alias java 11.0 --rm
+#   asdf-alias java 11.0 --remove
+#   asdf-alias java --auto
+#   asdf-alias java --list
+#   asdf-alias java --remove
 #
 # notes:
 #   Symlink a short name to an exact version. Passing a second argument of
 #   --auto selects the latest patch release of the given point version. Passing
 #   a first argument of auto does the same for all installed point releases.
+#
+# credit:
+#   This was based on https://github.com/nodenv/nodenv-aliases
 #
 
 set -e
@@ -24,9 +30,9 @@ shopt -s nullglob
 
 usage() {
   echo "usage"
-  echo "  asdf-alias <name> [<version> | --auto | --remove]"
-  echo "  asdf-alias --auto"
-  echo "  asdf-alias [--list]"
+  echo "  asdf-alias <plugin> <name> [<version> | --auto | --remove]"
+  echo "  asdf-alias <plugin> --auto"
+  echo "  asdf-alias <plugin> [--list]"
 }
 
 resolve_link() {
