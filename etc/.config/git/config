@@ -103,6 +103,8 @@
   rbc = rebase --continue
   # Shortcut for `git rebase --interactive`
   rbi = rebase --interactive
+  # Shortcut for `git rebase --interactive master`
+  rbm = rebase --interactive master
   # Reset to origin/master
   reset-to-master = !git fetch origin && git reset --hard origin/master
   # Reset to origin/[current-branch]

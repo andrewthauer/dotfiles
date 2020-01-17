@@ -44,23 +44,29 @@ setup:
 	@ln -sf .dotfiles/etc/.stow-global-ignore $(HOME)/.stow-global-ignore
 
 link: setup
-	@stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
+	@stow -t $(HOME) -d $(CURDIR) -S etc local
 	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
 	@stow -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
+	# @stow -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
+	# @stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
 
 unlink: setup
-	@stow -D -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
+	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
-	@stow -D -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
+	# @stow -D -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
+	# @stow -D -t $(HOME) -d $(CURDIR) -S $(LOCAL_PKGS)
 
-chklink: setup
-	@echo "\n--- Files from `etc` currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
+chklink:
+	@echo "\n--- Files from 'etc' currently unlinked ---\n"
+	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc
 	@echo "\n--- System package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 	@echo "\n--- Optional package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
+	@echo "\n--- Local packages currently unlinked ---\n"
+	@stow -n -v -t $(HOME) -d $(CURDIR) -S local
+	# @stow -n -v -t $(HOME) -d $(CURDIR) -S $(LOCAL_PKGS)
 	@stow -n -v -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)

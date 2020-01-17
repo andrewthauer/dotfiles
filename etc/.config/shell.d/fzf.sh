@@ -26,7 +26,7 @@ if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
 fi
 
 # Auto-completion
-[[ $- == *i* ]] && source "${FZF_DIR}/shell/completion.${SHELL_TYPE}" 2> /dev/null
+[[ $- == *i* ]] && source "${FZF_DIR}/shell/completion.${SHELL_TYPE}" 2>/dev/null
 
 # Key bindings
 source "${FZF_DIR}/shell/key-bindings.${SHELL_TYPE}"
@@ -34,3 +34,7 @@ source "${FZF_DIR}/shell/key-bindings.${SHELL_TYPE}"
 # Cleanup
 unset FZF_DIR
 unset SHELL_TYPE
+
+# Default command
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --preview 'cat {}'"
