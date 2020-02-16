@@ -15,3 +15,10 @@ fi
 
 export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc.py"
 export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
+
+#
+# Aliases
+#
+
+alias pipreq="pip install -r requirements.txt"
+alias pe="pipenv"

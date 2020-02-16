@@ -60,8 +60,9 @@ hs.hotkey.bind(hyper, "w", mouseHighlight)
 hs.hotkey.bind(hyper, "r", function() hs.reload() end)
 
 -- Launch or focus certain applications
+-- hs.hotkey.bind(hyper, "c", function() hs.application.launchOrFocus("Google Chrome") end)
+hs.hotkey.bind(hyper, "d", function() hs.application.launchOrFocus("Dash") end)
 hs.hotkey.bind(hyper, "f", function() hs.application.launchOrFocus("Firefox Developer Edition") end)
-hs.hotkey.bind(hyper, "c", function() hs.application.launchOrFocus("Google Chrome") end)
 hs.hotkey.bind(hyper, "j", function() hs.application.launchOrFocus("IntelliJ IDEA") end)
 hs.hotkey.bind(hyper, "s", function() hs.application.launchOrFocus("Slack") end)
 hs.hotkey.bind(hyper, "t", function() hs.application.launchOrFocus("iTerm") end)
