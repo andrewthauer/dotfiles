@@ -47,6 +47,7 @@ brew 'bats-core'
 brew 'cmake'
 brew 'gcc'
 brew 'git-open'
+brew 'github/gh/gh'
 brew 'gpg'
 brew 'hub'
 brew 'htop'
@@ -84,8 +85,9 @@ return unless OS.mac?
 
 # macOS specific taps
 tap 'homebrew/cask'
-tap 'homebrew/cask-versions'
+tap 'homebrew/cask-drivers'
 tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
 tap 'homebrew/services'
 
 # Caskroom apps
