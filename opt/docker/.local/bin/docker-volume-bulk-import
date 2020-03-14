@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Imports all files from a directory into a docker volume
+#
+# usage:
+#   docker-volume-bulk-import
+#
+# examples:
+#   docker-volume-bulk-import /path/to/data volume_name
+#
+
+main() {
+  source=$1
+  volume=$2
+
+  docker container create --name docker_volume_cp -v $volume:/data alpine
+  # ls $source | xargs -n 1 -I arg echo "docker cp arg docker_volume_cp:/data"
+  ls $source | xargs -n 1 -I arg docker cp arg docker_volume_cp:/data
+  docker rm docker_volume_cp
+}
+
+main $*

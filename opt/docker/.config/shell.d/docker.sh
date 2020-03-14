@@ -12,8 +12,15 @@ fi
 
 alias dk='docker'
 
+# General
+alias dprune='docker system prune'
+
+# Registry
+alias di-tags='docker-tags $*'
+
 # Images
 alias di='docker images'
+alias diprune='docker images prune'
 alias dbuild='docker build'
 alias dhist='docker history'
 alias dpull="docker pull"
@@ -23,14 +30,9 @@ alias drmi_all='docker rmi $* $(docker images -a -q)'
 alias drmi_dang='docker rmi $* $(docker images -q -f dangling=true)'
 alias drmi_tags='docker-rmi-all-tags'
 
-# Registry
-alias di-tags='docker-tags $*'
-
 # Containers
+alias dls='docker ps -a'
 alias dps='docker ps'
-alias dpsa='docker ps -a'
-alias dpsc='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}"'
-alias dpsl='docker ps -l $*'
 alias dstart='docker start $*'
 alias dstop='docker stop $*'
 alias dstop_all='docker stop $* $(docker ps -q -f status=running)'
@@ -41,17 +43,26 @@ alias dexeci='docker exec -it $*'
 alias drun='docker run $*'
 alias drunit='docker run -it $*'
 alias dinspect='docker inspect $*'
-alias dlog='docker logs'
+alias dlogs='docker logs'
 alias dip='docker inspect --format="{{.NetworkSettings.IPAddress}}" $*'
 alias drm='docker rm'
 alias drm_stopped='docker rm -v $* $(docker ps -q -f status=exited)'
 alias drm_all='docker rm -v $* $(docker ps -a -q)'
+alias dcp='docker container prune'
 
 # Volumes
+alias dvc='docker volume create'
+alias dvcp='docker volume create --label retention-policy=persistent $*'
 alias dvls='docker volume ls $*'
+alias dvlsa='docker volume ls --format "{{.Name}}: {{.Driver}} {{.Labels}}:"'
 alias dvrm='docker volume rm $*'
-alias dvrm_all='docker volume rm $(docker volume ls -q)'
-alias dvrm_dang='docker volume rm $(docker volume ls -q -f dangling=true)'
+alias dvp="docker volume prune"
+alias dvi="docker volume inspect"
+alias dvrm_clean='docker volume ls -q -f dangling=true | grep -x ".\{64,64\}" | xargs docker volume rm'
+# alias dvrm_all='docker volume rm $(docker volume ls -q)'
+# alias dvrm_all='docker volume ls -q | xargs docker volume rm'
+# alias dvrm_dang='docker volume rm $(docker volume ls -q -f dangling=true)'
+# alias dvrm_dang='docker volume ls -q -f dangling=true | docker volume rm'
 
 # docker-compose
 alias dco='docker-compose'
