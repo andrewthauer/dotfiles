@@ -4,8 +4,10 @@
   "editor.trimAutoWhitespace": true,
   "files.associations": {
     "*gemrc": "yaml",
-    "*ignore": "gitignore",
+    "**/git/config*": "ini",
+    "**/git/credentials*": "ini",
     "*profile*": "shellscript",
+    "*ignore": "gitignore",
     "**/.ssh/config.d/*": "ssh_config",
     "*vimrc*": "viml"
   },
