@@ -9,6 +9,10 @@
 [push]
   default = simple
 
+[rebase]
+  # Git message starts with !fixup
+	autosquash = true
+
 [rerere]
   enabled = true
 
@@ -31,6 +35,8 @@
   ci = commit
   # Commit ammend
   cia = !git commit --amend
+  # Commit fixup (git commit --fixup :/second)
+  cif = !git commit --fixup
   # Commit then squashbase
   cis = !git commit -m 'chore: squash' && git squash
   # Commit then squashbase
