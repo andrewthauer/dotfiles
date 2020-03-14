@@ -32,9 +32,9 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 # - https://github.com/zsh-users/zsh-completions
 # - NOTE: Must be loaded before running compinit
 if [[ -d "${XDG_DATA_HOME}/zsh-completions/src" ]]; then
-  fpath=("${XDG_DATA_HOME}/zsh-completions/src" $fpath)
+  fpath=( $fpath "${XDG_DATA_HOME}/zsh-completions/src")
 elif [[ -n ${BREW_PREFIX} && -d "${BREW_PREFIX}/share/zsh-completions" ]]; then
-  fpath=("${BREW_PREFIX}/share/zsh-completions" $fpath)
+  fpath=( $fpath "${BREW_PREFIX}/share/zsh-completions")
 fi
 
 #
@@ -46,7 +46,7 @@ fi
 # cache time of 20 hours, so it should almost always regenerate the first time a
 # shell is opened each day.
 autoload -Uz compinit
-_zcompdump="${XDG_CACHE_HOME}/zsh/zcompdump"
+_zcompdump="${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zsh/zcompdump}"
 _comp_files=(${_zcompdump}(Nm-20))
 if (($#_comp_files)); then
   compinit -i -C -d "$_zcompdump"

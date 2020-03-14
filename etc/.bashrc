@@ -15,6 +15,3 @@ fi
 
 # Source bash core scripts
 source_files_in $XDG_CONFIG_HOME/bash/init.d/*.sh
-
-# Source common interactive shell scripts
-source_files_in $XDG_CONFIG_HOME/shell.d/*.sh
