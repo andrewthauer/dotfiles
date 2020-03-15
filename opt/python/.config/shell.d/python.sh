@@ -20,5 +20,5 @@ export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
 # Aliases
 #
 
-alias pipreq="pip install -r requirements.txt"
-alias pe="pipenv"
+alias pipreq='pip install -r requirements.txt'
+alias pe='pipenv'

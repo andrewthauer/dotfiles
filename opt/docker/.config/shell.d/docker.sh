@@ -23,7 +23,7 @@ alias di='docker images'
 alias diprune='docker images prune'
 alias dbuild='docker build'
 alias dhist='docker history'
-alias dpull="docker pull"
+alias dpull='docker pull'
 alias dpull_all='docker images --format "{{.Repository}}:{{.Tag}}" | grep ':latest' | xargs -L1 docker pull'
 alias drmi='docker rmi'
 alias drmi_all='docker rmi $* $(docker images -a -q)'
@@ -56,8 +56,8 @@ alias dvcp='docker volume create --label retention-policy=persistent $*'
 alias dvls='docker volume ls $*'
 alias dvlsa='docker volume ls --format "{{.Name}}: {{.Driver}} {{.Labels}}:"'
 alias dvrm='docker volume rm $*'
-alias dvp="docker volume prune"
-alias dvi="docker volume inspect"
+alias dvp='docker volume prune'
+alias dvi='docker volume inspect'
 alias dvrm_clean='docker volume ls -q -f dangling=true | grep -x ".\{64,64\}" | xargs docker volume rm'
 # alias dvrm_all='docker volume rm $(docker volume ls -q)'
 # alias dvrm_all='docker volume ls -q | xargs docker volume rm'
@@ -84,8 +84,8 @@ alias dclogsf='docker-compose logs -f'
 alias dctail='docker-compose logs --tail=all -f'
 
 # docker machine
-alias dm="docker-machine"
-alias dmls="docker-machine ls"
+alias dm='docker-machine'
+alias dmls='docker-machine ls'
 
 #
 # Remove all tags for image name

@@ -3,4 +3,6 @@
 #
 
 # Go to the dotfiles directory
-[[ -n "${DOTFILES_DIR}" ]] && alias dotdir="cd ${DOTFILES_DIR}"
+if [[ -n "${DOTFILES_DIR}" ]]; then
+  alias dotdir='cd ${DOTFILES_DIR}'
+fi

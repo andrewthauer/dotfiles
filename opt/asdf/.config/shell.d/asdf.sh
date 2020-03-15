@@ -42,4 +42,4 @@ fi
 # Aliases & helpers
 #
 
-alias asdfc="asdf current"
+alias asdfc='asdf current'

@@ -25,31 +25,31 @@ export HOMEBREW_BUNDLE_NO_LOCK
 #
 
 # Homebrew
-alias brewc="brew cleanup"
-alias brewi="brew install"
-alias brewu="brew uninstall"
-alias brewl="brew list"
-alias brewo="brew outdated"
-alias brewr="brew remove"
-alias brews="brew search"
+alias brewc='brew cleanup'
+alias brewi='brew install'
+alias brewu='brew uninstall'
+alias brewl='brew list'
+alias brewo='brew outdated'
+alias brewr='brew remove'
+alias brews='brew search'
 
 # Dependencies
-alias brewdeps="brew deps --installed"
-alias brewleaves="brew leaves"
-alias brewuses="brew uses --installed"
+alias brewdeps='brew deps --installed'
+alias brewleaves='brew leaves'
+alias brewuses='brew uses --installed'
 
 # Homebrew Bundle
-alias brewb="brew bundle"
-alias brewbl="brewb list"
+alias brewb='brew bundle'
+alias brewbl='brewb list'
 
 # Homebrew Cask
-alias cask="brew cask"
-alias caski="brew cask install"
-alias caskl="brew cask list"
-alias casko="brew cask outdated"
-alias casks="brew cask search"
-alias caskx="brew cask uninstall"
+alias cask='brew cask'
+alias caski='brew cask install'
+alias caskl='brew cask list'
+alias casko='brew cask outdated'
+alias casks='brew cask search'
+alias caskx='brew cask uninstall'
 
 # Composite aliases
-alias brew-upgrade="brew update && brew bundle && brew cleanup"
-alias brew-clean="brew cleanup && brew cask cleanup"
+alias brew-upgrade='brew update && brew bundle && brew cleanup'
+alias brew-clean='brew cleanup && brew cask cleanup'

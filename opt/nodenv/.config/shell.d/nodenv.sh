@@ -46,5 +46,5 @@ fi
 # Aliases
 #
 
-alias nodenv-alias="nodenv alias"
-alias nodenv-dpi="nodenv default-packages install --all"
+alias nodenv-alias='nodenv alias'
+alias nodenv-dpi='nodenv default-packages install --all'

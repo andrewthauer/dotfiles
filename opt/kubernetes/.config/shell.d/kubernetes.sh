@@ -41,20 +41,20 @@ fi
 #
 
 # general
-alias k="kubectl"
-alias kcheat="open https://kubernetes.io/docs/reference/kubectl/cheatsheet"
+alias k='kubectl'
+alias kcheat='open https://kubernetes.io/docs/reference/kubectl/cheatsheet'
 
 # config & contexts
-alias kgc="kubectl config get-contexts"
+alias kgc='kubectl config get-contexts'
 
 # describe
-alias kdesc="kubectl describe"
-alias kdescp="kubectl describe pods"
+alias kdesc='kubectl describe'
+alias kdescp='kubectl describe pods'
 
 # resources
-alias kpods="kubectl get pods"
-alias kpodsa="kubectl get pods --all-namespaces"
-alias kpodsi="kpods -o jsonpath="{..image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c"
+alias kpods='kubectl get pods'
+alias kpodsa='kubectl get pods --all-namespaces'
+alias kpodsi='kpods -o jsonpath="{..image}" | tr -s "[[:space:]]" "\n" | sort | uniq -c'
 
 # logs
-alias klog="kubectl logs"
+alias klog='kubectl logs'
