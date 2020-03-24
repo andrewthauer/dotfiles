@@ -40,31 +40,46 @@ brew 'gnu-tar'
 brew 'gawk'
 brew 'parallel'
 
-# Other
-brew 'ag'
-brew 'asdf'
-brew 'bats-core'
-brew 'cmake'
-brew 'gcc'
-brew 'git-open'
-brew 'github/gh/gh'
-brew 'gpg'
-brew 'hub'
+# System utils
 brew 'htop'
-brew 'jq'
-# brew 'openvpn'
+brew 'inetutils'
 brew 'openssl'
-brew 'pandoc'
-brew 'ripgrep'
-brew 'shfmt', link: true, overwrite: true
+brew 'openvpn'
 brew 'tree'
 brew 'wget'
+
+# Search utils
+brew 'ag'
+brew 'jq'
+brew 'ripgrep'
+
+# Shell utils
+brew 'bats-core'
+brew 'shellcheck'
+brew 'shfmt', link: true, overwrite: true
+
+# Git utils
+brew 'git-open'
+brew 'github/gh/gh'
+brew 'hub'
+
+# Graphics & conversions
+brew 'graphviz'
+brew 'imagemagick'
+brew 'pandoc'
+brew 'plantuml'
+
+# Other
+brew 'asdf'
+brew 'gpg'
 
 # Docker completion
 brew 'docker-completion'
 # brew 'docker-compose-completion'
 
 # Dev related
+brew 'cmake'
+brew 'gcc'
 brew 'yarn', args: ["ignore-dependencies"]
 
 #
@@ -106,5 +121,4 @@ cask 'veracrypt'
 cask 'visual-studio-code'
 
 # Caskroom fonts
-tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
