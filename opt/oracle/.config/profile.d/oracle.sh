@@ -2,11 +2,11 @@
 # Oracle environment
 #
 
-# Load oracle from brew
+# Load oracle from brew prefix
 if [[ -f "/usr/local/bin/sqlplus" ]]; then
-  # export ORACLE_HOME="/usr/local/opt/instantclient-sqlplus"
-  # export DYLD_LIBRARY_PATH="${ORACLE_HOME}/lib"
-  echo "n/a" >/dev/null
+  export ORACLE_HOME="/usr/local/opt/instantclient-sqlplus"
+  export DYLD_LIBRARY_PATH="${ORACLE_HOME}/lib"
+  prepend_path "${ORACLE_HOME}/bin"
 fi
 
 # XDG specification
