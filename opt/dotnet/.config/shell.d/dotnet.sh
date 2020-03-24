@@ -2,7 +2,12 @@
 # Initialize dotnet environment
 #
 
-if command_exists "dotnet"; then
+# Use asdf if installed
+if [[ -d "${XDG_DATA_HOME}/asdf/plugins/dotnet-core" ]]; then
+  echo "using asdf" >/dev/null
+
+# Use system installed version
+elif command_exists "dotnet"; then
   _dotnet_init() {
     # expensive operation
     DOTNET_ROOT="$(dirname $(command -v dotnet))"
