@@ -15,7 +15,7 @@ foreground_color="#DEDEDE"
 background_color="#191919"
 bold_color="#000000"
 cursor_foreground_color="#848484"
-cursor_background_color="#19191"
+cursor_background_color="#191919"
 highlight_foreground_color="#DEDEDE"
 highlight_background_color="#AB937D"
 
