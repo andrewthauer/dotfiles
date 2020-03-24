@@ -12,8 +12,8 @@ fi
 # Aliases
 #
 
-alias r='redis-cli'
-alias rkeys='redis-cli KEYS "*"'
-alias rscana='redis-cli --scan --pattern "*"'
-alias rflusha='redis-cli FLUSHALL'
-alias rflushdb='redis-cli FLUSHDB'
+alias redis='redis-cli'
+alias redis-keys='redis-cli KEYS "*"'
+alias redis-scana='redis-cli --scan --pattern "*"'
+alias redis-flusha='redis-cli FLUSHALL'
+alias redis-flushdb='redis-cli FLUSHDB'
