@@ -51,5 +51,5 @@ alias casks='brew cask search'
 alias caskx='brew cask uninstall'
 
 # Composite aliases
-alias brew-upgrade='brew update && brew bundle && brew cleanup'
-alias brew-clean='brew cleanup && brew cask cleanup'
+alias brew-upgrade='brew update && brew upgrade && brew bundle && brew cleanup'
+alias brewupg='brew-upgrade'

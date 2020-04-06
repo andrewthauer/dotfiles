@@ -36,6 +36,10 @@ if [[ -n "${BASH_VERSION}" ]]; then
   elif [[ -f "${BREW_PREFIX}/etc/bash_completion.d/asdf.bash" ]]; then
     source "${BREW_PREFIX}/etc/bash_completion.d/asdf.bash"
   fi
+elif [[ -n "${ZSH_VERSION}" ]]; then
+  if [[ -f "${ASDF_DIR}/completions/_asdf" ]]; then
+    fpath=($fpath "${ASDF_DIR}/completions")
+  fi
 fi
 
 #
