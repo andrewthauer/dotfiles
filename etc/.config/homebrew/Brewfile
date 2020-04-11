@@ -117,6 +117,7 @@ cask 'iterm2'
 cask 'karabiner-elements'
 cask 'slack'
 cask 'spotify'
+cask 'tunnelblick'
 cask 'veracrypt'
 cask 'visual-studio-code'
 
