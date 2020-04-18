@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Recursively removes a directory pattern
+#
+
+set -e
+
+usage() {
+  echo "Usage: rimraf-dir [pattern]"
+  echo ""
+  echo "Example:"
+  echo "  rimraf-dir node_modules"
+}
+
+main() {
+  pattern="$@"
+
+  if [[ -z $pattern ]]; then
+    usage
+    exit 1
+  fi
+
+  confirm "Recursively delete '$pattern' directories" || exit 1
+
+  echo find . -name \"$pattern\" -type d -prune -exec rm -rf '{}' +
+}
+
+main $@

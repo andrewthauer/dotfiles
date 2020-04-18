@@ -9,12 +9,12 @@
 #
 
 confirm() {
-  msg=$1
+  msg="$1"
 
   [[ -z "$1" ]] && msg="Are you sure?"
   confirm_msg="${msg} [y/N]?"
 
-  echo "$confirm_msg "
+  printf "${confirm_msg} "
   read answer
 
   case "${answer}" in [yY] | [yY][eE][sS])
@@ -25,4 +25,4 @@ confirm() {
   exit 1
 }
 
-confirm $@
+confirm "$@"
