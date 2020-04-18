@@ -63,7 +63,8 @@ brew 'git-open'
 brew 'github/gh/gh'
 brew 'hub'
 
-# Graphics & conversions
+# Documents, graphics & conversions
+brew 'asciidoctor'
 brew 'graphviz'
 brew 'imagemagick'
 brew 'pandoc'
@@ -118,6 +119,7 @@ cask 'karabiner-elements'
 cask 'slack'
 cask 'spotify'
 cask 'tunnelblick'
+cask 'typora'
 cask 'veracrypt'
 cask 'visual-studio-code'
 

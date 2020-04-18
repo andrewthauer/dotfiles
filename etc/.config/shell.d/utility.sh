@@ -42,9 +42,13 @@ alias findhere='find . -name'
 # Resource Usage
 #
 
+# Disk usage
 alias df='df -kh'
 alias du='du -kh'
+alias du1='du -kh -d1'
+alias du1s='du1 | sort -h'
 
+# Memory & cpu
 if [[ "$OSTYPE" == darwin* || "$OSTYPE" == *bsd* ]]; then
   alias topc='top -o cpu'
   alias topm='top -o vsize'
