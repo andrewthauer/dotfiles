@@ -15,7 +15,8 @@ set -e
 TARGET_DIR="${1:-$HOME/.ssh}"
 
 # Get the name of the new key
-printf "Key name (default: id_rsa): "; read KEY_NAME
+printf "Key name (default: id_rsa): "
+read KEY_NAME
 KEY_NAME="${KEY_NAME:-id_rsa}"
 
 # The path to the new key
@@ -28,7 +29,8 @@ else
 fi
 
 # Get username or comment
-printf "Username or comment: "; read COMMENT
+printf "Username or comment: "
+read COMMENT
 [[ -n "$COMMENT" ]] && COMMENT_ARG="-C ${COMMENT}"
 
 # Generate a new ssh key key

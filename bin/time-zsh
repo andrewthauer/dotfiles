@@ -18,7 +18,7 @@ if [[ "$1" == "-p" ]]; then
 # repeat startup time 10 times
 elif [[ "$1" == "-r" ]]; then
   for i in $(seq 1 10); do
-    $time_cmd zsh -i -l -c exit;
+    $time_cmd zsh -i -l -c exit
   done
 
 # single startup time

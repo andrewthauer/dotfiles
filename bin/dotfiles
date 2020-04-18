@@ -2,18 +2,15 @@
 #
 # Dotfiles root command
 #
-# usage:
-#   dotfiles [cmd]
-#
 
 set -o errexit -o pipefail -o noclobber -o nounset
 
 usage() {
   echo "Usage: dotfiles [command]"
-  echo "";
-  echo "COMMANDS:";
-  echo "  backup     Backups up the local dotfiles directory";
-  echo "  help       Prints this message";
+  echo ""
+  echo "COMMANDS:"
+  echo "  backup     Backups up the local dotfiles directory"
+  echo "  help       Prints this message"
 }
 
 main() {

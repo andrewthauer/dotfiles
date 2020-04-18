@@ -17,7 +17,10 @@ expand_path() {
 expand_source() {
   local src="$1"
   local filename=$(basename $src)
-  local src_file="$(cd $(dirname $src); pwd)/$filename"
+  local src_file="$(
+    cd $(dirname $src)
+    pwd
+  )/$filename"
   echo "${src_file}"
 }
 
@@ -50,7 +53,7 @@ symlink_item() {
 
   # Dry run
   if [[ -n "$dry_run" ]]; then
-    return;
+    return
   fi
 
   # Remove existing symlinks
@@ -74,4 +77,4 @@ main() {
   symlink_item "$source" "$target" "$dry_run"
 }
 
-main $@;
+main $@

@@ -17,8 +17,9 @@ confirm() {
   echo "$confirm_msg "
   read answer
 
-  case "${answer}" in [yY]|[yY][eE][sS])
+  case "${answer}" in [yY] | [yY][eE][sS])
     exit 0
+    ;;
   esac
 
   exit 1

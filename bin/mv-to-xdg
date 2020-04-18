@@ -8,7 +8,7 @@ set -e
 
 usage() {
   echo "Usage: mv-to-xdg [path] [xdg] [parent] [rename_to]"
-  echo "";
+  echo ""
   echo "  [path] - source path (will strip leading dots)"
   echo "  [xdg] - the xdg target [config | data | cache]"
   echo "  [parent] - parent directory in xdg target"
