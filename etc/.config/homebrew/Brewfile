@@ -64,14 +64,13 @@ brew 'github/gh/gh'
 brew 'hub'
 
 # Documents, graphics & conversions
-brew 'asciidoctor'
+# brew 'asciidoctor'
 brew 'graphviz'
 brew 'imagemagick'
 brew 'pandoc'
 brew 'plantuml'
 
-# Other
-brew 'asdf'
+# gnu pg
 brew 'gpg'
 
 # Docker completion
@@ -79,7 +78,7 @@ brew 'docker-completion'
 # brew 'docker-compose-completion'
 
 # Dev related
-brew 'cmake'
+brew 'asdf'
 brew 'gcc'
 brew 'yarn', args: ["ignore-dependencies"]
 

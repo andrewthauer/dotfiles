@@ -54,7 +54,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
 
 See
 
-- [macOS](sysstem/macos/README.md)
+- [macOS](system/macos/README.md)
 - [Linux](system/linux/README.md)
 - [Windows](system/windows/README.md)
 

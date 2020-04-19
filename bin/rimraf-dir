@@ -22,7 +22,7 @@ main() {
 
   confirm "Recursively delete '$pattern' directories" || exit 1
 
-  echo find . -name \"$pattern\" -type d -prune -exec rm -rf '{}' +
+  find . -name \"$pattern\" -type d -prune -exec rm -rf '{}' +
 }
 
 main $@
