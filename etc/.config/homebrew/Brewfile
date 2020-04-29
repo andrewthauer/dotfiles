@@ -79,6 +79,7 @@ brew 'docker-completion'
 
 # Dev related
 brew 'asdf'
+brew 'cmake'
 brew 'gcc'
 brew 'yarn', args: ["ignore-dependencies"]
 

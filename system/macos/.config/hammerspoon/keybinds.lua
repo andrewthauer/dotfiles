@@ -2,8 +2,10 @@
 -- Key bindings
 --
 
+-- Global hyper key
+hyper = { "ctrl", "alt", "cmd", "shift" }
+
 -- Modifier shortcuts
-local hyper = { "ctrl", "alt", "cmd", "shift" }
 local movekey = { "ctrl", "alt", "cmd" }
 -- local nudgekey = { "ctrl", "alt" }
 -- local yankkey = { "ctrl", "alt", "shift" }

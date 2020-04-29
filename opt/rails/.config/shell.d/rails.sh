@@ -13,8 +13,8 @@ export DISABLE_SPRING=true
 # alias -g RET='RAILS_ENV=test'
 
 # Force to use bundle exec
-alias rails='bundle exec rails'
-alias rake='bundle exec rake'
+# alias rails='bundle exec rails'
+# alias rake='bundle exec rake'
 
 # Rails aliases
 alias rc='rails console'
