@@ -29,9 +29,11 @@ fi
 
 # Install brews using brew bundle (uses the Brewfile)
 if [[ -x "$(command -v brew)" ]]; then
-  printf "Do you want run brew bundle [y/N]? "; read answer
-  case "${answer}" in [yY]|[yY][eE][sS])
+  printf "Do you want run brew bundle [y/N]? "
+  read -r answer
+  case "${answer}" in [yY] | [yY][eE][sS])
     brewfile="${DOTFILES_DIR}/etc/.config/homebrew/Brewfile"
     HOMEBREW_BUNDLE_FILE="$brewfile" brew bundle
+    ;;
   esac
 fi

@@ -22,11 +22,12 @@ install_sdkman() {
   curl -s "https://get.sdkman.io" | bash
 
   # restart shell
-  exec $SHELL -l
+  exec "$SHELL" -l
 }
 
 install_java_latest() {
   # need to source sdkman since it is a shell function
+  # shellcheck disable=SC1090
   source "${SDKMAN_DIR:-~/.sdkman}/bin/sdkman-init.sh"
 
   # install latest version
@@ -51,15 +52,15 @@ main() {
   install_java_latest
 
   # Add versions to jenv
-  ${DIR}/.local/bin/jenv-add-all
-  ${DIR}/.local/bin/jenv-global-latest
+  "${DIR}"/.local/bin/jenv-add-all
+  "${DIR}"/.local/bin/jenv-global-latest
 
   # Install java tools
   install_maven
   install_gradle
 
   # reload the current shell
-  exec $SHELL -l
+  exec "$SHELL" -l
 }
 
 main

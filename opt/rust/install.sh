@@ -20,13 +20,13 @@ DEFAULT_CRATES=(
 
 install_components() {
   for comp in "${DEFAULT_COMPONENTS[@]}"; do
-    rustup component add $comp
+    rustup component add "$comp"
   done
 }
 
 install_crates() {
   for crate in "${DEFAULT_CRATES[@]}"; do
-    cargo install $crate
+    cargo install "$crate"
   done
 }
 
@@ -34,8 +34,8 @@ install_crates() {
 if [[ ! -x $(command -v rustup) ]]; then
   # install rust
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  mv ~/.rustup ${XDG_DATA_HOME}/rustup
-  mv ~/.cargo ${XDG_DATA_HOME}/cargo
+  mv ~/.rustup "${XDG_DATA_HOME}/rustup"
+  mv ~/.cargo "${XDG_DATA_HOME}/cargo"
 else
   # update rust
   rustup update

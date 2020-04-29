@@ -45,7 +45,7 @@ nodejs_install_hook() {
 plugin_install_hook() {
   plugin=$1
   if [[ "$(declare -Ff "${plugin}_install_hook")" ]]; then
-    ${plugin}_install_hook
+    "${plugin}_install_hook"
   fi
 }
 
@@ -54,8 +54,8 @@ echo "Adding asdf plugins ..."
 for plugin in "${!ASDF_PLUGINS[@]}"; do
   # Add plugin
   echo "Adding ${plugin} plugin"
-  asdf plugin-add ${plugin}
-  plugin_install_hook ${plugin}
+  asdf plugin-add "${plugin}"
+  plugin_install_hook "${plugin}"
 
   # Get latest desired plugin version
   filter="${ASDF_PLUGINS[$plugin]}"
@@ -63,11 +63,11 @@ for plugin in "${!ASDF_PLUGINS[@]}"; do
 
   # Install plugih version
   echo "Installing ${plugin} version ${version}"
-  asdf install ${plugin} ${version}
+  asdf install "${plugin}" "${version}"
 
   # # Set plugin global version
   echo "Global ${plugin} version ${version}"
-  asdf global ${plugin} ${version}
+  asdf global "${plugin}" "${version}"
 done
 
 # List all current versions

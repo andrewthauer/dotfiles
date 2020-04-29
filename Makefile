@@ -31,6 +31,10 @@ endif
 
 all: setup link $(SUBDIRS)
 
+check-scripts:
+	shellcheck **/*.*sh
+	# shellcheck **/bin
+
 dummy:
 	echo $(sort $(notdir $(wildcard ./opt*/*)))
 

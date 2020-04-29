@@ -1,9 +1,11 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # =============================================================================
 # NOTES:
 # - dump load gnome terminal settings
 #     https://gist.github.com/reavon/0bbe99150810baa5623e5f601aa93afc
 # =============================================================================
+
+set -e
 
 CUR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
@@ -38,7 +40,7 @@ sudo dnf install -y \
 sudo dnf install -y bash
 
 # vcprompt
-curl -sL https://github.com/djl/vcprompt/raw/master/bin/vcprompt > "${HOME}/.local/bin/vcprompt"
+curl -sL https://github.com/djl/vcprompt/raw/master/bin/vcprompt >"${HOME}/.local/bin/vcprompt"
 chmod 755 "${HOME}/.local/bin/vcprompt"
 
 # Zsh
@@ -57,9 +59,9 @@ sudo dnf install -y \
 
 # Install fasd
 git clone https://github.com/clvv/fasd "${XDG_DATA_HOME}/fasd"
-pushd "${XDG_DATA_HOME}/fasd" > /dev/null
+pushd "${XDG_DATA_HOME}/fasd" >/dev/null || exit
 sudo make install
-popd > /dev/null
+popd >/dev/null || exit
 
 #
 # Node.js
@@ -109,7 +111,7 @@ sudo dnf install fira-code-fonts
 #
 
 # Install firefox developer edition
-$CUR_DIR/../firefox/install-firefox.sh
+"$CUR_DIR/../firefox/install-firefox.sh"
 
 # Install vscode
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc

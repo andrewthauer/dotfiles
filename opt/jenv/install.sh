@@ -33,15 +33,15 @@ main() {
   install_java_latest
 
   # Add versions to jenv
-  ${DIR}/.local/bin/jenv-add-all
-  ${DIR}/.local/bin/jenv-global-latest
+  "${DIR}"/.local/bin/jenv-add-all
+  "${DIR}"/.local/bin/jenv-global-latest
 
   # Install java tools
   install_maven
   install_gradle
 
   # reload the current shell
-  exec $SHELL -l
+  exec "$SHELL" -l
 }
 
 main

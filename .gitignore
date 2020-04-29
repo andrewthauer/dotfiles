@@ -26,5 +26,8 @@
 !.zsh/functions/async
 !.zsh/functions/prompt_pure_setup
 
+# direnv
+.envrc
+
 # keep these files
 !/**/.gitkeep

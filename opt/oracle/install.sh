@@ -17,27 +17,27 @@ install_from_downloads() {
   INSTALL_SRC="$HOME/Downloads"
   DEST="$DIR/.local/lib/oracle/instantclient"
 
-  pushd $INSTALL_SRC >/dev/null
+  pushd "$INSTALL_SRC" >/dev/null
   unzip -qq instantclient-basic-macos.x64-$FULL_VERSION.zip
   unzip -qq instantclient-sqlplus-macos.x64-$FULL_VERSION.zip
   popd >/dev/null
 
-  mkdir -p $DEST/bin
-  mkdir -p $DEST/lib
-  mkdir -p $DEST/jdbc/lib
-  mkdir -p $DEST/rdbms/jlib
-  mkdir -p $DEST/sqlplus/admin
-  mkdir -p $DEST/network/admin
+  mkdir -p "$DEST/bin"
+  mkdir -p "$DEST/lib"
+  mkdir -p "$DEST/jdbc/lib"
+  mkdir -p "$DEST/rdbms/jlib"
+  mkdir -p "$DEST/sqlplus/admin"
+  mkdir -p "$DEST/network/admin"
 
   pushd "$INSTALL_SRC/instantclient_$VERSION" >/dev/null
-  mv ojdbc* $DEST/jdbc/lib/
-  mv x*.jar $DEST/rdbms/jlib/
-  mv glogin.sql $DEST/sqlplus/admin/
-  mv *dylib* $DEST/lib/
-  mv network/admin/* $DEST/network/admin
-  mv *README $DEST/
-  mv * $DEST/bin/
-  rm -rf $DEST/bin/network
+  mv ojdbc* "$DEST/jdbc/lib/"
+  mv x*.jar "$DEST/rdbms/jlib/"
+  mv glogin.sql "$DEST/sqlplus/admin/"
+  mv ./*dylib* "$DEST/lib/"
+  mv network/admin/* "$DEST/network/admin"
+  mv ./*README "$DEST/"
+  mv ./* "$DEST/bin/"
+  rm -rf "$DEST/bin/network"
   popd >/dev/null
 }
 
@@ -45,4 +45,4 @@ main() {
   install_from_brew
 }
 
-main $@
+main "$@"

@@ -2,6 +2,8 @@
 # OS utilities
 #
 # These functions are used to help with install scripts
+#
+# shellcheck disable=SC2148
 # --------------------------------------------------------------
 
 #
@@ -18,7 +20,7 @@ get_os_family() {
     "/etc/arch-release::arch"
     "/etc/alpine-release::alpine"
   )
-  for kv in ${os_info[@]}; do
+  for kv in "${os_info[@]}"; do
     key="${kv%%::*}"
     val="${kv##*::}"
     [[ -f "$key" ]] && os_family="${val}"
@@ -33,12 +35,12 @@ package_mgr_install_cmd() {
   os_family="$(get_os_family)"
 
   case ${os_family} in
-    "macos")    cmd="brew install" ;;
-    "debian")   cmd="sudo apt-get install -y" ;;
-    "fedora")   cmd="sudo dnf install -y" ;;
-    "rhel")     cmd="sudo yum install -y" ;;
-    "arch")     cmd="sudo pacman -S" ;;
-    *)          cmd="" ;;
+    "macos") cmd="brew install" ;;
+    "debian") cmd="sudo apt-get install -y" ;;
+    "fedora") cmd="sudo dnf install -y" ;;
+    "rhel") cmd="sudo yum install -y" ;;
+    "arch") cmd="sudo pacman -S" ;;
+    *) cmd="" ;;
   esac
 
   echo "${cmd}"

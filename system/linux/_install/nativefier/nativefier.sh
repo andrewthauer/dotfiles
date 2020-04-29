@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 #
 # Generates & installs nativefier apps
 #
@@ -11,7 +11,7 @@ arch="linux-x64"
 icons_url="https://raw.githubusercontent.com/jiahaog/nativefier-icons/gh-pages/files"
 
 check_nativefier() {
-  if [[ ! -x (command -v nativefier) ]]; then
+  if [[ ! -x $(command -v 'nativefier') ]]; then
     echo "Installing nativefier ..."
     yarn global add nativefier
   fi
@@ -20,7 +20,7 @@ check_nativefier() {
 main() {
   name="$1"
   url="$2"
-  extra_opts="${@:3}"
+  extra_opts=("${@:3}")
   icon_opt=""
 
   check_nativefier
@@ -28,13 +28,13 @@ main() {
   pushd "$HOME/Downloads" >/dev/null
 
   # Get icon
-  curl "$icons_url/$name.png" > "$name.png"
+  curl "$icons_url/$name.png" >"$name.png"
   if ! grep -q 404 "$name.png"; then
     icon_opt="--icon '$name.png'"
   fi
 
   # Build app
-  nativefier --name "'$name'" "$url" "$icon_opt" "$extra_opts"
+  nativefier --name "'$name'" "$url" "$icon_opt" "${extra_opts[@]}"
 
   # Move app
   sudo rm -rf "$target_dir/$name"
@@ -43,4 +43,4 @@ main() {
   popd >/dev/null
 }
 
-main $@
+main "$@"

@@ -3,6 +3,8 @@
 #
 # These are used by other packages so this file must be
 # sourced before other packages are loaded.
+#
+# shellcheck disable=SC2148
 # --------------------------------------------------------------
 
 if [[ -n "${ZSH_VERSION}" ]]; then
@@ -19,12 +21,13 @@ fi
 # example:
 #   command_exists "node" && echo "exists!"
 #
-function command_exists {
+function command_exists() {
   # use fastest shell specific method
   if [[ -n "$ZSH_VERSION" ]]; then
+    # shellcheck disable=SC2203,SC2193
     [[ $+commands[$1] == 1 ]]
   else
-    command -v "$1" > /dev/null 2>&1
+    command -v "$1" >/dev/null 2>&1
   fi
 }
 
@@ -37,9 +40,9 @@ function command_exists {
 # example:
 #   function_exists "command_exists" && echo "exists!"
 #
-function function_exists {
+function function_exists() {
   # declare -f -F "$1" > /dev/null 2>&1
-  typeset -f "$1" > /dev/null 2>&1
+  typeset -f "$1" >/dev/null 2>&1
 }
 
 #
@@ -56,10 +59,10 @@ function function_exists {
 #   prepend_path "/path/abc" "/path/xyz"
 #   # PATH="/path/abc:/path/xyz:/usr/bin:/bin"
 #
-function prepend_path {
-  paths=($1)
-  for ((i=$#; i > 0; i--));do
-    arg=$paths[i]
+function prepend_path() {
+  paths=("$1")
+  for ((i = $#; i > 0; i--)); do
+    arg=${paths[i]}
     if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
       PATH="$arg${PATH:+":$PATH"}"
     fi
@@ -80,7 +83,7 @@ function prepend_path {
 #   append_path "/path/abc" "/path/xyz"
 #   # PATH="/usr/bin:/bin:/path/abc:/path/xyz"
 #
-function append_path {
+function append_path() {
   for arg in "$@"; do
     if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
       PATH="${PATH:+"$PATH:"}$arg"
@@ -97,9 +100,10 @@ function append_path {
 __SOURCED_FILES=()
 source_file() {
   file=$1
-  if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[@]}" =~ "${file}" ]]; then
+  if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[*]}" =~ ${file} ]]; then
+    # shellcheck disable=SC1090
     source "$file"
-    __SOURCED_FILES+=(${file})
+    __SOURCED_FILES+=("${file}")
   fi
 }
 
@@ -110,17 +114,17 @@ source_file() {
 #   source_files_in ${XDG_CONFIG_HOME}/profile.d/*.sh
 #
 source_files_in() {
-  for file in $@; do
+  for file in "$@"; do
     if [[ -n "$PROFILE_STARTUP" ]]; then
       # eval function name for profiling
-      fn=`basename $file`
+      fn=$(basename "$file")
       eval "$fn() { source_file $file }; $fn"
     else
       source_file "$file"
     fi
   done
 
-  unset file;
+  unset file
 }
 
 #
@@ -130,7 +134,7 @@ source_files_in() {
 #   source_shell_lib "some_lib"
 #
 source_shell_lib() {
-  module=$1
+  # module="$1"
   file="${HOME}/.local/lib/${1}.sh"
   source_file "$file"
 }
@@ -144,12 +148,12 @@ source_shell_lib() {
 # example:
 #   lazyfunc _nodenv_init nodenv node npm
 #
-function lazyfunc {
+function lazyfunc() {
   local lazyfunc="$1"
-  local hooks=(${@:2})
+  local hooks=("${@:2}")
 
   for cmd in "${hooks[@]}"; do
-    eval "${cmd}() { __lazyfunc_exec ${lazyfunc} ${hooks[@]}; ${cmd} \$@; }"
+    eval "${cmd}() { __lazyfunc_exec ${lazyfunc} ${hooks[*]}; ${cmd} \$@; }"
   done
 }
 
@@ -161,7 +165,7 @@ function lazyfunc {
 #
 __lazyfunc_exec() {
   local lazyfunc=$1
-  local hooks=(${@:2})
+  local hooks=("${@:2}")
   unset -f "${hooks[@]}"
   eval "${lazyfunc}"
   unset "${lazyfunc}"
