@@ -126,13 +126,13 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Save screenshots to the desktop
-defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+# defaults write com.apple.screencapture location -string "${HOME}/Desktop"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
-defaults write com.apple.screencapture type -string "png"
+# defaults write com.apple.screencapture type -string "png"
 
 # Disable shadow in screenshots
-defaults write com.apple.screencapture disable-shadow -bool true
+# defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
@@ -374,8 +374,8 @@ defaults write com.kapeli.dashdoc "syncFolderPath" -string "${XDG_CONFIG_HOME:-$
 # =============================================================================
 
 for app in \
-  "Activity Monitor" "cfprefsd" "Dock" "Finder" "SystemUIServer" "Terminal" \
-  ;do killall "${app}" > /dev/null 2>&1; \
+  "Activity Monitor" "cfprefsd" "Dock" "Finder" "SystemUIServer" "Terminal"; do
+  killall "${app}" >/dev/null 2>&1
 done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."

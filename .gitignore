@@ -1,6 +1,9 @@
 # os files
 .DS_Store
 
+# editors
+.vscode
+
 # log files
 *.*log
 
