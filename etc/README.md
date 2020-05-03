@@ -104,9 +104,30 @@ and then symlinked to the `config.d` directory. Once this is done you can use
 the `ssh-config-merge` script to merge those files into the final
 `~/.ssh/config` file.
 
-### Resources
+### SSH on macOS
 
 - [macOS Sierra doesn’t seem to remember SSH keys between reboots](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots)
+
+## Fzf
+
+[Fzf](https://github.com/junegunn/fzf) fuzzy finder provides the following
+usages:
+
+- General
+  - `fzf`
+  - `cd | fzf`
+- Completions `**`
+  - `cd **`
+  - `export **`
+  - `ssh **`
+- Keybindings
+  - `ctrl-t` - paste the selected files and directories onto the command-line
+  - `ctrl-r` - paste the selected command from history onto the command-line
+  - `alt-c` - cd into the selected directory
+- Commands
+  - `fzf-find-path`
+  - `fzf-kill-process`
+  - `fzf-kill-server`
 
 ## Fasd
 
