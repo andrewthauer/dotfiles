@@ -38,23 +38,24 @@ unset FZF_DIR
 unset SHELL_TYPE
 
 # Custom variables
-export FZF_DEFAULT_LAYOUT_OPTS="--layout=reverse --inline-info"
+export FZF_DEFAULT_LAYOUT_OPTS='--height 40% --layout=reverse --inline-info'
 export FZF_DEFAULT_PREVIEW_OPT="--preview 'catx {} | head -n 500'"
 
 # Default options
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_LAYOUT_OPTS} ${FZF_DEFAULT_PREVIEW_OPT}"
 
 # Use ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow --glob '!.git/*'"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow"
 
 # Keybindings
-# export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-# export FZF_ALT_C_COMMAND=""
+export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+export FZF_ALT_C_COMMAND='rg-dir'
 # export FZF_CTRL_T_OPTS=""
 # export FZF_CTRL_R_OPTS=""
 
 # Aliases
-alias fzfi='rg --files --no-ignore --hidden --follow --glob "!.git/*" | fzf'
+# shellcheck disable=SC2139
+alias fzfi="${FZF_DEFAULT_COMMAND} | fzf"
 alias vifi='vim $(fzfi)'
 alias kp='fzf-kill-process'
 alias ks='fzf-kill-server'
@@ -63,13 +64,9 @@ alias ks='fzf-kill-server'
 # Completions
 #
 
-# Make dirname consistent
-# - dirname on OS X behaves funky, get gdirname via (brew install coreutils)
-export dirname_command="dirname"
-[[ $(uname) == "Darwin" ]] && dirname_command="gdirname"
-
 # Use ~~ as the trigger sequence instead of the default **
 # export FZF_COMPLETION_TRIGGER='~~'
+export FZF_COMPLETION_TRIGGER='**'
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='+c -x'
@@ -78,16 +75,12 @@ export FZF_COMPLETION_OPTS='+c -x'
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  # fd --hidden --follow --exclude ".git" . "$1"
-  rg --hidden --follow --glob "!.git/*" "$1"
+  rg --files --hidden --follow "$1" 2>/dev/null
 }
 
 # Faster compgen
 _fzf_compgen_dir() {
-  # fd --type d --hidden --follow --exclude ".git" . "$1"
-  rg --files --null --hidden --glob "!.git/*" "$1" 2 >/dev/null |
-    xargs -0 "$dirname_command" |
-    awk '!h[$0]++'
+  rg-dir "${1:-.}"
 }
 
 # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function

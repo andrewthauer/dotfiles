@@ -22,12 +22,15 @@ brew 'zsh-history-substring-search'
 brew 'zsh-syntax-highlighting'
 
 # Core shell packages
-brew 'bat'
 brew 'direnv'
 brew 'fasd'
 brew 'fzf'
 brew 'neovim'
 brew 'tmux'
+
+# Shell enhancers
+brew 'bat'
+brew 'exa'
 
 # Gnu utilities
 brew 'coreutils'
@@ -51,6 +54,7 @@ brew 'wget'
 
 # Search utils
 brew 'ag'
+brew 'fd'
 brew 'jq'
 brew 'ripgrep'
 

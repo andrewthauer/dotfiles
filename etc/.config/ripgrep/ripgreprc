@@ -1,0 +1,20 @@
+# ripgrep configuration files
+# - https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+
+# Don't let ripgrep vomit really long lines to my terminal, and show a preview.
+--max-columns=150
+--max-columns-preview
+
+# or
+--glob
+!{.git/*,node_modules/*}
+
+# Set the colors.
+# --colors=line:none
+# --colors=line:style:bold
+
+# Because who cares about case!?
+--smart-case
+
+# Search hidden files
+--hidden

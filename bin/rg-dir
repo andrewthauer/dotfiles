@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Summary:
+#   Search for directories only with ripgrep
+#
+# Usage:
+#   rg-dir
+
+set -e
+
+export dirname_command="dirname"
+[[ $(uname) == "Darwin" ]] && dirname_command="gdirname"
+
+rg --files --null --hidden "${1-.}" 2>/dev/null |
+  xargs -0 "$dirname_command" |
+  awk '!h[$0]++'
