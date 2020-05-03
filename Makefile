@@ -2,7 +2,7 @@
 OPT_PKGS = $(sort $(notdir $(wildcard ./opt/*)))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
 LOCAL_OPT_PKGS = $(sort $(notdir $(wildcard ./local-opt/*)))
-DEFAULT_OPT_PKGS = asdf git ssh
+DEFAULT_OPT_PKGS = asdf
 SYSTEM_PKG =
 
 # XDG directories
@@ -31,17 +31,12 @@ endif
 
 all: setup link $(SUBDIRS)
 
-check-scripts:
-	shellcheck **/*.*sh
-	# shellcheck **/bin
-
 dummy:
 	echo $(sort $(notdir $(wildcard ./opt*/*)))
 
 setup:
 	@mkdir -p $(CURDIR)/local
-	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
-	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
+	@mkdir -p $(XDG_CONFIG_HOME)/{profile.d,shell.d}
 	@mkdir -p $(XDG_DATA_HOME)/shell.d
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
