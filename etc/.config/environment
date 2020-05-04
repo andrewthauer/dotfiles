@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # Common environment user session
 #
@@ -24,10 +24,10 @@ export CLICOLOR=1
 
 # Pager
 export LESSHISTFILE="${XDG_CACHE_HOME}/less/history"
-LESSKEY="${XDG_CONFIG_HOME}/less/keys"
-LESS="-F -g -i -M -R -S -w -X -z-4"
-LESSCHARSET="utf-8"
-PAGER="less"
+export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
+export LESS="-F -g -i -M -R -S -w -X -z-4"
+export LESSCHARSET="utf-8"
+export PAGER="less"
 
 # Set the Less input preprocessor
 if type lesspipe.sh >/dev/null 2>&1; then
@@ -35,9 +35,10 @@ if type lesspipe.sh >/dev/null 2>&1; then
 fi
 
 # Load core utilities used by other scripts
-source "${DOTFILES_DIR}/lib/init.sh"
+# shellcheck source=../../lib/init.sh
+. "${DOTFILES_DIR}/lib/init.sh"
 
 # Load extra environment files into environment
-if [[ -d "${XDG_CONFIG_HOME}/environment.d" ]]; then
-  source_files_in ${XDG_CONFIG_HOME}/environment.d/*
+if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then
+  source_files_in "${XDG_CONFIG_HOME}"/environment.d/*
 fi
