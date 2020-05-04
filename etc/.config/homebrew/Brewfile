@@ -31,6 +31,7 @@ brew 'tmux'
 # Shell enhancers
 brew 'bat'
 brew 'exa'
+brew 'sk'
 
 # Gnu utilities
 brew 'coreutils'

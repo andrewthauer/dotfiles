@@ -1,12 +1,16 @@
 #
-# Fuzzy finder
+# Fuzzy finder (fzf)
 #
 # - https://github.com/junegunn/fzf
 #
 
-# shellcheck disable=SC2148,SC1090
+# shellcheck disable=SC1090
 
-# The fzf install directory
+# Skip if not using fzf (default is fzf)
+FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
+[ "${FUZZY_FINDER}" != 'fzf' ] && return 1
+
+# The install directory
 if [[ -d "/usr/local/opt/fzf" ]]; then
   FZF_DIR="/usr/local/opt/fzf"
 elif [[ -d "${XDG_DATA_HOME}/fzf" ]]; then
@@ -15,6 +19,9 @@ else
   return 1
 fi
 
+# Shell directory
+SHELL_DIR="${FZF_DIR}/shell"
+
 # Current shell
 if [[ -n "${BASH_VERSION}" ]]; then
   SHELL_TYPE="bash"
@@ -22,43 +29,39 @@ elif [[ -n "${ZSH_VERSION}" ]]; then
   SHELL_TYPE="zsh"
 fi
 
-# Setup fzf
+# Setup path
 if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
   export PATH="${PATH:+${PATH}:}${FZF_DIR}/bin"
 fi
 
-# Auto-completion
-[[ $- == *i* ]] && source "${FZF_DIR}/shell/completion.${SHELL_TYPE}" 2>/dev/null
-
-# Key bindings
-source "${FZF_DIR}/shell/key-bindings.${SHELL_TYPE}"
+# Completion & keybindings
+if [ -d "$SHELL_DIR" ]; then
+  source "${SHELL_DIR}/completion.${SHELL_TYPE}"
+  source "${SHELL_DIR}/key-bindings.${SHELL_TYPE}"
+fi
 
 # Cleanup
 unset FZF_DIR
+unset SHELL_DIR
 unset SHELL_TYPE
 
-# Custom variables
-export FZF_DEFAULT_LAYOUT_OPTS='--height 40% --layout=reverse --inline-info'
-export FZF_DEFAULT_PREVIEW_OPT="--preview 'catx {} | head -n 500'"
-
 # Default options
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_LAYOUT_OPTS} ${FZF_DEFAULT_PREVIEW_OPT}"
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --inline-info --preview 'preview {} | head -n 500'"
 
 # Use ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow --no-messages"
 
 # Keybindings
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-export FZF_ALT_C_COMMAND='rg-dir'
+export FZF_ALT_C_COMMAND="rg-dirs"
 # export FZF_CTRL_T_OPTS=""
 # export FZF_CTRL_R_OPTS=""
 
 # Aliases
+alias fzfm='fzf -m'
 # shellcheck disable=SC2139
 alias fzfi="${FZF_DEFAULT_COMMAND} | fzf"
-alias vifi='vim $(fzfi)'
-alias kp='fzf-kill-process'
-alias ks='fzf-kill-server'
+alias fzvi='nvim $(fzfi)'
 
 #
 # Completions
@@ -75,12 +78,12 @@ export FZF_COMPLETION_OPTS='+c -x'
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  rg --files --hidden --follow "$1" 2>/dev/null
+  rg-files "${1:-.}"
 }
 
 # Faster compgen
 _fzf_compgen_dir() {
-  rg-dir "${1:-.}"
+  rg-dirs "${1:-.}"
 }
 
 # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function

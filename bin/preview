@@ -7,14 +7,14 @@
 
 set -e
 
-if [ -f "$1" ]; then
+if [ -d "$1" ]; then
+  echo "Directory: $(realpath "$1")"
+elif [ -f "$1" ]; then
   if [ "$(command -v 'bat')" ]; then
     bat --style=numbers --color=always "$1"
   else
     cat "$1"
   fi
-elif [ -d "$1" ]; then
-  echo Directory: "$(realpath "$1")"
 else
-  echo "$1"
+  echo "Unable to preview: $1"
 fi

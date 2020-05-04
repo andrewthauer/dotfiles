@@ -3,7 +3,7 @@
 #   Kills a process using fzf
 #
 # Usage:
-#   fzf-kill-process
+#   kill-process
 #
 # Details:
 #   Show output of "ps -ef", use [tab] to select one or multiple entries.

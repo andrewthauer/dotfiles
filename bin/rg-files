@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Summary:
+#   Search for files only with ripgrep
+#
+# Usage:
+#   rg-files
+
+set -e
+
+rg --files --hidden --no-messages "${1-.}" 2>/dev/null

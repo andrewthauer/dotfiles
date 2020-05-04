@@ -3,7 +3,7 @@
 #   Kills a process using fzf
 #
 # Usage:
-#   fzf-kill-server
+#   kill-server
 #
 # Details:
 #   Show output of "lsof -Pwni tcp", use [tab] to select one or multiple entries.

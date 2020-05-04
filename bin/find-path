@@ -3,7 +3,7 @@
 #   Finds a variable in the $PATH
 #
 # Usage:
-#   fzf-find-path
+#   find-path
 #
 # Details:
 #   List directories in $PATH, press [enter] on an entry to list the executables

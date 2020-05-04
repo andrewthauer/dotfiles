@@ -7,7 +7,7 @@
 
 # or
 --glob
-!{.git/*,node_modules/*}
+!{.git,node_modules}
 
 # Set the colors.
 # --colors=line:none
@@ -17,4 +17,4 @@
 --smart-case
 
 # Search hidden files
---hidden
+# --hidden

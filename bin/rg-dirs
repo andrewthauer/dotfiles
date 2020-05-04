@@ -3,13 +3,13 @@
 #   Search for directories only with ripgrep
 #
 # Usage:
-#   rg-dir
+#   rg-dirs
 
 set -e
 
 export dirname_command="dirname"
 [[ $(uname) == "Darwin" ]] && dirname_command="gdirname"
 
-rg --files --null --hidden "${1-.}" 2>/dev/null |
+rg --files --null --hidden --no-messages "${1:-.}" 2>/dev/null |
   xargs -0 "$dirname_command" |
   awk '!h[$0]++'
