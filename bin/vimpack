@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+# Summary:
+#   Native VIM package utility
+#
+# Usage:
+#   vimpack [command]
+
+set -o errexit -o pipefail -o noclobber
+
+VIM_PACK_DIR="${XDG_DATA_HOME}/nvim/site/pack"
+PACK_START_DIR="${VIM_PACK_DIR}/default/start"
+
+_parse_proj() {
+  IFS='/' read -ra arr <<<"$1"
+  unset IFS
+  echo "${arr[0]}" "${arr[1]}"
+}
+
+vimpack-help() {
+  echo "Usage: vpack [command]"
+  echo ""
+  echo "COMMANDS:"
+  echo "  install         Install a package"
+  echo "  uninstall       Uninstall a package"
+  echo "  update          Update a package"
+  echo "  update-all      Update all packages"
+  echo "  clean           Cleans all packages"
+  echo "  help            Prints this message"
+}
+
+vimpack-install() {
+  while (("$#")); do
+    case "$1" in
+      -b | --branch)
+        branch="--branch $2"
+        shift 2
+        ;;
+      -p | --post-install)
+        post_install="$2"
+        shift 1
+        ;;
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      --* | -*) # unsupported flags
+        echo "Error: Unsupported flag $1" >&2
+        exit 1
+        ;;
+      *) # preserve positional arguments
+        pos_args="$pos_args $1"
+        shift
+        ;;
+    esac
+  done
+
+  # set positional arguments in their proper place
+  eval set -- "$pos_args"
+
+  if [ -z "$pos_args" ]; then
+    echo "No package provided"
+    exit 1
+  fi
+
+  read -r user repo < <(_parse_proj "$pos_args")
+  target="${PACK_START_DIR}/${repo}"
+
+  if [ -d "${target}" ]; then
+    echo "Package '$1' already installed"
+    exit 1
+  fi
+
+  # shellcheck disable=SC2086
+  git clone --single-branch $branch "https://github.com/$user/$repo" "$target"
+  [ -n "$post_install" ] && "$post_install"
+}
+
+vimpack-update() {
+  if [ -z "$1" ]; then
+    echo "No package provided"
+    exit 1
+  fi
+
+  read -r user repo < <(_parse_proj "$1")
+  target="${PACK_START_DIR}/${repo}"
+
+  if [ ! -d "${target}" ]; then
+    echo "Package '$1' not installed"
+    exit 1
+  fi
+
+  git -C "$target" pull
+}
+
+vimpack-update-all() {
+  for dir in "${PACK_START_DIR}"/*; do
+    if [ -d "$dir" ]; then
+      vimpack-update "dummy/$(basename "$dir")"
+    fi
+  done
+}
+
+vimpack-uninstall() {
+  if [ -z "$1" ]; then
+    echo "No package provided"
+    exit 1
+  fi
+
+  read -r user repo < <(_parse_proj "$1")
+  target="${PACK_START_DIR}/${repo}"
+
+  if [ ! -d "${target}" ]; then
+    echo "Package '$1' not installed"
+    exit 1
+  fi
+
+  rm -rf "$target"
+}
+
+vimpack-clean() {
+  for dir in "${PACK_START_DIR}"/*; do
+    if [ -d "$dir" ]; then
+      vimpack-uninstall "dummy/$(basename "$f")"
+    fi
+  done
+}
+
+main() {
+  # Parse the arguments
+  cmd_name="vimpack"
+  base_cmd="${cmd_name}"
+  cmd="${base_cmd}-${1}"
+  args=("${@:2}")
+
+  # Execute the command
+  if [ "$(command -v "${cmd}")" ]; then
+    "${cmd}" "${args[@]}" 2>&1
+  else
+    ${cmd_name}-help
+  fi
+}
+
+main "$@"
