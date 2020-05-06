@@ -8,10 +8,12 @@
 
 # Load the ~/.bash_profile if has not been loaded
 if [[ -f "${HOME}/.bash_profile" && -z $BASH_PROFILE_LOADED ]]; then
+  # shellcheck disable=SC2034
   BASH_RC_LOADED=true
+  # shellcheck disable=SC1090
   source "${HOME}/.bash_profile"
   unset BASH_RC_LOADED
 fi
 
 # Source bash core scripts
-source_files_in $XDG_CONFIG_HOME/bash/init.d/*.sh
+source_files_in "${XDG_CONFIG_HOME}"/bash/init.d/*.sh

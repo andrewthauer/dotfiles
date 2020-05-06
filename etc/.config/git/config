@@ -11,7 +11,7 @@
 
 [rebase]
   # Git message starts with !fixup
-	autosquash = true
+  autosquash = true
 
 [rerere]
   enabled = true

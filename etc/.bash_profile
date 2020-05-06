@@ -22,7 +22,9 @@ fi
 
 # Source the ~/.bashrc file
 if [[ -f "${HOME}/.bashrc" && -z $BASH_RC_LOADED ]]; then
+  # shellcheck disable=SC2034
   BASH_PROFILE_LOADED=true
+  # shellcheck disable=SC1090
   source "${HOME}/.bashrc"
   unset BASH_PROFILE_LOADED
 fi

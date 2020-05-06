@@ -2,9 +2,9 @@
 # OS utilities
 #
 # These functions are used to help with install scripts
-#
-# shellcheck disable=SC2148
 # --------------------------------------------------------------
+
+# shellcheck disable=SC2148
 
 #
 # Get the os family

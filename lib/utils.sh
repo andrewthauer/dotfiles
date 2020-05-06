@@ -3,9 +3,9 @@
 #
 # These are used by other packages so this file must be
 # sourced before other packages are loaded.
-#
-# shellcheck disable=SC2148
 # --------------------------------------------------------------
+
+# shellcheck disable=SC2148
 
 if [[ -n "${ZSH_VERSION}" ]]; then
   # Do not throw errors when file globs do not match anything

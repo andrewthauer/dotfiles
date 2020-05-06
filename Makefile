@@ -37,7 +37,6 @@ dummy:
 setup:
 	@mkdir -p $(CURDIR)/local
 	@mkdir -p $(XDG_CONFIG_HOME)/{profile.d,shell.d}
-	@mkdir -p $(XDG_DATA_HOME)/shell.d
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
 	@ln -sf .dotfiles/etc/.stow-global-ignore $(HOME)/.stow-global-ignore
@@ -47,14 +46,16 @@ link: setup
 	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
 	@stow -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 	# @stow -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
-	# @stow -t $(HOME) -d $(CURDIR) -S etc $(LOCAL_PKGS)
+
+link-opt:
+	# make link-opt pkg=github
+	@stow -t $(HOME) -d $(CURDIR)/opt -S $(pkg)
 
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
 	# @stow -D -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
-	# @stow -D -t $(HOME) -d $(CURDIR) -S $(LOCAL_PKGS)
 
 chklink:
 	@echo "\n--- Files from 'etc' currently unlinked ---\n"
@@ -65,7 +66,6 @@ chklink:
 	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
 	@echo "\n--- Local packages currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR) -S local
-	# @stow -n -v -t $(HOME) -d $(CURDIR) -S $(LOCAL_PKGS)
 	@stow -n -v -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 	@echo "\n--- These are potentially bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)

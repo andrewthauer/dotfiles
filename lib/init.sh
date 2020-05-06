@@ -1,6 +1,7 @@
 #
 # Initialize shared utils
 #
+
 # shellcheck disable=SC2148
 
 # Core shared utils

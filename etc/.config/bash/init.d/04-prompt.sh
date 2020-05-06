@@ -4,6 +4,8 @@
 # Based on: https://github.com/davidtwco/dotfiles/blob/master/.bash_prompt
 #
 
+# shellcheck disable=SC2034
+
 # Colors
 BLACK="$(tput setaf 0)"
 RED="$(tput setaf 1)"
@@ -38,7 +40,8 @@ function prompt_command() {
   local git_prompt=
   if [[ "true" = "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]]; then
     # Branch name
-    local branch="$(git symbolic-ref HEAD 2>/dev/null)"
+    local branch
+    branch="$(git symbolic-ref HEAD 2>/dev/null)"
     branch="${branch##refs/heads/}"
 
     # Working tree status (red when dirty)
@@ -59,7 +62,7 @@ function prompt_command() {
   # Virtualenv
   local venv_prompt=
   if [ -n "$VIRTUAL_ENV" ]; then
-    venv_prompt=" $BLUE$prompt_venv_symbol$(basename $VIRTUAL_ENV)$NOCOLOR"
+    venv_prompt=" $BLUE$prompt_venv_symbol$(basename "$VIRTUAL_ENV")$NOCOLOR"
   fi
 
   # Show user & hostname inside SSH session
@@ -82,9 +85,11 @@ function prompt_command() {
   PS2="\[$CYAN\]$prompt_symbol\[$NOCOLOR\] "
 
   # Terminal title
-  local title="$(basename "$PWD")"
-  [ -n "$remote" ] && title="$title \xE2\x80\x94 $HOSTNAME"
-  echo -ne "\033]0;$title"; echo -ne "\007"
+  local title=
+  title="$(basename "$PWD")"
+  # [ -n "$remote" ] && title="$title \xE2\x80\x94 $HOSTNAME"
+  echo -ne "\033]0;$title"
+  echo -ne "\007"
 }
 
 # Show prompt only if Git is installed.
