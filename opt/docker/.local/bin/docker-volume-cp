@@ -1,25 +1,24 @@
 #!/usr/bin/env bash
+# Summary:
+#   Copies files to and from docker volumes
 #
-# Copies files to and from docker volumes
-#
-# usage:
+# Usage:
 #   docker-volume-cp [source] [dest]
 #
-# examples:
+# Examples:
 #   docker-volume-cp volume_name:. host_dir
 #   docker-volume-cp host_dir/. volume_name:.
-#
 
 set -e
 
 SOURCE=$1
 DEST=$2
 
-SOURCE_ARR=(${SOURCE//:/ })
-DEST_ARR=(${DEST//:/ })
+SOURCE_ARR=("${SOURCE//:/ }")
+DEST_ARR=("${DEST//:/ }")
 
 usage() {
-  cmd=$(basename $0)
+  cmd=$(basename "$0")
   echo "Usage:"
   echo "  volume -> host: $cmd volume_name:path /path/on/host"
   echo "  host -> volume: $cmd /path/on/host volume_name:path"
@@ -30,7 +29,7 @@ volume_to_local() {
   volume_path=${SOURCE_ARR[1]}
   host_path=${DEST_ARR[0]}
 
-  docker container create --name docker_volume_cp -v $volume:/volume alpine
+  docker container create --name docker_volume_cp -v "$volume":/volume alpine
   cmd="docker cp docker_volume_cp:/volume/$volume_path $host_path"
   # echo "$cmd"
   $cmd
@@ -42,7 +41,7 @@ local_to_volume() {
   volume_path=${DEST_ARR[1]}
   host_path=${SOURCE_ARR[0]}
 
-  docker container create --name docker_volume_cp -v $volume:/volume alpine
+  docker container create --name docker_volume_cp -v "$volume":/volume alpine
   cmd="docker cp $host_path docker_volume_cp:/volume/$volume_path"
   # echo "$cmd"
   $cmd
@@ -59,4 +58,4 @@ main() {
   fi
 }
 
-main $@
+main "$@"

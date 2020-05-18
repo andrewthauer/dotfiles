@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
+# Summary:
+#   Scrubs adobe cc startup services
 #
-# Scrubs adobe cc startup services
-#
+# Usage:
+#   rm-adobe-cc-services
 
 set -e
 
-if [ "$OSTYPE" == darwin* ]; then
+if [[ "$OSTYPE" =~ darwin* ]]; then
   rm ~/Library/LaunchAgents/com.adobe.*.plist
   sudo rm /Library/LaunchDaemons/com.adobe.*.plist
   sudo rm /Library/LaunchAgents/com.adobe.*.plist

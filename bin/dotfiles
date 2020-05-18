@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+# Summary:
+#   Dotfiles root command
 #
-# Dotfiles root command
-#
+# Usage:
+#   dotfiles [command]
+#   dotfiles help
 
 set -o errexit -o pipefail -o noclobber -o nounset
 
@@ -15,16 +18,15 @@ usage() {
 
 main() {
   cmd=${1:-}
-  args=${@:2}
+  args=("${@:2}")
   sub_cmd="dotfiles-${cmd}"
 
   # Execute the command
-  if [[ -x $(command -v $sub_cmd) ]]; then
-    $sub_cmd $args 2>&1
+  if [[ -x $(command -v "$sub_cmd") ]]; then
+    $sub_cmd "${args[@]}" 2>&1
   else
     usage
   fi
 }
 
-main $@
-exit 0
+main "$@"

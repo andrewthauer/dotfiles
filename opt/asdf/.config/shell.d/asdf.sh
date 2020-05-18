@@ -4,6 +4,8 @@
 # - https://github.com/asdf-vm/asdf
 #
 
+# shellcheck disable=SC1090
+
 # XDG Specification
 export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
@@ -38,7 +40,7 @@ if [[ -n "${BASH_VERSION}" ]]; then
   fi
 elif [[ -n "${ZSH_VERSION}" ]]; then
   if [[ -f "${ASDF_DIR}/completions/_asdf" ]]; then
-    fpath=($fpath "${ASDF_DIR}/completions")
+    fpath=("$fpath" "${ASDF_DIR}/completions")
   fi
 fi
 

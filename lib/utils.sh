@@ -5,8 +5,6 @@
 # sourced before other packages are loaded.
 # --------------------------------------------------------------
 
-# shellcheck disable=SC2148
-
 if [[ -n "${ZSH_VERSION}" ]]; then
   # Do not throw errors when file globs do not match anything
   setopt NULL_GLOB

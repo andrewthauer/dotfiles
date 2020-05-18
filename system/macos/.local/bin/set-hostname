@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Set the various mac hostnames
 #
-# usage:
+# Usage:
 #   set-hostname 'my-host-name'
-#
 
 # Prompt for admin password upfront
 sudo -v
@@ -20,7 +18,7 @@ if [[ -z "$hostname" ]]; then
 fi
 
 # Set hostname, computer name
-sudo scutil --set HostName ${hostname}
-sudo scutil --set LocalHostName ${hostname}
-sudo scutil --set ComputerName ${hostname}
+sudo scutil --set HostName "${hostname}"
+sudo scutil --set LocalHostName "${hostname}"
+sudo scutil --set ComputerName "${hostname}"
 dscacheutil -flushcache

@@ -29,11 +29,11 @@ export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle/cache"
 
 # For bundler
 if [[ -z "${GITHUB_TOKEN}" ]]; then
-  BUNDLE_GITHUB__COM="${GITHUB_TOKEN}:x-oauth-basic"
+  export BUNDLE_GITHUB__COM="${GITHUB_TOKEN}:x-oauth-basic"
 fi
 
 function gem-install-bundler() {
-  gem install bundler -v $(tail -n 1 Gemfile.lock)
+  gem install bundler -v "$(tail -n 1 Gemfile.lock)"
 }
 
 # Aliases

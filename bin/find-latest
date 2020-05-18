@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Finds the latest file based on a pattern
 #
-# usage:
+# Usage:
 #   find-latest ./directory/to/search "*pattern*"
-#
 
 # Simple pattern
 # local pattern=$1
@@ -20,7 +18,8 @@ find_latest() {
   [[ -z "${pattern}" ]] && echo "Pattern not provided" && return 1
 
   # glob directory -> filter by pattern -> sort by date -> one result
-  echo $(ls ${dir}/**/*(e:'[[ $REPLY =~ ${pattern} ]]':.om[1]))
+  # shellcheck disable=SC2016
+  ls "${dir}"/**/*(e:'[[ $REPLY =~ ${pattern} ]]':.om[1])
 }
 
-find_latest $@
+find_latest "$@"

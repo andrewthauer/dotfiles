@@ -1,29 +1,27 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Query IP addresses
 #
-# usage:
+# Usage:
 #   ip-address
 #   ip-address public
 #   ip-address internal
-#
 
 public_ip() {
-  # echo $(curl ifconfig.co)
-  echo $(dig +short myip.opendns.com @resolver1.opendns.com)
+  # curl ifconfig.co
+  dig +short myip.opendns.com @resolver1.opendns.com
 }
 
 internal_ip() {
-  echo $(ipconfig getifaddr en0)
+  ipconfig getifaddr en0
 }
 
 case "$1" in
   public)
-    echo $(public_ip)
+    public_ip
     ;;
   internal)
-    echo $(internal_ip)
+    internal_ip
     ;;
   *)
     echo "Public:   $(public_ip)"

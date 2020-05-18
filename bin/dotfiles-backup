@@ -1,11 +1,9 @@
-#!/usr/bin/env zsh
-#
-# description:
+#!/usr/bin/env bash
+# Summary:
 #   Backup local machine setups & secrets
 #
-# usage:
+# Usage:
 #   dotfiles-backup [target_dir]
-#
 
 set -e
 
@@ -23,5 +21,3 @@ rsync \
   --exclude="/*" \
   "${DOTFILES_DIR}/" \
   "${TARGET_DIR}"
-
-exit 0

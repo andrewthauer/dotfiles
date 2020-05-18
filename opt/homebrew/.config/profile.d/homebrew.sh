@@ -10,10 +10,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
 elif [[ "$OSTYPE" == linux* ]]; then
   if [[ -x "$(command -v brew)" ]]; then
     [[ -z ${BREW_PREFIX} ]] && BREW_PREFIX="$(brew --prefix)"
-    eval $(${BREW_PREFIX}/bin/brew shellenv)
+    eval "$("${BREW_PREFIX}"/bin/brew shellenv)"
   elif [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-  elif [[ -d "~/.linuxbrew" ]]; then
-    eval $(~/.linuxbrew/bin/brew shellenv)
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  elif [[ -d "$HOME/.linuxbrew" ]]; then
+    eval "$("$HOME"/.linuxbrew/bin/brew shellenv)"
   fi
 fi

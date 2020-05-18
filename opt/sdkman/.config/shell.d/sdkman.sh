@@ -6,6 +6,7 @@ export SDKMAN_DIR="${XDG_DATA_HOME}/sdkman"
 
 _sdk_init() {
   # expensive operation
+  # shellcheck disable=SC1090
   source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 }
 

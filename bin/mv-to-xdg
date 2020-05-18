@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Moves the directory to an xdg path and symlinks inplace
-#
 
 set -e
 
@@ -32,16 +30,16 @@ get_xdg_dir() {
 
 main() {
   # check arguments
-  xdg_dir="$(get_xdg_dir $2)"
+  xdg_dir="$(get_xdg_dir "$2")"
   if [[ -z "$1" || -z "$xdg_dir" ]]; then
     usage
     exit 1
   fi
 
   # compute paths
-  src_path="$(realpath $1)"
-  src_name=$(basename $src_path)
-  src_dir=$(realpath $src_path)
+  src_path="$(realpath "$1")"
+  src_name=$(basename "$src_path")
+  src_dir=$(realpath "$src_path")
   target_parent="${3:-}"
   target_name="${4:-$src_name}"
   target_dir="$xdg_dir/$target_parent"
@@ -56,9 +54,9 @@ main() {
   relative_path="${relative_path#../}"
 
   # create a symlink for the original source to the target
-  pushd $src_dir >/dev/null
+  pushd "$src_dir" >/dev/null
   echo ln -s "$relative_path" "$src_name"
   popd >/dev/null
 }
 
-main $@
+main "$@"

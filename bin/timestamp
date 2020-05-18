@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Print a timestamp
 #
-# usage:
+# Usage:
 #   timestamp
 #
 #         Format/result           |       Command              |          Output
@@ -24,4 +23,4 @@
 # YYYY-MM-DD (Short day)          | date +%F\(%a\)             | $(date +%F\(%a\))
 # YYYY-MM-DD (Long day)           | date +%F\(%A\)             | $(date +%F\(%A\))
 
-echo $(date +%Y_%m_%d_%H_%M_%S)
+date +%Y_%m_%d_%H_%M_%S

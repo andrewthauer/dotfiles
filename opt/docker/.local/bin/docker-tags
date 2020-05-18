@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
+# Summary:
+#   Gets all tags for a given docker image
 #
-# Gets all tags for a given docker image
-#
-# usage:
+# Usage:
 #   docker-tags [user/image]
 #
-# examples:
-#
-# retrieve all tags for a single library
+# Examples:
+#   # retrieve all tags for a single library
 #   docker-tags "library/redis"
-#
 
 set -e
 

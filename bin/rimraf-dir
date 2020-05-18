@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-#
-# Recursively removes a directory pattern
-#
+# Summary:
+#   Recursively removes a directory pattern
 
 set -e
 
@@ -13,16 +12,16 @@ usage() {
 }
 
 main() {
-  pattern="$@"
+  local pattern=("$@")
 
-  if [[ -z $pattern ]]; then
+  if [[ -z "${pattern[*]}" ]]; then
     usage
     exit 1
   fi
 
-  confirm "Recursively delete '$pattern' directories" || exit 1
+  confirm "Recursively delete '${pattern[*]}' directories" || exit 1
 
-  find . -name \"$pattern\" -type d -prune -exec rm -rf '{}' +
+  find . -name \""${pattern[*]}"\" -type d -prune -exec rm -rf '{}' +
 }
 
-main $@
+main "$@"

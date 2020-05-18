@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
+# Summary:
+#   Add all installed versions to jenv
 #
-# Add all installed versions to jenv
-#
+# Usage:
+#   jenv-add-all
 
 set -e
 
@@ -12,7 +14,7 @@ fi
 
 # Add latest system version
 if [[ -f "/usr/libexec/java_home" ]]; then
-  jenv add $(/usr/libexec/java_home)
+  jenv add "$(/usr/libexec/java_home)"
 fi
 
 # Add any macos system installed versions

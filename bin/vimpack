@@ -70,8 +70,7 @@ vimpack-install() {
     exit 1
   fi
 
-  # shellcheck disable=SC2086
-  git clone --single-branch $branch "https://github.com/$user/$repo" "$target"
+  git clone --single-branch "$branch" "https://github.com/$user/$repo" "$target"
   [ -n "$post_install" ] && "$post_install"
 }
 
@@ -120,7 +119,7 @@ vimpack-uninstall() {
 vimpack-clean() {
   for dir in "${PACK_START_DIR}"/*; do
     if [ -d "$dir" ]; then
-      vimpack-uninstall "dummy/$(basename "$f")"
+      vimpack-uninstall "dummy/$(basename "$dir")"
     fi
   done
 }

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
+# Summary:
+#   Sets the global java to the latest one installed
 #
-# Sets the global java to the latest one installed
-#
+# Usage:
+#   jenv-global-latest
 
 set -e
 
@@ -17,4 +19,4 @@ jenv global system
 VERSION=$(jenv versions | grep -v "[a-zA-Z]" | tail -n 1 | tr -d ' ')
 
 # Set the new version
-jenv global $VERSION
+jenv global "$VERSION"

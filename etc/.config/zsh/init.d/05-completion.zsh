@@ -32,9 +32,9 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 # - https://github.com/zsh-users/zsh-completions
 # - NOTE: Must be loaded before running compinit
 if [[ -d "${XDG_DATA_HOME}/zsh-completions/src" ]]; then
-  fpath=( $fpath "${XDG_DATA_HOME}/zsh-completions/src")
-elif [[ -n ${BREW_PREFIX} && -d "${BREW_PREFIX}/share/zsh-completions" ]]; then
-  fpath=( $fpath "${BREW_PREFIX}/share/zsh-completions")
+  fpath=($fpath "${XDG_DATA_HOME}/zsh-completions/src")
+elif [[ -n "${BREW_PREFIX}" && -d "${BREW_PREFIX}/share/zsh-completions" ]]; then
+  fpath=($fpath "${BREW_PREFIX}/share/zsh-completions")
 fi
 
 #
@@ -55,7 +55,7 @@ else
 fi
 
 # Alias for manually clearing completions
-alias clearcomp="rm -f $_zcompdump; compinit -i -C -d "$_zcompdump""
+alias clearcomp="rm -f $_zcompdump; compinit -i -C -d $_zcompdump"
 
 # Clear completion alias
 unset _zcompdump

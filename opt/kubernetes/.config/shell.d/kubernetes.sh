@@ -21,11 +21,13 @@ if command_exists "kubectl"; then
   _init_kubectl() {
     # load kubectl completions
     if [[ -n $ZSH_VERSION ]]; then
+      # shellcheck disable=SC1090
       source <(kubectl completion zsh)
     elif [[ -n $BASH_VERSION ]]; then
+      # shellcheck disable=SC1090
       source <(kubectl completion bash)
     fi
-    unset -f $0
+    unset -f "$0"
   }
 
   # initialize kubectl completions (lazy)

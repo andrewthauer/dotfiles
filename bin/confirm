@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Prompt for a confirmation message
 #
-# usage:
+# Usage:
 #   confirm && echo continuing ...
 #   confirm "Do you want to continue? [y/N]" && echo continuing ...
-#
 
 confirm() {
   msg="$1"
@@ -14,8 +12,8 @@ confirm() {
   [[ -z "$1" ]] && msg="Are you sure?"
   confirm_msg="${msg} [y/N]?"
 
-  printf "${confirm_msg} "
-  read answer
+  echo -ne "${confirm_msg} "
+  read -r answer
 
   case "${answer}" in [yY] | [yY][eE][sS])
     exit 0

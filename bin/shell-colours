@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+# Summary:
+#   Print out 256 colours, with each number printed in its corresponding colour
 #
-# Tom Hale, 2016. MIT Licence.
-# Print out 256 colours, with each number printed in its corresponding colour
-# See http://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal/821163#821163
+# Usage:
+#   shell-colours
 #
+# Credit:
+#   Tom Hale, 2016. MIT Licence.
+#   See http://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal/821163#821163
 
 set -eu # Fail on errors or undeclared variables
 
@@ -12,7 +16,7 @@ printable_colours=256
 # Return a colour that contrasts with the given colour
 # Bash only does integer division, so keep it integral
 contrast_colour() {
-  local r g b luminance
+  local g
   colour="$1"
 
   if ((colour < 16)); then # Initial 16 ANSI colours

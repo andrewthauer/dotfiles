@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-#
-# descrioption:
+# Summary:
 #   Joins the args >= 2 by the first arg delimeter
 #
-# usage:
+# Usage:
 #   join_by , a "b c" d #a,b c,d
 #   join_by / var local tmp #var/local/tmp
 #   join_by , "${FOO[@]}" #a,b,c
-#
 
 join_by() {
   local IFS="$1"
@@ -15,4 +13,4 @@ join_by() {
   echo "$*"
 }
 
-join_by $@
+join_by "$@"

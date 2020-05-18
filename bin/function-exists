@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Check if a function exists
 #
-# usage:
+# Usage:
 #   function-exists "func_name"
-#
 
 function_exists() {
   local function_name=$1
@@ -14,4 +12,4 @@ function_exists() {
   return $?
 }
 
-function_exists $@
+function_exists "$@"

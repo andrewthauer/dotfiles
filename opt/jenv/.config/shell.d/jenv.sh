@@ -19,7 +19,7 @@ _jenv_lazy_init() {
   prepend_path "${JENV_ROOT}/shims"
   export JENV_SHELL="${CURRENT_SHELL:-$SHELL}"
   if [[ -f "${JENV_ROOT}/version" ]]; then
-    JENV_VERSION="$(cat ${JENV_ROOT}/version)"
+    JENV_VERSION="$(cat "${JENV_ROOT}"/version)"
     export JAVA_HOME="${JENV_ROOT}/versions/${JENV_VERSION}"
     export JDK_HOME="${JAVA_HOME}"
     export JENV_FORCEJAVAHOME=true

@@ -1,28 +1,26 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Symlink a short name to an exact version
 #
-# usage:
-#   asdf-alias <plugin> <name> [<version> | --auto | --remove]"
-#   asdf-alias <plugin> --auto"
-#   asdf-alias <plugin> [--list]"
+# Usage:
+#   asdf alias <plugin> <name> [<version> | --auto | --remove]"
+#   asdf alias <plugin> --auto"
+#   asdf alias <plugin> [--list]"
 #
-# examples:
-#   asdf-alias java 11.0 adopt-openjdk-11.0
-#   asdf-alias java 11.0 --remove
-#   asdf-alias java --auto
-#   asdf-alias java --list
-#   asdf-alias java --remove
+# Examples:
+#   asdf alias java 11.0 adopt-openjdk-11.0
+#   asdf alias java 11.0 --remove
+#   asdf alias java --auto
+#   asdf alias java --list
+#   asdf alias java --remove
 #
-# notes:
+# Notes:
 #   Symlink a short name to an exact version. Passing a second argument of
 #   --auto selects the latest patch release of the given point version. Passing
 #   a first argument of auto does the same for all installed point releases.
 #
-# credit:
-#   This was based on https://github.com/nodenv/nodenv-aliases
-#
+# Credit:
+#   This was inspired by https://github.com/nodenv/nodenv-aliases
 
 set -e
 
@@ -30,9 +28,9 @@ shopt -s nullglob
 
 usage() {
   echo "usage"
-  echo "  asdf-alias <plugin> <name> [<version> | --auto | --remove]"
-  echo "  asdf-alias <plugin> --auto"
-  echo "  asdf-alias <plugin> [--list]"
+  echo "  asdf alias <plugin> <name> [<version> | --auto | --remove]"
+  echo "  asdf alias <plugin> --auto"
+  echo "  asdf alias <plugin> [--list]"
 }
 
 resolve_link() {
@@ -119,12 +117,12 @@ recommended_aliases() {
 
 reshim_plugin() {
   local plugin="$1"
-  asdf reshim $plugin
+  asdf reshim "$plugin"
 }
 
 abort() {
   if [ "$#" -eq 1 ]; then
-    echo "asdf-alias: $*"
+    echo "asdf alias: $*"
   else
     usage
   fi
@@ -133,7 +131,7 @@ abort() {
 
 main() {
   plugin="$1"
-  alias="$2"
+  # alias="$2" -- not used directly
   version="$3"
   install_dir="$ASDF_DATA_DIR/installs/$plugin"
 
@@ -144,7 +142,7 @@ main() {
     3)
       case "$2" in --*)
         case "$3" in -*) abort < <(asdf help --usage alias) ;; esac
-        exec asdf-alias "$1" "$3" "$2"
+        exec asdf alias "$1" "$3" "$2"
         ;;
       esac
       if [ -e "$2" ] && [ ! -L "$2" ]; then
@@ -162,7 +160,7 @@ main() {
         esac
       else
         echo "$2 => $3"
-        ln -nsf "$3" "$2" && reshim_plugin
+        ln -nsf "$3" "$2" && reshim_plugin "$@"
       fi
       ;;
 

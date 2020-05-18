@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary
 #   Installs or updates a github repo
 #
-# usage:
+# Usage:
 #   github-install acme/package ../repos
 #   github-install acme/package ../repos --post-install 'make'
-#
 
 set -e
 
 usage() {
-  echo "Usage: $(basename $0) [user/repo] [target/dir] --post-install [command]"
-  echo "";
-  echo "  -r | --repo            : The github repo in the format of user/repo";
-  echo "  -x | --post-install    : An optional post install command";
-  echo "  -n | --no-user         : Clone without the repo user directory";
-  echo "  -h | --help            : This message";
+  echo "Usage: $(basename "$0") [user/repo] [target/dir] --post-install [command]"
+  echo ""
+  echo "  -r | --repo            : The github repo in the format of user/repo"
+  echo "  -x | --post-install    : An optional post install command"
+  echo "  -n | --no-user         : Clone without the repo user directory"
+  echo "  -h | --help            : This message"
 }
 
 parse_args() {
@@ -25,15 +23,27 @@ parse_args() {
 
   # named args
   while [ "$1" != "" ]; do
-  case "$1" in
-    -t|--target)        target="$2";        shift;;
-    -r|--repo)          repo="$2";          shift;;
-    -x|--post-install)  post_install="$2";  shift;;
-    -n|--no-user)       no_user=true;       ;;
-    -h|--help)          usage;              exit;; # quit and show usage
-    *)                  args+=("$1")        # if no match, add it to the positional args
-  esac
-  shift # move to next kv pair
+    case "$1" in
+      -t | --target)
+        target="$2"
+        shift
+        ;;
+      -r | --repo)
+        repo="$2"
+        shift
+        ;;
+      -x | --post-install)
+        post_install="$2"
+        shift
+        ;;
+      -n | --no-user) no_user=true ;;
+      -h | --help)
+        usage
+        exit
+        ;;               # quit and show usage
+      *) args+=("$1") ;; # if no match, add it to the positional args
+    esac
+    shift # move to next kv pair
   done
 
   # restore positional args
@@ -48,18 +58,20 @@ parse_args() {
   if [[ -z "${repo}" || -z "${target}" ]]; then
     echo "Invalid arguments"
     usage
-    exit 1;
+    exit 1
   fi
 }
 
 main() {
   parse_args "$@"
 
-  IFS='/'; arr=($repo); unset IFS;
+  IFS='/'
+  arr=("$repo")
+  unset IFS
   user="${arr[0]}"
   proj="${arr[1]}"
 
-  if [[ ! -z ${no_user} ]]; then
+  if [[ -n ${no_user} ]]; then
     target_dir="${target}/${proj}"
   else
     target_dir="${target}/${user}/${proj}"
@@ -71,16 +83,15 @@ main() {
     git clone "https://github.com/${repo}" "${target_dir}"
   else
     echo "Updating ${target_dir} ..."
-    git -C ${target_dir} pull
+    git -C "${target_dir}" pull
   fi
 
   if [[ -n "${post_install}" ]]; then
     echo "Running post install ..."
-    pushd ${target_dir} >/dev/null
+    pushd "${target_dir}" >/dev/null
     ${post_install}
     popd >/dev/null
   fi
 }
 
-main $@;
-exit 0
+main "$@"

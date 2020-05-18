@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Create a favicon
 #
-# usage:
+# Usage:
 #   favicon /path/to/image
-#
 
 source=$1
 
@@ -19,4 +17,4 @@ if [[ ! -x "$(command -v convert)" ]]; then
   exit 1
 fi
 
-convert $source -define icon:auto-resize=64,48,32,16 favicon.ico
+convert "$source" -define icon:auto-resize=64,48,32,16 favicon.ico

@@ -1,13 +1,11 @@
 #!/usr/bin/env zsh
-#
-# description:
+# Summary:
 #   Profile the shell startup time of zsh
 #
-# usage:
+# Usage:
 #   time-zsh
 #   time-zsh -p (profile with zprof)
 #   time-zsh -r (repeat 10 times)
-#
 
 time_cmd="/usr/bin/time"
 

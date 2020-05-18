@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Checks one string is contained in the other
 #
-# usage:
+# Usage:
 #   contains string substring
 #
-# returns:
+# Returns:
 #   Returns 0 if the specified string contains the specified substring,
 #   otherwise returns 1.
-#
 
 contains() {
   local string="$1"
@@ -22,4 +20,4 @@ contains() {
   fi
 }
 
-contains $@
+contains "$@"

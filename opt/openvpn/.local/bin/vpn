@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-#
-# description:
+# Summary:
 #   Starts an OpenVPN session
 #
-# usage:
+# Usage:
 #   vpn [profile_dir_name]
 
 set -e
@@ -14,10 +13,11 @@ TUNNELBLICK_CONNECT_SCRIPT="${DOTFILES_DIR}/opt/openvpn/_macos/tunnelblick-conne
 main() {
   if [[ -n $1 ]]; then
     cd "${OPENVPN_PROFILES_DIR}/$1"
-    [[ -f ".env" ]] && source .env
+    # shellcheck disable=SC1091
+    [[ -f ".env" ]] && source ".env"
   fi
 
-  VPN_PROFILE_NAME="${VPN_PROFILE_NAME-$(basename $PWD)}"
+  VPN_PROFILE_NAME="${VPN_PROFILE_NAME-$(basename "$PWD")}"
 
   if [[ "$(uname)" == "Darwin" ]] && [[ "${USE_TUNNELBLICK}" == "true" ]]; then
     PROFILE_NAME="${VPN_PROFILE_NAME}" osascript "${TUNNELBLICK_CONNECT_SCRIPT}"
@@ -29,4 +29,4 @@ main() {
   fi
 }
 
-main $@
+main "$@"

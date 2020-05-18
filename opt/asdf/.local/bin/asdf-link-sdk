@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-#
-# Create sdk symlinks for other opt packages
-#
+# Summary:
+#   Create sdk symlinks for other opt packages
 
 set -e
 
