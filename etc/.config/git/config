@@ -35,6 +35,8 @@
   ci = commit
   # Commit ammend
   cia = !git commit --amend
+  # Commit ammend with no edit
+  cian = !git commit --amend --no-edit
   # Commit fixup (git commit --fixup :/second)
   cif = !git commit --fixup
   # Commit then squashbase

@@ -31,7 +31,14 @@ brew 'tmux'
 # Shell enhancers
 brew 'bat'
 brew 'exa'
+brew 'procs'
 brew 'sk'
+
+# Search utils
+brew 'ag'
+brew 'fd'
+brew 'jq'
+brew 'ripgrep'
 
 # Gnu utilities
 brew 'coreutils'
@@ -52,12 +59,6 @@ brew 'openssl'
 brew 'openvpn'
 brew 'tree'
 brew 'wget'
-
-# Search utils
-brew 'ag'
-brew 'fd'
-brew 'jq'
-brew 'ripgrep'
 
 # Shell utils
 brew 'bats-core'
@@ -131,3 +132,4 @@ cask 'visual-studio-code'
 
 # Caskroom fonts
 cask 'font-fira-code'
+cask 'font-fira-mono'

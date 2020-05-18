@@ -42,6 +42,10 @@ elif [[ -n "${ZSH_VERSION}" ]]; then
   fi
 fi
 
+# Fix for nodejs global install
+# - https://github.com/asdf-vm/asdf-nodejs/issues/46
+export ASDF_SKIP_RESHIM=1
+
 #
 # Aliases & helpers
 #
