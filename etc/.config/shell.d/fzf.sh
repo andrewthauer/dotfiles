@@ -8,7 +8,7 @@
 
 # Skip if not using fzf (default is fzf)
 FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
-[ "${FUZZY_FINDER}" != 'fzf' ] && return 1
+[ "${FUZZY_FINDER}" != "fzf" ] && return 1
 
 # The install directory
 if [[ -d "/usr/local/opt/fzf" ]]; then

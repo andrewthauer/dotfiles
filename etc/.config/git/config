@@ -63,6 +63,8 @@
   cm = checkout master
   # Get default branch for repo
   default-branch = !git symbolic-ref --short refs/remotes/origin/HEAD | sed 's@^origin/@@'
+  # Use fuzzy finder for diff
+  df = !git-fuzzy-diff
   # Show changes that have been staged
   diffc = diff --cached
   # Shows the files changed between

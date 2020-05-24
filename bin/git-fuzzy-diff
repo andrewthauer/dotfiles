@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Summary:
+#   Use fuzzy finder with git dff
+#
+# Usage:
+#   git fuzzy-diff
+
+FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
+if [ -z "${FUZZY_FINDER}" ]; then
+  echo "FUZZY_FINDER not set"
+  exit 1
+fi
+
+preview="git diff $* --color=always -- {-1}"
+git diff "$@" --name-only | "${FUZZY_FINDER}" -m --ansi --preview "$preview"

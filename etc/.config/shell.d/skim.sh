@@ -7,7 +7,7 @@
 # shellcheck disable=SC1090
 
 # Skip if not using skim
-[ "${FUZZY_FINDER}" != 'sk' ] && return 1
+[ "${FUZZY_FINDER}" != "sk" ] && return 1
 
 # The install directory
 if [[ -d "/usr/local/opt/sk" ]]; then

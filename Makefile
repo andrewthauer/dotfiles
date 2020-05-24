@@ -31,9 +31,15 @@ endif
 
 all: setup link $(SUBDIRS)
 
-check-scripts:
+shellcheck:
 	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*' ! -name 'time-zsh')
 	@shellcheck $$(find . -name '*.sh')
+
+check-shfmt:
+	@shfmt -i 2 -ci -l $$(find . -type f -path '*/bin/**' ! -name '*.*')
+	@shfmt -i 2 -ci -l $$(find . -name '*.sh')
+
+lint: shellcheck check-shfmt
 
 dummy:
 	echo $(sort $(notdir $(wildcard ./opt*/*)))
