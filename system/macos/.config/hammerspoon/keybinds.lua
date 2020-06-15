@@ -7,8 +7,8 @@ hyper = { "ctrl", "alt", "cmd", "shift" }
 
 -- Modifier shortcuts
 local movekey = { "ctrl", "alt", "cmd" }
--- local nudgekey = { "ctrl", "alt" }
--- local yankkey = { "ctrl", "alt", "shift" }
+local nudgekey = { "ctrl", "alt" }
+local yankkey = { "ctrl", "alt", "shift" }
 local pushkey = { "ctrl", "cmd" }
 local shiftpushkey= { "ctrl", "cmd", "shift" }
 
@@ -41,19 +41,19 @@ spoon.SpoonInstall:andUse("KSheet", {
 })
 
 -- Center window with some room to see the desktop
--- hs.hotkey.bind(movekey, "g", function() push(0.05, 0.05, 0.9, 0.9) end)
+hs.hotkey.bind(movekey, "c", function() centerWindow() end)
 
 -- Movement hotkeys
--- hs.hotkey.bind(nudgekey, 'down', function() nudge(0, 100) end) 	--down
--- hs.hotkey.bind(nudgekey, "up", function() nudge(0, -100) end)	  --up
--- hs.hotkey.bind(nudgekey, "right", function() nudge(100, 0) end)	--right
--- hs.hotkey.bind(nudgekey, "left", function() nudge(-100, 0) end)	--left
+hs.hotkey.bind(nudgekey, 'down', function() nudgeWindow(0, 100) end) 	--down
+hs.hotkey.bind(nudgekey, "up", function() nudgeWindow(0, -100) end)	  --up
+hs.hotkey.bind(nudgekey, "right", function() nudgeWindow(100, 0) end)	--right
+hs.hotkey.bind(nudgekey, "left", function() nudgeWindow(-100, 0) end)	--left
 
 -- Resize hotkeys
--- hs.hotkey.bind(yankkey, "up", function() yank(0, -100) end)   -- yank bottom up
--- hs.hotkey.bind(yankkey, "down", function() yank(0, 100) end)  -- yank bottom down
--- hs.hotkey.bind(yankkey, "right", function() yank(100, 0) end) -- yank right side right
--- hs.hotkey.bind(yankkey, "left", function() yank(-100, 0) end) -- yank right side left
+hs.hotkey.bind(yankkey, "up", function() yankWindow(0, -100) end)   -- yank bottom up
+hs.hotkey.bind(yankkey, "down", function() yankWindow(0, 100) end)  -- yank bottom down
+hs.hotkey.bind(yankkey, "right", function() yankWindow(100, 0) end) -- yank right side right
+hs.hotkey.bind(yankkey, "left", function() yankWindow(-100, 0) end) -- yank right side left
 
 -- Highlight the mouse pointer
 hs.hotkey.bind(hyper, "w", mouseHighlight)

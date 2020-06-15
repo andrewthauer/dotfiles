@@ -8,9 +8,19 @@
 set -e
 
 if [ -d "$1" ]; then
-  echo "Directory: $(realpath "$1")"
+  if [ "$(command -v 'tree')" ]; then
+    tree -L 3 -C "$1"
+  else
+    echo "Directory: $(realpath "$1")"
+  fi
 elif [ -f "$1" ]; then
-  if [ "$(command -v 'bat')" ]; then
+  ext="${1##*.}"
+  images=(bmp gif jpg jpeg png tiff)
+
+  if [[ "${images[*]}" =~ $ext ]]; then
+    imgcat "$1"
+    echo "Image file: $1"
+  elif [ "$(command -v 'bat')" ]; then
     bat --style=numbers --color=always "$1"
   else
     cat "$1"

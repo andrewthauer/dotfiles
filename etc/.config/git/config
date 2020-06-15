@@ -6,6 +6,9 @@
   mergeoptions = --no-edit
   excludesfile = ~/.config/git/ignore
 
+[pull]
+	ff = only
+
 [push]
   default = simple
 

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Summary:
+#   Smart help display command
+#
+# Usage:
+#   help [command]
+
+set -e
+
+extract_initial_comment_block() {
+  sed -ne "
+    /^#/ !{
+      q
+    }
+    s/^#$/# /
+    /^# / {
+      s/^# //
+      p
+    }
+  "
+}
+
+join_by() {
+  IFS="$1"
+  shift
+  echo "$*"
+}
+
+main() {
+  local cmd="$1"
+  local cmd_path
+  cmd_path="$(command -v "$cmd")"
+
+  if [ ! -x "$cmd_path" ]; then
+    echo "Invalid command '$cmd'"
+    exit 1
+  fi
+
+  cat <"$cmd_path" | extract_initial_comment_block
+}
+
+main "$@"

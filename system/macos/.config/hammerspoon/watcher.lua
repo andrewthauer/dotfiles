@@ -2,8 +2,8 @@
 -- Watcher to load the configuration in case of changes
 -- --------------------------------------
 
-function reload_config(files)
+function reloadConfig(files)
   hs.reload()
 end
 
-hs.pathwatcher.new(os.getenv("HOME") .. "/.config/hammerspoon/", reload_config):start()
+hs.pathwatcher.new(os.getenv("HOME") .. "/.config/hammerspoon/", reloadConfig):start()
