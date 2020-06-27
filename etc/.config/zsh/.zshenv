@@ -19,7 +19,7 @@ fpath=(
 )
 
 # Prompt
-ZSH_PROMPT="pure"
-if [[ -d "${XDG_DATA_HOME}/${ZSH_PROMPT}" ]]; then
-  fpath+="${XDG_DATA_HOME}/${ZSH_PROMPT}"
-fi
+# ZSH_PROMPT="pure"
+# if [[ -d "${XDG_DATA_HOME}/${ZSH_PROMPT}" ]]; then
+#   fpath+="${XDG_DATA_HOME}/${ZSH_PROMPT}"
+# fi

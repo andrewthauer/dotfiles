@@ -26,13 +26,17 @@ brew 'direnv'
 brew 'fasd'
 brew 'fzf'
 brew 'neovim'
+brew 'sk'
+brew 'starship'
 brew 'tmux'
 
 # Shell enhancers
 brew 'bat'
+brew 'colordiff'
 brew 'exa'
 brew 'procs'
-brew 'sk'
+brew 'tldr'
+brew 'tree'
 
 # Search utils
 brew 'ag'
@@ -44,31 +48,29 @@ brew 'ripgrep'
 brew 'coreutils'
 brew 'findutils'
 brew 'gettext', link: true
+brew 'gawk'
 brew 'gnu-indent'
 brew 'gnu-sed'
-brew 'gnutls'
-brew 'grep'
 brew 'gnu-tar'
-brew 'gawk'
+brew 'gnutls'
+brew 'gpg'
+brew 'grep'
 brew 'parallel'
 
 # System utils
+brew 'glances'
 brew 'htop'
 brew 'inetutils'
+brew 'ncdu'
 brew 'openssl'
 brew 'openvpn'
-brew 'tree'
 brew 'wget'
 
-# Shell utils
-brew 'bats-core'
-brew 'shellcheck'
-brew 'shfmt', link: true, overwrite: true
-
-# Git utils
-brew 'git-open'
-brew 'github/gh/gh'
-brew 'hub'
+# Docker
+brew 'ctop'
+brew 'docker-completion'
+brew 'docker-compose-completion'
+brew 'lazydocker'
 
 # Documents, graphics & conversions
 # brew 'asciidoctor'
@@ -77,18 +79,26 @@ brew 'imagemagick'
 brew 'pandoc'
 brew 'plantuml'
 
-# gnu pg
-brew 'gpg'
-
-# Docker completion
-brew 'docker-completion'
-# brew 'docker-compose-completion'
+# Git tools
+# brew 'diff-so-fancy'
+brew 'git-open'
+brew 'github/gh/gh'
+brew 'hub'
 
 # Dev related
 brew 'asdf'
 brew 'cmake'
 brew 'gcc'
 brew 'yarn', args: ["ignore-dependencies"]
+
+# Shell dev utils
+# brew 'bashdb'
+brew 'bats-core'
+brew 'shellcheck'
+brew 'shfmt', link: true, overwrite: true
+
+# Other dev tools
+# brew 'adr-tools'
 
 #
 # Local Brewfile's

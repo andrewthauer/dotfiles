@@ -10,7 +10,7 @@ XDG_BIN_HOME := $(HOME)/.local/bin
 # Commands
 GITHUB_INSTALL = $(DOTFILES_DIR)/opt/git/.local/bin/github-install
 
-all: setup link vim zsh
+all: setup link vim zsh cheat
 
 etc: all
 

@@ -1,0 +1,7 @@
+# Starship prompt config: https://starship.rs/config/
+
+[aws]
+disabled = true
+
+[package]
+disabled = true
