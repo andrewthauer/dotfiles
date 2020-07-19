@@ -550,11 +550,11 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>440 446 799 448 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>2440 666 400 129 0 0 1680 1027 </string>
+	<string>640 686 400 129 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>3840 1384 700 622 1920 429 3840 1577 </string>
+	<string>490 316 700 622 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>95 235 1305 792 0 0 1680 1050 </string>
+	<string>150 119 1450 860 0 0 1680 1027 </string>
 	<key>NeverWarnAboutOverrides</key>
 	<true/>
 	<key>NeverWarnAboutOverrides_selection</key>
@@ -883,7 +883,7 @@
 				<real>0.51764708757400513</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
@@ -2054,6 +2054,7 @@
 		<string>3.3.8</string>
 		<string>3.3.11</string>
 		<string>3.3.7</string>
+		<string>3.3.12</string>
 	</array>
 	<key>NoSyncBFPFavorites</key>
 	<array/>
@@ -2072,7 +2073,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>3F14859D-BE3E-494D-860E-849D3495BCAA</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>156</integer>
+	<integer>176</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2890,7 +2891,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-06-27T14:54:48Z</date>
+	<date>2020-07-19T00:44:41Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
@@ -2934,7 +2935,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.11</string>
+	<string>3.3.12</string>
 	<key>kCPFavoritesUserDefaultsKey</key>
 	<array>
 		<data>

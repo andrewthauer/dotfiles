@@ -33,8 +33,12 @@ brew 'tmux'
 # Shell enhancers
 brew 'bat'
 brew 'colordiff'
+brew 'dust'
+# brew 'dutree'
 brew 'exa'
+brew 'hyperfine'
 brew 'procs'
+brew 'sd'
 brew 'tldr'
 brew 'tree'
 
@@ -58,13 +62,16 @@ brew 'grep'
 brew 'parallel'
 
 # System utils
+# brew 'bottom'
 brew 'glances'
 brew 'htop'
+brew 'httpie'
 brew 'inetutils'
 brew 'ncdu'
 brew 'openssl'
 brew 'openvpn'
 brew 'wget'
+# brew 'ytop'
 
 # Docker
 brew 'ctop'

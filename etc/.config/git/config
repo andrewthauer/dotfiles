@@ -19,6 +19,10 @@
 [rerere]
   enabled = true
 
+[protocol]
+  # https://github.blog/changelog/2018-11-08-git-protocol-v2-support/
+	version = 2
+
 [alias]
   # List authors
   authors = shortlog -sn

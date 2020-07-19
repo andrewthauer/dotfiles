@@ -1,10 +1,9 @@
 -- --------------------------------------------------------
 -- Borrowed from https://github.com/exark/dotfiles/tree/master/.hammerspoon
-
 -- --------------------------------------------------------
 -- Helper functions - these do all the heavy lifting below.
 -- Names are roughly stolen from same functions in Slate :)
--- -- --------------------------------------------------------
+-- --------------------------------------------------------
 
 -- Center window
 function centerWindow()

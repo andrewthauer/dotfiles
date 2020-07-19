@@ -27,7 +27,6 @@
 - **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.
-- **pure** pretty, fast, minimal command prompt.
 - **useful aliases & utilities** for maximum productivity.
 - **vim & nvim** work interchangeably.
 - **[homebrew](https://brew.sh) compatible** packages with smart fallbacks.
@@ -72,7 +71,6 @@ within the `$HOME` directory.
 - `lib` - Core utilities used throughout. Must be sourced up front.
 - `local` - Local system configs & secrets that should never be committed.
 - `opt` - Optional packages that can be stowed.
-- `stow` - Contains base stow config (must be stowed first).
 - `system` - OS specific package settings.
 - `test` - Used to run some basic tests.
 
