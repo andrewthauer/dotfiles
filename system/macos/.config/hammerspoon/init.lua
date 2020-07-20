@@ -13,8 +13,8 @@ hs.loadSpoon('SpoonInstall')
 spoon.SpoonInstall.use_syncinstall = true
 
 -- Load require modules
-require('window')
-local window = require 'hs.window'
+local utils = require('utils')
+local window = require('window')
 
 -- Global hyper key
 local hyper = { 'ctrl', 'alt', 'cmd', 'shift' }
@@ -93,11 +93,11 @@ spoon.SpoonInstall:andUse('KSheet', {
   },
 })
 
-spoon.SpoonInstall:andUse('DismissNotifications', {
-  hotkeys = {
-    all = { hyper, "'" },
-  },
-})
+-- spoon.SpoonInstall:andUse('DismissNotifications', {
+--   hotkeys = {
+--     all = { ctrl_cmd, "'" },
+--   },
+-- })
 
 -- Mouse circle cheatsheet for current application
 spoon.SpoonInstall:andUse('MouseCircle', {
@@ -143,59 +143,66 @@ spoon.SpoonInstall:andUse('HCalendar', { disable = false })
 -- Count down timer
 spoon.SpoonInstall:andUse('CountDown')
 
--- Curried launch by app id
-launchById = function(id)
-  return function()
-    hs.application.launchOrFocusByBundleID(id)
-  end
-end
-
--- Curried open path in finder
-openWithFinder = function(path)
-  return function()
-    os.execute('open '..path)
-    hs.application.launchOrFocus('Finder')
-  end
-end
-
--- Application hotkeys
-hs.hotkey.bind(hyper, '1', launchById('com.agilebits.onepassword7'))
-hs.hotkey.bind(hyper, 'c', launchById('com.microsoft.VSCode'))
-hs.hotkey.bind(hyper, 'd', launchById('com.kapeli.dashdoc'))
-hs.hotkey.bind(hyper, 'f', launchById('org.mozilla.firefoxdeveloperedition'))
-hs.hotkey.bind(hyper, 's', launchById('com.tinyspeck.slackmacgap'))
-hs.hotkey.bind(hyper, 't', launchById('com.googlecode.iterm2'))
-
 -- Center window with some room to see the desktop
-hs.hotkey.bind(movekey, 'c', function() centerWindow() end)
+hs.hotkey.bind(movekey, 'c', function() window.centerWindow() end)
 
 -- Movement hotkeys
-hs.hotkey.bind(nudgekey, 'down', function() nudgeWindow(0, 100) end) 	--down
-hs.hotkey.bind(nudgekey, 'up', function() nudgeWindow(0, -100) end)	  --up
-hs.hotkey.bind(nudgekey, 'right', function() nudgeWindow(100, 0) end)	--right
-hs.hotkey.bind(nudgekey, 'left', function() nudgeWindow(-100, 0) end)	--left
+hs.hotkey.bind(nudgekey, 'down', function() window.nudgeWindow(0, 100) end) 	--down
+hs.hotkey.bind(nudgekey, 'up', function() window.nudgeWindow(0, -100) end)	  --up
+hs.hotkey.bind(nudgekey, 'right', function() window.nudgeWindow(100, 0) end)	--right
+hs.hotkey.bind(nudgekey, 'left', function() window.nudgeWindow(-100, 0) end)	--left
 
 -- Resize hotkeys
-hs.hotkey.bind(yankkey, 'up', function() yankWindow(0, -100) end)   -- yank bottom up
-hs.hotkey.bind(yankkey, 'down', function() yankWindow(0, 100) end)  -- yank bottom down
-hs.hotkey.bind(yankkey, 'right', function() yankWindow(100, 0) end) -- yank right side right
-hs.hotkey.bind(yankkey, 'left', function() yankWindow(-100, 0) end) -- yank right side left
+hs.hotkey.bind(yankkey, 'up', function() window.yankWindow(0, -100) end)   -- yank bottom up
+hs.hotkey.bind(yankkey, 'down', function() window.yankWindow(0, 100) end)  -- yank bottom down
+hs.hotkey.bind(yankkey, 'right', function() window.yankWindow(100, 0) end) -- yank right side right
+hs.hotkey.bind(yankkey, 'left', function() window.yankWindow(-100, 0) end) -- yank right side left
+
+-- Window tiling
+local tiling = require('tiling')
+local hotkey = require('hs.hotkey')
+
+hotkey.bind(ctrl_cmd, 'c', function() tiling.cycleLayout() end)
+hotkey.bind(ctrl_cmd, 'j', function() tiling.cycle(1) end)
+hotkey.bind(ctrl_cmd, 'k', function() tiling.cycle(-1) end)
+hotkey.bind(ctrl_cmd, 'space', function() tiling.promote() end)
+-- hotkey.bind(ctrl_cmd, 'f', function() tiling.goToLayout('fullscreen') end)
+
+-- If you want to set the layouts that are enabled
+tiling.set('layouts', {
+  'fullscreen',
+  'main-vertical',
+  'main-horizontal',
+  'rows',
+  'columns',
+  'gp-vertical',
+  'gp-horizontal',
+  'main-vertical-variable',
+})
+
+-- Application hotkeys
+hs.hotkey.bind(hyper, '1', utils.launchById('com.agilebits.onepassword7'))
+hs.hotkey.bind(hyper, 'c', utils.launchById('com.microsoft.VSCode'))
+hs.hotkey.bind(hyper, 'd', utils.launchById('com.kapeli.dashdoc'))
+hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition'))
+hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
+hs.hotkey.bind(hyper, 't', utils.launchById('com.googlecode.iterm2'))
 
 -- Recursive hotkeys
 spoon.SpoonInstall:andUse('RecursiveBinder', {
   config = {},
   fn = function(s)
     app_keymap = {
-      [s.singleKey('1', '1Password')] = launchById('com.agilebits.onepassword7'),
-      [s.singleKey('c', 'VS Code')] = launchById('com.microsoft.VSCode'),
-      [s.singleKey('d', 'Dash')] = launchById('com.kapeli.dashdoc'),
-      [s.singleKey('f', 'Firefox')] = launchById('org.mozilla.firefoxdeveloperedition'),
-      [s.singleKey('i', 'IDEA')] = launchById('com.jetbrains.intellij'),
-      [s.singleKey('o', 'OneNote')] = launchById('com.microsoft.onenote.mac'),
-      [s.singleKey('p', 'Postman')] = launchById('com.postmanlabs.mac'),
-      [s.singleKey('s', 'Slack')] = launchById('com.tinyspeck.slackmacgap'),
-      [s.singleKey('t', 'iTerm')] = launchById('com.googlecode.iterm2'),
-      [s.singleKey('y', 'Spotify')] = launchById('com.spotify.client'),
+      [s.singleKey('1', '1Password')] = utils.launchById('com.agilebits.onepassword7'),
+      [s.singleKey('c', 'VS Code')] = utils.launchById('com.microsoft.VSCode'),
+      [s.singleKey('d', 'Dash')] = utils.launchById('com.kapeli.dashdoc'),
+      [s.singleKey('f', 'Firefox')] = utils.launchById('org.mozilla.firefoxdeveloperedition'),
+      [s.singleKey('i', 'IDEA')] = utils.launchById('com.jetbrains.intellij'),
+      [s.singleKey('o', 'OneNote')] = utils.launchById('com.microsoft.onenote.mac'),
+      [s.singleKey('p', 'Postman')] = utils.launchById('com.postmanlabs.mac'),
+      [s.singleKey('s', 'Slack')] = utils.launchById('com.tinyspeck.slackmacgap'),
+      [s.singleKey('t', 'iTerm')] = utils.launchById('com.googlecode.iterm2'),
+      [s.singleKey('y', 'Spotify')] = utils.launchById('com.spotify.client'),
     }
     hs.hotkey.bind(hyper, 'o', s.recursiveBind(app_keymap))
 
@@ -206,12 +213,12 @@ spoon.SpoonInstall:andUse('RecursiveBinder', {
     hs.hotkey.bind('alt', 'b', s.recursiveBind(bookmarks_keymap))
 
     finder_keymap = {
-      [s.singleKey('a', 'Applications')] = openWithFinder('~/Applications'),
-      [s.singleKey('c', 'Code')] = openWithFinder('~/Code'),
-      [s.singleKey('D', 'Desktop')] = openWithFinder('~/Desktop'),
-      [s.singleKey('d', 'Downloads')] = openWithFinder('~/Downloads'),
-      [s.singleKey('h', 'Home')] = openWithFinder('~'),
-      [s.singleKey('l', 'Library')] = openWithFinder('~/Library'),
+      [s.singleKey('a', 'Applications')] = utils.openWithFinder('~/Applications'),
+      [s.singleKey('c', 'Code')] = utils.openWithFinder('~/Code'),
+      [s.singleKey('D', 'Desktop')] = utils.openWithFinder('~/Desktop'),
+      [s.singleKey('d', 'Downloads')] = utils.openWithFinder('~/Downloads'),
+      [s.singleKey('h', 'Home')] = utils.openWithFinder('~'),
+      [s.singleKey('l', 'Library')] = utils.openWithFinder('~/Library'),
     }
     hs.hotkey.bind('alt', 'f', s.recursiveBind(finder_keymap))
 
@@ -246,6 +253,13 @@ spoon.SpoonInstall:andUse('Commander', {
 --   config = {
 --   }
 -- })
+
+-- Load system specific keybinds (if available)
+-- local initDir = os.getenv("HOME") .. "/.dotfiles/local/.config/hammerspoon"
+-- local localKeybinds = initDir .. "/local.lua"
+-- if hs.fs.displayName(localKeybinds) then
+--   dofile(localKeybinds)
+-- end
 
 -- Notification that config was loaded
 spoon.SpoonInstall:andUse('FadeLogo', {

@@ -5,15 +5,17 @@
 -- Names are roughly stolen from same functions in Slate :)
 -- --------------------------------------------------------
 
+local window = require('hs.window')
+
 -- Center window
-function centerWindow()
+local function centerWindow()
   toScreen = nil
   inBounds = true
   hs.window.focusedWindow():centerOnScreen(toScreen, inBounds)
 end
 
 -- Move a window a number of pixels in x and y
-function nudgeWindow(xpos, ypos)
+local function nudgeWindow(xpos, ypos)
 	local win = hs.window.focusedWindow()
   local f = win:frame()
 
@@ -23,7 +25,7 @@ function nudgeWindow(xpos, ypos)
 end
 
 -- Resize a window by moving the bottom
-function yankWindow(xpixels,ypixels)
+local function yankWindow(xpixels,ypixels)
 	local win = hs.window.focusedWindow()
 	local f = win:frame()
 
@@ -35,7 +37,7 @@ end
 -- Resize window for chunk of screen.
 -- For x and y: use 0 to expand fully in that dimension, 0.5 to expand halfway
 -- For w and h: use 1 for full, 0.5 for half
-function pushWindow(x, y, w, h)
+local function pushWindow(x, y, w, h)
 	local win = hs.window.focusedWindow()
 	local f = win:frame()
 	local screen = win:screen()
@@ -47,3 +49,11 @@ function pushWindow(x, y, w, h)
 	f.h = max.h*h
 	win:setFrame(f)
 end
+
+-- Attach to hammerspoon
+hs.window.centerWindow = centerWindow
+hs.window.nudgeWindow = nudgeWindow
+hs.window.yankWindow = yankWindow
+hs.window.pushWindow = pushWindow
+
+return window
