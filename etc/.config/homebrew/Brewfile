@@ -12,7 +12,6 @@ brew 'stow'
 # Bash
 brew 'bash'
 brew 'bash-completion@2'
-brew 'vcprompt'
 
 # Zsh
 brew 'zsh'

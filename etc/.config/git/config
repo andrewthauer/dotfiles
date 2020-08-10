@@ -6,6 +6,9 @@
   mergeoptions = --no-edit
   excludesfile = ~/.config/git/ignore
 
+[init]
+	defaultBranch = main
+
 [pull]
 	ff = only
 
@@ -46,6 +49,8 @@
   cian = !git commit --amend --no-edit
   # Commit fixup (git commit --fixup :/second)
   cif = !git commit --fixup
+  # Commit ammend with no edit
+  cim = !git commit -m
   # Commit then squashbase
   cis = !git commit -m 'chore: squash' && git squash
   # Commit then squashbase
@@ -61,15 +66,15 @@
   # Checkout default branch
   cod = !git checkout $(git default-branch)
   # Display the number of commits
-  count = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
+  count = "!f() { compareBranch=${1-`git default-branch`}; git rev-list --count HEAD ^$compareBranch; }; f"
   # Cherry pick commits
   cp = cherry-pick
   # Cherry pick with sign off line
   cps = cherry-pick -s
-  # Checkout master
-  cm = checkout master
+  # Alias for check out default branch
+  cm = cod
   # Get default branch for repo
-  default-branch = !git symbolic-ref --short refs/remotes/origin/HEAD | sed 's@^origin/@@'
+  default-branch = !git symbolic-ref --short HEAD
   # Use fuzzy finder for diff
   df = !git-fuzzy-diff
   # Show changes that have been staged
@@ -82,8 +87,8 @@
   fetchp = fetch -p
   # Display a log of incoming changes
   in = !git wtf HEAD..HEAD@{u}
-  # Delete all merged branches but master
-  kill-branches = !git branch --merged | grep -v '\\bmaster\\b' | xargs git branch -d
+  # Delete all merged branches but default
+  kill-branches = !git branch --merged | grep -v '\\b`git default-branch`\\b' | xargs git branch -d
   # List branches
   lb = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 10 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[36m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
   # Display the last tag info
@@ -91,7 +96,7 @@
   # List all files
   lsf = ls-files
   # Show remote
-  ls-merged = !git branch -r --merged | grep -v master
+  ls-merged = !git branch -r --merged | grep -v `git default-branch`
   # Show log (one commit per line)
   logl = log --oneline
   # Show log with details (one commit per line)
@@ -116,22 +121,22 @@
   pushu = !git push -u origin `git branch-name`
   # Rebase
   rb = rebase
-  # Rebase default branch (master, develop, etc)
-  rbd = "!f() { branchName=$(git default-branch); git squashbase -i $branchName; }; f"
+  # Rebase default branch (main, develop, etc)
+  rbb = "!f() { branchName=$(git default-branch); git squashbase -i $branchName; }; f"
   # Shortcut for `git rebase --continue`
   rbc = rebase --continue
   # Shortcut for `git rebase --interactive`
   rbi = rebase --interactive
-  # Shortcut for `git rebase --interactive master`
-  rbm = rebase --interactive master
-  # Reset to origin/master
-  reset-to-master = !git fetch origin && git reset --hard origin/master
+  # Reset to origin/[default-branch] (e.g. main)
+  reset-to-default = !git fetch origin && git reset --hard origin/`git default-branch`
   # Reset to origin/[current-branch]
   reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
+  # Switch to the default branch
+  sd = !git switch $(git default-branch)
   # squash up to
   squash = !git rebase -i HEAD~${1:-2}
-  # Squash up to default branch (master, develop, etc)
-  squashbase = "!f() { defaultBranch=$(git default-branch); branchName=${1-$defaultBranch}; commitCount=$(git count $branchName); git rebase -i HEAD~$commitCount; }; f"
+  # Squash up to default branch (main, develop, etc)
+  squashbase = "!f() { defaultBranch=`git default-branch`; branchName=${1-$defaultBranch}; commitCount=`git count $branchName`; git rebase -i HEAD~$commitCount; }; f"
   # Show current branch status with short format
   st = status -sb
   # Show current branch status with untracked files
@@ -141,7 +146,7 @@
   # Pull & push the current branch
   sync = !git pull && git push
   # Update a fork
-  sync-fork = !git fetch upstream && git checkout master && git merge upstream/master
+  sync-fork = !git fetch upstream && git checkout `git default branch` && git merge upstream/master
   # Stage the incoming changes
   theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
   # List differences from yesterday
@@ -163,7 +168,7 @@
   # comerge = "!x() { target=`git symbolic-ref HEAD`; git co $1; git merge $target; }; x"
   # Display the number of commits
   # count = "!f() { defaultBranch=$(git default-branch); compareBranch=${1:-$defaultBranch}; git rev-list --count HEAD ^$compareBranch; }; f"
-  # delete-remote-merged = git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
+  # delete-remote-merged = git branch -r --merged | grep -v `git default-branch` | sed 's/origin\///' | xargs -n 1 git push --delete origin
   # Show changed files between commits
   # difff = "!f() { a=$(git branch-name); b=$(git default-branch); git diff --name-only ${1:-$a} $(git merge-base ${1:-$a} ${2:-$b}); }; f"
   # Pull default branch and rebase current branch on top

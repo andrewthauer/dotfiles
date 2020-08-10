@@ -13,6 +13,8 @@ fi
 # XDG specifications
 #
 
+export IRBRC="${XDG_CONFIG_HOME}/irb/irbrc"
+
 # export GEM_HOME="${XDG_DATA_HOME}/gem"
 export GEMRC="${XDG_CONFIG_HOME}/gem/gemrc"
 export GEM_SPEC_CACHE="${XDG_CACHE_HOME}/gem/specs"
