@@ -50,6 +50,8 @@
   cob = checkout -b
   # Checkout default branch
   cod = !git checkout `git default-branch`
+  # Alias for `git sd`
+  cm = sd
   # Switch to the default branch
   sd = !git switch `git default-branch`
   # Switch branches
@@ -105,7 +107,7 @@
   # Commit ammend
   cia = !git commit --amend
   # Commit ammend with no edit
-  cian = !git commit --amend --no-edit
+  cian = !git commit --amend --no-edit --date 'now'
   # Commit fixup (git commit --fixup :/second)
   cif = !git commit --fixup
   # Commit ammend with no edit
@@ -133,12 +135,14 @@
   nomerge = --no-commit --no-ff $@
   # Rebase
   rb = rebase
-  # Rebase default branch (main, develop, etc)
-  rbb = "!f() { branchName=`git default-branch`; git squashbase $branchName; }; f"
   # Shortcut for `git rebase --continue`
   rbc = rebase --continue
   # Shortcut for `git rebase --interactive`
   rbi = rebase --interactive
+  # Rebase default branch (main, develop, etc)
+  rbd = "!f() { branchName=`git default-branch`; git rebase -i $branchName; }; f"
+  # Alias for rbd
+  rbm = rbd
   # squash up to
   squash = "!f() { git rebase -i HEAD~${1:-2}; }; f"
   # Squash up to default branch (main, develop, etc)
@@ -160,6 +164,8 @@
   # Diff, Log & Introspection
   #
 
+  # Display the number of commits between branches
+  count = "!f() { compareBranch=${1-`git default-branch`}; git rev-list --count HEAD ^$compareBranch; }; f"
   # Shows the files changed between
   df = diff --stat
   # Show changes that have been staged
