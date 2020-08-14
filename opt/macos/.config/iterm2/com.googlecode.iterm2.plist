@@ -497,7 +497,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/system/macos/.config/iterm2</string>
+	<string>~/.dotfiles/opt/macos/.config/iterm2</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
 	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -2817,7 +2817,7 @@
 	<key>NoSyncSavePanelSavedSettings_SaveProfile</key>
 	<dict>
 		<key>Initial Directory</key>
-		<string>/Users/athauer/.dotfiles/system/macos/.config/iterm2</string>
+		<string>/Users/athauer/.dotfiles/opt/macos/.config/iterm2</string>
 	</dict>
 	<key>NoSyncSuppressDownloadConfirmation</key>
 	<true/>

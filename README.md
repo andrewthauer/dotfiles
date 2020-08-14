@@ -53,9 +53,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/mast
 
 See
 
-- [macOS](system/macos/README.md)
-- [Linux](system/linux/README.md)
-- [Windows](system/windows/README.md)
+- [macOS](opt/macos/README.md)
+- [Linux](opt/linux/README.md)
+- [Windows](opt/windows/README.md)
 
 ## Documentation
 
@@ -71,7 +71,7 @@ within the `$HOME` directory.
 - `lib` - Core utilities used throughout. Must be sourced up front.
 - `local` - Local system configs & secrets that should never be committed.
 - `opt` - Optional packages that can be stowed.
-- `system` - OS specific package settings.
+- `opt/{system}` - OS specific package settings.
 - `test` - Used to run some basic tests.
 
 _NOTE: Directories starting with an `_underscore` will be ignored by stow._

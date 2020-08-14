@@ -19,14 +19,14 @@ SUBDIRS = etc opt/java
 # macOS specific settings
 ifeq ($(shell uname), Darwin)
 	SYSTEM_PKG = macos
-	SUBDIRS := $(SUBDIRS) system/$(SYSTEM_PKG)
+	SUBDIRS := $(SUBDIRS) opt/$(SYSTEM_PKG)
 	LAUNCH_AGENTS = $(HOME)/Library/LaunchAgents
 endif
 
 # Linux specific settings
 ifeq ($(shell uname), Linux)
 	SYSTEM_PKG = linux
-	SUBDIRS := $(SUBDIRS) system/$(SYSTEM_PKG)
+	SUBDIRS := $(SUBDIRS) opt/$(SYSTEM_PKG)
 endif
 
 all: setup link $(SUBDIRS)
@@ -54,7 +54,7 @@ setup:
 link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S etc local
 	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
-	@stow -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
+	@stow -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKG)
 	# @stow -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 
 link-opt:
@@ -64,14 +64,14 @@ link-opt:
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
-	@stow -D -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
+	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKG)
 	# @stow -D -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 
 chklink:
 	@echo "\n--- Files from 'etc' currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc
 	@echo "\n--- System package files currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR)/system -S $(SYSTEM_PKG)
+	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKG)
 	@echo "\n--- Optional package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
 	@echo "\n--- Local packages currently unlinked ---\n"

@@ -357,7 +357,7 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 
 # Use custom theme for Terminal.app
 TERMINAL_THEME="Zenburn"
-open "${DOTFILES_DIR}/system/macos/_setup/${TERMINAL_THEME}.terminal"
+open "${DOTFILES_DIR}/opt/macos/_setup/${TERMINAL_THEME}.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.Terminal "Default Window Settings" -string "${TERMINAL_THEME}"
 defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_THEME}"
