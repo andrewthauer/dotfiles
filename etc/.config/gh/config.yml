@@ -1,0 +1,6 @@
+git_protocol: ssh
+aliases:
+    o: repo view --web
+    pro: pr view --web
+    prw: pr create --web
+    prd: pr create --draft
