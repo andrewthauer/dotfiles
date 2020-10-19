@@ -15,6 +15,10 @@
 # anything else local or secrets
 **/secrets
 
+# github cli
+**/gh/*
+!**/gh/config.yml
+
 # keyboard
 **/karabiner/*
 !karabiner.json
