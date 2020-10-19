@@ -187,6 +187,7 @@ hs.hotkey.bind(hyper, 'd', utils.launchById('com.kapeli.dashdoc'))
 hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
 hs.hotkey.bind(hyper, 't', utils.launchById('com.googlecode.iterm2'))
+hs.hotkey.bind(hyper, 'z', utils.launchById('us.zoom.xos'))
 
 -- Recursive hotkeys
 spoon.SpoonInstall:andUse('RecursiveBinder', {
@@ -203,6 +204,7 @@ spoon.SpoonInstall:andUse('RecursiveBinder', {
       [s.singleKey('s', 'Slack')] = utils.launchById('com.tinyspeck.slackmacgap'),
       [s.singleKey('t', 'iTerm')] = utils.launchById('com.googlecode.iterm2'),
       [s.singleKey('y', 'Spotify')] = utils.launchById('com.spotify.client'),
+      [s.singleKey('z', 'Zoom')] = utils.launchById('us.zoom.xos'),
     }
     hs.hotkey.bind(hyper, 'o', s.recursiveBind(app_keymap))
 
