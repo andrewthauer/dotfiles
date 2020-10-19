@@ -32,17 +32,12 @@ brew 'tmux'
 # Shell enhancers
 brew 'bat'
 brew 'colordiff'
-brew 'dust'
-# brew 'dutree'
-brew 'exa'
-brew 'hyperfine'
-brew 'procs'
+# brew 'exa'
 brew 'sd'
-brew 'tldr'
+# brew 'tldr'
 brew 'tree'
 
 # Search utils
-brew 'ag'
 brew 'fd'
 brew 'jq'
 brew 'ripgrep'
@@ -61,17 +56,16 @@ brew 'grep'
 brew 'parallel'
 
 # System utils
-# brew 'bottom'
-brew 'glances'
-brew 'htop'
-brew 'httpie'
+# brew 'dust'
+# brew 'htop'
+# brew 'httpie'
 brew 'inetutils'
 brew 'netcat'
 brew 'ncdu'
+# brew 'dutree'
 brew 'openssl'
 brew 'openvpn'
 brew 'wget'
-# brew 'ytop'
 
 # Docker
 brew 'ctop'
@@ -89,7 +83,7 @@ brew 'plantuml'
 # Git tools
 # brew 'diff-so-fancy'
 brew 'git-open'
-brew 'github/gh/gh'
+brew 'gh'
 brew 'hub'
 
 # Dev related
@@ -101,11 +95,13 @@ brew 'yarn', args: ["ignore-dependencies"]
 # Shell dev utils
 # brew 'bashdb'
 brew 'bats-core'
+brew 'delta'
 brew 'shellcheck'
 brew 'shfmt', link: true, overwrite: true
 
 # Other dev tools
 # brew 'adr-tools'
+brew 'vale'
 
 #
 # Local Brewfile's
@@ -143,9 +139,7 @@ cask 'iterm2'
 cask 'karabiner-elements'
 cask 'slack'
 cask 'spotify'
-cask 'tunnelblick'
-cask 'typora'
-cask 'veracrypt'
+# cask 'veracrypt'
 cask 'visual-studio-code'
 
 # Caskroom fonts
