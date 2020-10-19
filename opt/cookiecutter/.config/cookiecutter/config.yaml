@@ -1,0 +1,5 @@
+default_context:
+cookiecutters_dir: "$XDG_CACHE_HOME/cookiecutters/"
+replay_dir: "$XDG_CACHE_HOME/cookiecutter_replay/"
+abbreviations:
+  gh: git+ssh://git@github.com/{0}.git
