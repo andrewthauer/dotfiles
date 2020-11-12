@@ -6,8 +6,8 @@
   mergeoptions = --no-edit
   excludesfile = ~/.config/git/ignore
 
-[init]
-	defaultBranch = main
+; [init]
+;   defaultBranch = main
 
 [pull]
 	ff = only
@@ -33,6 +33,15 @@
 
   # List configuration
   cf = config --list
+
+  #
+  # Remotes
+  #
+
+  # Add the upstream branch
+  add-upstream = !git remote add upstream $1
+  # Set the upstream branch
+  set-upstream = !git remote set-url upstream $1
 
   #
   # Branching

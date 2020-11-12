@@ -31,9 +31,9 @@ brew 'tmux'
 
 # Shell enhancers
 brew 'bat'
-brew 'colordiff'
+# brew 'colordiff'
 # brew 'exa'
-brew 'sd'
+# brew 'sd'
 # brew 'tldr'
 brew 'tree'
 
@@ -47,13 +47,12 @@ brew 'coreutils'
 brew 'findutils'
 brew 'gettext', link: true
 brew 'gawk'
-brew 'gnu-indent'
 brew 'gnu-sed'
 brew 'gnu-tar'
 brew 'gnutls'
 brew 'gpg'
 brew 'grep'
-brew 'parallel'
+# brew 'parallel'
 
 # System utils
 # brew 'dust'
@@ -68,7 +67,7 @@ brew 'openvpn'
 brew 'wget'
 
 # Docker
-brew 'ctop'
+# brew 'ctop'
 brew 'docker-completion'
 brew 'docker-compose-completion'
 brew 'lazydocker'
@@ -95,13 +94,11 @@ brew 'yarn', args: ["ignore-dependencies"]
 # Shell dev utils
 # brew 'bashdb'
 brew 'bats-core'
-brew 'delta'
 brew 'shellcheck'
 brew 'shfmt', link: true, overwrite: true
 
 # Other dev tools
 # brew 'adr-tools'
-brew 'vale'
 
 #
 # Local Brewfile's
@@ -136,7 +133,7 @@ cask 'firefox-developer-edition'
 cask 'google-chrome'
 cask 'hammerspoon'
 cask 'iterm2'
-cask 'karabiner-elements'
+# cask 'karabiner-elements'
 cask 'slack'
 cask 'spotify'
 # cask 'veracrypt'
