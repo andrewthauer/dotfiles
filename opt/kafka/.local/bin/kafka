@@ -1,0 +1,255 @@
+#!/usr/bin/env bash
+# Summary:
+#   Runs kafka commands using docker
+#
+# Usage:
+#   kafka [command]
+#
+# Options:
+#   -b | --broker         The seed broker (default: localhost:9092)
+#   -r | --registry-url   The schema registry url (default: http://localhost:8081)
+#
+# Examples:
+#   kafka list-topics
+
+usage() {
+  echo "Usage: kafka [command]"
+  echo ""
+  echo "COMMANDS:"
+  echo "  help                Prints this message"
+  list_commands | sed "s/^/  /"
+}
+
+# Usage: kafka topic-list [global options]
+kafka-topic-list() {
+  broker_cmd kafka-topics --bootstrap-server "${BROKER}" --list "${@}"
+}
+
+# Usage: kafka topic-create [global options] [topic]
+kafka-topic-create() {
+  broker_cmd kafka-topics --bootstrap-server "${BROKER}" --create --topic "${1}" "${@:2}"
+}
+
+# Usage: kafka topic-describe [global options] [topic]
+kafka-topic-describe() {
+  broker_cmd kafka-topics --bootstrap-server "${BROKER}" --describe --topic "${1}" "${@:2}"
+}
+
+# Usage: kafka topic-delete [global options] [topic]
+kafka-topic-delete() {
+  broker_cmd kafka-topics --bootstrap-server "${BROKER}" --delete --topic "${1}" "${@:2}"
+}
+
+# Usage: kafka produce [global options] [topic]
+kafka-produce() {
+  # [ -n "$WITH_KEY" ] && with_keys_options="--property parse.key=true --property key.separator=${KEY_SEPERATOR}"
+  # # shellcheck disable=SC2086
+  # broker_cmd kafka-console-producer --bootstrap-server "${BROKER}" \
+  #   $with_keys_options \
+  #   --topic "${1}" \
+  #   "${@:2}"
+
+  kafkacat -P -b "${BROKER}" -t "${1}" "${@:2}"
+}
+
+# Usage:  kafka consume [global options] [topic]
+kafka-consume() {
+  # [ -n "$WITH_KEY" ] && with_keys_options="--property print.key=true"
+  # # shellcheck disable=SC2086
+  # broker_cmd kafka-console-consumer --bootstrap-server "${BROKER}" \
+  #   $with_keys_options \
+  #   --topic "${1}" \
+  #   --from-beginning \
+  #   "${@:2}"
+
+  kafkacat -C -b "${BROKER}" -t "${1}" "${@:2}"
+}
+
+# Usage: kafka produce-avro [global options] [topic] [subject]
+kafka-produce-avro() {
+  local bootstrap_server="${SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS:-broker:29092}"
+
+  # shellcheck disable=SC2089
+  local with_keys_options
+  [ -n "$WITH_KEY" ] && with_keys_options="--property parse.key=true --property key.separator=" ""
+
+  # shellcheck disable=SC2086
+  schema_registry_cmd kafka-avro-console-producer \
+    --bootstrap-server "${bootstrap_server}" \
+    $with_keys_options \
+    --topic "${1}" \
+    --property schema.registry.url="${SCHEMA_REGISTRY_URL}" \
+    --property value.schema.id="$(kafka-schema-version-latest "$1" | jq '.id')" \
+    "${@:2}"
+}
+
+# Usage: kafka consume-avro [global options] [topic]
+kafka-consume-avro() {
+  # local bootstrap_server="${SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS:-broker:29092}"
+  # local with_keys_options
+  # [ -n "$WITH_KEY" ] && with_keys_options="--property print.key=true"
+
+  # # shellcheck disable=SC2086
+  # schema_registry_cmd kafka-avro-console-consumer \
+  #   --bootstrap-server "${bootstrap_server}" \
+  #   $with_keys_options \
+  #   --topic "${1}" \
+  #   --property schema.registry.url="${SCHEMA_REGISTRY_URL}" \
+  #   --from-beginning \
+  #   "${@:1}"
+
+  kafkacat -C -b "${BROKER}" -s avro -r "${SCHEMA_REGISTRY_URL}" -t "${1}" "${@:2}"
+}
+
+# Usage: kafka schema-add [global options] [path/to/avcs] [type=key|value]
+kafka-schema-add() {
+  local path="${1}"
+  local subject="${path%%.*}"
+  local type="${2-value}"
+  local schema
+  schema="$(cat <"${1:-/dev/stdin}" | jq '.')"
+
+  local data
+  data="$(jq -r -n --argjson schema "$schema" '{schema: $schema | tostring}')"
+  schema_registry_curl POST "/subjects/${subject}-${type}/versions" "$data"
+}
+
+# Usage: kafka schema-config [global options] [compatibility]
+kafka-schema-config() {
+  local compatibility="${1}" # BACKWARD | NONE
+
+  if [ -z "${compatibility}" ]; then
+    schema_registry_curl GET "/config"
+  else
+    local data
+    data="$(jq -r -n --arg compat "$compatibility" '{compatibility: $compat | tostring}')"
+    schema_registry_curl PUT "/config" "$data"
+  fi
+}
+
+# Usage: kafka schema-list [global options]
+kafka-schema-list() {
+  schema_registry_curl GET "/subjects"
+}
+
+# Usage: kafka schema-deleta [global options] [subject]
+kafka-schema-delete() {
+  local subject="${1}"
+  schema_registry_curl DELETE "/subjects/${subject}"
+}
+
+# Usage: kafka schema-version [global options] [subject] [version]
+kafka-schema-version() {
+  local subject="${1}"
+  local version="${2:-latest}"
+  schema_registry_curl GET "/subjects/${subject}/versions/${version}"
+}
+
+# Usage: kafka schema-version-list [global options] [subject]
+kafka-schema-version-list() {
+  local subject="${1}"
+  schema_registry_curl GET "/subjects/${subject}/versions"
+}
+
+broker_cmd() {
+  docker exec -it "${BROKER_CONTAINER}" "${@}"
+  # docker run -it --rm --net=host "${BROKER_IMAGE}" "${@}"
+}
+
+schema_registry_cmd() {
+  docker exec -it "${SCHEMA_REGISTRY_CONTAINER}" "${@}"
+  # docker run -it --rm --net=host "${SCHEMA_REGISTRY_IMAGE}" "${@}"
+}
+
+schema_registry_curl() {
+  local verb="${1}"
+  local path="${2}"
+  local data="${3}"
+
+  if [ -z "${data}" ]; then
+    curl -s -X "$verb" "${SCHEMA_REGISTRY_URL}${path}" | jq
+  else
+    curl -s -X "$verb" \
+      -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+      --data "${data}" "${SCHEMA_REGISTRY_URL}${path}" | jq
+  fi
+}
+
+function_exists() {
+  [ "$(type -t "$1")" == 'function' ]
+}
+
+join_by() {
+  IFS="$1"
+  shift
+  echo "$*"
+}
+
+list_commands() {
+  IFS=$'\n'
+  for f in $(declare -F); do
+    cmd_name="${f:11}"
+    if [[ "${cmd_name}" = kafka-* ]]; then
+      echo "${cmd_name}" | cut -c 7-
+    fi
+  done | sort
+}
+
+main() {
+  while (("$#")); do
+    case "$1" in
+      -b | --broker)
+        BROKER=$2
+        shift 2
+        ;;
+      -r | --registry)
+        SCHEMA_REGISTRY_URL=$2
+        shift 2
+        ;;
+      -k | --with-key)
+        WITH_KEY=true
+        shift 1
+        ;;
+      -K | --key-seperator)
+        KEY_SEPERATOR=$2
+        shift 2
+        ;;
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      *) # preserve positional arguments
+        pos_args="$pos_args $1"
+        shift
+        ;;
+    esac
+  done
+
+  # Set positional arguments in their proper place
+  eval set -- "$pos_args"
+
+  # Defaults
+  BROKER="${BROKER:-localhost:9092}"
+  SCHEMA_REGISTRY_URL="${SCHEMA_REGISTRY_URL:-http://localhost:8081}"
+  KEY_SEPERATOR="${KEY_SEPERATOR:-:}"
+
+  # Docker containers / images
+  BROKER_CONTAINER="${BROKER_CONTAINER:-broker}"
+  SCHEMA_REGISTRY_CONTAINER="${SCHEMA_REGISTRY_CONTAINER:-schema-registry}"
+  # BROKER_IMAGE="${BROKER_IMAGE:-confluentinc/cp-server:6.0.0}"
+  # SCHEMA_REGISTRY_IMAGE="${SCHEMA_REGISTRY_IMAGE:-confluentinc/cp-schema-registry:6.0.0}"
+
+  # parse args
+  local cmd="${1:-}"
+  local args=("${@:2}")
+  local sub_cmd="kafka-${cmd}"
+
+  # Execute the command
+  if function_exists "$sub_cmd"; then
+    $sub_cmd "${args[@]}" 2>&1
+  else
+    usage
+  fi
+}
+
+main "$@"
