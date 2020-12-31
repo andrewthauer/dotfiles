@@ -183,6 +183,7 @@ hs.hotkey.bind(yankkey, 'left', function() window.yankWindow(-100, 0) end) -- ya
 -- Application hotkeys
 hs.hotkey.bind(hyper, '1', utils.launchById('com.agilebits.onepassword7'))
 hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
+hs.hotkey.bind(hyper, 'c', utils.launchById('com.google.Chrome'))
 hs.hotkey.bind(hyper, 'd', utils.launchById('com.kapeli.dashdoc'))
 hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
@@ -196,6 +197,7 @@ spoon.SpoonInstall:andUse('RecursiveBinder', {
     app_keymap = {
       [s.singleKey('1', '1Password')] = utils.launchById('com.agilebits.onepassword7'),
       [s.singleKey('v', 'VS Code')] = utils.launchById('com.microsoft.VSCode'),
+      [s.singleKey('c', 'Chrome')] = utils.launchById('com.google.Chrome'),
       [s.singleKey('d', 'Dash')] = utils.launchById('com.kapeli.dashdoc'),
       [s.singleKey('f', 'Firefox')] = utils.launchById('org.mozilla.firefoxdeveloperedition'),
       [s.singleKey('i', 'IDEA')] = utils.launchById('com.jetbrains.intellij'),

@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
 # Summary:
-#   Runs kafka commands using docker
+#   Wrapper for various kafka commands
 #
 # Usage:
 #   kafka [command]
 #
 # Options:
-#   -b | --broker         The seed broker (default: localhost:9092)
-#   -r | --registry-url   The schema registry url (default: http://localhost:8081)
+#   -b | --broker           The seed broker (default: localhost:9092)
+#   -r | --registry-url     The schema registry url (default: http://localhost:8081)
+#   -c | --connect-url      The kafka connect url (default: http://localhost:8083)
+#   -k | --with-key         Use a key seperator when producing messages
+#   -K | --key-seperator    The key seperator (default ':')
 #
 # Examples:
-#   kafka list-topics
+#   kafka help
+#   kafka topic-list
+#   kafka topic-create some-topic
 
 usage() {
   echo "Usage: kafka [command]"
@@ -20,52 +25,70 @@ usage() {
   list_commands | sed "s/^/  /"
 }
 
-# Usage: kafka topic-list [global options]
+#
+# Broker
+#
+
+# Usage: kafka shell [CONTAINER_NAME]
+#   CONTAINER_NAME    The container name (broker | schema-registry | connect)
+kafka-shell() {
+  docker_exec_cmd "${1:-broker}" "${2:-bash}"
+}
+
+# Usage: kafka topic-list
 kafka-topic-list() {
   broker_cmd kafka-topics --bootstrap-server "${BROKER}" --list "${@}"
 }
 
-# Usage: kafka topic-create [global options] [topic]
+# Usage: kafka topic-create [TOPIC]
+#   TOPIC     The topic name
 kafka-topic-create() {
   broker_cmd kafka-topics --bootstrap-server "${BROKER}" --create --topic "${1}" "${@:2}"
 }
 
-# Usage: kafka topic-describe [global options] [topic]
+# Usage: kafka topic-describe [TOPIC]
+#   TOPIC     The topic name to create
 kafka-topic-describe() {
   broker_cmd kafka-topics --bootstrap-server "${BROKER}" --describe --topic "${1}" "${@:2}"
 }
 
-# Usage: kafka topic-delete [global options] [topic]
+# Usage: kafka topic-delete [TOPIC]
+#   TOPIC     The topic name to delete
 kafka-topic-delete() {
   broker_cmd kafka-topics --bootstrap-server "${BROKER}" --delete --topic "${1}" "${@:2}"
 }
 
-# Usage: kafka produce [global options] [topic]
+# Usage: kafka produce [TOPIC]
+#   TOPIC     The topic name produce messages to
 kafka-produce() {
-  # [ -n "$WITH_KEY" ] && with_keys_options="--property parse.key=true --property key.separator=${KEY_SEPERATOR}"
-  # # shellcheck disable=SC2086
-  # broker_cmd kafka-console-producer --bootstrap-server "${BROKER}" \
-  #   $with_keys_options \
-  #   --topic "${1}" \
-  #   "${@:2}"
+  [ -n "$WITH_KEY" ] && with_keys_options="--property parse.key=true --property key.separator=${KEY_SEPERATOR}"
 
-  kafkacat -P -b "${BROKER}" -t "${1}" "${@:2}"
+  # shellcheck disable=SC2086
+  broker_cmd kafka-console-producer --bootstrap-server "${BROKER}" \
+    $with_keys_options \
+    --topic "${1}" \
+    "${@:2}"
+
+  # kafkacat -P -b "${BROKER}" -t "${1}" "${@:2}"
 }
 
-# Usage:  kafka consume [global options] [topic]
+# Usage:  kafka consume [TOPIC]
+#   TOPIC     The topic name consume messages from
 kafka-consume() {
-  # [ -n "$WITH_KEY" ] && with_keys_options="--property print.key=true"
-  # # shellcheck disable=SC2086
-  # broker_cmd kafka-console-consumer --bootstrap-server "${BROKER}" \
-  #   $with_keys_options \
-  #   --topic "${1}" \
-  #   --from-beginning \
-  #   "${@:2}"
+  [ -n "$WITH_KEY" ] && with_keys_options="--property print.key=true"
 
-  kafkacat -C -b "${BROKER}" -t "${1}" "${@:2}"
+  # shellcheck disable=SC2086
+  broker_cmd kafka-console-consumer --bootstrap-server "${BROKER}" \
+    $with_keys_options \
+    --topic "${1}" \
+    --from-beginning \
+    "${@:2}"
+
+  # kafkacat -C -b "${BROKER}" -t "${1}" "${@:2}"
 }
 
-# Usage: kafka produce-avro [global options] [topic] [subject]
+# Usage: kafka produce-avro [TOPIC]
+#   TOPIC     The topic to produce messages to
 kafka-produce-avro() {
   local bootstrap_server="${SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS:-broker:29092}"
 
@@ -79,31 +102,44 @@ kafka-produce-avro() {
     $with_keys_options \
     --topic "${1}" \
     --property schema.registry.url="${SCHEMA_REGISTRY_URL}" \
-    --property value.schema.id="$(kafka-schema-version-latest "$1" | jq '.id')" \
+    --property value.schema.id="$(kafka-schema-version "${1}-value" | jq -r '.id')" \
     "${@:2}"
 }
 
-# Usage: kafka consume-avro [global options] [topic]
+# Usage: kafka consume-avro [TOPIC]
+#   TOPIC     The topic to consume messages from
 kafka-consume-avro() {
-  # local bootstrap_server="${SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS:-broker:29092}"
-  # local with_keys_options
-  # [ -n "$WITH_KEY" ] && with_keys_options="--property print.key=true"
+  local bootstrap_server="${SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS:-broker:29092}"
+  local with_keys_options
+  [ -n "$WITH_KEY" ] && with_keys_options="--property print.key=true"
 
-  # # shellcheck disable=SC2086
-  # schema_registry_cmd kafka-avro-console-consumer \
-  #   --bootstrap-server "${bootstrap_server}" \
-  #   $with_keys_options \
-  #   --topic "${1}" \
-  #   --property schema.registry.url="${SCHEMA_REGISTRY_URL}" \
-  #   --from-beginning \
-  #   "${@:1}"
+  # shellcheck disable=SC2086
+  schema_registry_cmd kafka-avro-console-consumer \
+    --bootstrap-server "${bootstrap_server}" \
+    $with_keys_options \
+    --topic "${1}" \
+    --property schema.registry.url="${SCHEMA_REGISTRY_URL}" \
+    --from-beginning \
+    "${@:1}"
 
-  kafkacat -C -b "${BROKER}" -s avro -r "${SCHEMA_REGISTRY_URL}" -t "${1}" "${@:2}"
+  # kafkacat -C -b "${BROKER}" -s avro -r "${SCHEMA_REGISTRY_URL}" -t "${1}" "${@:2}"
 }
 
-# Usage: kafka schema-add [global options] [path/to/avcs] [type=key|value]
+#
+# Schema Registry
+#
+
+# Usage: kafka schema-api [VERB] [PATH] [DATA]
+kafka-schema-api() {
+  schema_registry_curl "${@}"
+}
+
+# Usage: kafka schema-add [AVCS_PATH] [TYPE=key|value]
+#   AVCS_PATH       The path to the avro .avcs file
+#   TYPE            Optional subject type - key | value (default)
 kafka-schema-add() {
-  local path="${1}"
+  local path
+  path="$(basename "$1")"
   local subject="${path%%.*}"
   local type="${2-value}"
   local schema
@@ -114,7 +150,8 @@ kafka-schema-add() {
   schema_registry_curl POST "/subjects/${subject}-${type}/versions" "$data"
 }
 
-# Usage: kafka schema-config [global options] [compatibility]
+# Usage: kafka schema-config [COMPATIBILITY]
+#   COMPATIBILITY     The compatability mode to set (if provided)
 kafka-schema-config() {
   local compatibility="${1}" # BACKWARD | NONE
 
@@ -127,51 +164,202 @@ kafka-schema-config() {
   fi
 }
 
-# Usage: kafka schema-list [global options]
+# Usage: kafka schema-get [SUBJECT] [VERSION]
+#   SUBJECT   The schema subject name
+kafka-schema-get() {
+  local subject="${1}"
+  local version="${2:-latest}"
+  schema_registry_curl GET "/subjects/${subject}/versions/${version}/schema"
+}
+
+# Usage: kafka schema-list
 kafka-schema-list() {
   schema_registry_curl GET "/subjects"
 }
 
-# Usage: kafka schema-deleta [global options] [subject]
+# Usage: kafka schema-deleta [SUBJECT]
+#   SUBJECT   The schema subject name to use (latest version used)
 kafka-schema-delete() {
   local subject="${1}"
   schema_registry_curl DELETE "/subjects/${subject}"
 }
 
-# Usage: kafka schema-version [global options] [subject] [version]
+# Usage: kafka schema-version [SUBJECT] [VERSION]
+#   SUBJECT   The schema subject name
+#   VERSION   The schema version
 kafka-schema-version() {
   local subject="${1}"
   local version="${2:-latest}"
   schema_registry_curl GET "/subjects/${subject}/versions/${version}"
 }
 
-# Usage: kafka schema-version-list [global options] [subject]
+# Usage: kafka schema-version-list [SUBJECT]
+#   SUBJECT   The schema subject name
 kafka-schema-version-list() {
   local subject="${1}"
   schema_registry_curl GET "/subjects/${subject}/versions"
 }
 
+# Usage: kafka schema-encode [SUBJECT]
+#   SUBJECT   The schema subject name
+kafka-schema-encode() {
+  avro-tools fromjson --schema "$(kafka-schema-get "${1}")" - 2>/dev/null
+}
+
+#
+# Avro
+#
+
+# Usage: stdout | kafka avro-encode [SCHEMA_PATH]
+#   SCHEMA_PATH   The path to the avro schema
+kafka-avro-encode() {
+  avro-tools fromjson --schema "$(cat "${1}")" - 2>/dev/null
+}
+
+# Usage: stdout | kafka avro-decode [SCHEMA_PATH]
+#   SCHEMA_PATH   The path to the avro schema
+kafka-avro-decode() {
+  avro-tools tojson --reader-schema "$(cat "${1}")" - 2>/dev/null
+}
+
+#
+# Kafak Connect
+#
+
+# Usage: kafka connect-api [VERB] [PATH] [DATA]
+kafka-connect-api() {
+  connect_curl "${@}"
+}
+
+# Usage: kafka connector [CONNECTOR]
+#   CONNECTOR   The name of the connector
+kafka-connector() {
+  connect_curl GET "/connectors/${1}"
+}
+
+# Usage: kafka connector-add [PATH]
+#   PATH    The path to the connector json
+kafka-connector-add() {
+  local data
+  data="$(cat <"${1:-/dev/stdin}" | jq '.')"
+  connect_curl POST "/connectors" "$data"
+}
+
+# Usage: kafka connector-update [PATH]
+#   PATH    The path to the connector json
+kafka-connector-update() {
+  local data
+  data="$(cat <"${1:-/dev/stdin}" | jq -r '.config')"
+  connect_curl PUT "/connectors/$(get_connector_name "${1}")/config" "$data"
+}
+
+# Usage: kafka connector-validate [PATH]
+#   PATH    The path to the connector json
+kafka-connector-validate() {
+  local data
+  data="$(cat <"${1:-/dev/stdin}" | jq -r '.config')"
+  connect_curl PUT "/connector-plugins/$(get_connector_class "${1}")/config/validate" "$data"
+}
+
+# Usage: kafka connector-status [CONNECTOR]
+#   CONNECTOR    The path to the connector json
+kafka-connector-status() {
+  connect_curl GET "/connectors/${1}/status"
+}
+
+# Usage: kafka connector-op [CONNECTOR]
+#   CONNECTOR   The name of the connector
+kafka-connector-restart() {
+  connect_curl POST "/connectors/${1}/restart"
+}
+
+# Usage: kafka connector-pause [CONNECTOR]
+#   CONNECTOR   The name of the connector
+kafka-connector-pause() {
+  connect_curl PUT "/connectors/${1}/pause"
+}
+
+# Usage: kafka connector-resume [CONNECTOR]
+#   CONNECTOR   The name of the connector
+kafka-connector-resume() {
+  connect_curl PUT "/connectors/${1}/resume"
+}
+
+# Usage: kafka connector-delete [CONNECTOR]
+#   CONNECTOR   The name of the connector
+kafka-connector-delete() {
+  connect_curl DELETE "/connectors/${1}"
+}
+
+# Usage: kafka connector-tasks [CONNECTOR]
+#   CONNECTOR   The name of the connector
+kafka-connector-tasks() {
+  connect_curl GET "/connectors/${1}/tasks"
+}
+
+# Usage: kafka connector-list
+kafka-connector-list() {
+  connect_curl GET "/connectors"
+}
+
+# Usage: kafka connector-plugin-list
+kafka-connector-plugin-list() {
+  connect_curl GET "/connector-plugins"
+}
+
+# Usage: kafka connect-plugin-install [CONNECTOR]
+#   CONNECTOR    The connector class name
+kafka-connect-plugin-install() {
+  connect_cmd confluent-hub install --no-prompt "${1}"
+}
+
+get_connector_name() {
+  cat <"${1:-/dev/stdin}" | jq -r '.name'
+}
+
+get_connector_class() {
+  cat <"${1:-/dev/stdin}" | jq -r '.config."connector.class"'
+}
+
+#
+# Internal functions
+#
+
 broker_cmd() {
-  docker exec -it "${BROKER_CONTAINER}" "${@}"
-  # docker run -it --rm --net=host "${BROKER_IMAGE}" "${@}"
+  docker_exec_cmd "${BROKER_CONTAINER}" "${@}"
 }
 
 schema_registry_cmd() {
-  docker exec -it "${SCHEMA_REGISTRY_CONTAINER}" "${@}"
-  # docker run -it --rm --net=host "${SCHEMA_REGISTRY_IMAGE}" "${@}"
+  docker_exec_cmd "${SCHEMA_REGISTRY_CONTAINER}" "${@}"
+}
+
+connect_cmd() {
+  docker_exec_cmd "${CONNECT_CONTAINER}" "${@}"
+}
+
+docker_exec_cmd() {
+  docker exec -it "${1}" "${@:2}"
 }
 
 schema_registry_curl() {
-  local verb="${1}"
-  local path="${2}"
-  local data="${3}"
+  curl_cmd "Content-Type: application/vnd.schemaregistry.v1+json" "${SCHEMA_REGISTRY_URL}" "$@"
+}
+
+connect_curl() {
+  curl_cmd "Content-Type: application/json" "http://localhost:8083" "$@"
+}
+
+curl_cmd() {
+  local header="${1}"
+  local base_url="${2}"
+  local verb="${3}"
+  local path="${4}"
+  local data="${5}"
 
   if [ -z "${data}" ]; then
-    curl -s -X "$verb" "${SCHEMA_REGISTRY_URL}${path}" | jq
+    curl -sS -X "$verb" "${base_url}${path}"
   else
-    curl -s -X "$verb" \
-      -H "Content-Type: application/vnd.schemaregistry.v1+json" \
-      --data "${data}" "${SCHEMA_REGISTRY_URL}${path}" | jq
+    curl -sS -X "$verb" -H "${header}" --data "${data}" "${base_url}${path}"
   fi
 }
 
@@ -202,8 +390,12 @@ main() {
         BROKER=$2
         shift 2
         ;;
-      -r | --registry)
+      -r | --registry-url)
         SCHEMA_REGISTRY_URL=$2
+        shift 2
+        ;;
+      -c | --connect-url)
+        CONNECT_URL=$2
         shift 2
         ;;
       -k | --with-key)
@@ -231,13 +423,14 @@ main() {
   # Defaults
   BROKER="${BROKER:-localhost:9092}"
   SCHEMA_REGISTRY_URL="${SCHEMA_REGISTRY_URL:-http://localhost:8081}"
+  CONNECT_URL="${CONNECT_URL:-http://localhost:8083}"
   KEY_SEPERATOR="${KEY_SEPERATOR:-:}"
 
   # Docker containers / images
+  CONFLUENT_VERSION="${CONFLUENT_VERSION:-6.0.0}"
   BROKER_CONTAINER="${BROKER_CONTAINER:-broker}"
   SCHEMA_REGISTRY_CONTAINER="${SCHEMA_REGISTRY_CONTAINER:-schema-registry}"
-  # BROKER_IMAGE="${BROKER_IMAGE:-confluentinc/cp-server:6.0.0}"
-  # SCHEMA_REGISTRY_IMAGE="${SCHEMA_REGISTRY_IMAGE:-confluentinc/cp-schema-registry:6.0.0}"
+  CONNECT_CONTAINER="${CONNECT_CONTAINER:-connect}"
 
   # parse args
   local cmd="${1:-}"
