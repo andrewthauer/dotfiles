@@ -26,9 +26,6 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 # Disable animations when opening and closing windows.
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
-# Accelerated playback when adjusting the window size (Cocoa applications)
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
-
 # Disable animations when opening a Quick Look window
 defaults write -g QLPanelAnimationDuration -float 0
 
@@ -52,11 +49,11 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Use fn + fkey for special behavior, not fkey alone
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
-# Display smark quotes
+# Disable smart quotes
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes
-# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # =============================================================================
 # Input - Keyboard Shortcuts
@@ -92,17 +89,17 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # =============================================================================
 
 # Enable tap to click (Trackpad) for this user and for the login screen
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults -currentHost write com.apple.AppleMultitouchTrackpad Clicking -bool true
-defaults -currentHost write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults -currentHost write com.apple.AppleMultitouchTrackpad Clicking -bool true
+# defaults -currentHost write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 
 # Enable trackpad dragging
-defaults write com.apple.AppleMultitouchTrackpad Dragging -bool true
-defaults write com.apple.AppleMultitouchTrackpad DragLock -bool false
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFinder -bool false
+# defaults write com.apple.AppleMultitouchTrackpad Dragging -bool true
+# defaults write com.apple.AppleMultitouchTrackpad DragLock -bool false
+# defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFinder -bool false
 
 # disable "natural" (touchscreen-style) scrolling
 # defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
@@ -135,10 +132,10 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
+# defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 # Enable HiDPI display modes (requires restart)
-sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+# sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
 # =============================================================================
 # Sound
@@ -159,11 +156,15 @@ defaults write com.apple.systemsound com.apple.sound.uiaudio.enabled -int 0
 # Menu Bar
 # =============================================================================
 
+# Hide language input source menu bar
+defaults write com.apple.TextInputMenu "visible" -bool false
+defaults write com.apple.TextInputMenuAgent "NSStatusItem Visible Item-0" -bool false
+
 # Digital clock with a non-flashing separator
 defaults write com.apple.menuextra.clock FlashDateSeparator -bool false
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 
-# Do not show battery percent
+# # Do not show battery percent
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
 # Status items visible
@@ -179,7 +180,7 @@ defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextr
 # =============================================================================
 
 # Set the icon size of Dock items (in pixels)
-defaults write com.apple.dock tilesize -int 42
+defaults write com.apple.dock tilesize -int 48
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "genie"
@@ -191,7 +192,7 @@ defaults write com.apple.dock minimize-to-application -bool true
 defaults write com.apple.dock autohide -bool false
 
 # Auto-hiding Dock delay (remove)
-defaults write com.apple.dock autohide-delay -float 0
+# defaults write com.apple.dock autohide-delay -float 0
 
 # Enable spring loading for all Dock items
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
@@ -237,26 +238,26 @@ defaults write com.apple.dock show-recents -bool false
 # =============================================================================
 
 # Don’t show Dashboard as a Space
-defaults write com.apple.dock dashboard-in-overlay -bool true
+# defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Disable Mission Control
-defaults write com.apple.dock mcx-expose-disabled -bool false
+# defaults write com.apple.dock mcx-expose-disabled -bool false
 
 # Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool false
+# defaults write com.apple.dashboard mcx-disabled -bool false
 
 # Don’t automatically rearrange Spaces based on most recent use
-defaults write com.apple.dock mru-spaces -bool false
+# defaults write com.apple.dock mru-spaces -bool false
 
 # Show the dashboard as an overlay
-defaults write com.apple.dashboard dashboard-enabled-state -int 3
-defaults write com.apple.dashboard enabled-state -int 3
+# defaults write com.apple.dashboard dashboard-enabled-state -int 3
+# defaults write com.apple.dashboard enabled-state -int 3
 
 # Don't automatically switch to a space containing windows for an app
-defaults write com.apple.dock workspaces-auto-swoosh -bool false
+# defaults write com.apple.dock workspaces-auto-swoosh -bool false
 
 # Don’t group windows by application in Mission Control (use the old Exposé behavior instead)
-defaults write com.apple.dock expose-group-by-app -bool false
+# defaults write com.apple.dock expose-group-by-app -bool false
 
 # =============================================================================
 # Hot corners

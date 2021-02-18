@@ -1,8 +1,7 @@
 # Package bundles
 OPT_PKGS = $(sort $(notdir $(wildcard ./opt/*)))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-LOCAL_OPT_PKGS = $(sort $(notdir $(wildcard ./local-opt/*)))
-DEFAULT_OPT_PKGS = asdf
+DEFAULT_OPT_PKGS = asdf homebrew
 SYSTEM_PKG =
 
 # XDG directories
@@ -14,13 +13,12 @@ XDG_BIN_HOME := $(HOME)/.local/bin
 XDG_LIB_HOME := $(HOME)/.local/lib
 
 # Sub directories with makefiles
-SUBDIRS = etc opt/java
+SUBDIRS = etc
 
 # macOS specific settings
 ifeq ($(shell uname), Darwin)
 	SYSTEM_PKG = macos
 	SUBDIRS := $(SUBDIRS) opt/$(SYSTEM_PKG)
-	LAUNCH_AGENTS = $(HOME)/Library/LaunchAgents
 endif
 
 # Linux specific settings
@@ -55,17 +53,10 @@ link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S etc local
 	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
 	@stow -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKG)
-	# @stow -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
-
-link-opt:
-	# make link-opt pkg=github
-	@stow -t $(HOME) -d $(CURDIR)/opt -S $(pkg)
 
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
-	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKG)
-	# @stow -D -t $(HOME) -d $(CURDIR)/local-opt -S $(LOCAL_OPT_PKGS)
 
 chklink:
 	@echo "\n--- Files from 'etc' currently unlinked ---\n"
@@ -94,22 +85,6 @@ clean:
 	@rm -rf $(HOME)/.ssh/config.d
 	@rm -f $(HOME)/.stowrc
 	@rm -f $(HOME)/.stow-global-ignore
-	@rm -f $(XDG_CONFIG_HOME)/asdf/*
-	@rm -f $(XDG_CONFIG_HOME)/bash
-	@rm -f $(XDG_CONFIG_HOME)/gem
-	@rm -f $(XDG_CONFIG_HOME)/git/*
-	@rm -f $(XDG_CONFIG_HOME)/hammerspoon
-	@rm -f $(XDG_CONFIG_HOME)/homebrew/*
-	@rm -f $(XDG_CONFIG_HOME)/karabiner
-	@rm -f $(XDG_CONFIG_HOME)/maven/*
-	@rm -f $(XDG_CONFIG_HOME)/nvim
-	@rm -f $(XDG_CONFIG_HOME)/profile
-	@rm -f $(XDG_CONFIG_HOME)/profile.d/*
-	@rm -f $(XDG_CONFIG_HOME)/python
-	@rm -f $(XDG_CONFIG_HOME)/shell.d/*
-	@rm -f $(XDG_CONFIG_HOME)/tmux
-	@rm -f $(XDG_CONFIG_HOME)/wgetrc
-	@rm -f $(XDG_CONFIG_HOME)/zsh
 
 $(SUBDIRS):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)

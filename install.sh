@@ -79,7 +79,8 @@ install_brew() {
 install_dotfiles_deps() {
   packages="bash make stow zsh"
   pkg_mgr_cmd="$(package_mgr_cmd)"
-  ${pkg_mgr_cmd} "${packages}"
+  # shellcheck disable=SC2086
+  ${pkg_mgr_cmd} ${packages}
 }
 
 clone_dotfiles() {

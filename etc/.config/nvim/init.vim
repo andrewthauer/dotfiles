@@ -21,6 +21,15 @@ if !g:is_nvim && g:is_vim8
   let &packpath = &runtimepath
 endif
 
+" ================= Plugins ==========================
+
+source $XDG_CONFIG_HOME/nvim/plugins.vim
+
+" Install vim-plug: https://github.com/junegunn/vim-plug
+" sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+"   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+" Then Run :PlugInstall in vim
+
 " ================ General Config ====================
 
 set history=1000                "Store lots of :cmdline history
