@@ -25,7 +25,7 @@ local function nudgeWindow(xpos, ypos)
 end
 
 -- Resize a window by moving the bottom
-local function yankWindow(xpixels,ypixels)
+local function yankWindow(xpixels, ypixels)
 	local win = hs.window.focusedWindow()
 	local f = win:frame()
 

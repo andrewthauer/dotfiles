@@ -1,7 +1,7 @@
 # Package bundles
 OPT_PKGS = $(sort $(notdir $(wildcard ./opt/*)))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_OPT_PKGS = asdf homebrew
+DEFAULT_OPT_PKGS = asdf
 SYSTEM_PKG =
 
 # XDG directories
@@ -19,6 +19,7 @@ SUBDIRS = etc
 ifeq ($(shell uname), Darwin)
 	SYSTEM_PKG = macos
 	SUBDIRS := $(SUBDIRS) opt/$(SYSTEM_PKG)
+	DEFAULT_OPT_PKGS := $(DEFAULT_OPT_PKGS) $(SYSTEM_PKG) homebrew
 endif
 
 # Linux specific settings
@@ -56,6 +57,7 @@ link: setup
 
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
+	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_OPT_PKGS)
 	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKG)
 
 chklink:

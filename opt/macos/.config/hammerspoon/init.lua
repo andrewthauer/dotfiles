@@ -78,7 +78,7 @@ spoon.SpoonInstall:andUse('TextClipboardHistory', {
   config = {
     -- hist_size = 100,
     show_copied_alert = false,
-    show_in_menubar = true,
+    show_in_menubar = false,
   },
   hotkeys = {
     toggle_clipboard = { ctrl_cmd, 'v' },
@@ -136,7 +136,7 @@ spoon.SpoonInstall:andUse('Caffeine', {
   start = true,
 })
 
--- Calendar and clokc
+-- Calendar and clock
 spoon.SpoonInstall:andUse('CircleClock', { disable = true })
 spoon.SpoonInstall:andUse('HCalendar', { disable = true })
 

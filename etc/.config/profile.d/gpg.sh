@@ -1,5 +1,5 @@
 #
-# GnuPG
+# GnuPG environment
 #
 
 # XDG specification

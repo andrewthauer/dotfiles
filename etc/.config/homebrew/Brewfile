@@ -41,13 +41,13 @@ brew 'yq'
 
 # Gnu utilities
 brew 'coreutils'
+brew 'gpg'
 # brew 'findutils'
 # brew 'gettext', link: true
 # brew 'gawk'
 # brew 'gnu-sed'
 # brew 'gnu-tar'
 # brew 'gnutls'
-brew 'gpg'
 # brew 'grep'
 # brew 'parallel'
 
@@ -102,7 +102,7 @@ return unless OS.mac?
 
 # macOS specific taps
 tap 'homebrew/cask'
-tap 'homebrew/cask-drivers'
+# tap 'homebrew/cask-drivers'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
 tap 'homebrew/services'
