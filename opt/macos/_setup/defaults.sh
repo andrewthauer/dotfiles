@@ -145,14 +145,16 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # =============================================================================
 
 # Disable the sound effects on boot
+# sudo nvram SystemAudioVolume=%01
+# sudo nvram SystemAudioVolume=%00
 sudo nvram SystemAudioVolume=""
 
-# disable feedback sounds
+# Disable feedback sounds
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
 defaults write NSGlobalDomain com.apple.sound.beep.flash -bool false
 defaults write NSGlobalDomain com.apple.sound.beep.volume -int 0
 
-# disable ui sound effects (empty trash, screen capture, etc.)
+# Disable ui sound effects (empty trash, screen capture, etc.)
 defaults write com.apple.systemsound com.apple.sound.uiaudio.enabled -int 0
 
 # =============================================================================
@@ -169,14 +171,6 @@ defaults write com.apple.menuextra.clock IsAnalog -bool false
 
 # Do not show battery percent
 defaults write com.apple.menuextra.battery ShowPercent -bool true
-
-# Status items visible
-defaults write com.apple.systemuiserver "NSStatusItem Visible Siri" -bool false
-defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.airport" -bool true
-defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.appleuser" -bool true
-defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" -bool true
-defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.bluetooth" -bool true
-defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
 
 # =============================================================================
 # Dock

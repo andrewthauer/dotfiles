@@ -5,11 +5,15 @@ This package initializes the `java` environment.
 ## Setup
 
 ```sh
-# Copy default maven settings
-cp -n $DOTFILES_DIR/opt/java/.config/maven/settings.example.xml $DOTFILES_DIR/local/.config/maven/settings.xml
-
 # Link the appropriate files
-stow -t ~ -d $DOTFILES_DIR java local
+stow -t ~ -d "$DOTFILES_DIR/opt" java
+
+# Make an sdk directory to the global macOS default java env
+mkdir -p "${XDG_DATA_HOME}/sdk/java"
+
+# Setup a current macOS default java environment
+# ... Replace your version location here
+ln -s "${XDG_DATA_HOME}/asdf/installs/java/11" "${XDG_DATA_HOME}/sdk/java/current"
 ```
 
 ## Resources

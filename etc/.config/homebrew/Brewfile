@@ -8,6 +8,7 @@
 brew 'git'
 brew 'make'
 brew 'stow'
+brew 'gcc'
 
 # Bash
 brew 'bash'

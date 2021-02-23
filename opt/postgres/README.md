@@ -2,6 +2,12 @@
 
 This package initializes the `postgres` environment.
 
+## Setup
+
+```sh
+createuser -s postgres
+```
+
 ## psql
 
 ```sh
