@@ -145,9 +145,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # =============================================================================
 
 # Disable the sound effects on boot
-# sudo nvram SystemAudioVolume=%01
-# sudo nvram SystemAudioVolume=%00
-sudo nvram SystemAudioVolume=""
+sudo nvram StartupMute=%01
 
 # Disable feedback sounds
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
