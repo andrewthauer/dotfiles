@@ -36,6 +36,14 @@ psql -h [host] -p [port] -U [user] -d [database]
 - `\i` - run sql file in relative path
 - `\ir` - run sql file at absolute path
 
+## Troubleshooting
+
+### “FATAL: lock file ”postmaster.pid“ already exists”
+
+```sh
+kill $(head -n 1 /usr/local/var/postgres/postmaster.pid)
+```
+
 ## Resources
 
 - https://www.postgresql.org/
