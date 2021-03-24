@@ -6,8 +6,8 @@
   mergeoptions = --no-edit
   excludesfile = ~/.config/git/ignore
 
-; [init]
-;   defaultBranch = main
+[init]
+  defaultBranch = main
 
 [pull]
 	ff = only

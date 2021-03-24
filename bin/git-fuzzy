@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+# Summary:
+#   Use fuzzy finder with git switch
+#
+# Usage:
+#   git fuzzy [COMMAND]
+#
+# Commands:
+#   branch
+#   diff
+#   log
+#   remote
+#   stash-list
+#   status
+#   tag
+#
+# Options:
+#   COMMAND                     The sub command (branch | diff | log | remote | | stash-list | status | tag)
+#   -f | --fuzzy-finder HOST    The fuzzy finder to use (fzf | sk)
+#   -fzf                        Use fzf
+#   -sk                         Use skim (sk)
+#
+# Examples:
+#   git fuzzy branch
+#   git switch $(git fuzzy branch)
+#   git fuzzy status
+
+is_in_git_repo() {
+  git rev-parse HEAD >/dev/null 2>&1
+}
+
+fuzzy-down() {
+  "${FUZZY_FINDER}" --height 50% "$@" --border
+}
+
+_fuzzy_status() {
+  is_in_git_repo || return
+  git -c color.status=always status --short |
+    fuzzy-down -m --ansi --nth 2..,.. \
+      --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
+    cut -c4- | sed 's/.* -> //'
+}
+
+_fuzzy_branch() {
+  is_in_git_repo || return
+  # shellcheck disable=SC2016
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+    fuzzy-down --ansi --multi --tac --preview-window right:70% \
+      --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+    sed 's/^..//' | cut -d' ' -f1 |
+    sed 's#^remotes/##'
+}
+
+_fuzzy_tag() {
+  is_in_git_repo || return
+  git tag --sort -version:refname |
+    fuzzy-down --multi --preview-window right:70% \
+      --preview 'git show --color=always {}'
+}
+
+_fuzzy_log() {
+  is_in_git_repo || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+    fuzzy-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+      --header 'Press CTRL-S to toggle sort' \
+      --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
+    grep -o "[a-f0-9]\{7,\}"
+}
+
+_fuzzy_remote() {
+  is_in_git_repo || return
+  git remote -v | awk '{print $1 "\t" $2}' | uniq | fuzzy-down --tac \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
+    cut -d$'\t' -f1
+}
+
+_fuzzy_stash-list() {
+  is_in_git_repo || return
+  git stash list | fuzzy-down --reverse -d: \
+    --preview 'git show --color=always {1}' |
+    cut -d: -f1
+}
+
+_fuzzy_diff() {
+  is_in_git_repo || return
+  git diff "$@" --name-only | fuzzy-down -m --ansi \
+    --preview 'git diff $* --color=always -- {-1}'
+}
+
+main() {
+  while (("$#")); do
+    case "$1" in
+      -f | --fuzzy-finder)
+        FUZZY_FINDER="$2"
+        shift 2
+        ;;
+      --fzf)
+        FUZZY_FINDER="fzf"
+        shift 1
+        ;;
+      --sk)
+        FUZZY_FINDER="sk"
+        shift 1
+        ;;
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      --* | -*) # unsupported flags
+        echo "Error: Unsupported flag $1" >&2
+        exit 1
+        ;;
+      *) # preserve positional arguments
+        pos_args="$pos_args $1"
+        shift
+        ;;
+    esac
+  done
+
+  # set positional arguments in their proper place
+  eval set -- "$pos_args"
+
+  # set other defaults
+  FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
+
+  # parse args
+  local cmd="${1:-}"
+  local args=("${@:2}")
+  local sub_cmd="_fuzzy_${cmd}"
+
+  # Execute the command
+  if [ "$(type -t "$sub_cmd")" == 'function' ]; then
+    $sub_cmd "${args[@]}" 2>&1
+  else
+    script-usage git-fuzzy
+  fi
+}
+
+main "$@"
