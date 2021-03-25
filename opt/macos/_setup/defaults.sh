@@ -168,7 +168,7 @@ defaults write com.apple.menuextra.clock FlashDateSeparator -bool false
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 
 # Do not show battery percent
-defaults write com.apple.menuextra.battery ShowPercent -bool true
+# defaults write com.apple.menuextra.battery ShowPercent -bool true
 
 # =============================================================================
 # Dock
