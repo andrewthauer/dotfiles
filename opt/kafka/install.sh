@@ -19,6 +19,9 @@ install_confluent_cloud_cli() {
 
 main() {
   if confirm "Install the Confluent CLI tools"; then
+    mkdir -p "${XDG_DATA_HOME}/bash_completion.d"
+    mkdir -p "${XDG_DATA_HOME}/zsh/functions"
+
     install_confluent_cli
     install_confluent_cloud_cli
   fi
