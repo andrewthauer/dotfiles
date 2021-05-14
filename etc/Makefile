@@ -7,6 +7,9 @@ XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
 
+# Commands
+GITHUB_INSTALL = $(DOTFILES_DIR)/bin/github-install
+
 all: setup link vim zsh
 
 etc: all
@@ -33,3 +36,4 @@ vim:
 zsh:
 	@mkdir -p $(XDG_DATA_HOME)/zsh/functions
 	@mkdir -p $(XDG_CACHE_HOME)/zsh
+	@git clone https://github.com/sindresorhus/pure $(XDG_DATA_HOME)/pure

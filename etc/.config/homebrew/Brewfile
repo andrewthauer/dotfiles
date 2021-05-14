@@ -50,6 +50,7 @@ brew 'gpg'
 # brew 'gnu-tar'
 # brew 'gnutls'
 # brew 'grep'
+# brew 'gsed'
 # brew 'parallel'
 
 # System utils

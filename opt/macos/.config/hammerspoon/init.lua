@@ -182,12 +182,15 @@ hs.hotkey.bind(yankkey, 'left', function() window.yankWindow(-100, 0) end) -- ya
 
 -- Application hotkeys
 hs.hotkey.bind(hyper, '1', utils.launchById('com.agilebits.onepassword7'))
-hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
 hs.hotkey.bind(hyper, 'c', utils.launchById('com.google.Chrome'))
-hs.hotkey.bind(hyper, 'd', utils.launchById('com.kapeli.dashdoc'))
+hs.hotkey.bind(hyper, 'd', utils.launchById('com.todoist.mac.Todoist'))
+hs.hotkey.bind(hyper, 'e', utils.launchById('md.obsidian'))
 hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition'))
+hs.hotkey.bind(hyper, 'i', utils.launchById('com.jetbrains.intellij'))
+hs.hotkey.bind(hyper, 'k', utils.launchById('com.kapeli.dashdoc'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
 hs.hotkey.bind(hyper, 't', utils.launchById('com.googlecode.iterm2'))
+hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
 hs.hotkey.bind(hyper, 'z', utils.launchById('us.zoom.xos'))
 
 -- Recursive hotkeys
@@ -196,15 +199,16 @@ spoon.SpoonInstall:andUse('RecursiveBinder', {
   fn = function(s)
     app_keymap = {
       [s.singleKey('1', '1Password')] = utils.launchById('com.agilebits.onepassword7'),
-      [s.singleKey('v', 'VS Code')] = utils.launchById('com.microsoft.VSCode'),
       [s.singleKey('c', 'Chrome')] = utils.launchById('com.google.Chrome'),
       [s.singleKey('d', 'Dash')] = utils.launchById('com.kapeli.dashdoc'),
       [s.singleKey('f', 'Firefox')] = utils.launchById('org.mozilla.firefoxdeveloperedition'),
       [s.singleKey('i', 'IDEA')] = utils.launchById('com.jetbrains.intellij'),
+      [s.singleKey('m', 'Obsidian')] = utils.launchById('md.obsidian'),
       [s.singleKey('o', 'OneNote')] = utils.launchById('com.microsoft.onenote.mac'),
       [s.singleKey('p', 'Postman')] = utils.launchById('com.postmanlabs.mac'),
       [s.singleKey('s', 'Slack')] = utils.launchById('com.tinyspeck.slackmacgap'),
       [s.singleKey('t', 'iTerm')] = utils.launchById('com.googlecode.iterm2'),
+      [s.singleKey('v', 'VS Code')] = utils.launchById('com.microsoft.VSCode'),
       [s.singleKey('y', 'Spotify')] = utils.launchById('com.spotify.client'),
       [s.singleKey('z', 'Zoom')] = utils.launchById('us.zoom.xos'),
     }
