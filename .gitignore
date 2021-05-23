@@ -20,7 +20,7 @@
 !**/gh/config.yml
 
 # karabiner
-**/karabiner/.config
+**/karabiner/.config/karabiner
 !karabiner.json
 
 # hammerspoon
