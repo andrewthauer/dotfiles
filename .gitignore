@@ -7,24 +7,28 @@
 # log files
 *.*log
 
+# direnv
+.envrc
+
 # ignore these directories
 /local*
 /*-local
 /tmp*
-
-# anything else local or secrets
 **/secrets
 
 # github cli
 **/gh/*
 !**/gh/config.yml
 
+# hammerspoon
+**/hammerspoon/Spoons/*
+
 # karabiner
 **/karabiner/.config/karabiner
 !karabiner.json
 
-# hammerspoon
-**/hammerspoon/Spoons/*
+# iterm2
+**/iterm2/**/AppSupport
 
 # vim
 **/nvim/pack
@@ -34,9 +38,6 @@
 .zsh/functions/*
 !.zsh/functions/async
 !.zsh/functions/prompt_pure_setup
-
-# direnv
-.envrc
 
 # keep these files
 !/**/.gitkeep
