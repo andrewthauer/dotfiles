@@ -86,12 +86,6 @@ you don't want to commit to source control.
 
 - `make chklink` - reports links that are not installed or potentially broken.
 
-## Testing
-
-A fresh machine setup can be tested by running `docker-compose` up in the
-[test](./test) directory. This will run the install script that is intended to
-bootstrap a new system.
-
 ### Profiling
 
 It is very important to make sure the shell startup is fast. To help ensure this
