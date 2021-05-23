@@ -36,4 +36,9 @@ vim:
 zsh:
 	@mkdir -p $(XDG_DATA_HOME)/zsh/functions
 	@mkdir -p $(XDG_CACHE_HOME)/zsh
-	@git clone https://github.com/sindresorhus/pure $(XDG_DATA_HOME)/pure
+
+zsh-plugins:
+	@github-install --no-user sindresorhus/pure $(XDG_DATA_HOME)/pure
+	@github-install --no-user zsh-users/zsh-autosuggestions $(XDG_DATA_HOME)/zsh-autosuggestions
+	@github-install --no-user zsh-users/zsh-history-substring-search $(XDG_DATA_HOME)/zsh-history-substring-search
+	@github-install --no-user zsh-users/zsh-syntax-highlighting $(XDG_DATA_HOME)/zsh-syntax-highlighting
