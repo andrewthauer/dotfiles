@@ -27,7 +27,7 @@ install_sdkman() {
 
 install_java_latest() {
   # need to source sdkman since it is a shell function
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1090,SC1091
   source "${SDKMAN_DIR:-~/.sdkman}/bin/sdkman-init.sh"
 
   # install latest version

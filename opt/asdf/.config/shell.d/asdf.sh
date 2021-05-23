@@ -4,8 +4,6 @@
 # - https://github.com/asdf-vm/asdf
 #
 
-# shellcheck disable=SC1090
-
 # XDG Specification
 export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
@@ -29,17 +27,21 @@ else
 fi
 
 # Initialize asdf
+# shellcheck disable=SC1091
 source "${ASDF_DIR}/asdf.sh"
 
 # Setup completions
 if [[ -n "${BASH_VERSION}" ]]; then
   if [[ -f "${ASDF_DIR}/completions/asdf.bash" ]]; then
+    # shellcheck disable=SC1091
     source "${ASDF_DIR}/completions/asdf.bash"
   elif [[ -f "${BREW_PREFIX}/etc/bash_completion.d/asdf.bash" ]]; then
+    # shellcheck disable=SC1091
     source "${BREW_PREFIX}/etc/bash_completion.d/asdf.bash"
   fi
 elif [[ -n "${ZSH_VERSION}" ]]; then
   if [[ -f "${ASDF_DIR}/completions/_asdf" ]]; then
+    # shellcheck disable=SC2128
     fpath=("$fpath" "${ASDF_DIR}/completions")
   fi
 fi

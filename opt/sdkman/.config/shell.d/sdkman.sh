@@ -2,6 +2,8 @@
 # Initialize sdkman environment
 #
 
+# shellcheck disable=SC1091
+
 export SDKMAN_DIR="${XDG_DATA_HOME}/sdkman"
 
 _sdk_init() {
