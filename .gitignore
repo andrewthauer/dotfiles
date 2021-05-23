@@ -19,9 +19,11 @@
 **/gh/*
 !**/gh/config.yml
 
-# keyboard
-**/karabiner/*
+# karabiner
+**/karabiner/.config
 !karabiner.json
+
+# hammerspoon
 **/hammerspoon/Spoons/*
 
 # vim
