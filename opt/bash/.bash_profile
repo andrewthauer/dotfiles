@@ -10,10 +10,12 @@ export CURRENT_SHELL="bash"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # Load common shell env
+# shellcheck disable=SC1091
 source "${XDG_CONFIG_HOME}/environment"
 
 # Load the common shell login shell profile
 if shopt -q login_shell; then
+  # shellcheck disable=SC1091
   source "${XDG_CONFIG_HOME}/profile"
 fi
 

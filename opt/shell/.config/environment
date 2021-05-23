@@ -36,10 +36,15 @@ if type lesspipe.sh >/dev/null 2>&1; then
 fi
 
 # Load core utilities used by other scripts
-# shellcheck source=../../lib/init.sh
-. "${DOTFILES_DIR}/lib/init.sh"
+# shellcheck source=../../../lib/init.sh
+. "${DOTFILES_DIR}/_lib/init.sh"
 
 # Load extra environment files into environment
 if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then
   source_files_in "${XDG_CONFIG_HOME}"/environment.d/*
+fi
+
+# Go to the dotfiles directory
+if [[ -n "${DOTFILES_DIR}" ]]; then
+  alias dotdir='cd ${DOTFILES_DIR}'
 fi

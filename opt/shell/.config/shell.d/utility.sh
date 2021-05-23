@@ -96,23 +96,11 @@ alias pbc='pbcopy'
 alias pbp='pbpaste'
 
 #
-# File Download
+# Search Utils
 #
 
-wget() {
-  # Override the wgetrc location
-  export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
-  unset -f "$0"
-  wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts" "$@"
-}
-
-get() {
-  if [[ -x "$(command -v curl)" ]]; then
-    curl --continue-at - --location --progress-bar --remote-name --remote-time
-  elif [[ -x "$(command -v wget)" ]]; then
-    wget --continue --progress=bar --timestamping
-  fi
-}
+# Extracts a list of unique top level directores from results list
+alias dironly='cut -d "/" -f1 | sort -u'
 
 #
 # Archives
