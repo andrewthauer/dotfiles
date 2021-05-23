@@ -6,8 +6,7 @@ manager.
 ## Setup
 
 ```bash
-cd opt
-stow direnv
+cd opt && stow direnv
 ```
 
 ## Resources

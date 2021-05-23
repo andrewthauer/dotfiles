@@ -6,8 +6,7 @@ fuzzy finder written in rust.
 ## Setup
 
 ```bash
-cd opt
-stow skim
+cd opt && stow skim
 ```
 
 ## Resources

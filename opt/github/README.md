@@ -6,8 +6,7 @@ Configuration for GitHub utilities & the
 ## Setup
 
 ```bash
-cd opt
-stow github
+cd opt && stow github
 ```
 
 ## Resources

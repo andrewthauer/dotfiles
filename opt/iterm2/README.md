@@ -5,8 +5,7 @@ This package contains [iterm2](https://iterm2.com/) configuration.
 ## Setup
 
 ```bash
-cd opt
-stow iterm2
+cd opt && stow iterm2
 ```
 
 ## Resources
