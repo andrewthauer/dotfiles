@@ -5,7 +5,7 @@ Configuration & aliases for [Wget](https://www.gnu.org/software/wget/).
 ## Setup
 
 ```bash
-cd opt && stow wget
+stow wget
 ```
 
 ## Resources

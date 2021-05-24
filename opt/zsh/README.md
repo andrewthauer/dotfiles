@@ -11,7 +11,7 @@ of each which will be sourced if they exist (e.g.
 ## Setup
 
 ```bash
-make .
+make
 ```
 
 ## Resources

@@ -5,7 +5,7 @@ Configuration for [tmux](https://github.com/tmux/tmux), a terminal multiplexer.
 ## Setup
 
 ```bash
-cd opt && stow tmux
+stow tmux
 ```
 
 ## Resources

@@ -3,5 +3,5 @@
 #
 
 # Core shared utils
-# shellcheck disable=SC1090
+# shellcheck source=./utils.sh disable=SC1091
 source "${DOTFILES_DIR}/lib/utils.sh"

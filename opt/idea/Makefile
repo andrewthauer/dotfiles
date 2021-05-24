@@ -2,17 +2,14 @@ PARENT_DIR = $(CURDIR)/..
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
-XDG_DATA_HOME := $(HOME)/.local/share
-XDG_CACHE_HOME := $(HOME)/.cache
 
 # macOS specific
 LAUNCH_AGENTS = $(HOME)/Library/LaunchAgents
 SOURCE_ENV_PLIST = $(CURDIR)/_macos/Library/LaunchAgents/idea-env.plist
 TARGET_ENV_PLIST = $(LAUNCH_AGENTS)/idea-env.plist
 
-all: link
-
-idea: all
+all: idea
+idea: setup link
 
 setup:
 	@mkdir -p $(XDG_CONFIG_HOME)/idea

@@ -6,7 +6,7 @@ command-line fuzzy finder.
 ## Setup
 
 ```bash
-cd opt && stow fzf
+stow fzf
 ```
 
 ## Usage

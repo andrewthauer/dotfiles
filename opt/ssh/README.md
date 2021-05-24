@@ -5,7 +5,7 @@ Configuration for [SSH](https://www.openssh.com/).
 ## Setup
 
 ```bash
-cd opt && stow ssh
+stow ssh
 ```
 
 ## Commands

@@ -67,12 +67,9 @@ within the `$HOME` directory.
 ## Directories
 
 - `bin` - General purpose scripts which are added to the path.
-- `etc` - Common shell configurations.
 - `lib` - Core utilities used throughout. Must be sourced up front.
 - `local` - Local system configs & secrets that should never be committed.
 - `opt` - Optional packages that can be stowed.
-- `opt/{system}` - OS specific package settings.
-- `test` - Used to run some basic tests.
 
 _NOTE: Directories starting with an `_underscore` will be ignored by stow._
 

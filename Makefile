@@ -1,8 +1,7 @@
 # Package bundles
-OPT_PKGS = $(sort $(notdir $(wildcard ./opt/*)))
+PKG_DIR = $(CURDIR)/opt
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
 DEFAULT_PKGS = asdf fasd fzf git shell stow tmux vim
-SYSTEM_PKGS =
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -12,23 +11,20 @@ XDG_CACHE_HOME := $(HOME)/.cache
 XDG_BIN_HOME := $(HOME)/.local/bin
 XDG_LIB_HOME := $(HOME)/.local/lib
 
-# Sub directories with makefiles
-SUBDIRS = etc
-
 # macOS specific settings
 ifeq ($(shell uname), Darwin)
-	SYSTEM_PKGS = macos homebrew
-	SUBDIRS := $(SUBDIRS) opt/$(SYSTEM_PKG)
-	DEFAULT_PKGS := $(DEFAULT_PKGS) $(SYSTEM_PKGS)
+	DEFAULT_PKGS := $(DEFAULT_PKGS) macos homebrew
 endif
 
 # Linux specific settings
 ifeq ($(shell uname), Linux)
-	SYSTEM_PKGS = linux
-	SUBDIRS := $(SUBDIRS) opt/$(SYSTEM_PKGS)
+	DEFAULT_PKGS := $(DEFAULT_PKGS) linux
 endif
 
-all: setup link $(SUBDIRS)
+# Subdirectories with make files
+SUBDIRS = $(sort $(basename $(dir $(wildcard opt/**/Makefile))))
+
+all: setup link
 
 shellcheck:
 	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*' ! -name 'time-zsh')
@@ -40,56 +36,52 @@ check-shfmt:
 
 lint: shellcheck check-shfmt
 
-dummy:
-	echo $(sort $(notdir $(wildcard ./opt*/*)))
+setup: setup-dirs
+	@stow -t $(HOME) -d $(PKG_DIR) -S stow
 
-setup:
+setup-dirs:
 	@mkdir -p $(CURDIR)/local
 	@mkdir -p $(XDG_CONFIG_HOME)/{profile.d,shell.d}
-	@mkdir -p $(XDG_CONFIG_HOME)/{git,less}
+	@mkdir -p $(XDG_CONFIG_HOME)/{git,less,openvpn,hammerspoon}
 	@mkdir -p $(HOME)/.ssh/config.d
 	@mkdir -p $(XDG_CACHE_HOME)/less
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
-	@stow -t $(HOME) -d $(CURDIR)/opt -S stow
 ifeq ($(shell uname), Darwin)
 	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
 endif
 
 link: setup
 	@stow -t $(HOME) -d $(CURDIR) -S local
-	@stow -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_PKGS)
-	@stow -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKGS)
+	@stow -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 
 unlink: setup
 	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
-	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(DEFAULT_PKGS)
-	@stow -D -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKGS)
+	@stow -D -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 
+.PHONY: .chklink
 chklink:
-	@echo "\n--- Files from 'etc' currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR) -S etc
-	@echo "\n--- System package files currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(SYSTEM_PKGS)
-	@echo "\n--- Optional package files currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR)/opt -S $(OPT_PKGS)
+	@echo "\n--- Default package files currently unlinked ---\n"
+	@stow -n -v -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 	@echo "\n--- Local packages currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(CURDIR) -S local
-	@echo "\n--- These are potentially bogus links ---\n"
+	@echo "\n--- Bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
 	@chkstow -a -b -t $(XDG_BIN_HOME)
 	@chkstow -a -b -t $(XDG_LIB_HOME)
-ifeq ($(shell uname), Darwin)
-	@chkstow -a -b -t $(LAUNCH_AGENTS)
-endif
 
+.PHONY: print-makes
+print-makes:
+	@echo $(SUBDIRS)
+
+.PHONY: $(SUBDIRS)
 $(SUBDIRS):
+	@echo $@
 	@$(MAKE) -C $@ $(MAKECMDGOALS)
 
-.DEFAULT: $(SUBDIRS)
+.PHONY: .DEFAULT
+.DEFAULT:
 	@for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir $(MAKECMDGOALS); \
 	done
-
-.PHONY: .DEFAULT $(SUBDIRS)

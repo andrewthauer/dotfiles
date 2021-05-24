@@ -9,7 +9,7 @@ contains various common patterns to ignore when symlinking dotfiles to `~`.
 ## Setup
 
 ```bash
-cd opt && stow -t ~ -S stow
+stow -t ~ -S stow
 ```
 
 ## Resources

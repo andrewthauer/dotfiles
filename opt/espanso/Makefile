@@ -2,8 +2,6 @@ PARENT_DIR = $(CURDIR)/..
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
-XDG_DATA_HOME := $(HOME)/.local/share
-XDG_CACHE_HOME := $(HOME)/.cache
 
 # Espanso config directory
 ESPANSO_CONFIG_DIR := $(XDG_CONFIG_HOME)/espanso
@@ -12,9 +10,8 @@ ESPANSO_CONFIG_DIR := $(XDG_CONFIG_HOME)/espanso
 MACOS_PREFERENCES_DIR = $(HOME)/Library/Preferences
 MACOS_ESPANSO_CONFIG_DIR = $(MACOS_PREFERENCES_DIR)/espanso
 
-all: link
-
-espanso: all
+all: espanso
+espanso: setup link
 
 setup:
 	@mkdir -p $(ESPANSO_CONFIG_DIR)

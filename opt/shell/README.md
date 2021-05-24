@@ -8,5 +8,5 @@ relevant to any system. It is designed to work with both `bash` & `zsh`.
 ## Setup
 
 ```bash
-cd opt && stow shell
+stow shell
 ```

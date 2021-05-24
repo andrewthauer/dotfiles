@@ -9,7 +9,7 @@ Bash does not support the XDG spec, so the standard files are sourced
 ## Setup
 
 ```bash
-cd opt && stow bash
+stow bash
 ```
 
 ## Resources

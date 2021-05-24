@@ -6,7 +6,7 @@ Configuration for [vim](https://github.com/tmux/tmux) &
 ## Setup
 
 ```bash
-make .
+make
 ```
 
 ## Resources

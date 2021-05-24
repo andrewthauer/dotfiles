@@ -7,7 +7,7 @@ configuration. This package works best when used in conjunction with
 ## Setup
 
 ```shell
-cd opt && stow karabiner
+stow karabiner
 ```
 
 ## Resources

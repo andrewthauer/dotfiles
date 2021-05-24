@@ -5,7 +5,7 @@
 Use settings for this project:
 
 ```
-ln -s opt/vscode/_settings .vscode
+ln -s ./_settings .vscode
 ```
 
 ## Resources

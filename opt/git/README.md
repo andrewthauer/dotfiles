@@ -6,7 +6,7 @@ aliases for [git](https://git-scm.com).
 ## Setup
 
 ```bash
-cd opt && stow git
+stow git
 ```
 
 ## Configuration

@@ -6,7 +6,7 @@ This package initializes the `java` environment.
 
 ```sh
 # Link the appropriate files
-stow -t ~ -d "$DOTFILES_DIR/opt" java
+stow java
 
 # Make an sdk directory to the global macOS default java env
 mkdir -p "${XDG_DATA_HOME}/sdk/java"

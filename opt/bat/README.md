@@ -6,7 +6,7 @@ syntax highlighting and Git integration.
 ## Setup
 
 ```bash
-cd opt && stow bat
+stow bat
 ```
 
 ## Resources

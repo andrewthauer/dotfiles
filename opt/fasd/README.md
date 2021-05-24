@@ -6,7 +6,7 @@ productivity booster.
 ## Setup
 
 ```bash
-cd opt && stow fasd
+stow fasd
 ```
 
 ## Usage

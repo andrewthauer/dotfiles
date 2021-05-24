@@ -6,7 +6,7 @@ grep search replacement.
 ## Setup
 
 ```bash
-cd opt && stow ripgrep
+stow ripgrep
 ```
 
 ## Resources

@@ -2,13 +2,11 @@
 # Initialize sdkman environment
 #
 
-# shellcheck disable=SC1091
-
 export SDKMAN_DIR="${XDG_DATA_HOME}/sdkman"
 
 _sdk_init() {
   # expensive operation
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1090,SC1091
   source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 }
 

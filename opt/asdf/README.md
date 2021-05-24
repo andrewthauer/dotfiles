@@ -5,9 +5,9 @@ manager.
 
 ## Setup
 
-Either `brew install asdf` or run `./install.sh`.
+Either `brew install asdf`.
 
-_NOTE: The install script hasn't been fullu tested._
+_NOTE: The install script hasn't been fully tested._
 
 ## Resources
 
