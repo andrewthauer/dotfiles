@@ -8,7 +8,6 @@
 set -e
 
 OPENVPN_PROFILES_DIR="${OPENVPN_PROFILES_DIR:-$HOME/.config/openvpn/profiles}"
-TUNNELBLICK_CONNECT_SCRIPT="${DOTFILES_DIR}/opt/openvpn/_macos/tunnelblick-connect.applescript"
 
 main() {
   if [[ -n $1 ]]; then
@@ -19,9 +18,7 @@ main() {
 
   VPN_PROFILE_NAME="${VPN_PROFILE_NAME-$(basename "$PWD")}"
 
-  if [[ "$(uname)" == "Darwin" ]] && [[ "${USE_TUNNELBLICK}" == "true" ]]; then
-    PROFILE_NAME="${VPN_PROFILE_NAME}" osascript "${TUNNELBLICK_CONNECT_SCRIPT}"
-  elif [[ -f "client.ovpn" ]]; then
+  if [[ -f "client.ovpn" ]]; then
     sudo openvpn --config client.ovpn
   else
     echo "No valid vpn profile - $VPN_PROFILE_NAME"

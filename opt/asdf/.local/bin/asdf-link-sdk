@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Summary:
-#   Create sdk symlinks for other opt packages
+#   Create JVM sdk symlinks for asdf versions
 
 set -e
 
 link_sdk() {
   plugin="$1"
-  dir="$XDG_DATA_HOME/sdk/$plugin"
+  dir="${XDG_DATA_HOME}/sdk/$plugin"
   mkdir -p "$dir"
   ver="$(asdf current "$plugin" | cut -d ' ' -f 1)"
   pushd "$dir" >/dev/null || exit
