@@ -1,6 +1,6 @@
 # Package bundles
-PKG_DIR = $(CURDIR)/opt
-ALL_PKGS = $(sort $(notdir $(wildcard opt/**)))
+PKG_DIR = $(CURDIR)
+ALL_PKGS = $(sort $(basename $(dir $(wildcard */))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
 DEFAULT_PKGS = asdf fasd fzf git shell stow tmux vim zsh
 
@@ -23,7 +23,8 @@ ifeq ($(shell uname), Linux)
 endif
 
 # Subdirectories with make files
-SUBDIRS = $(sort $(basename $(dir $(wildcard opt/**/Makefile))))
+SUBDIRS = $(sort $(basename $(dir $(wildcard */Makefile))))
+PKG_MAKEFILES = $(SUBDIRS:/=)
 
 all: setup prepare-dirs link
 
@@ -74,19 +75,19 @@ chklink:
 
 .PHONY: list-pkgs
 list-pkgs:
-	@echo $(ALL_PKGS)
+	@echo $(ALL_PKGS:/=)
 
 .PHONY: list-makefiles
 list-makefiles:
-	@echo $(SUBDIRS)
+	@echo $(PKG_MAKEFILES)
 
-.PHONY: $(SUBDIRS)
-$(SUBDIRS):
+.PHONY: $(PKG_MAKEFILES)
+$(PKG_MAKEFILES):
 	@echo $@
 	@$(MAKE) -C $@ $(MAKECMDGOALS)
 
 .PHONY: .DEFAULT
 .DEFAULT:
-	@for dir in $(SUBDIRS); do \
+	@for dir in $(PKG_MAKEFILES); do \
 		$(MAKE) -C $$dir $(MAKECMDGOALS); \
 	done

@@ -71,7 +71,7 @@ install_brew() {
   read -r answer
   case "${answer}" in [yY] | [yY][eE][sS])
     # Install homebrew & default dependencies
-    "${DOTFILES_DIR}/opt/homebrew/install.sh"
+    "${DOTFILES_DIR}/homebrew/install.sh"
     ;;
   esac
 }

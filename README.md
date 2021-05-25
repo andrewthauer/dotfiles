@@ -69,7 +69,7 @@ within the `$HOME` directory.
 - `bin` - General purpose scripts which are added to the path.
 - `lib` - Core utilities used throughout. Must be sourced up front.
 - `local` - Local system configs & secrets that should never be committed.
-- `opt` - Optional packages that can be stowed.
+- `*` - Everything else is a package.
 
 _NOTE: Directories starting with an `_underscore` will be ignored by stow._
 
