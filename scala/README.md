@@ -1,9 +1,9 @@
 # Scala
 
-This package initializes the [scala](https://www.scala-lang.org) language
-environment using [SDKMAN!](https://sdkman.io).
+This package initializes the [Scala](https://www.scala-lang.org) language &
+[sbt](https://www.scala-sbt.org/) build tool.
 
 ## Resources
 
 - https://www.scala-lang.org
-- https://sdkman.io
+- https://www.scala-sbt.org
