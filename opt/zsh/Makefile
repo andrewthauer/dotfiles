@@ -7,11 +7,11 @@ XDG_CACHE_HOME := $(HOME)/.cache
 all: zsh
 zsh: setup link
 
-link: setup
-	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+link:
+	@stow -t $(HOME) -d $(PARENT_DIR) -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -D $(notdir $(CURDIR))
 
 setup:
 	@mkdir -p $(XDG_DATA_HOME)/zsh/functions

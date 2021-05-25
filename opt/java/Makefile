@@ -15,7 +15,7 @@ setup:
 	@mkdir -p $(XDG_DATA_HOME)/sdk/{java,maven,maven}
 
 link: setup
-	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -S $(notdir $(CURDIR))
 ifeq ($(shell uname), Darwin)
 	@ln -fs $(SOURCE_ENV_PLIST) $(TARGET_ENV_PLIST)
 	@launchctl unload $(TARGET_ENV_PLIST)
@@ -23,7 +23,7 @@ ifeq ($(shell uname), Darwin)
 endif
 
 unlink:
-	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -D $(notdir $(CURDIR))
 ifeq ($(shell uname), Darwin)
 	@launchctl unload $(TARGET_ENV_PLIST)
 	@rm -f $(TARGET_ENV_PLIST)

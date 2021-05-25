@@ -9,10 +9,10 @@ all: macos
 macos: link
 
 link:
-	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -D $(notdir $(CURDIR))
 
 defaults: link
 	@$(CURDIR)/_setup/defaults.sh

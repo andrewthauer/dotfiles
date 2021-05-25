@@ -6,10 +6,10 @@ XDG_DATA_HOME := $(HOME)/.local/share
 all: link vim
 
 link:
-	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -S $(notdir $(CURDIR))
 
 unlink:
-	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -D $(notdir $(CURDIR))
 
 vim:
 	@echo "Installing vim-plug"

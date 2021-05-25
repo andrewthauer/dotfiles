@@ -1,7 +1,8 @@
 # Package bundles
 PKG_DIR = $(CURDIR)/opt
+ALL_PKGS = $(sort $(notdir $(wildcard opt/**)))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fasd fzf git shell stow tmux vim
+DEFAULT_PKGS = asdf fasd fzf git shell stow tmux vim zsh
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -24,7 +25,7 @@ endif
 # Subdirectories with make files
 SUBDIRS = $(sort $(basename $(dir $(wildcard opt/**/Makefile))))
 
-all: setup link
+all: setup prepare-dirs link
 
 shellcheck:
 	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*' ! -name 'time-zsh')
@@ -36,10 +37,10 @@ check-shfmt:
 
 lint: shellcheck check-shfmt
 
-setup: setup-dirs
+setup:
 	@stow -t $(HOME) -d $(PKG_DIR) -S stow
 
-setup-dirs:
+prepare-dirs:
 	@mkdir -p $(CURDIR)/local
 	@mkdir -p $(XDG_CONFIG_HOME)/{profile.d,shell.d}
 	@mkdir -p $(XDG_CONFIG_HOME)/{git,less,openvpn,hammerspoon}
@@ -51,13 +52,13 @@ ifeq ($(shell uname), Darwin)
 	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
 endif
 
-link: setup
+link: prepare-dirs  setup
 	@stow -t $(HOME) -d $(CURDIR) -S local
 	@stow -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 
-unlink: setup
-	@stow -D -t $(HOME) -d $(CURDIR) -S etc local
-	@stow -D -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
+unlink:
+	@stow -t $(HOME) -D local
+	@stow -t $(HOME) -d $(PKG_DIR) -D $(filter-out stow,$(ALL_PKGS))
 
 .PHONY: .chklink
 chklink:
@@ -71,8 +72,12 @@ chklink:
 	@chkstow -a -b -t $(XDG_BIN_HOME)
 	@chkstow -a -b -t $(XDG_LIB_HOME)
 
-.PHONY: print-makes
-print-makes:
+.PHONY: list-pkgs
+list-pkgs:
+	@echo $(ALL_PKGS)
+
+.PHONY: list-makefiles
+list-makefiles:
 	@echo $(SUBDIRS)
 
 .PHONY: $(SUBDIRS)

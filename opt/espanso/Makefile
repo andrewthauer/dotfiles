@@ -18,13 +18,13 @@ setup:
 	@mkdir -p $(ESPANSO_CONFIG_DIR)/user
 
 link: setup
-	@stow -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -S $(notdir $(CURDIR))
 ifeq ($(shell uname), Darwin)
 	@ln -fs $(ESPANSO_CONFIG_DIR) $(MACOS_ESPANSO_CONFIG_DIR)
 endif
 
 unlink:
-	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
+	@stow -t $(HOME) -d $(PARENT_DIR) -D $(notdir $(CURDIR))
 ifeq ($(shell uname), Darwin)
 	@rm $(MACOS_ESPANSO_CONFIG_DIR)
 endif
