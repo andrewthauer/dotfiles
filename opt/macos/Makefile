@@ -14,5 +14,5 @@ link:
 unlink:
 	@stow -D -d $(PARENT_DIR) -t ~ -S $(notdir $(CURDIR))
 
-defaults:
+defaults: link
 	@$(CURDIR)/_setup/defaults.sh
