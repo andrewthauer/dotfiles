@@ -133,7 +133,7 @@ spoon.SpoonInstall:andUse('Caffeine', {
   hotkeys = {
     toggle = { hyper, '0' },
   },
-  start = true,
+  start = false,
 })
 
 -- Calendar and clock
