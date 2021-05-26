@@ -60,8 +60,8 @@ export FZF_ALT_C_COMMAND="rg-dirs"
 # Aliases
 alias fzfm='fzf -m'
 # shellcheck disable=SC2139
-alias fzfi="${FZF_DEFAULT_COMMAND} | fzf"
-alias fzvi='nvim $(fzfi)'
+alias fzff="${FZF_DEFAULT_COMMAND} | fzf"
+alias fzfvi='nvim $(fzfi)'
 
 #
 # Completions
@@ -71,8 +71,8 @@ alias fzvi='nvim $(fzfi)'
 # export FZF_COMPLETION_TRIGGER='~~'
 export FZF_COMPLETION_TRIGGER='**'
 
-# Options to fzf command
-export FZF_COMPLETION_OPTS='+c -x'
+# Completion options for fzf command
+# export FZF_COMPLETION_OPTS=''
 
 # Command for listing path candidates
 # - The first argument to the function ($1) is the base path to start traversal
