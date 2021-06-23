@@ -100,10 +100,8 @@
   pushu = !git push -u origin `git branch-name`
   # Pull & push the current branch
   sync = !git pull && git push
-  # Update a fork
-  sync-fork = !git fetch upstream && git checkout `git default branch` && git merge upstream/master
-  # update a fork (for main branch)
-  sync-fork-main = !git fetch upstream && git checkout `git default branch` && git merge upstream/main
+  # Update a fork with the default branch
+  sync-fork = "!f() { branchName=${1:-`git default-branch`}; git fetch upstream && git checkout $branchName && git merge upstream/$branchName; }; f"
 
   #
   # Staging & Commits
