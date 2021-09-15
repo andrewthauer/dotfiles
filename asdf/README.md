@@ -5,9 +5,9 @@ manager.
 
 ## Setup
 
-Either `brew install asdf`.
-
-_NOTE: The install script hasn't been fully tested._
+```bash
+stow bat
+```
 
 ## Resources
 
