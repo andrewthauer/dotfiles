@@ -1,0 +1,3 @@
+# Nix
+
+https://nixos.org
