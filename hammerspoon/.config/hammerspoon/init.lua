@@ -177,7 +177,7 @@ hs.hotkey.bind(yankkey, 'left', function() window.yankWindow(-100, 0) end) -- ya
 -- })
 
 -- Application hotkeys
-hs.hotkey.bind(hyper, 'space', utils.launchById('com.raycast.macos'))
+-- hs.hotkey.bind(hyper, 'space', utils.launchById('com.raycast.macos'))
 hs.hotkey.bind(hyper, '1', utils.launchById('com.agilebits.onepassword7'))
 hs.hotkey.bind(hyper, 'c', utils.launchById('com.google.Chrome'))
 hs.hotkey.bind(hyper, 'd', utils.launchById('com.todoist.mac.Todoist'))

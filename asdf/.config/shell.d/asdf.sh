@@ -19,7 +19,7 @@ elif [[ -f "${XDG_DATA_HOME}/asdf/bin/asdf.sh" ]]; then
 
 # Use brew installed asdf
 elif [[ -d "${BREW_PREFIX}/opt/asdf" ]]; then
-  export ASDF_DIR="${BREW_PREFIX}/opt/asdf"
+  export ASDF_DIR="${BREW_PREFIX}/opt/asdf/libexec"
 
 # Return if requirements not found
 else
