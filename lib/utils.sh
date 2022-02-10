@@ -21,8 +21,9 @@ fi
 #
 function command_exists() {
   # use fastest shell specific method
+  # shellcheck disable=SC1009
   if [[ -n "$ZSH_VERSION" ]]; then
-    # shellcheck disable=SC2203,SC2193
+    # shellcheck disable=SC1010,SC1020,SC1072,SC1073
     [[ $+commands[$1] == 1 ]]
   else
     command -v "$1" >/dev/null 2>&1
@@ -58,7 +59,8 @@ function function_exists() {
 #   # PATH="/path/abc:/path/xyz:/usr/bin:/bin"
 #
 function prepend_path() {
-  paths=("$1")
+  local i
+  local paths=("$1")
   for ((i = $#; i > 0; i--)); do
     arg=${paths[i]}
     if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
@@ -82,6 +84,7 @@ function prepend_path() {
 #   # PATH="/usr/bin:/bin:/path/abc:/path/xyz"
 #
 function append_path() {
+  local arg
   for arg in "$@"; do
     if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
       PATH="${PATH:+"$PATH:"}$arg"
@@ -97,7 +100,7 @@ function append_path() {
 #
 __SOURCED_FILES=()
 source_file() {
-  file=$1
+  local file=$1
   if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[*]}" =~ ${file} ]]; then
     # shellcheck disable=SC1090
     source "$file"

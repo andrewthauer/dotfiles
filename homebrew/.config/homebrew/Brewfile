@@ -8,7 +8,6 @@
 brew 'git'
 brew 'make'
 brew 'stow'
-brew 'gcc'
 
 # Bash
 brew 'bash'
@@ -33,7 +32,7 @@ brew 'tmux'
 # Shell enhancers
 brew 'bat'
 # brew 'tldr'
-brew 'tree'
+# brew 'tree'
 
 # Search utils
 brew 'jq'
@@ -63,6 +62,9 @@ brew 'gpg'
 # brew 'openvpn'
 brew 'wget'
 
+# Dev
+brew 'gcc'
+
 # Docker
 # brew 'ctop'
 brew 'docker-completion'
@@ -74,8 +76,6 @@ brew 'gh'
 
 # Dev related
 brew 'asdf'
-brew 'cmake'
-brew 'gcc'
 brew 'yarn'
 
 # Shell dev utils

@@ -21,7 +21,7 @@ main() {
 
   confirm "Recursively delete '${pattern[*]}' directories" || exit 1
 
-  for dir in ${pattern[*]}; do
+  for dir in "${pattern[@]}"; do
     rm -rf "$dir"
   done
 }

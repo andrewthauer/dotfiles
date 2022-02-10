@@ -36,7 +36,7 @@ if type lesspipe.sh >/dev/null 2>&1; then
 fi
 
 # Load core utilities used by other scripts
-# shellcheck source=../../../lib/init.sh
+# shellcheck source=../../../lib/init.sh disable=SC1091
 . "${DOTFILES_DIR}/lib/init.sh"
 
 # Load extra environment files into environment

@@ -94,6 +94,7 @@ kafka-produce-avro() {
 
   # shellcheck disable=SC2089
   local with_keys_options
+  # shellcheck disable=SC2286
   [ -n "$WITH_KEY" ] && with_keys_options="--property parse.key=true --property key.separator=" ""
 
   # shellcheck disable=SC2086
