@@ -13,5 +13,8 @@ unlink:
 
 vim:
 	@echo "Installing vim-plug"
-	@sh -c 'curl -sfLo $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	@mkdir -p "$(XDG_DATA_HOME)/nvim/site/autoload"
+	@curl -sfLo $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	@echo "Install plugins"
+	@nvim +PlugInstall +qall

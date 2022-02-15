@@ -2,7 +2,7 @@
 PKG_DIR = $(CURDIR)
 ALL_PKGS = $(sort $(basename $(dir $(wildcard */))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fasd fzf git shell stow tmux vim zsh
+DEFAULT_PKGS = asdf fasd fzf git shell tmux vim zsh
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -39,7 +39,7 @@ check-shfmt:
 lint: shellcheck check-shfmt
 
 setup:
-	@stow -t $(HOME) -d $(PKG_DIR) -S stow
+	@stow -t $(HOME) -d $(PKG_DIR) -S shell
 
 prepare-dirs:
 	@mkdir -p $(CURDIR)/local
