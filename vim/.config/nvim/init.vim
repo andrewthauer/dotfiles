@@ -146,6 +146,15 @@ augroup filetype_markdown
   autocmd FileType markdown set wrap linebreak
 augroup END
 
+" ============= Install plugins ====================
+
+if empty(glob(expand("$XDG_DATA_HOME/nvim/site/autoload/plug.vim")))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
 " ================ Other Setting ====================
 
 " Load all settings
