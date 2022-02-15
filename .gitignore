@@ -35,10 +35,8 @@
 .netrwhist
 
 # zsh
-.zsh/functions/*
+.zsh/site-functions/*
 .zsh_history
-!.zsh/functions/async
-!.zsh/functions/prompt_pure_setup
 
 # keep these files
 !/**/.gitkeep

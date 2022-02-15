@@ -10,7 +10,9 @@
 [ "${FUZZY_FINDER}" != "sk" ] && return 1
 
 # The install directory
-if [[ -d "/usr/local/opt/sk" ]]; then
+if [[ -d "${BREW_PREFIX}/opt/sk" ]]; then
+  SKIM_DIR="${BREW_PREFIX}/opt/sk"
+elif [[ -d "/usr/local/opt/sk" ]]; then
   SKIM_DIR="/usr/local/opt/sk"
 elif [[ -d "${XDG_DATA_HOME}/sk" ]]; then
   SKIM_DIR="${XDG_DATA_HOME}/sk"

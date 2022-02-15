@@ -25,7 +25,15 @@ unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 
 #
-# Plugins
+# System
+#
+
+if [[ -n "${BREW_PREFIX}" && -d "${BREW_PREFIX}/share/zsh/site-functions" ]]; then
+  fpath=("${BREW_PREFIX}/share/zsh/site-functions" $fpath)
+fi
+
+#
+# Zsh user plugins
 #
 
 # Various completions for zsh
@@ -35,6 +43,14 @@ if [[ -d "${XDG_DATA_HOME}/zsh-completions/src" ]]; then
   fpath=($fpath "${XDG_DATA_HOME}/zsh-completions/src")
 elif [[ -n "${BREW_PREFIX}" && -d "${BREW_PREFIX}/share/zsh-completions" ]]; then
   fpath=($fpath "${BREW_PREFIX}/share/zsh-completions")
+fi
+
+#
+# User completions
+#
+
+if [[ -d "${XDG_DATA_HOME}/zsh/site-functions" ]]; then
+  fpath=($fpath "${XDG_DATA_HOME}/zsh/site-functions")
 fi
 
 #

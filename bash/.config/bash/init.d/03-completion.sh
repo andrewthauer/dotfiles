@@ -4,7 +4,7 @@
 
 # Load bash completions
 if [[ -e "${BREW_PREFIX}/share/bash-completion/bash_completion" ]]; then
-  export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+  export BASH_COMPLETION_COMPAT_DIR="${BREW_PREFIX}/etc/bash_completion.d"
   # shellcheck disable=SC1091
   source "${BREW_PREFIX}/share/bash-completion/bash_completion"
 elif [[ -e "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then

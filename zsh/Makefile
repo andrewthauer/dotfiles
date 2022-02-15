@@ -14,7 +14,7 @@ unlink:
 	@stow -t $(HOME) -d $(PARENT_DIR) -D $(notdir $(CURDIR))
 
 setup:
-	@mkdir -p $(XDG_DATA_HOME)/zsh/functions
+	@mkdir -p $(XDG_DATA_HOME)/zsh/site-functions
 	@mkdir -p $(XDG_CACHE_HOME)/zsh
 
 setup-plugins:

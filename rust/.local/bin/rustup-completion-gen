@@ -8,7 +8,7 @@
 set -e
 
 mkdir -p "${XDG_DATA_HOME}/bash_completion.d"
-mkdir -p "${XDG_DATA_HOME}/zsh/functions"
+mkdir -p "${XDG_DATA_HOME}/zsh/site-functions"
 
 rustup completions bash >|"${XDG_DATA_HOME}/bash_completion.d/rustup"
-rustup completions zsh >|"${XDG_DATA_HOME}/zsh/functions/_rustup"
+rustup completions zsh >|"${XDG_DATA_HOME}/zsh/site-functions/_rustup"

@@ -12,12 +12,6 @@ source "${XDG_CONFIG_HOME}/environment"
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
 
-# Set the function path
-fpath=(
-  $XDG_DATA_HOME/zsh/functions
-  $fpath
-)
-
 # Disable shell sessions
 SHELL_SESSIONS_DISABLE=1
 

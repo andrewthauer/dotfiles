@@ -14,10 +14,8 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 source "${XDG_CONFIG_HOME}/environment"
 
 # Load the common shell login shell profile
-if shopt -q login_shell; then
-  # shellcheck disable=SC1091
-  source "${XDG_CONFIG_HOME}/profile"
-fi
+# shellcheck disable=SC1091
+source "${XDG_CONFIG_HOME}/profile"
 
 # Ensure the xdg data directory exists
 [[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p "${XDG_DATA_HOME}/bash"
