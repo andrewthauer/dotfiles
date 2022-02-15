@@ -20,6 +20,9 @@ export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/homebrew/Brewfile"
 # Do not create a lock file
 export HOMEBREW_BUNDLE_NO_LOCK
 
+# No dev hints
+export HOMEBREW_NO_ENV_HINTS
+
 #
 # Aliases
 #
@@ -40,15 +43,6 @@ alias brewuses='brew uses --installed'
 
 # Homebrew Bundle
 alias brewb='brew bundle'
-alias brewbl='brewb list'
-
-# Homebrew Cask
-alias cask='brew cask'
-alias caski='brew cask install'
-alias caskl='brew cask list'
-alias casko='brew cask outdated'
-alias casks='brew cask search'
-alias caskx='brew cask uninstall'
 
 # Composite aliases
 alias brew-upgrade='brew update && brew upgrade && brew bundle && brew cleanup'

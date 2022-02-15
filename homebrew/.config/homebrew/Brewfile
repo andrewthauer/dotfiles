@@ -21,70 +21,21 @@ brew 'zsh-history-substring-search'
 brew 'zsh-syntax-highlighting'
 
 # Core shell packages
+brew 'asdf'
+brew 'bat'
 brew 'direnv'
 brew 'fasd'
 brew 'fzf'
+brew 'gh'
+brew 'jq'
 brew 'neovim'
-brew 'sk'
+brew 'ripgrep'
 brew 'starship'
 brew 'tmux'
-
-# Shell enhancers
-brew 'bat'
-# brew 'tldr'
-# brew 'tree'
-
-# Search utils
-brew 'jq'
-brew 'ripgrep'
-brew 'yq'
 
 # Gnu utilities
 brew 'coreutils'
 brew 'gpg'
-# brew 'findutils'
-# brew 'gettext', link: true
-# brew 'gawk'
-# brew 'gnu-sed'
-# brew 'gnu-tar'
-# brew 'gnutls'
-# brew 'grep'
-# brew 'gsed'
-# brew 'parallel'
-
-# System utils
-# brew 'htop'
-# brew 'inetutils'
-# brew 'netcat'
-# brew 'ncdu'
-# brew 'dutree'
-# brew 'openssl'
-# brew 'openvpn'
-brew 'wget'
-
-# Dev
-brew 'gcc'
-
-# Docker
-# brew 'ctop'
-brew 'docker-completion'
-brew 'docker-compose-completion'
-
-# Git tools
-brew 'git-open'
-brew 'gh'
-
-# Dev related
-brew 'asdf'
-brew 'yarn'
-
-# Shell dev utils
-brew 'bats-core'
-brew 'shellcheck'
-brew 'shfmt', link: true, overwrite: true
-
-# Other dev tools
-brew 'adr-tools'
 
 #
 # Local Brewfile's
@@ -104,7 +55,6 @@ return unless OS.mac?
 
 # macOS specific taps
 tap 'homebrew/cask'
-# tap 'homebrew/cask-drivers'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
 tap 'homebrew/services'

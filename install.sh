@@ -74,6 +74,7 @@ install_brew() {
     "${DOTFILES_DIR}/homebrew/install.sh"
     ;;
   esac
+  source "${DOTFILES_DIR}/homebrew/.config/profile.d/homebrew.sh"
 }
 
 install_dotfiles_deps() {
@@ -94,11 +95,11 @@ setup_zsh() {
   os_family=$(get_os_family)
 
   if [[ "${os_family}" == "macos" ]]; then
-    BREW_PREFIX="$(brew --prefix)"
+    source "${DOTFILES_DIR}/homebrew/.config/profile.d/homebrew.sh" 
 
     # Add availble shells
-    grep -q "${BREW_PREFIX}/bin/bash" /etc/shells && echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells
-    grep -q "${BREW_PREFIX}/bin/zsh" /etc/shells && echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
+    ! grep -q "${BREW_PREFIX}/bin/bash" /etc/shells && echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells
+    ! grep -q "${BREW_PREFIX}/bin/zsh" /etc/shells && echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells
 
     # Change default shell to zsh
     sudo chsh -s "${BREW_PREFIX}/bin/zsh"

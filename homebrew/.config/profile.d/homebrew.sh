@@ -4,8 +4,12 @@
 
 # Set brew prefix if macos to avoid using "$(brew --prefix)"
 if [[ "$OSTYPE" == darwin* ]]; then
-  BREW_PREFIX="${BREW_PREFIX:-/usr/local}"
-
+  if [[ "$(arch)" == "arm64" ]]; then
+    BREW_PREFIX="${BREW_PREFIX:-/opt/homebrew}"
+    eval "$("${BREW_PREFIX}"/bin/brew shellenv)"
+  else
+    BREW_PREFIX="${BREW_PREFIX:-/opt/local}"
+  fi
 # Linuxbrew initialization (if applicable)
 elif [[ "$OSTYPE" == linux* ]]; then
   if [[ -x "$(command -v brew)" ]]; then

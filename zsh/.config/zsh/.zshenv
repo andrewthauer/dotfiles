@@ -18,6 +18,9 @@ fpath=(
   $fpath
 )
 
+# Disable shell sessions
+SHELL_SESSIONS_DISABLE=1
+
 # Prompt
 # ZSH_PROMPT="pure"
 # if [[ -d "${XDG_DATA_HOME}/${ZSH_PROMPT}" ]]; then
