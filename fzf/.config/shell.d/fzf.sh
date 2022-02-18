@@ -11,8 +11,8 @@ FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
 [ "${FUZZY_FINDER}" != "fzf" ] && return 1
 
 # The install directory
-if [[ -d "${BREW_PREFIX}/opt/fzf" ]]; then
-  FZF_DIR="${BREW_PREFIX}/opt/fzf"
+if [[ -d "${PROFILE_PREFIX}/opt/fzf" ]]; then
+  FZF_DIR="${PROFILE_PREFIX}/opt/fzf"
 elif [[ -d "/usr/local/opt/fzf" ]]; then
   FZF_DIR="/usr/local/opt/fzf"
 elif [[ -d "${XDG_DATA_HOME}/fzf" ]]; then

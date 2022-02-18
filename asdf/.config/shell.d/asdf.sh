@@ -9,6 +9,10 @@ export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
 export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="${XDG_CONFIG_HOME}/asdf/tool-versions"
 
+# Fix for nodejs global install
+# - https://github.com/asdf-vm/asdf-nodejs/issues/46
+export ASDF_SKIP_RESHIM=1
+
 # Use custom asdf location
 if [[ -n "${ASDF_DIR}" && -d "${ASDF_DIR}" ]]; then
   export ASDF_DIR
@@ -18,8 +22,12 @@ elif [[ -f "${XDG_DATA_HOME}/asdf/bin/asdf.sh" ]]; then
   export ASDF_DIR="${XDG_DATA_HOME}/asdf"
 
 # Use brew installed asdf
-elif [[ -d "${BREW_PREFIX}/opt/asdf" ]]; then
-  export ASDF_DIR="${BREW_PREFIX}/opt/asdf/libexec"
+elif [[ -d "${PROFILE_PREFIX}/opt/asdf" ]]; then
+  export ASDF_DIR="${PROFILE_PREFIX}/opt/asdf/libexec"
+
+# Use nix installed asdf
+elif [[ -d "${HOME}/.nix-profile/share/asdf-vm" ]]; then
+  export ASDF_DIR="${HOME}/.nix-profile/share/asdf-vm/lib"
 
 # Return if requirements not found
 else
@@ -35,9 +43,9 @@ if [[ -n "${BASH_VERSION}" ]]; then
   if [[ -f "${ASDF_DIR}/completions/asdf.bash" ]]; then
     # shellcheck disable=SC1091
     source "${ASDF_DIR}/completions/asdf.bash"
-  elif [[ -f "${BREW_PREFIX}/etc/bash_completion.d/asdf.bash" ]]; then
+  elif [[ -f "${PROFILE_PREFIX}/etc/bash_completion.d/asdf.bash" ]]; then
     # shellcheck disable=SC1091
-    source "${BREW_PREFIX}/etc/bash_completion.d/asdf.bash"
+    source "${PROFILE_PREFIX}/etc/bash_completion.d/asdf.bash"
   fi
 elif [[ -n "${ZSH_VERSION}" ]]; then
   if [[ -f "${ASDF_DIR}/completions/_asdf" ]]; then
@@ -45,10 +53,6 @@ elif [[ -n "${ZSH_VERSION}" ]]; then
     fpath=("$fpath" "${ASDF_DIR}/completions")
   fi
 fi
-
-# Fix for nodejs global install
-# - https://github.com/asdf-vm/asdf-nodejs/issues/46
-export ASDF_SKIP_RESHIM=1
 
 #
 # Aliases & helpers

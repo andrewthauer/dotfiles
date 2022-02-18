@@ -3,13 +3,13 @@
 #
 
 # Load bash completions
-if [[ -e "${BREW_PREFIX}/share/bash-completion/bash_completion" ]]; then
-  export BASH_COMPLETION_COMPAT_DIR="${BREW_PREFIX}/etc/bash_completion.d"
+if [[ -e "${PROFILE_PREFIX}/share/bash-completion/bash_completion" ]]; then
+  export BASH_COMPLETION_COMPAT_DIR="${PROFILE_PREFIX}/etc/bash_completion.d"
   # shellcheck disable=SC1091
-  source "${BREW_PREFIX}/share/bash-completion/bash_completion"
-elif [[ -e "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+  source "${PROFILE_PREFIX}/share/bash-completion/bash_completion"
+elif [[ -e "${PROFILE_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
   # shellcheck disable=SC1091
-  source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  source "${PROFILE_PREFIX}/etc/profile.d/bash_completion.sh"
 elif [[ -e "/etc/bash_completion" ]]; then
   # shellcheck disable=SC1091
   source "/etc/bash_completion"

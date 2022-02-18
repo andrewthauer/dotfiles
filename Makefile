@@ -53,7 +53,7 @@ ifeq ($(shell uname), Darwin)
 	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
 endif
 
-link: prepare-dirs  setup
+link: prepare-dirs setup
 	@stow -t $(HOME) -d $(CURDIR) -S local
 	@stow -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 

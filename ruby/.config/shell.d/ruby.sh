@@ -10,8 +10,8 @@ if ! command_exists "ruby"; then
 fi
 
 # Ruby build
-if [ -n "${BREW_PREFIX}" ]; then
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${BREW_PREFIX}/opt/openssl@1.1"
+if [ -n "${PROFILE_PREFIX}" ]; then
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${PROFILE_PREFIX}/opt/openssl@1.1"
 fi
 
 #

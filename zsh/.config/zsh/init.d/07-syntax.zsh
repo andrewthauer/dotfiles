@@ -4,8 +4,8 @@
 
 # Set the share directory to source from
 SHARE_DIR="${XDG_DATA_HOME}"
-if [[ -n ${BREW_PREFIX} ]]; then
-  SHARE_DIR="${BREW_PREFIX}/share"
+if [[ -n ${PROFILE_PREFIX} ]]; then
+  SHARE_DIR="${PROFILE_PREFIX}/share"
 fi
 
 # Load zsh prompt syntax highlighting

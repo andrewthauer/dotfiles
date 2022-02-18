@@ -28,8 +28,8 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 # System
 #
 
-if [[ -n "${BREW_PREFIX}" && -d "${BREW_PREFIX}/share/zsh/site-functions" ]]; then
-  fpath=("${BREW_PREFIX}/share/zsh/site-functions" $fpath)
+if [[ -n "${PROFILE_PREFIX}" && -d "${PROFILE_PREFIX}/share/zsh/site-functions" ]]; then
+  fpath=("${PROFILE_PREFIX}/share/zsh/site-functions" $fpath)
 fi
 
 #
@@ -41,8 +41,8 @@ fi
 # - NOTE: Must be loaded before running compinit
 if [[ -d "${XDG_DATA_HOME}/zsh-completions/src" ]]; then
   fpath=($fpath "${XDG_DATA_HOME}/zsh-completions/src")
-elif [[ -n "${BREW_PREFIX}" && -d "${BREW_PREFIX}/share/zsh-completions" ]]; then
-  fpath=($fpath "${BREW_PREFIX}/share/zsh-completions")
+elif [[ -n "${PROFILE_PREFIX}" && -d "${PROFILE_PREFIX}/share/zsh-completions" ]]; then
+  fpath=($fpath "${PROFILE_PREFIX}/share/zsh-completions")
 fi
 
 #
