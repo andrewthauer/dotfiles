@@ -4,10 +4,6 @@
 # - https://rubyonrails.org/
 #
 
-# Fix for
-# https://stackoverflow.com/questions/52671926/rails-may-have-been-in-progress-in-another-thread-when-fork-was-called
-export DISABLE_SPRING=true
-
 # alias -g RED='RAILS_ENV=development'
 # alias -g REP='RAILS_ENV=production'
 # alias -g RET='RAILS_ENV=test'

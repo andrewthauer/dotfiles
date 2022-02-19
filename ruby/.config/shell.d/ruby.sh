@@ -43,6 +43,15 @@ function gem-install-bundler() {
   gem install bundler -v "$(tail -n 1 Gemfile.lock)"
 }
 
+#
+# Version managers
+#
+
+# add asdf default gems files
+if command_exists asdf && [ -f "${XDG_CONFIG_HOME}/ruby/default-gems" ]; then
+  export ASDF_GEM_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/ruby/default-gems"
+fi
+
 # Aliases
 alias b='bundle'
 alias be='bundle exec'
