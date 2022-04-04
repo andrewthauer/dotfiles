@@ -33,6 +33,14 @@ if [[ -n "${PROFILE_PREFIX}" && -d "${PROFILE_PREFIX}/share/zsh/site-functions" 
 fi
 
 #
+# Nix system
+#
+
+if [[ -n "${NIX_PROFILES}" && -d "${HOME}/.nix-profile/share/zsh/site-functions" ]]; then
+  fpath=("${HOME}/.nix-profile/share/zsh/site-functions" $fpath)
+fi
+
+#
 # Zsh user plugins
 #
 
