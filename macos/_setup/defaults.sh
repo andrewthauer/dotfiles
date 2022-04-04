@@ -50,7 +50,7 @@ defaults write -g InitialKeyRepeat -int 25
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Use fn + fkey for special behavior, not fkey alone
-# defaults write -g com.apple.keyboard.fnState -bool true
+defaults write -g com.apple.keyboard.fnState -bool true
 
 # Disable smart quotes
 defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
