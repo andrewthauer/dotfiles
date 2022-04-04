@@ -11,6 +11,7 @@ Plug 'vim-scripts/Zenburn'
 " Plug 'junegunn/fzf.vim'
 " Plug 'junegunn/vim-easy-align'
 " Plug 'benmills/vimux'
+Plug 'preservim/nerdtree'
 
 " === Documentation
 " Plug 'plasticboy/vim-markdown'
