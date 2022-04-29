@@ -1,6 +1,6 @@
 # Package bundles
-PKG_DIR = $(CURDIR)
-ALL_PKGS = $(sort $(basename $(dir $(wildcard */))))
+PKG_DIR = $(CURDIR)/modules
+ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
 DEFAULT_PKGS = asdf fasd fzf git shell tmux vim zsh
 
@@ -39,18 +39,18 @@ check-shfmt:
 lint: shellcheck check-shfmt
 
 setup:
-	@stow -t $(HOME) -d $(PKG_DIR) -S shell
+	@stow -t $(HOME) -d $(PKG_DIR) -S etc
 
 prepare-dirs:
 	@mkdir -p $(CURDIR)/local
 	@mkdir -p $(XDG_CONFIG_HOME)/{profile.d,shell.d}
-	@mkdir -p $(XDG_CONFIG_HOME)/{git,less,openvpn,hammerspoon}
+	@mkdir -p $(XDG_CONFIG_HOME)/{git,less}
 	@mkdir -p $(HOME)/.ssh/config.d
 	@mkdir -p $(XDG_CACHE_HOME)/less
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
 ifeq ($(shell uname), Darwin)
-	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
+	@mkdir -p $(XDG_CONFIG_HOME)/{hammerspoon,homebrew}
 endif
 
 link: prepare-dirs setup

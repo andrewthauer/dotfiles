@@ -51,12 +51,6 @@
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
 ```
 
-See
-
-- [macOS](opt/macos/README.md)
-- [Linux](opt/linux/README.md)
-- [Windows](opt/windows/README.md)
-
 ## Documentation
 
 Each directory contains a `README.md` file that describes it's purpose. Most
@@ -69,7 +63,7 @@ within the `$HOME` directory.
 - `bin` - General purpose scripts which are added to the path.
 - `lib` - Core utilities used throughout. Must be sourced up front.
 - `local` - Local system configs & secrets that should never be committed.
-- `*` - Everything else is a package.
+- `modules` - Various package modules.
 
 _NOTE: Directories starting with an `_underscore` will be ignored by stow._
 

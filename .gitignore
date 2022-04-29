@@ -11,8 +11,9 @@
 .envrc
 
 # ignore these directories
-/local*
-/*-local
+local/
+local-*/
+*-local/
 /tmp*
 **/secrets
 
