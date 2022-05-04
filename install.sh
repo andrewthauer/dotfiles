@@ -7,6 +7,7 @@ set -e
 
 # should we use nix package manager
 USE_NIX_PKGS="${USE_NIX_PKGS:-}"
+USE_HOMEBREW="${USE_HOMEBREW:-}"
 
 # Get the appropriate package manager script
 # TODO: source /dev/stdin <<< "$(curl https://raw.github.com/andrewthauer/dotfiles/master/lib/os.sh)"

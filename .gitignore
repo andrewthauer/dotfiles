@@ -41,3 +41,6 @@ local-*/
 
 # keep these files
 !/**/.gitkeep
+
+# nix builds
+result/

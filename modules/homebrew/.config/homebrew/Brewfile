@@ -22,16 +22,16 @@ brew 'zsh-syntax-highlighting'
 
 # Core shell packages
 brew 'asdf'
-brew 'bat'
-brew 'direnv'
-brew 'fasd'
-brew 'fzf'
+# brew 'bat'
+# brew 'direnv'
+# brew 'fasd'
+# brew 'fzf'
 brew 'gh'
-brew 'jq'
-brew 'neovim'
-brew 'ripgrep'
+# brew 'jq'
+# brew 'neovim'
+# brew 'ripgrep'
 brew 'starship'
-brew 'tmux'
+# brew 'tmux'
 
 # Gnu utilities
 brew 'coreutils'
@@ -64,6 +64,7 @@ cask 'firefox-developer-edition'
 cask 'hammerspoon'
 cask 'iterm2'
 cask 'karabiner-elements'
+cask 'raycast'
 
 # Caskroom fonts
 cask 'font-fira-code'
