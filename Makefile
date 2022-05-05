@@ -2,7 +2,7 @@
 PKG_DIR = $(CURDIR)/modules
 ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fasd fzf git github shell ssh utility vim zsh
+DEFAULT_PKGS = asdf fasd fzf git github shell ssh starship utility vim zsh
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -19,7 +19,7 @@ endif
 
 # Linux specific settings
 ifeq ($(shell uname), Linux)
-	DEFAULT_PKGS := $(DEFAULT_PKGS) linux
+	DEFAULT_PKGS := $(DEFAULT_PKGS)
 endif
 
 # Subdirectories with make files
@@ -39,18 +39,22 @@ check-shfmt:
 lint: shellcheck check-shfmt
 
 setup:
-	@stow -t $(HOME) -d $(PKG_DIR) -S etc
+	@stow -t $(HOME) -d . -S etc
 
 prepare-dirs:
 	@mkdir -p $(CURDIR)/local
-	@mkdir -p $(XDG_CONFIG_HOME)/{profile.d,shell.d}
-	@mkdir -p $(XDG_CONFIG_HOME)/{git,less}
 	@mkdir -p $(HOME)/.ssh/config.d
+	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
+	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
+	@mkdir -p $(XDG_CONFIG_HOME)/git
+	@mkdir -p $(XDG_CONFIG_HOME)/less
+	@mkdir -p $(XDG_DATA_HOME)/zsh
 	@mkdir -p $(XDG_CACHE_HOME)/less
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
 ifeq ($(shell uname), Darwin)
-	@mkdir -p $(XDG_CONFIG_HOME)/{hammerspoon,homebrew}
+	@mkdir -p $(XDG_CONFIG_HOME)/hammerspoon
+	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
 endif
 
 link: prepare-dirs setup
