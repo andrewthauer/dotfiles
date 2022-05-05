@@ -3,8 +3,8 @@
 #   Recursively removes all .DS_Store files on macOS
 #
 # Usage:
-#   rimraf-dsstore # start at current directory
-#   rimraf-dsstore /path
+#   mac-rimraf-dsstore # start at current directory
+#   mac-rimraf-dsstore /path
 
 if [[ "$OSTYPE" != darwin* ]]; then
   echo "Only compatible with macOS"

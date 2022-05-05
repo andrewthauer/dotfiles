@@ -2,7 +2,7 @@
 PKG_DIR = $(CURDIR)/modules
 ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fasd fzf git shell tmux vim zsh
+DEFAULT_PKGS = asdf fasd fzf git github shell ssh utility vim zsh
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -14,7 +14,7 @@ XDG_LIB_HOME := $(HOME)/.local/lib
 
 # macOS specific settings
 ifeq ($(shell uname), Darwin)
-	DEFAULT_PKGS := $(DEFAULT_PKGS) macos homebrew
+	DEFAULT_PKGS := $(DEFAULT_PKGS) macos homebrew hammerspoon karabiner
 endif
 
 # Linux specific settings

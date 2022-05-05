@@ -368,6 +368,9 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_
 # Dash doc sync folder path
 # defaults write com.kapeli.dashdoc "syncFolderPath" -string "${XDG_CONFIG_HOME:-$HOME/.config}"
 
+# Hammerspoon
+defaults write org.hammerspoon.Hammerspoon MJConfigFile "$(XDG_CONFIG_HOME)/hammerspoon/init.lua"
+
 # =============================================================================
 # Kill affected applications
 # =============================================================================

@@ -3,7 +3,7 @@
 #   Set the various mac hostnames
 #
 # Usage:
-#   set-hostname 'my-host-name'
+#   mac-set-hostname 'my-host-name'
 
 # Prompt for admin password upfront
 sudo -v

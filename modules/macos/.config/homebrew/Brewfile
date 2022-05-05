@@ -5,37 +5,37 @@
 #
 
 # Pre-requisites
-brew 'git'
-brew 'make'
-brew 'stow'
+# brew 'git'
+# brew 'make'
+# brew 'stow'
 
 # Bash
-brew 'bash'
-brew 'bash-completion@2'
+# brew 'bash'
+# brew 'bash-completion@2'
 
 # Zsh
-brew 'zsh'
-brew 'zsh-autosuggestions'
-brew 'zsh-completions'
-brew 'zsh-history-substring-search'
-brew 'zsh-syntax-highlighting'
+# brew 'zsh'
+# brew 'zsh-autosuggestions'
+# brew 'zsh-completions'
+# brew 'zsh-history-substring-search'
+# brew 'zsh-syntax-highlighting'
 
 # Core shell packages
-brew 'asdf'
+# brew 'asdf'
 # brew 'bat'
 # brew 'direnv'
 # brew 'fasd'
 # brew 'fzf'
-brew 'gh'
+# brew 'gh'
 # brew 'jq'
 # brew 'neovim'
 # brew 'ripgrep'
-brew 'starship'
+# brew 'starship'
 # brew 'tmux'
 
 # Gnu utilities
-brew 'coreutils'
-brew 'gpg'
+# brew 'coreutils'
+# brew 'gpg'
 
 #
 # Local Brewfile's

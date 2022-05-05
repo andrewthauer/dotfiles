@@ -25,13 +25,14 @@ let
     profileExtra = ''
       ${initNix}
       ${sourceLib}
-      source "${config.xdg.configHome}/profile"
+      # source "${config.xdg.configHome}/profile"
     '';
   };
 
   shellAliases = {
     l = "ls -la";
     ll = "ls -la";
+    g = "git";
   };
 
   sessionVariables = {
@@ -104,13 +105,8 @@ in
     ".stowrc".source = "${dotfiles.baseDir}/etc/.stowrc";
 
     # shell environment
-    ".config/environment".source = "${dotfiles.baseDir}/etc/.config/environment";
-    ".config/profile".source = "${dotfiles.baseDir}/etc/.config/profile";
-
-    # git
-    ".config/git/config".source = "${dotfiles.baseDir}/git/.config/git/config";
-    ".config/git/ignore".source = "${dotfiles.baseDir}/git/.config/git/ignore";
-    ".config/shell.d/git.sh".source = "${dotfiles.baseDir}/git/.config/shell.d/git.sh";
+    # ".config/environment".source = "${dotfiles.baseDir}/etc/.config/environment";
+    # ".config/profile".source = "${dotfiles.baseDir}/etc/.config/profile";
 
     # general utils
     # ".config/shell.d/utility.sh".source = "${dotfiles.baseDir}/shell/.config/shell.d/utility.sh";
@@ -121,6 +117,13 @@ in
 
     # starship prompt
     ".config/starship.toml".source = "${dotfiles.modulesDir}/starship/.config/starship.toml";
+
+    # git
+    ".config/git/config".source = "${dotfiles.modulesDir}/git/.config/git/config";
+    ".config/git/ignore".source = "${dotfiles.modulesDir}/git/.config/git/ignore";
+
+    # github
+    ".config/gh/config.yml".source = "${dotfiles.modulesDir}/github/.config/gh/config.yml";
 
     # fasd
     ".config/shell.d/fasd.sh".source = "${dotfiles.modulesDir}/fasd/.config/shell.d/fasd.sh";
@@ -137,10 +140,6 @@ in
     # homebrew
     ".config/profile.d/homebrew.sh".source = "${dotfiles.modulesDir}/homebrew/.config/profile.d/homebrew.sh";
     ".config/shell.d/homebrew.sh".source = "${dotfiles.modulesDir}/homebrew/.config/shell.d/homebrew.sh";
-
-    # postgres
-    ".config/profile.d/postgres.sh".source = "${dotfiles.modulesDir}/postgres/.config/profile.d/postgres.sh";
-    ".config/shell.d/postgres.sh".source = "${dotfiles.modulesDir}/postgres/.config/shell.d/postgres.sh";
   };
 
   home.sessionVariables = {
@@ -206,7 +205,7 @@ in
 
     envExtra = ''
       export CURRENT_SHELL="zsh"
-      source "${config.xdg.configHome}/environment"
+      # source "${config.xdg.configHome}/environment"
     '';
 
     initExtraFirst = ''

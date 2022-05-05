@@ -2,11 +2,6 @@
 # Initialize nix environment
 #
 
-# if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
-#   # shellcheck disable=SC1091
-#   source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-# fi
-
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'

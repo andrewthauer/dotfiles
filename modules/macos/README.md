@@ -2,18 +2,12 @@
 
 > `macOS` system specific setting & configuration
 
-## Setup
-
-For a fresh system install run:
-
-```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
-```
+## Defaults
 
 The `macOS` default settings can be configured with:
 
 ```shell
-make defaults
+_setup/defaults.sh
 ```
 
 ## Homebrew & Linuxbrew
