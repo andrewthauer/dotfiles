@@ -1,14 +1,26 @@
 #!/usr/bin/env bash
+# Summary:
+#   Install & setup this dotfiles repo
 #
-# Setup a brand new system
+# Usage:
+#   ./install.sh
 #
+# Environmenet Variables:
+#   DOTFILES_DIR                        The target directory for the dotfiles repo
+#   DOTFILES_INSTALL_USE_SUDO           Use sudo or not
+#                                         Options: 0 (no) or 1 (yes)
+#   DOTFILES_INSTALL_PACKAGE_MANAGER    Preferred pacakge manager (defaults based on OS)
+#                                         Options: brew | nix | apt | dnf | yum | pacman
+#
+# Examples:
+#   ./install.sh
+#   DOTFILES_DIR="$HOME/my-dotfiles" ./install.sh
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
 
 set -e
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 DOTFILES_INSTALL_USE_SUDO="${DOTFILES_INSTALL_USE_SUDO:-0}"
-# DOTFILES_INSTALL_USE_NIX_PKGS="${DOTFILES_INSTALL_USE_NIX_PKGS:-0}"
-# DOTFILES_INSTALL_PACKAGE_MANAGER=
 
 # Get the appropriate package manager script
 # TODO: source /dev/stdin <<< "$(curl https://raw.github.com/andrewthauer/dotfiles/master/lib/os.sh)"
@@ -45,7 +57,7 @@ install_prerequisites() {
     "debian")
       $sudo_cmd apt update &&
         $sudo_cmd apt install -y build-essential &&
-        $sudo_cmd apt install -y ${pkgs}
+        $sudo_cmd apt install -y "${pkgs}"
       ;;
     "fedora")
       $sudo_cmd dnf groupinstall "Development Tools" &&
@@ -86,7 +98,7 @@ install_package_managers() {
     "macos")
       # Always install homebrew on macos
       "${DOTFILES_DIR}/modules/homebrew/install.sh"
-      brew install $pkgs
+      brew install "$pkgs"
       ;;
     *) ;;
   esac
@@ -100,12 +112,13 @@ install_packages() {
   local pkgs="$1"
 
   case ${pkg_mgr} in
-    "apt") $sudo_cmd apt install -y $pkgs ;;
-    "dnf") $sudo_cmd dnf install -y $pkgs ;;
-    "yum") $sudo_cmd yum install -y $pkgs ;;
-    "pacman") $sudo_cmd pacman -S $pkgs ;;
+    "apt") $sudo_cmd apt install -y "$pkgs" ;;
+    "dnf") $sudo_cmd dnf install -y "$pkgs" ;;
+    "yum") $sudo_cmd yum install -y "$pkgs" ;;
+    "pacman") $sudo_cmd pacman -S "$pkgs" ;;
     "brew")
       source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
+      # shellcheck disable=SC2086
       brew install $pkgs
       ;;
     "nix")
@@ -133,8 +146,8 @@ register_zsh_users_repo() {
   case ${pkg_mgr} in
     "apt")
       debian_ver="11"
-      echo "deb http://download.opensuse.org/repositories/shells:/zsh-users:/$plugin/Debian_$debian_ver/ /" | $sudo_cmd tee /etc/apt/sources.list.d/shells:zsh-users:$plugin.list
-      curl -fsSL https://download.opensuse.org/repositories/shells:zsh-users:$plugin/Debian_$debian_ver/Release.key | gpg --dearmor | $sudo_cmd tee /etc/apt/trusted.gpg.d/shells_zsh-users_$plugin.gpg >/dev/null
+      echo "deb http://download.opensuse.org/repositories/shells:/zsh-users:/$plugin/Debian_$debian_ver/ /" | $sudo_cmd tee "/etc/apt/sources.list.d/shells:zsh-users:$plugin.list"
+      curl -fsSL "https://download.opensuse.org/repositories/shells:zsh-users:$plugin/Debian_$debian_ver/Release.key" | gpg --dearmor | "$sudo_cmd tee /etc/apt/trusted.gpg.d/shells_zsh-users_$plugin.gpg" >/dev/null
       $sudo_cmd apt update
       ;;
     *) ;;
@@ -144,8 +157,9 @@ register_zsh_users_repo() {
 install_zsh_plugins() {
   plugins=("zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search")
 
+  # shellcheck disable=SC2068
   for p in ${plugins[@]}; do
-    register_zsh_users_repo $p
+    register_zsh_users_repo "$p"
   done
 
   case ${pkg_mgr} in
@@ -160,15 +174,15 @@ install_zsh_plugins() {
 }
 
 clone_dotfiles() {
-  # Clone this repo
   if [[ ! -d "${DOTFILES_DIR}" ]]; then
+    # Clone this repo
     git clone "https://github.com/andrewthauer/dotfiles.git" ~/.dotfiles
-  fi
 
-  # Ensure repo is using the ssh remote
-  pushd "${DOTFILES_DIR}" >/dev/null
-  git remote set-url origin git@github.com:andrewthauer/dotfiles.git
-  popd >/dev/null
+    # Ensure repo is using the ssh remote
+    pushd "${DOTFILES_DIR}" >/dev/null
+    git remote set-url origin git@github.com:andrewthauer/dotfiles.git
+    popd >/dev/null
+  fi
 }
 
 setup_default_shells() {
@@ -211,8 +225,10 @@ main() {
 
   # pre-setup steps
   install_prerequisites
+
+  # clone the dotfiles (if needed)
   clone_dotfiles
-  # source "${DOTFILES_DIR}/modules/shell/.config/environment"
+  cd "$DOTFILES_DIR"
 
   # install packages
   install_package_managers
@@ -222,7 +238,7 @@ main() {
   install_zsh_plugins
   install_prompt
 
-  # configure
+  # configure dotfiles & shell
   # setup_default_shells
   # backup_dotfiles
   make
