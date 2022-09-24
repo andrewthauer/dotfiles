@@ -64,7 +64,7 @@ cask 'firefox-developer-edition'
 cask 'hammerspoon'
 cask 'iterm2'
 cask 'karabiner-elements'
-cask 'raycast'
+# cask 'raycast'
 
 # Caskroom fonts
 cask 'font-fira-code'

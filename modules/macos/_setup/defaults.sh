@@ -153,6 +153,9 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "{ en
 # Disable the sound effects on boot
 # sudo nvram StartupMute=%01
 
+# Disable the power chime
+defaults write com.apple.PowerChime ChimeOnAllHardware -bool false
+
 # Disable feedback sounds
 defaults write -g com.apple.sound.beep.feedback -bool false
 defaults write -g com.apple.sound.beep.flash -bool false
