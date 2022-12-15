@@ -42,21 +42,8 @@ fi
 # Aliases
 #
 
-# general
-alias ku='kubectl'
-alias kucheat='open https://kubernetes.io/docs/reference/kubectl/cheatsheet'
-
-# config & contexts
-alias kugc='kubectl config get-contexts'
-
-# describe
-alias kudesc='kubectl describe'
-alias kudescp='kubectl describe pods'
-
-# resources
-alias kupods='kubectl get pods'
-alias kupodsa='kubectl get pods --all-namespaces'
-alias kupodsi='kpods -o jsonpath="{..image}" | tr -s "[[:space:]]" "\n" | sort | uniq -c'
-
-# logs
-alias kulog='kubectl logs'
+alias k='kubectl'
+alias kd='kubectl describe'
+alias kga='kubectl get deployments,pods,services --all-namespaces'
+alias khelp='open https://kubernetes.io/docs/reference/kubectl/cheatsheet'
+alias klog='kubectl logs'

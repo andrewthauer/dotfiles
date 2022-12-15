@@ -56,6 +56,20 @@ Then create the custom directory specific gitconfig file:
 
 See [gitconfig](.config/git/config) & [git.sh](.config/shell.d/git.sh).
 
+### GitHub Credential Helpers
+
+```ini
+# Add to local/.config/git/config.local
+
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+```
+
 ## Resources
 
 - https://git-scm.com

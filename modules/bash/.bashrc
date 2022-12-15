@@ -10,7 +10,7 @@
 if [[ -f "${HOME}/.bash_profile" && -z $BASH_PROFILE_LOADED ]]; then
   # shellcheck disable=SC2034
   BASH_RC_LOADED=true
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1090,SC1091
   source "${HOME}/.bash_profile"
   unset BASH_RC_LOADED
 fi

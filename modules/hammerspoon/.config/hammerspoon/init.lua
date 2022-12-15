@@ -186,6 +186,7 @@ hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition
 hs.hotkey.bind(hyper, 'h', utils.launchById('io.robbie.HomeAssistant'))
 hs.hotkey.bind(hyper, 'i', utils.launchById('com.jetbrains.intellij'))
 hs.hotkey.bind(hyper, 'k', utils.launchById('com.kapeli.dashdoc'))
+hs.hotkey.bind(hyper, 'n', utils.launchById('notion.id'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
 hs.hotkey.bind(hyper, 't', utils.launchById('com.googlecode.iterm2'))
 hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
