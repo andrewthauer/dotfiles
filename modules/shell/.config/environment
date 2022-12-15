@@ -18,7 +18,7 @@ export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 export TERM=xterm
 
 # Editor
-export EDITOR=vi
+export EDITOR=nvim
 export VISUAL="${EDITOR}"
 
 # Colors
