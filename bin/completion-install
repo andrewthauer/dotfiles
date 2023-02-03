@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#
+# Installs completions for a command.
+#
+
+ZSH_COMPLETIONS_DIR="${XDG_DATA_HOME}/zsh/site-functions"
+
+usage() {
+  cmd=$(basename "$0")
+  echo "Usage:"
+  echo "  $cmd [command]"
+}
+
+ensure_completions_dir() {
+  mkdir -p "$ZSH_COMPLETIONS_DIR"
+}
+
+install_zsh_completions() {
+  local cmd="$1"
+  ensure_completions_dir
+
+  # NOTE: This assumes the command has a completion sub command that takes the shell name as an argument.
+  "$cmd" completion zsh >"${ZSH_COMPLETIONS_DIR}"/_"$cmd"
+}
+
+main() {
+  local cmd="$1"
+
+  if [[ -z "$cmd" ]]; then
+    usage
+    exit 1
+  fi
+
+  if [[ ! -x $(command -v "$cmd") ]]; then
+    echo "Command not found: $cmd"
+    exit 1
+  fi
+
+  echo "Installing completion for $cmd ..."
+
+  ensure_completions_dir
+  install_zsh_completions "$cmd"
+}
+
+main "$@"
