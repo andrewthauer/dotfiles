@@ -24,6 +24,8 @@ export IRBRC="${XDG_CONFIG_HOME}/irb/irbrc"
 export GEMRC="${XDG_CONFIG_HOME}/gem/gemrc"
 export GEM_SPEC_CACHE="${XDG_CACHE_HOME}/gem/specs"
 
+export SOLARGRAPH_CACHE="${XDG_CACHE_HOME}/solargraph"
+
 #
 # Bundler
 #

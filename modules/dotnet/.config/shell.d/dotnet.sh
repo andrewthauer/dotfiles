@@ -13,6 +13,11 @@ elif command_exists "dotnet"; then
     DOTNET_ROOT="$(dirname "$(command -v dotnet)")"
     MSBuildSDKsPath="${DOTNET_ROOT}/sdk/$("${DOTNET_ROOT}"/dotnet --version)/Sdks"
     export MSBuildSDKsPath
+
+    # xdg specification
+    export DOTNET_CLI_HOME="${XDG_DATA_HOME}/dotnet"
+    export MONO_REGISTRY_PATH="${XDG_DATA_HOME}/mono/registry"
+
     # prepend dotnet to the path if not already added
     prepend_path "${DOTNET_ROOT}"
     unset DOTNET_ROOT
