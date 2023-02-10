@@ -17,6 +17,8 @@ fi
 if command_exists "kubectl"; then
   # make helm more xdg compliant
   export KUBECONFIG="${XDG_CONFIG_HOME}/kube/config"
+  export KUBECACHEDIR="${XDG_CACHE_HOME}/kube"
+  export MINIKUBE_HOME="${XDG_CACHE_HOME}/minikube"
 
 # Return if requirements not found
 else
