@@ -10,6 +10,8 @@
 #     (e.g. config-base, config-personal, etc.)
 #
 # Notes:
+#   Prefer the `Include` directive if using ssh >= v7.3p1
+#
 #   This function can be used to merge various ssh configurations files
 #   together into `~.ssh/config` (since ssh does not have an include file
 #   feature). This can be useful to separate personal and work ssh
