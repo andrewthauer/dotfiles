@@ -66,28 +66,24 @@ alias dvrm_clean='docker volume ls -q -f dangling=true | grep -x ".\{64,64\}" | 
 # alias dvrm_dang='docker volume rm $(docker volume ls -q -f dangling=true)'
 # alias dvrm_dang='docker volume ls -q -f dangling=true | docker volume rm'
 
-# docker-compose
-alias dco='docker-compose'
-alias dcb='docker-compose build'
-alias dcexec='docker-compose exec'
-alias dcps='docker-compose ps'
-alias dcpull='docker-compose pull'
-alias dcr='docker-compose run --rm'
-alias dcrs='docker-compose run --rm --service-ports'
-alias dcrm='docker-compose rm'
-alias dcstart='docker-compose start'
-alias dcstop='docker-compose stop'
-alias dcrestart='docker-compose restart'
-alias dcup='docker-compose up'
-alias dcupd='docker-compose up -d'
-alias dcdown='docker-compose down'
-alias dclogs='docker-compose logs'
-alias dclogsf='docker-compose logs -f'
-alias dctail='docker-compose logs --tail=all -f'
-
-# docker machine
-alias dm='docker-machine'
-alias dmls='docker-machine ls'
+# docker compose
+alias dco='docker compose'
+alias dcb='docker compose build'
+alias dcexec='docker compose exec'
+alias dcps='docker compose ps'
+alias dcpull='docker compose pull'
+alias dcr='docker compose run --rm'
+alias dcrs='docker compose run --rm --service-ports'
+alias dcrm='docker compose rm'
+alias dcstart='docker compose start'
+alias dcstop='docker compose stop'
+alias dcrestart='docker compose restart'
+alias dcup='docker compose up'
+alias dcupd='docker compose up -d'
+alias dcdown='docker compose down'
+alias dclogs='docker compose logs'
+alias dclogsf='docker compose logs -f'
+alias dctail='docker compose logs --tail=all -f'
 
 #
 # Remove all tags for image name
