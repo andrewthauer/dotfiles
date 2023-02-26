@@ -2,7 +2,7 @@
 PKG_DIR = $(CURDIR)/modules
 ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fzf git github shell ssh starship utility vim zoxide zsh
+DEFAULT_PKGS = asdf fzf git github ssh starship utility vim zoxide zsh
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -39,7 +39,7 @@ check-shfmt:
 lint: shellcheck check-shfmt
 
 setup:
-	@stow -t $(HOME) -d . -S etc
+	@stow -t $(HOME) -d modules -S _core
 
 prepare-dirs:
 	@mkdir -p $(CURDIR)/local

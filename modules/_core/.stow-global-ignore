@@ -7,7 +7,7 @@
 ^/LICENSE.*
 ^/COPYING
 
-# Ignore anything with a leading underscore
+# Ignore anything with double leading underscores
 ^/_.*
 
 # common directories

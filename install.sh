@@ -185,6 +185,7 @@ clone_dotfiles() {
   fi
 }
 
+# shellcheck disable=SC2317
 setup_default_shells() {
   local bash_path
   bash_path="$(which bash | head -1)"
@@ -201,6 +202,7 @@ setup_default_shells() {
   chsh -s "$zsh_path"
 }
 
+# shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
   files=(~/.profile ~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
