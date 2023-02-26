@@ -15,7 +15,7 @@ if [ -n "${PROFILE_PREFIX}" ]; then
 fi
 
 #
-# XDG specifications
+# General XDG specifications
 #
 
 export IRBRC="${XDG_CONFIG_HOME}/irb/irbrc"
@@ -24,6 +24,7 @@ export IRBRC="${XDG_CONFIG_HOME}/irb/irbrc"
 export GEMRC="${XDG_CONFIG_HOME}/gem/gemrc"
 export GEM_SPEC_CACHE="${XDG_CACHE_HOME}/gem/specs"
 
+# Solargraph cache
 export SOLARGRAPH_CACHE="${XDG_CACHE_HOME}/solargraph"
 
 #
@@ -33,8 +34,8 @@ export SOLARGRAPH_CACHE="${XDG_CACHE_HOME}/solargraph"
 # Change bundler home to xdg cache
 export BUNDLE_USER_HOME="${XDG_CACHE_HOME}/bundle"
 export BUNDLE_USER_CONFIG="${XDG_CONFIG_HOME}/bundle/config"
-export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle/plugin"
 export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle/cache"
+export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle/plugin"
 
 # For bundler
 if [[ -z "${GITHUB_TOKEN}" ]]; then
