@@ -66,6 +66,12 @@ function psg() {
 }
 
 #
+# encoding / decoding
+#
+
+alias b64dec="base64 --decode"
+
+#
 # Networking
 #
 
