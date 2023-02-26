@@ -24,7 +24,6 @@
 # brew 'asdf'
 # brew 'bat'
 # brew 'direnv'
-# brew 'fasd'
 # brew 'fzf'
 # brew 'gh'
 # brew 'jq'
@@ -32,6 +31,7 @@
 # brew 'ripgrep'
 # brew 'starship'
 # brew 'tmux'
+# brew 'zoxide'
 
 # Gnu utilities
 # brew 'coreutils'

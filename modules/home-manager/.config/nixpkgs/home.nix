@@ -82,7 +82,6 @@ in
   home.packages = with pkgsUnstable; [
     # bats
     comma
-    fasd
     # neovim
     niv
     nixpkgs-fmt
@@ -91,6 +90,7 @@ in
     shellcheck
     # shfmt
     stow
+    zoxide
   ];
 
   xdg.enable = true;
@@ -125,8 +125,8 @@ in
     # github
     ".config/gh/config.yml".source = "${dotfiles.modulesDir}/github/.config/gh/config.yml";
 
-    # fasd
-    ".config/shell.d/fasd.sh".source = "${dotfiles.modulesDir}/fasd/.config/shell.d/fasd.sh";
+    # xodize
+    ".config/shell.d/zoxide.sh".source = "${dotfiles.modulesDir}/zoxide/.config/shell.d/zoxide.sh";
 
     # neovim
     ".config/nvim".source = "${dotfiles.modulesDir}/vim/.config/nvim";

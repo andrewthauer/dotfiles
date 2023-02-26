@@ -234,7 +234,7 @@ main() {
   install_package_managers
   install_packages "stow"
   install_packages "zsh"
-  install_packages "fasd fzf neovim"
+  install_packages "fzf neovim zoxide"
   install_zsh_plugins
   install_prompt
 
