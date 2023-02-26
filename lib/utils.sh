@@ -23,7 +23,7 @@ function command_exists() {
   # use fastest shell specific method
   # shellcheck disable=SC1009
   if [[ -n "$ZSH_VERSION" ]]; then
-    # shellcheck disable=SC1010,SC1020,SC1072,SC1073
+    # shellcheck disable=SC2193,SC2203
     [[ $+commands[$1] == 1 ]]
   else
     command -v "$1" >/dev/null 2>&1
