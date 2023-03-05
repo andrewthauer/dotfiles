@@ -30,7 +30,7 @@ PKG_MAKEFILES = $(SUBDIRS:/=)
 all: setup prepare-dirs link
 
 shellcheck:
-	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*' ! -name 'time-zsh')
+	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*')
 	@shellcheck $$(find . -name '*.sh')
 
 shfmt:
