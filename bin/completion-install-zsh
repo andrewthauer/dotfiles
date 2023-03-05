@@ -1,0 +1,81 @@
+#!/usr/bin/env zsh
+# shellcheck shell=bash
+# SUMMARY
+#   Installs completions for a command
+#
+# USAGE
+#   completion-install-zsh [command]
+#
+# EXAMPLE
+#   completion-install-zsh rustup
+
+ZDOTDIR="${ZDOTDIR:-$HOME}"
+
+# Force loading zshrc to ensure custom fpath's are set
+# shellcheck disable=SC1091
+source "${ZDOTDIR:-$HOME}/.zshrc"
+
+ZSH_COMPLETIONS_DIR="${ZSH_COMPLETIONS_DIR:-$XDG_DATA_HOME/zsh/site-functions}"
+
+usage() {
+  cmd=$(basename "$0")
+  echo "Usage:"
+  echo "  $cmd [command]"
+}
+
+ensure_completions_dir() {
+  # shellcheck disable=SC2206
+  local fpaths=($fpath)
+
+  # shellcheck disable=SC2076
+  if [[ ! " ${fpaths[*]} " =~ " ${ZSH_COMPLETIONS_DIR} " ]]; then
+    # local fpath_output
+    # fpath_output=$(wrap "$fpath")
+    echo "ERROR: zsh fpath does not include $ZSH_COMPLETIONS_DIR"
+    echo ""
+    echo "Current fpath:"
+    printf '    %s\n' "${fpaths[@]}"
+    echo ""
+    # shellcheck disable=SC2016
+    echo 'To fix this add fpath+=${ZSH_COMPLETIONS_DIR} in your zshrc'
+    echo '... or set ZSH_COMPLETIONS_DIR to the directory you want to use'
+    exit 1
+  fi
+
+  if [ ! -d "$ZSH_COMPLETIONS_DIR" ]; then
+    mkdir -p "$ZSH_COMPLETIONS_DIR"
+  fi
+}
+
+install_zsh_completions() {
+  local cmd="$1"
+  ensure_completions_dir
+
+  # NOTE: This assumes the command has a completion sub command that takes the shell name as an argument.
+  "$cmd" completion zsh >|"${ZSH_COMPLETIONS_DIR}"/_"$cmd"
+}
+
+main() {
+  local cmd="$1"
+
+  if [[ -z "$cmd" ]]; then
+    usage
+    exit 1
+  fi
+
+  if [[ ! -x $(command -v "$cmd") ]]; then
+    echo "Command not found: $cmd"
+    exit 1
+  fi
+
+  ensure_completions_dir
+
+  echo "Installing completions for $cmd ..."
+  install_zsh_completions "$cmd"
+  echo "Done!"
+  echo ""
+  echo "Restart your shell, or you may need to force completions to be rebuilt. For example:"
+  echo "  rm -f ~/.zcompdump; compinit"
+}
+
+main "$@"
