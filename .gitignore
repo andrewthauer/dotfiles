@@ -15,6 +15,7 @@ local/
 local-*/
 *-local/
 /tmp*
+*/local
 **/secrets
 
 # github cli
