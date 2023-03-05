@@ -11,6 +11,3 @@ fi
 
 export DIRENV_LOG_FORMAT=""
 eval "$(direnv hook "$CURRENT_SHELL")"
-
-# Alias to reload environment
-alias renv="direnv reload"
