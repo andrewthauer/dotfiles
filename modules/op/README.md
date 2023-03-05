@@ -1,4 +1,4 @@
-# 1Password
+# 1Password CLI
 
 ## Setup
 
