@@ -10,14 +10,6 @@
 # direnv
 .envrc
 
-# ignore these directories
-local/
-local-*/
-*-local/
-/tmp*
-*/local
-**/secrets
-
 # github cli
 **/gh/*
 !**/gh/config.yml
@@ -40,8 +32,17 @@ local-*/
 .zsh/site-functions/*
 .zsh_history
 
-# keep these files
-!/**/.gitkeep
-
 # nix builds
 result/
+
+# ignore these directories
+local/
+local-*/
+*-local/
+/tmp*
+*/local
+*/local-*
+**/secrets
+
+# keep these files
+!/**/.gitkeep

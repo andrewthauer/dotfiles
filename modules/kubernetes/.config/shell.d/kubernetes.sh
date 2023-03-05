@@ -55,7 +55,7 @@ alias kd='kubectl describe'
 
 # get
 alias kg='kubectl get'
-alias kga='kubectl get all -A'  # list all namespaces
+alias kga='kubectl get all -A' # list all namespaces
 alias kgy='kubectl get -o yaml'
 
 # get additional

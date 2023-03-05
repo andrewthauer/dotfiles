@@ -7,7 +7,7 @@
 # XDG Specification
 export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
-export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="tool-versions"
+export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="${XDG_CONFIG_HOME}/asdf/tool-versions"
 
 # Fix for nodejs global install
 # - https://github.com/asdf-vm/asdf-nodejs/issues/46
