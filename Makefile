@@ -1,8 +1,9 @@
 # Package bundles
-PKG_DIR = $(CURDIR)/modules
+DOTFILES_DIR = $(CURDIR)
+PKG_DIR = $(DOTFILES_DIR)/modules
 ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fzf git github ssh starship utility vim zoxide zsh
+DEFAULT_PKGS = asdf fzf git github local ssh starship utility vim zoxide zsh
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
@@ -32,17 +33,18 @@ shellcheck:
 	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*' ! -name 'time-zsh')
 	@shellcheck $$(find . -name '*.sh')
 
-check-shfmt:
+shfmt:
 	@shfmt -i 2 -ci -l $$(find . -type f -path '*/bin/**' ! -name '*.*')
 	@shfmt -i 2 -ci -l $$(find . -name '*.sh')
 
-lint: shellcheck check-shfmt
+lint: shellcheck shfmt
 
 setup:
 	@stow -t $(HOME) -d modules -S _core
 
 prepare-dirs:
-	@mkdir -p $(CURDIR)/local
+	@mkdir -p $(DOTFILES_DIR)
+	@ln -s $(DOTFILES_DIR)/local $(PKG_DIR)
 	@mkdir -p $(HOME)/.ssh/config.d
 	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
 	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
@@ -57,20 +59,16 @@ ifeq ($(shell uname), Darwin)
 	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
 endif
 
-link: prepare-dirs setup
-	@stow -t $(HOME) -d $(CURDIR) -S local
+link: setup prepare-dirs
 	@stow -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 
 unlink:
-	@stow -t $(HOME) -D local
 	@stow -t $(HOME) -d $(PKG_DIR) -D $(filter-out stow,$(ALL_PKGS))
 
 .PHONY: .chklink
 chklink:
 	@echo "\n--- Default package files currently unlinked ---\n"
 	@stow -n -v -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
-	@echo "\n--- Local packages currently unlinked ---\n"
-	@stow -n -v -t $(HOME) -d $(CURDIR) -S local
 	@echo "\n--- Bogus links ---\n"
 	@chkstow -a -b -t $(XDG_CONFIG_HOME)
 	@chkstow -a -b -t $(XDG_DATA_HOME)
