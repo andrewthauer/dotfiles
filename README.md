@@ -65,7 +65,7 @@ within the `$HOME` directory.
 - `local` - Local system configs & secrets that should never be committed.
 - `modules` - Various package modules.
 
-_NOTE: Directories starting with an `_underscore` will be ignored by stow._
+_NOTE: Directories starting with an `__double-underscore` will be ignored by stow._
 
 ## Local Customization
 
@@ -75,6 +75,7 @@ you don't want to commit to source control.
 
 ## Commands
 
+- `make lint` - runs `shellcheck` & `shfmt` on all shell scripts.
 - `make chklink` - reports links that are not installed or potentially broken.
 
 ### Profiling
