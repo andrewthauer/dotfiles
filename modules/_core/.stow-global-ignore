@@ -18,3 +18,4 @@ tmp*
 Makefile
 install.*
 uninstall.*
+.gitkeep
