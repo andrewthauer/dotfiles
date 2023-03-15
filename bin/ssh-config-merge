@@ -19,11 +19,12 @@
 
 set -e
 
-# The target file
-target="${target:-$HOME/.ssh/config}"
+# The source directory and target file
+source_dir="${source_dir:-$XDG_CONFIG_HOME/ssh/config.d}"
+target="${target:-$XDG_CONFIG_HOME/ssh/ssh_config_all}"
 
 # Truncate the file
-if [[ -e "$HOME/.ssh/config" ]]; then
+if [[ -f "$target" ]]; then
   echo -ne "Do you want to replace the existing '$target' file [y/N]? "
   read -r reply
   if [[ $reply =~ ^[Yy]$ ]]; then
@@ -33,8 +34,8 @@ if [[ -e "$HOME/.ssh/config" ]]; then
   fi
 fi
 
-# Append configs to the ~/.ssh/config
-for conf in ~/.ssh/config.d/*; do
+# Append configs to the ssh_config file
+for conf in "$source_dir"/*; do
   echo "Appending: $conf"
   cat "$conf" >>"$target"
   echo "" >>"$target"

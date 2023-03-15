@@ -10,7 +10,7 @@ if ! command_exists "direnv"; then
 fi
 
 # Disable direnv logging
-export DIRENV_LOG_FORMAT=""
+export DIRENV_LOG_FORMAT="${DIRENV_LOG_FORMAT:-""}"
 
 # Hook direnv
 eval "$(direnv hook "$CURRENT_SHELL")"

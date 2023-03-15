@@ -9,6 +9,7 @@ disabled = true
 [cmd_duration]
 min_time = 0
 style = "yellow"
+# show_milliseconds = true
 
 [package]
 disabled = true
