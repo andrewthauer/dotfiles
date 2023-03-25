@@ -15,10 +15,10 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
 # Terminal
-export TERM=xterm
+export TERM="xterm"
 
 # Editor
-export EDITOR=nvim
+export EDITOR="nvim"
 export VISUAL="${EDITOR}"
 
 # Colors
@@ -43,9 +43,4 @@ fi
 # Load extra environment files into environment
 if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then
   source_files_in "${XDG_CONFIG_HOME}"/environment.d/*
-fi
-
-# Go to the dotfiles directory
-if [[ -n "${DOTFILES_DIR}" ]]; then
-  alias dotdir='cd ${DOTFILES_DIR}'
 fi

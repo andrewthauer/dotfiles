@@ -17,22 +17,22 @@ use_op_env() {
   local account="${1:-my.1password.com}"
 
   if [ -n "$DIRENV_LOAD_OP_ENV" ]; then
+    log_status "loading 1password environment variables"
+
     if ! has op; then
       log_error "1password CLI is not installed"
       return 1
     fi
 
-    log_status "Loading 1Password environment variables ..."
-
     if [ -n "$account" ]; then
       op signin --account "$account" || {
-        log_error "Unable to signin to $account"
+        log_error "unable to signin to $account"
         return 1
       }
     fi
 
     direnv_load op run -- direnv dump || {
-      log_error "Error running op run"
+      log_error "running op run"
       return 1
     }
 

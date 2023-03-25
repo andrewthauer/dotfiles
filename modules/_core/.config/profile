@@ -11,3 +11,8 @@ prepend_path "${HOME}/.local/bin"
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then
   source_files_in "${XDG_CONFIG_HOME}"/profile.d/*
 fi
+
+# Go to the dotfiles directory
+if [[ -n "${DOTFILES_DIR}" ]]; then
+  alias dotdir='cd ${DOTFILES_DIR}'
+fi
