@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Summary:
+#   Restore git hooks from the git-hooks directory
+#
+# Usage:
+#   git-hooks-restore
+#   git hooks-restore
+
+GIT_DIR=$(git rev-parse --show-toplevel 2>/dev/null)
+
+if [ ! -d "$GIT_DIR" ]; then
+  echo "Error: This is not a git repository"
+  exit 1
+fi
+
+GIT_HOOKS_DIR="$GIT_DIR/.git/hooks"
+GIT_INSTALL_PATH="$(realpath "$(which git)" | awk -F'/bin/git' '{print $1}')"
+TEMPLATES_DIR="$GIT_INSTALL_PATH/share/git-core/templates/hooks"
+
+if [ ! -d "$TEMPLATES_DIR" ]; then
+  echo "Error: Could not find git templates directory for hooks"
+  exit 1
+fi
+
+echo "Restoring hooks from $TEMPLATES_DIR to $GIT_HOOKS_DIR"
+mkdir -p "$GIT_HOOKS_DIR"
+cp "$TEMPLATES_DIR"/* "$GIT_HOOKS_DIR"
