@@ -36,6 +36,9 @@ if command_exists "kubectl"; then
   # make helm more xdg compliant
   export KUBECONFIG="${XDG_CONFIG_HOME}/kube/config"
   export KUBECACHEDIR="${XDG_CACHE_HOME}/kube"
+  export KREW_ROOT="${XDG_CONFIG_HOME}/krew"
+
+  append_path "${KREW_ROOT}/bin"
 
 # Return if requirements not found
 else
@@ -72,9 +75,20 @@ alias k-pod-names='kubectl get pods --no-headers -o custom-columns=":metadata.na
 alias keit='kubectl exec -it'
 alias ketty='kubectl exec --stdin --tty'
 
-# set default namespace
-k-set-ns() {
-  kubectl config set-context --current --namespace="$1"
+# set context
+ktx() {
+  local context="$1"
+  local namespace="$2"
+
+  if [ -n "$namespace" ]; then
+    kubectl config use-context "$context" --namespace="$namespace"
+  elif [ -n "$context" ]; then
+    kubectl config use-context "$context"
+  else
+    echo "Usage: $0 [context] [namespace]"
+    echo
+    kubectl config get-contexts
+  fi
 }
 
 # gets all resouce kinds
