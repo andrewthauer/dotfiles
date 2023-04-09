@@ -19,4 +19,4 @@ else
 fi
 
 # Set the profile prefix
-PROFILE_PREFIX="${PROFILE_PREFIX:-$(brew --prefix)}"
+PROFILE_PREFIX="${PROFILE_PREFIX:-${HOMEBREW_PREFIX:-$(brew --prefix)}}"

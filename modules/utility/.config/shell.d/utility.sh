@@ -7,7 +7,7 @@
 #
 
 # Reloads the current shell
-alias reload='exec $SHELL -l'
+alias reload='exec $SHELL'
 
 # Clear the screen
 alias clr='clear'
