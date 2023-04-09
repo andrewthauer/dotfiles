@@ -5,13 +5,9 @@
 #
 
 # XDG Specification
-export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$XDG_DATA_HOME}/asdf}"
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$XDG_DATA_HOME/asdf}"
 export ASDF_CONFIG_FILE="${ASDF_CONFIG_FILE:-$XDG_CONFIG_HOME/asdf/asdfrc}"
 export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="${ASDF_DEFAULT_TOOL_VERSIONS_FILENAME:-$XDG_CONFIG_HOME/asdf/tool-versions}"
-
-# Fix for nodejs global install
-# - https://github.com/asdf-vm/asdf-nodejs/issues/46
-export ASDF_SKIP_RESHIM=1
 
 # Use custom asdf location
 if [[ -n "${ASDF_DIR}" && -d "${ASDF_DIR}" ]]; then
@@ -53,9 +49,3 @@ elif [[ -n "${ZSH_VERSION}" ]]; then
     fpath=("$fpath" "${ASDF_DIR}/completions")
   fi
 fi
-
-#
-# Aliases & helpers
-#
-
-alias asdfc='asdf current'
