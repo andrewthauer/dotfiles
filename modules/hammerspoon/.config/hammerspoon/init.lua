@@ -179,65 +179,56 @@ hs.hotkey.bind(yankkey, 'left', function() window.yankWindow(-100, 0) end) -- ya
 -- Application hotkeys
 -- hs.hotkey.bind(hyper, 'space', utils.launchById('com.raycast.macos'))
 hs.hotkey.bind(hyper, '1', utils.launchById('com.1password.1password'))
+hs.hotkey.bind(hyper, 'a', utils.launchById('md.obsidian'))
 hs.hotkey.bind(hyper, 'c', utils.launchById('com.google.Chrome'))
 hs.hotkey.bind(hyper, 'd', utils.launchById('com.todoist.mac.Todoist'))
-hs.hotkey.bind(hyper, 'e', utils.launchById('md.obsidian'))
 hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition'))
 hs.hotkey.bind(hyper, 'h', utils.launchById('io.robbie.HomeAssistant'))
-hs.hotkey.bind(hyper, 'i', utils.launchById('com.jetbrains.intellij'))
 hs.hotkey.bind(hyper, 'k', utils.launchById('com.kapeli.dashdoc'))
 hs.hotkey.bind(hyper, 'n', utils.launchById('notion.id'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
 hs.hotkey.bind(hyper, 't', utils.launchById('com.googlecode.iterm2'))
 hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
-hs.hotkey.bind(hyper, 'z', utils.launchById('us.zoom.xos'))
+hs.hotkey.bind(hyper, 'w', utils.launchById('com.apple.finder'))
 
 -- Recursive hotkeys
--- spoon.SpoonInstall:andUse('RecursiveBinder', {
---   config = {},
---   fn = function(s)
---     app_keymap = {
---       [s.singleKey('1', '1Password')] = utils.launchById('com.agilebits.onepassword7'),
---       [s.singleKey('c', 'Chrome')] = utils.launchById('com.google.Chrome'),
---       [s.singleKey('d', 'Dash')] = utils.launchById('com.kapeli.dashdoc'),
---       [s.singleKey('f', 'Firefox')] = utils.launchById('org.mozilla.firefoxdeveloperedition'),
---       [s.singleKey('i', 'IDEA')] = utils.launchById('com.jetbrains.intellij'),
---       [s.singleKey('m', 'Obsidian')] = utils.launchById('md.obsidian'),
---       [s.singleKey('o', 'OneNote')] = utils.launchById('com.microsoft.onenote.mac'),
---       [s.singleKey('p', 'Postman')] = utils.launchById('com.postmanlabs.mac'),
---       [s.singleKey('s', 'Slack')] = utils.launchById('com.tinyspeck.slackmacgap'),
---       [s.singleKey('t', 'iTerm')] = utils.launchById('com.googlecode.iterm2'),
---       [s.singleKey('v', 'VS Code')] = utils.launchById('com.microsoft.VSCode'),
---       [s.singleKey('y', 'Spotify')] = utils.launchById('com.spotify.client'),
---       [s.singleKey('z', 'Zoom')] = utils.launchById('us.zoom.xos'),
---     }
---     hs.hotkey.bind(hyper, 'o', s.recursiveBind(app_keymap))
+spoon.SpoonInstall:andUse('RecursiveBinder', {
+  config = {},
+  fn = function(s)
+    app_keymap = {
+      [s.singleKey('1', '1Password')] = utils.launchById('com.agilebits.onepassword7'),
+      [s.singleKey('c', 'Chrome')] = utils.launchById('com.google.Chrome'),
+      [s.singleKey('d', 'Dash')] = utils.launchById('com.kapeli.dashdoc'),
+      [s.singleKey('f', 'Firefox')] = utils.launchById('org.mozilla.firefoxdeveloperedition'),
+      [s.singleKey('i', 'IDEA')] = utils.launchById('com.jetbrains.intellij'),
+      [s.singleKey('m', 'Obsidian')] = utils.launchById('md.obsidian'),
+      [s.singleKey('o', 'OneNote')] = utils.launchById('com.microsoft.onenote.mac'),
+      [s.singleKey('s', 'Slack')] = utils.launchById('com.tinyspeck.slackmacgap'),
+      [s.singleKey('t', 'iTerm')] = utils.launchById('com.googlecode.iterm2'),
+      [s.singleKey('v', 'VS Code')] = utils.launchById('com.microsoft.VSCode'),
+      [s.singleKey('y', 'Spotify')] = utils.launchById('com.spotify.client'),
+    }
+    hs.hotkey.bind(hyper, 'o', s.recursiveBind(app_keymap))
 
---     resize_keymap = {}
---     -- hs.hotkey.bind(hyper, 'r', s.recursiveBind(resize_keymap))
+    finder_keymap = {
+      [s.singleKey('f', 'Finder')] = utils.launchById('com.apple.finder'),
+      [s.singleKey('a', 'Applications')] = utils.openWithFinder('~/Applications'),
+      [s.singleKey('c', 'Code')] = utils.openWithFinder('~/src'),
+      [s.singleKey('D', 'Desktop')] = utils.openWithFinder('~/Desktop'),
+      [s.singleKey('d', 'Downloads')] = utils.openWithFinder('~/Downloads'),
+      [s.singleKey('h', 'Home')] = utils.openWithFinder('~'),
+      [s.singleKey('l', 'Library')] = utils.openWithFinder('~/Library'),
+    }
+    -- hs.hotkey.bind(hyper, 'f', s.recursiveBind(finder_keymap))
 
---     bookmarks_keymap = {}
---     -- hs.hotkey.bind(hyper, 'b', s.recursiveBind(bookmarks_keymap))
-
---     finder_keymap = {
---       [s.singleKey('a', 'Applications')] = utils.openWithFinder('~/Applications'),
---       [s.singleKey('c', 'Code')] = utils.openWithFinder('~/Code'),
---       [s.singleKey('D', 'Desktop')] = utils.openWithFinder('~/Desktop'),
---       [s.singleKey('d', 'Downloads')] = utils.openWithFinder('~/Downloads'),
---       [s.singleKey('h', 'Home')] = utils.openWithFinder('~'),
---       [s.singleKey('l', 'Library')] = utils.openWithFinder('~/Library'),
---     }
---     -- hs.hotkey.bind(hyper, 'f', s.recursiveBind(finder_keymap))
-
---     keymap = {
---       [s.singleKey('a', 'apps+')] = app_keymap,
---       [s.singleKey('b', 'bookmarks+')] = bookmarks_keymap,
---       [s.singleKey('f', 'find+')] = finder_keymap,
---       [s.singleKey('r', 'resize+')] = resize_keymap,
---     }
---     hs.hotkey.bind(hyper, 'space', s.recursiveBind(keymap))
---   end
--- })
+    keymap = {
+      [s.singleKey('a', 'apps+')] = app_keymap,
+      [s.singleKey('b', 'bookmarks+')] = bookmarks_keymap,
+      [s.singleKey('f', 'find+')] = finder_keymap,
+    }
+    hs.hotkey.bind(hyper, 'space', s.recursiveBind(keymap))
+  end
+})
 
 -- Commander (palette)
 spoon.SpoonInstall:andUse('Commander', {
