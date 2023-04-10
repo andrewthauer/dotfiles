@@ -17,7 +17,6 @@ fi
 rsync \
   -arv \
   --delete \
-  --include="*local*/" \
-  --exclude="/*" \
+  --exclude ".git" \
   "${DOTFILES_DIR}/" \
   "${TARGET_DIR}"
