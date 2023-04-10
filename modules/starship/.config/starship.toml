@@ -11,5 +11,8 @@ min_time = 0
 style = "yellow"
 # show_milliseconds = true
 
+[docker_context]
+disabled = true
+
 [package]
 disabled = true
