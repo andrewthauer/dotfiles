@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+# Summary:
+#   Manage dotfile modules
+#
+# Usage:
+#   dotfiles-module
+
+set -o errexit -o pipefail -o noclobber
+
+usage() {
+  echo "USAGE: dotfiles module [command]"
+  echo ""
+  echo "COMMANDS:"
+  echo "  ls-all       List all modules"
+  echo "  link         Link a module"
+  echo "  unlink       Unlink a module"
+  echo "  help         Prints this message"
+  echo ""
+  echo "FLAGS:"
+  echo "  --help, -h   Prints help"
+}
+
+link() {
+  stow_modules -S "$@"
+}
+
+unlink() {
+  stow_modules -D "$@"
+}
+
+list_modules() {
+  cmd="$1"
+  [ -n "$cmd" ] && shift
+
+  case "$cmd" in
+    --all | -a)
+      ls -1 "$DOTFILES_DIR/modules"
+      ;;
+    help | --help | -h)
+      echo "USAGE: dotfiles module [command]"
+      echo ""
+      echo "FLAGS:"
+      echo "  --all, -a    List all modules"
+      ;;
+    *)
+      read_modules_file
+      ;;
+  esac
+}
+
+stow_modules() {
+  local stow_flag="$1"
+  local modules=("${@:2}")
+  local modules_dir="$DOTFILES_DIR/modules"
+  local oper_text=""
+
+  if [ "$2" == "--all" ]; then
+    modules=("$(list_modules --all)")
+  fi
+
+  if [ "${#modules[@]}" -eq 0 ]; then
+    local modules_file
+    modules_file=$(get_modules_file)
+
+    if [ ! -f "$modules_file" ]; then
+      echo "Module file not found: $modules_file"
+      exit 1
+    fi
+
+    modules=("$(read_modules_file)")
+  fi
+
+  case "$stow_flag" in
+    -S) oper_text="Linking" ;;
+    -D) oper_text="Unlinking" ;;
+    -R) oper_text="Relinking" ;;
+    *)
+      echo "Unknown flag: $stow_flag"
+      exit 1
+      ;;
+  esac
+
+  # shellcheck disable=SC2068
+  for module in ${modules[@]}; do
+    local module_path="$modules_dir/$module"
+
+    if [[ ! -d "$module_path" ]]; then
+      echo "Module $module does not exist"
+      exit 1
+    fi
+
+    echo "$oper_text module $module"
+    stow -t "${HOME}" -d "$modules_dir" "$stow_flag" "$module"
+  done
+}
+
+get_modules_file() {
+  echo "${DOTFILES_MODULE_FILE:-$DOTFILES_DIR/.modules}"
+}
+
+read_modules_file() {
+  local modules_file
+  modules_file="$(get_modules_file)"
+  cat <"$modules_file" | sed -e 's/[[:space:]]*#.*// ; /^[[:space:]]*$/d'
+}
+
+main() {
+  cmd="$1"
+  [ -n "$cmd" ] && shift
+
+  case "$cmd" in
+    list | ls)
+      list_modules "$@"
+      ;;
+    link | add | install)
+      link "$@"
+      ;;
+    unlink | remove | rm | uninstall)
+      unlink "$@"
+      ;;
+    help | --help | -h)
+      usage
+      ;;
+    *)
+      usage
+      ;;
+  esac
+}
+
+main "$@"

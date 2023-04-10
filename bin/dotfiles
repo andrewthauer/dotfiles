@@ -1,32 +1,45 @@
 #!/usr/bin/env bash
 # Summary:
-#   Dotfiles root command
+#   Manage dotfiles
 #
 # Usage:
 #   dotfiles [command]
 #   dotfiles help
 
-set -o errexit -o pipefail -o noclobber -o nounset
+set -o errexit -o pipefail -o noclobber
 
 usage() {
-  echo "Usage: dotfiles [command]"
+  echo "USAGE: dotfiles [command]"
   echo ""
   echo "COMMANDS:"
   echo "  backup     Backups up the local dotfiles directory"
+  echo "  module     Manage dotfile modules"
   echo "  help       Prints this message"
 }
 
 main() {
-  cmd=${1:-}
-  args=("${@:2}")
-  sub_cmd="dotfiles-${cmd}"
+  cmd="$1"
+  [ -n "$cmd" ] && shift
 
-  # Execute the command
-  if [[ -x $(command -v "$sub_cmd") ]]; then
-    $sub_cmd "${args[@]}" 2>&1
-  else
-    usage
-  fi
+  case "$cmd" in
+    backup)
+      dotfiles-backup "$@"
+      ;;
+    module | modules | mod | m)
+      dotfiles-module "$@"
+      ;;
+    help | h | --help | -h)
+      usage
+      ;;
+    *)
+      sub_cmd="dotfiles-${cmd}"
+      if [[ -x $(command -v "$sub_cmd") ]]; then
+        $sub_cmd "$@" 2>&1
+      else
+        usage
+      fi
+      ;;
+  esac
 }
 
 main "$@"

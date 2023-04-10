@@ -35,8 +35,13 @@
 # nix builds
 result/
 
+# modules file
+.modules*
+!.modules.example
+
 # ignore these directories
 local/
+local*
 local-*/
 *-local/
 /tmp*

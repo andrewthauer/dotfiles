@@ -1,0 +1,72 @@
+# === install first ===
+_stow
+_core
+
+# === common packages ===
+bash
+bat
+direnv
+docker
+fzf
+git
+github
+gpg
+ripgrep
+ssh
+starship
+tmux
+utility
+vim
+xdg
+zoxide
+zsh
+
+# == os specific ===
+# macos
+# hammerspoon
+# homebrew
+# karabiner
+# iterm2
+
+# === package managers ===
+# maven
+
+# === version managers ===
+# asdf
+# devenv
+# nix
+# rtx
+
+# === databases ====
+# mysql
+# oracle
+# postgres
+
+# === languages ===
+# dotnet
+# go
+# java
+# nodejs
+# python
+# ruby
+# rust
+
+# === frameworks ===
+# rails
+
+# === tools ===
+# ansible
+# aws
+# colima
+# home-manager
+# kubernetes
+# nvim
+# op
+# redis
+# skim
+# terraform
+
+#
+# === local ===
+#
+# Add local git ignored packages to the end of this file

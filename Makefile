@@ -1,15 +1,20 @@
-# Package bundles
 DOTFILES_DIR = $(CURDIR)
+DOTFILES_CMD = $(DOTFILES_DIR)/bin/dotfiles
+
+# Package bundles
 PKG_DIR = $(DOTFILES_DIR)/modules
 ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = asdf fzf git github local ssh starship utility vim zoxide zsh
+DEFAULT_PKGS = _stow _core fzf git github local ssh starship utility vim zoxide zsh
+
+# Subdirectories with make files
+SUBDIRS = $(sort $(basename $(dir $(wildcard */Makefile))))
+PKG_MAKEFILES = $(SUBDIRS:/=)
 
 # XDG directories
 XDG_CONFIG_HOME := $(HOME)/.config
 XDG_DATA_HOME := $(HOME)/.local/share
 XDG_CACHE_HOME := $(HOME)/.cache
-# Non standard
 XDG_BIN_HOME := $(HOME)/.local/bin
 XDG_LIB_HOME := $(HOME)/.local/lib
 
@@ -23,47 +28,43 @@ ifeq ($(shell uname), Linux)
 	DEFAULT_PKGS := $(DEFAULT_PKGS)
 endif
 
-# Subdirectories with make files
-SUBDIRS = $(sort $(basename $(dir $(wildcard */Makefile))))
-PKG_MAKEFILES = $(SUBDIRS:/=)
+default: install
 
-all: setup prepare-dirs link
+# Refactor to use dotfiles module link
+.PHONY: install
+install: link
 
-shellcheck:
-	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shellcheck $$(find . -name '*.sh')
-
-shfmt:
-	@shfmt -i 2 -ci -l $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shfmt -i 2 -ci -l $$(find . -name '*.sh')
-
+.PHONY: lint
 lint: shellcheck shfmt
 
-setup:
-	@stow -t $(HOME) -d modules -S _core
+# TODO: Remove when refactored to use dotfiles module command
+.PHONY: link
+link: prepare-dirs
+	@stow -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
 
+# TODO: Remove when refactored to use dotfiles module command
+.PHONY: unlink
+unlink:
+	@stow -t $(HOME) -d $(PKG_DIR) -D $(ALL_PKGS)
+
+.PHONY: prepare-dirs
 prepare-dirs:
 	@mkdir -p $(DOTFILES_DIR)
-	@ln -s $(DOTFILES_DIR)/local $(PKG_DIR)
-	@mkdir -p $(HOME)/.ssh/config.d
-	@mkdir -p $(XDG_CONFIG_HOME)/profile.d
-	@mkdir -p $(XDG_CONFIG_HOME)/shell.d
-	@mkdir -p $(XDG_CONFIG_HOME)/git
 	@mkdir -p $(XDG_CONFIG_HOME)/less
 	@mkdir -p $(XDG_DATA_HOME)/zsh
 	@mkdir -p $(XDG_CACHE_HOME)/less
 	@mkdir -p $(XDG_BIN_HOME)
 	@mkdir -p $(XDG_LIB_HOME)
-ifeq ($(shell uname), Darwin)
-	@mkdir -p $(XDG_CONFIG_HOME)/hammerspoon
-	@mkdir -p $(XDG_CONFIG_HOME)/homebrew
-endif
 
-link: setup prepare-dirs
-	@stow -t $(HOME) -d $(PKG_DIR) -S $(DEFAULT_PKGS)
+.PHONY: shellcheck
+shellcheck:
+	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*')
+	@shellcheck $$(find . -name '*.sh')
 
-unlink:
-	@stow -t $(HOME) -d $(PKG_DIR) -D $(filter-out stow,$(ALL_PKGS))
+.PHONY: shfmt
+shfmt:
+	@shfmt -i 2 -ci -l $$(find . -type f -path '*/bin/**' ! -name '*.*')
+	@shfmt -i 2 -ci -l $$(find . -name '*.sh')
 
 .PHONY: .chklink
 chklink:
