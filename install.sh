@@ -20,6 +20,7 @@
 set -e
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+DOTFILES_BIN="$DOTFILES_DIR/bin"
 DOTFILES_INSTALL_USE_SUDO="${DOTFILES_INSTALL_USE_SUDO:-0}"
 
 # Get the appropriate package manager script
@@ -151,14 +152,17 @@ install_prompt() {
 }
 
 setup_dotfiles_core() {
-  local dotfiles_mod_cmd="$DOTFILES_DIR/bin/dotfiles-module"
+  local dotfiles_mod_cmd="$DOTFILES_BIN/dotfiles-module"
 
   install_prompt
   install_packages zsh
   install_zsh_plugins
 
+  # configure default shells
+  "$DOTFILES_BIN/set-default-shells"
+
   # Link core dotfiles modules
-  "$dotfiles_mod_cmd" add _stow _core git zsh
+  "$dotfiles_mod_cmd" add _stow _core git utility zsh
 
   # Link packager specific dotfiles
   case ${pkg_mgr} in
@@ -203,23 +207,6 @@ install_zsh_plugins() {
 }
 
 # shellcheck disable=SC2317
-setup_default_shells() {
-  local bash_path
-  bash_path="$(which bash | head -1)"
-  local zsh_path
-  zsh_path="$(which zsh | head -1)"
-
-  if [[ "${os_family}" == "macos" ]]; then
-    # Add available shells
-    ! grep -q "${bash_path}" /etc/shells && echo "${bash_path}/bin/bash" | $sudo_cmd tee -a /etc/shells
-    ! grep -q "${zsh_path}" /etc/shells && echo "${zsh_path}/bin/zsh" | $sudo_cmd tee -a /etc/shells
-  fi
-
-  # Change default shell to zsh
-  chsh -s "$zsh_path"
-}
-
-# shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
   local files=(~/.profile ~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
@@ -259,17 +246,12 @@ main() {
   setup_dotfiles_core
 
   # configure dotfiles & shell
-  # setup_default_shells
   # backup_dotfiles
 
   # TODO: Ensure repo is using the ssh remote
   # pushd "${DOTFILES_DIR}" >/dev/null
   # git remote set-url origin git@github.com:andrewthauer/dotfiles.git
   # popd >/dev/null
-
-  # Start zsh
-  # echo "Starting zsh ..."
-  # zsh
 }
 
 # Run the script
