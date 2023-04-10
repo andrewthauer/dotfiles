@@ -9,13 +9,13 @@
 #   DOTFILES_DIR                        The target directory for the dotfiles repo
 #   DOTFILES_INSTALL_USE_SUDO           Use sudo or not
 #                                         Options: 0 (no) or 1 (yes)
-#   DOTFILES_INSTALL_PACKAGE_MANAGER    Preferred pacakge manager (defaults based on OS)
+#   DOTFILES_PACKAGE_MANAGER            Preferred pacakge manager (defaults based on OS)
 #                                         Options: brew | nix | apt | dnf | yum | pacman
 #
 # Examples:
 #   ./install.sh
 #   DOTFILES_DIR="$HOME/my-dotfiles" ./install.sh
-#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/main/install.sh)"
 
 set -e
 
@@ -23,7 +23,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 DOTFILES_INSTALL_USE_SUDO="${DOTFILES_INSTALL_USE_SUDO:-0}"
 
 # Get the appropriate package manager script
-# TODO: source /dev/stdin <<< "$(curl https://raw.github.com/andrewthauer/dotfiles/master/lib/os.sh)"
+# TODO: source /dev/stdin <<< "$(curl https://raw.github.com/andrewthauer/dotfiles/main/lib/os.sh)"
 get_os_family() {
   # ideally we would use an associative array here
   # but this needs to work in bash < v4 for macos
@@ -44,8 +44,8 @@ get_os_family() {
 }
 
 get_package_manager() {
-  if [[ -n "$DOTFILES_INSTALL_PACKAGE_MANAGER" ]]; then
-    echo "$DOTFILES_INSTALL_PACKAGE_MANAGER"
+  if [[ -n "$DOTFILES_PACKAGE_MANAGER" ]]; then
+    echo "$DOTFILES_PACKAGE_MANAGER"
   else
     case ${os_family} in
       "macos") echo "brew" ;;
@@ -97,11 +97,6 @@ clone_dotfiles() {
   if [[ ! -d "${DOTFILES_DIR}" ]]; then
     # Clone this repo
     git clone "https://github.com/andrewthauer/dotfiles.git" ~/.dotfiles
-
-    # Ensure repo is using the ssh remote
-    pushd "${DOTFILES_DIR}" >/dev/null
-    git remote set-url origin git@github.com:andrewthauer/dotfiles.git
-    popd >/dev/null
   fi
 }
 
@@ -110,6 +105,8 @@ install_package_manager() {
     "macos")
       # Always install homebrew on macos
       "${DOTFILES_DIR}/modules/homebrew/install.sh"
+      # shellcheck disable=SC1091
+      source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
       ;;
     *) ;;
   esac
@@ -153,9 +150,23 @@ install_prompt() {
   esac
 }
 
-install_zsh() {
-  install_package zsh
+setup_dotfiles_core() {
+  local dotfiles_mod_cmd="$DOTFILES_DIR/bin/dotfiles-module"
+
+  install_prompt
+  install_packages zsh
   install_zsh_plugins
+
+  # Link core dotfiles modules
+  "$dotfiles_mod_cmd" add _stow _core git zsh
+
+  # Link packager specific dotfiles
+  case ${pkg_mgr} in
+    "brew")
+      "$dotfiles_mod_cmd" add homebrew
+      ;;
+    *) ;;
+  esac
 }
 
 register_zsh_users_repo() {
@@ -173,7 +184,7 @@ register_zsh_users_repo() {
 }
 
 install_zsh_plugins() {
-  plugins=("zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search")
+  local plugins=("zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search")
 
   # shellcheck disable=SC2068
   for p in ${plugins[@]}; do
@@ -211,7 +222,9 @@ setup_default_shells() {
 # shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
-  files=(~/.profile ~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
+  local files=(~/.profile ~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
+
+  # move existing files
   for file in "${files[@]}"; do
     if [[ -f "${file}" && ! -L "${file}" ]]; then
       mv "${file}" "${file}.bak"
@@ -238,17 +251,21 @@ main() {
   clone_dotfiles
   cd "$DOTFILES_DIR"
 
-  # install packages
+  # install core packages
   install_package_manager
   install_packages stow
 
   # setup base shell
-  install_prompt
-  install_zsh
+  setup_dotfiles_core
 
   # configure dotfiles & shell
   # setup_default_shells
   # backup_dotfiles
+
+  # TODO: Ensure repo is using the ssh remote
+  # pushd "${DOTFILES_DIR}" >/dev/null
+  # git remote set-url origin git@github.com:andrewthauer/dotfiles.git
+  # popd >/dev/null
 
   # Start zsh
   # echo "Starting zsh ..."

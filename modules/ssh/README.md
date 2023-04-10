@@ -17,7 +17,7 @@ Use the `ssh-key-gen` command to create an `ssh` key in a single step. The
 
 ```shell
 # This will create an `id_rsa` key in the `~/.ssh` directory
-SSH_KEY_NAME="id_rsa" sh <(curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/master/bin/ssh-key-gen')
+SSH_KEY_NAME="id_rsa" sh <(curl -fsS 'https://raw.githubusercontent.com/andrewthauer/dotfiles/main/bin/ssh-key-gen')
 ```
 
 Optionally
