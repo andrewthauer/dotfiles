@@ -43,6 +43,21 @@ get_os_family() {
   echo "${os_family}"
 }
 
+get_package_manager() {
+  if [[ -n "$DOTFILES_INSTALL_PACKAGE_MANAGER" ]]; then
+    echo "$DOTFILES_INSTALL_PACKAGE_MANAGER"
+  else
+    case ${os_family} in
+      "macos") echo "brew" ;;
+      "debian") echo "apt" ;;
+      "fedora") echo "dnf" ;;
+      "rhel") echo "yum" ;;
+      "arch") echo "pacman" ;;
+      *) ;;
+    esac
+  fi
+}
+
 install_prerequisites() {
   local pkgs="curl file git"
 
@@ -78,27 +93,23 @@ install_prerequisites() {
   esac
 }
 
-get_package_manager() {
-  if [[ -n "$DOTFILES_INSTALL_PACKAGE_MANAGER" ]]; then
-    echo "$DOTFILES_INSTALL_PACKAGE_MANAGER"
-  else
-    case ${os_family} in
-      "macos") echo "brew" ;;
-      "debian") echo "apt" ;;
-      "fedora") echo "dnf" ;;
-      "rhel") echo "yum" ;;
-      "arch") echo "pacman" ;;
-      *) ;;
-    esac
+clone_dotfiles() {
+  if [[ ! -d "${DOTFILES_DIR}" ]]; then
+    # Clone this repo
+    git clone "https://github.com/andrewthauer/dotfiles.git" ~/.dotfiles
+
+    # Ensure repo is using the ssh remote
+    pushd "${DOTFILES_DIR}" >/dev/null
+    git remote set-url origin git@github.com:andrewthauer/dotfiles.git
+    popd >/dev/null
   fi
 }
 
-install_package_managers() {
+install_package_manager() {
   case ${os_family} in
     "macos")
       # Always install homebrew on macos
       "${DOTFILES_DIR}/modules/homebrew/install.sh"
-      brew install "$pkgs"
       ;;
     *) ;;
   esac
@@ -117,11 +128,13 @@ install_packages() {
     "yum") $sudo_cmd yum install -y "$pkgs" ;;
     "pacman") $sudo_cmd pacman -S "$pkgs" ;;
     "brew")
+      # shellcheck disable=SC1091
       source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
       # shellcheck disable=SC2086
       brew install $pkgs
       ;;
     "nix")
+      # shellcheck disable=SC1091
       source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
       nix_pkgs=("$pkgs")
       # shellcheck disable=SC2068
@@ -138,6 +151,11 @@ install_prompt() {
     "apt") curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
     *) install_packages "starship" ;;
   esac
+}
+
+install_zsh() {
+  install_package zsh
+  install_zsh_plugins
 }
 
 register_zsh_users_repo() {
@@ -171,18 +189,6 @@ install_zsh_plugins() {
   esac
 
   install_packages "${plugins[@]}"
-}
-
-clone_dotfiles() {
-  if [[ ! -d "${DOTFILES_DIR}" ]]; then
-    # Clone this repo
-    git clone "https://github.com/andrewthauer/dotfiles.git" ~/.dotfiles
-
-    # Ensure repo is using the ssh remote
-    pushd "${DOTFILES_DIR}" >/dev/null
-    git remote set-url origin git@github.com:andrewthauer/dotfiles.git
-    popd >/dev/null
-  fi
 }
 
 # shellcheck disable=SC2317
@@ -233,17 +239,16 @@ main() {
   cd "$DOTFILES_DIR"
 
   # install packages
-  install_package_managers
-  install_packages "stow"
-  install_packages "zsh"
-  install_packages "fzf neovim zoxide"
-  install_zsh_plugins
+  install_package_manager
+  install_packages stow
+
+  # setup base shell
   install_prompt
+  install_zsh
 
   # configure dotfiles & shell
   # setup_default_shells
   # backup_dotfiles
-  make
 
   # Start zsh
   # echo "Starting zsh ..."

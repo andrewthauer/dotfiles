@@ -48,7 +48,7 @@
 ### For Brand New Systems:
 
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/main/install.sh)"
 ```
 
 ## Documentation
@@ -62,7 +62,6 @@ within the `$HOME` directory.
 
 - `bin` - General purpose scripts which are added to the path.
 - `lib` - Core utilities used throughout. Must be sourced up front.
-- `local` - Local system configs & secrets that should never be committed.
 - `modules` - Various package modules.
 
 _NOTE: Directories starting with an `__double-underscore` will be ignored by stow._
