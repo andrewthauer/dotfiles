@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Summary:
+#   Recursively removes a directory pattern
+
+set -e
+
+setup_default_shells() {
+  local sudo_cmd="sudo "
+
+  local bash_path
+  bash_path="$(which bash | head -1)"
+
+  local zsh_path
+  zsh_path="$(which zsh | head -1)"
+
+  local os_family
+  os_family="$(os-info family)"
+
+  if [[ "${os_family}" == "macos" ]]; then
+    # Add available shells
+    ! grep -q "${bash_path}" /etc/shells && echo "${bash_path}" | $sudo_cmd tee -a /etc/shells
+    ! grep -q "${zsh_path}" /etc/shells && echo "${zsh_path}" | $sudo_cmd tee -a /etc/shells
+  fi
+
+  # Change default shell to zsh
+  chsh -s "$zsh_path"
+}
+
+setup_default_shells "$@"

@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Summary:
+#   Get
+
+set -e
+
+usage() {
+  echo "USAGE: os-info [command]"
+  echo ""
+  echo "COMMANDS:"
+  echo "  family       Get the OS family"
+  echo "  arch         Get the OS architecture"
+  echo "  help         Prints this message"
+  echo ""
+  echo "FLAGS:"
+  echo "  --help, -h   Prints help"
+}
+
+get_os_family() {
+  # ideally we would use an associative array here
+  # but this needs to work in bash < v4 for macos
+  os_info=(
+    "/etc/auto_master::macos"
+    "/etc/debian_version::debian"
+    "/etc/fedora-release::fedora"
+    "/etc/redhat-release::rhel"
+    "/etc/arch-release::arch"
+    "/etc/alpine-release::alpine"
+  )
+
+  for kv in "${os_info[@]}"; do
+    key="${kv%%::*}"
+    val="${kv##*::}"
+    [[ -f "$key" ]] && os_family="${val}"
+  done
+
+  echo "${os_family}"
+}
+
+get_arch() {
+  uname -m
+}
+
+main() {
+  cmd="$1"
+  [ -n "$cmd" ] && shift
+
+  case "$cmd" in
+    family | type)
+      get_os_family
+      ;;
+    arch)
+      get_arch "$@"
+      ;;
+    help | --help | -h)
+      usage
+      ;;
+    *)
+      echo "os-family: $(get_os_family)"
+      echo "arch: $(get_arch)"
+      ;;
+  esac
+}
+
+main "$@"
