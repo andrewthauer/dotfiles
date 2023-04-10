@@ -14,6 +14,7 @@ usage() {
   echo "COMMANDS:"
   echo "  backup     Backups up the local dotfiles directory"
   echo "  module     Manage dotfile modules"
+  echo "  package    Manage system packages"
   echo "  help       Prints this message"
 }
 
@@ -27,6 +28,9 @@ main() {
       ;;
     module | modules | mod | m)
       dotfiles-module "$@"
+      ;;
+    package | pkg | p)
+      pkg "$@"
       ;;
     help | h | --help | -h)
       usage

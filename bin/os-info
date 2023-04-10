@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# Summary:
-#   Get
 
 set -e
 
 usage() {
+  echo "SUMMARY:"
+  echo "  Manage system packages"
+  echo ""
   echo "USAGE: os-info [command]"
   echo ""
   echo "COMMANDS:"
@@ -16,7 +17,11 @@ usage() {
   echo "  --help, -h   Prints help"
 }
 
-get_os_family() {
+get_arch() {
+  uname -m
+}
+
+os_family() {
   # ideally we would use an associative array here
   # but this needs to work in bash < v4 for macos
   os_info=(
@@ -37,8 +42,22 @@ get_os_family() {
   echo "${os_family}"
 }
 
-get_arch() {
-  uname -m
+package_manager() {
+  local os_family
+  os_family=$(os_family)
+
+  if [[ -n "$DOTFILES_PACKAGE_MANAGER" ]]; then
+    echo "$DOTFILES_PACKAGE_MANAGER"
+  else
+    case ${os_family} in
+      "macos") echo "brew" ;;
+      "debian") echo "apt" ;;
+      "fedora") echo "dnf" ;;
+      "rhel") echo "yum" ;;
+      "arch") echo "pacman" ;;
+      *) ;;
+    esac
+  fi
 }
 
 main() {
@@ -46,18 +65,22 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-    family | type)
-      get_os_family
+    family | type | t | --family | --type)
+      os_family
       ;;
-    arch)
+    arch | a | --arch | -a)
       get_arch "$@"
+      ;;
+    package-manager | p | --package-manager | -p)
+      package_manager
       ;;
     help | --help | -h)
       usage
       ;;
     *)
-      echo "os-family: $(get_os_family)"
+      echo "os-family: $(os_family)"
       echo "arch: $(get_arch)"
+      echo "package-manager: $(package_manager)"
       ;;
   esac
 }

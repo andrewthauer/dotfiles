@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+# Summary:
+#   Manage system packages
+
+set -o errexit -o pipefail -o noclobber
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+usage() {
+  local cmd
+  cmd="$(basename "$0")"
+  echo "SUMMARY"
+  echo "  Manage system packages"
+  echo ""
+  echo "USAGE: $cmd [flags] [command]"
+  echo ""
+  echo "COMMANDS"
+  echo "  install, add     Installs package(s)"
+  echo "  uninstall, rm    Uninstalls package(s)"
+  echo "  help             Prints this message"
+  echo ""
+  echo "FLAGS"
+  echo "  --type, -t       Package manager (apt, dnf, yum, pacman, brew, nix-env)"
+  echo
+  echo "EXAMPLES"
+  echo "  $cmd install git zsh bash"
+  echo "  $cmd install --type brew git"
+  echo "  $cmd add --type brew foobar"
+}
+
+link() {
+  stow_modules -S "$@"
+}
+
+unlink() {
+  stow_modules -D "$@"
+}
+
+init_package_manager() {
+  local pkg_mgr="$1"
+
+  # TODO: Validate if package manager command exists
+
+  case ${pkg_mgr} in
+    "apt") ;;
+    "dnf") ;;
+    "yum") ;;
+    "pacman") ;;
+    "brew")
+      # shellcheck disable=SC1091
+      source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
+      ;;
+    "nix")
+      # shellcheck disable=SC1091
+      source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
+      ;;
+    *) ;;
+  esac
+}
+
+install_package() {
+  local sudo_cmd="sudo -"
+  local pkgs="$1"
+
+  case ${pkg_mgr} in
+    "apt") $sudo_cmd apt install -y "$pkgs" ;;
+    "dnf") $sudo_cmd dnf install -y "$pkgs" ;;
+    "yum") $sudo_cmd yum install -y "$pkgs" ;;
+    "pacman") $sudo_cmd pacman -S "$pkgs" ;;
+    "brew")
+      # shellcheck disable=SC2086
+      brew install $pkgs
+      ;;
+    "nix-env")
+      local nix_pkgs=("$pkgs")
+      # shellcheck disable=SC2068
+      for pkg in ${nix_pkgs[@]}; do
+        nix-env -iA nixpkgs."$pkg"
+      done
+      ;;
+    *) ;;
+  esac
+}
+
+uninstall_package() {
+  echo "ERROR: Uninstall not implemented"
+  exit 1
+}
+
+main() {
+  local pos_args=""
+  pkg_mgr="$(os-info --package-manager)"
+
+  while (("$#")); do
+    case "$1" in
+      --type | -t)
+        pkg_mgr="$2"
+        shift 2
+        ;;
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      *) # preserve positional arguments
+        pos_args="$pos_args $1"
+        shift
+        ;;
+    esac
+  done
+
+  # Set positional arguments in their proper place
+  eval set -- "$pos_args"
+
+  cmd="$1"
+  [ -n "$cmd" ] && shift
+
+  case "$cmd" in
+    install | i | add)
+      init_package_manager "$pkg_mgr"
+      install_package "$@"
+      ;;
+    uninstall | u | remove | rm)
+      init_package_manager "$pkg_mgr"
+      uninstall_package "$@"
+      ;;
+    help | --help | -h)
+      usage
+      ;;
+    *)
+      usage
+      ;;
+  esac
+
+}
+
+main "$@"
