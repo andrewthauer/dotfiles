@@ -102,46 +102,24 @@ clone_dotfiles() {
 }
 
 install_package_manager() {
-  case ${os_family} in
-    "macos")
+  case ${pkg_mgr} in
+    "brew")
       # Always install homebrew on macos
       "${DOTFILES_DIR}/modules/homebrew/install.sh"
       # shellcheck disable=SC1091
       source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
       ;;
+    "nix")
+      "${DOTFILES_DIR}/modules/nix/install.sh"
+      ;;
     *) ;;
   esac
-
-  if [[ "${pkg_mgr}" == "nix" ]]; then
-    "${DOTFILES_DIR}/modules/nix/install.sh"
-  fi
 }
 
 install_packages() {
+  local pkg_cmd="$DOTFILES_BIN/pkg"
   local pkgs="$1"
-
-  case ${pkg_mgr} in
-    "apt") $sudo_cmd apt install -y "$pkgs" ;;
-    "dnf") $sudo_cmd dnf install -y "$pkgs" ;;
-    "yum") $sudo_cmd yum install -y "$pkgs" ;;
-    "pacman") $sudo_cmd pacman -S "$pkgs" ;;
-    "brew")
-      # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
-      # shellcheck disable=SC2086
-      brew install $pkgs
-      ;;
-    "nix")
-      # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
-      nix_pkgs=("$pkgs")
-      # shellcheck disable=SC2068
-      for pkg in ${nix_pkgs[@]}; do
-        nix-env -iA nixpkgs."$pkg"
-      done
-      ;;
-    *) ;;
-  esac
+  "$pkg_cmd" install "$pkgs"
 }
 
 install_prompt() {
@@ -152,14 +130,19 @@ install_prompt() {
 }
 
 setup_dotfiles_core() {
-  local dotfiles_mod_cmd="$DOTFILES_BIN/dotfiles-module"
-
   install_prompt
   install_packages zsh
   install_zsh_plugins
 
   # configure default shells
   "$DOTFILES_BIN/set-default-shells"
+
+  # link dotfiles modules
+  link_dotfile_modules
+}
+
+link_dotfile_modules() {
+  local dotfiles_mod_cmd="$DOTFILES_BIN/dotfiles-module"
 
   # Link core dotfiles modules
   "$dotfiles_mod_cmd" add _stow _core git utility zsh
