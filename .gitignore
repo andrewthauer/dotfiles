@@ -33,6 +33,7 @@
 .zsh_history
 
 # nix builds
+result
 result/
 
 # modules file
