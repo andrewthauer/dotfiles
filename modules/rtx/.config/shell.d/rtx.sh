@@ -14,6 +14,9 @@ export RTX_CACHE_DIR="${RTX_CACHE_DIR:-$XDG_CACHE_HOME}/rtx"
 # Use rtx toml instead of .tool-versions
 export RTX_USE_TOML=1
 
+# Use shims directory
+prepend_path "${XDG_DATA_HOME}/rtx/shims"
+
 #
 # Initialization
 #
