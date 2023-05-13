@@ -27,11 +27,3 @@ use-1password-ssh-agent() {
     return 1
   fi
 }
-
-# Load 1Password environment variables
-if command_exists "direnv"; then
-  ope() {
-    export DIRENV_LOAD_OP_ENV=1
-    direnv reload
-  }
-fi

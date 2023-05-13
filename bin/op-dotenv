@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Summary:
+#   Resolves a dotenv file and prints the resolved environment variables
+#
+# Usage:
+#   op-dotenv <dotenv-file>
+
+op_dotenv() {
+  local dotenv_file="$1"
+
+  if [ -z "$dotenv_file" ]; then
+    echo "Usage: op-dotenv <dotenv-file>"
+    exit 1
+  fi
+
+  if [ ! -f "$dotenv_file" ]; then
+    echo "File $dotenv_file does not exist"
+    exit 1
+  fi
+
+  env_text=$(cat <"$dotenv_file" |
+    op inject |
+    sed -e 's/[[:space:]]*#.*// ; /^[[:space:]]*$/d')
+
+  echo "$env_text" | while read -r line; do
+    IFS='='
+    read -r -a pair <<<"$line"
+    key="${pair[0]}"
+    value=$(echo "${pair[1]}" | sed -e 's/^"//' -e 's/"$//')
+    line="$(echo "$key=$value" | envsubst)"
+    export "${line?}"
+    echo "${line}"
+  done
+}
+
+op_dotenv "$@"
