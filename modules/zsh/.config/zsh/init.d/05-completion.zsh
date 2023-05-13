@@ -49,8 +49,6 @@ fi
 # - NOTE: Must be loaded before running compinit
 if [[ -d "${XDG_DATA_HOME}/zsh-completions/src" ]]; then
   fpath=($fpath "${XDG_DATA_HOME}/zsh-completions/src")
-elif [[ -n "${PROFILE_PREFIX}" && -d "${PROFILE_PREFIX}/share/zsh-completions" ]]; then
-  fpath=($fpath "${PROFILE_PREFIX}/share/zsh-completions")
 fi
 
 #
