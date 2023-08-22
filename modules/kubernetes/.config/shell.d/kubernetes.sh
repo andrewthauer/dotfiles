@@ -97,17 +97,3 @@ k-get-kinds() {
     echo "$i"
   done
 }
-
-# get all resources in a namespace
-k-get-all() {
-  local ns="$1"
-
-  for i in $(k-get-kinds); do
-    data=$(kubectl -n "${ns}" get --ignore-not-found "${i}")
-    if [ -n "$data" ]; then
-      echo "--- resource: $i ---"
-      echo "$data"
-      echo ""
-    fi
-  done
-}
