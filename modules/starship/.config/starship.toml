@@ -3,9 +3,6 @@
 scan_timeout = 30
 command_timeout = 1000
 
-[aws]
-disabled = true
-
 [cmd_duration]
 min_time = 0
 style = "yellow"

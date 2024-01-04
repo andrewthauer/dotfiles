@@ -1,3 +1,4 @@
+version: "1"
 git_protocol: ssh
 aliases:
     o: repo view --web

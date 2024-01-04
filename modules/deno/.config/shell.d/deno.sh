@@ -14,3 +14,6 @@ export DENO_INSTALL_ROOT="${XDG_DATA_HOME:-$HOME/.local/share}/deno"
 if [ -d "$DENO_INSTALL_ROOT/bin" ]; then
   append_path "$DENO_INSTALL_ROOT/bin"
 fi
+
+# Aliases
+alias dt="deno task"

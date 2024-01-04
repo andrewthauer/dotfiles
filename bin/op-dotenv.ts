@@ -5,7 +5,7 @@
   Examples:
 
     # Alias dotfile file into environment
-    alias ope='eval $(op-dotenv2.ts "$HOME/.config/.env" --export)'
+    alias ope='eval $(op-dotenv.ts "$HOME/.config/.env" --export)'
 
     # Load dotfile file into environment
     ope() {
@@ -14,8 +14,7 @@
     }
 */
 
-import * as dotenv from "https://deno.land/std@0.184.0/dotenv/mod.ts";
-import $ from "https://deno.land/x/dax@0.31.1/mod.ts";
+import * as dotenv from "https://deno.land/std@0.211.0/dotenv/mod.ts";
 import { substitute } from "https://deno.land/x/substitute@v0.2.1/mod.ts";
 
 // parse the args (note: currently assumes path is first arg)
@@ -26,10 +25,18 @@ if (!envPath) {
 }
 
 // load the dotenv file
-let env = dotenv.loadSync({ envPath });
+const contents = Deno.readTextFileSync(envPath);
+let env = dotenv.parse(contents);
 
 // resolve environment variables from 1password cli
-const rawEnv = await $`op inject`.stdinText(dotenv.stringify(env)).text();
+const command = new Deno.Command("op", { args: ["inject"], stdin: 'piped', stdout: "piped" });
+const process = command.spawn();
+const writer = process.stdin.getWriter();
+writer.write(new TextEncoder().encode(dotenv.stringify(env)));
+writer.releaseLock();
+await process.stdin.close();
+const output = await process.output();
+const rawEnv = new TextDecoder().decode(output.stdout);
 
 // parse the environment variables
 env = dotenv.parse(rawEnv);
