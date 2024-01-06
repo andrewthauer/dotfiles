@@ -34,8 +34,8 @@ zsh
 # === version managers ===
 # asdf
 # devenv
+# mise
 # nix
-# rtx
 
 # === databases ====
 # mysql
