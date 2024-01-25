@@ -5,7 +5,8 @@
 set -e
 
 setup_default_shells() {
-  local sudo_cmd="sudo "
+  # disable usage of sudo if requested
+  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
   local bash_path
   bash_path="$(which bash | head -1)"
@@ -14,7 +15,7 @@ setup_default_shells() {
   zsh_path="$(which zsh | head -1)"
 
   local os_family
-  os_family="$(os-info family)"
+  os_family="$("$DOTFILES_DIR"/bin/os-info family)"
 
   if [[ "${os_family}" == "macos" ]]; then
     # Add available shells

@@ -33,10 +33,17 @@
 
 ## Pre-requisites
 
+- [`git`](https://git-scm.com/)
 - [`make`](https://www.gnu.org/software/make/)
 - [`stow`](https://www.gnu.org/software/stow/stow.html)
 
 ## Installation
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/main/install.sh)"
+```
+
+Or ...
 
 1. Clone the repo
    `git clone git@github.com:andrewthauer/dotfiles.git ~/.dotfiles`
@@ -44,12 +51,6 @@
 3. Run `make` to run core setup
 4. Install desired package via `stow <directory>`
 5. Restart your shell ...
-
-### For Brand New Systems:
-
-```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/main/install.sh)"
-```
 
 ## Documentation
 

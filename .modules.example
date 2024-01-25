@@ -11,6 +11,7 @@ fzf
 git
 github
 gpg
+pkgx
 ripgrep
 ssh
 starship

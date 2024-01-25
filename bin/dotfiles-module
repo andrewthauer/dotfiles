@@ -13,7 +13,7 @@ usage() {
   echo "USAGE: dotfiles module [command]"
   echo ""
   echo "COMMANDS:"
-  echo "  ls-all       List all modules"
+  echo "  list         List modules"
   echo "  link         Link a module"
   echo "  unlink       Unlink a module"
   echo "  help         Prints this message"
@@ -45,7 +45,7 @@ list_modules() {
       echo "  --all, -a    List all modules"
       ;;
     *)
-      read_modules_file
+      read_modules_file | sort
       ;;
   esac
 }

@@ -42,7 +42,7 @@ init_package_manager() {
   # TODO: Validate if package manager command exists
 
   case ${pkg_mgr} in
-    "apt") ;;
+    "apt") $sudo_cmd apt update -y ;;
     "dnf") ;;
     "yum") ;;
     "pacman") ;;
@@ -59,7 +59,6 @@ init_package_manager() {
 }
 
 install_package() {
-  local sudo_cmd="sudo -"
   local pkgs="$1"
 
   case ${pkg_mgr} in
@@ -89,7 +88,12 @@ uninstall_package() {
 
 main() {
   local pos_args=""
-  pkg_mgr="$(os-info --package-manager)"
+
+  # shellcheck disable=SC2086
+  pkg_mgr="$(${DOTFILES_DIR}/bin/os-info --package-manager)"
+
+  # disable usage of sudo if requested
+  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
   while (("$#")); do
     case "$1" in
@@ -130,7 +134,6 @@ main() {
       usage
       ;;
   esac
-
 }
 
 main "$@"
