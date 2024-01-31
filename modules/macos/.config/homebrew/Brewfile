@@ -21,7 +21,6 @@
 # brew 'zsh-syntax-highlighting'
 
 # Core shell packages
-# brew 'asdf'
 # brew 'bat'
 # brew 'direnv'
 # brew 'fzf'
