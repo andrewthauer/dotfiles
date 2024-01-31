@@ -15,6 +15,6 @@ if [[ -f ${XDG_CONFIG_HOME}/pg/pg_service.conf ]]; then
 fi
 
 # Add postgres binaries to path
-if [[ -d "/usr/local/opt/libpq/bin" ]]; then
-  prepend_path "/usr/local/opt/libpq/bin"
+if [[ -d "${PROFILE_PREFIX}/opt/libpq/bin" ]]; then
+  prepend_path "${PROFILE_PREFIX}/opt/libpq/bin"
 fi

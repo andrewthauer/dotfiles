@@ -3,29 +3,6 @@
 #
 
 #
-# helm
-#
-
-if command_exists "helm"; then
-  # make helm more xdg compliant
-  export HELM_HOME="${XDG_DATA_HOME}/helm"
-fi
-
-#
-# minikube
-#
-
-if command_exists "minikube"; then
-  # make minikube more xdg compliant
-  export MINIKUBE_HOME="${XDG_CONFIG_HOME}/minikube"
-
-  # aliases
-  alias mk="minikube"
-  alias mkk="minikube kubectl --"
-  alias minikube-inject-env='eval "$(minikube docker-env)"'
-fi
-
-#
 # Kubectl
 #
 # - https://kubernetes.io/docs/tasks/tools/install-kubectl/
@@ -44,10 +21,6 @@ if command_exists "kubectl"; then
 else
   return 1
 fi
-
-#
-# kubectl
-#
 
 # general
 alias k='kubectl'
@@ -97,3 +70,26 @@ k-get-kinds() {
     echo "$i"
   done
 }
+
+#
+# helm
+#
+
+if command_exists "helm"; then
+  # make helm more xdg compliant
+  export HELM_HOME="${XDG_DATA_HOME}/helm"
+fi
+
+#
+# minikube
+#
+
+if command_exists "minikube"; then
+  # make minikube more xdg compliant
+  export MINIKUBE_HOME="${XDG_CONFIG_HOME}/minikube"
+
+  # aliases
+  alias mk="minikube"
+  alias mkk="minikube kubectl --"
+  alias minikube-inject-env='eval "$(minikube docker-env)"'
+fi

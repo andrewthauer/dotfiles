@@ -33,7 +33,6 @@ zsh
 # maven
 
 # === version managers ===
-# asdf
 # devenv
 # mise
 # nix
@@ -45,9 +44,7 @@ zsh
 
 # === languages ===
 # deno
-# dotnet
 # go
-# java
 # nodejs
 # python
 # ruby
@@ -65,7 +62,6 @@ zsh
 # nvim
 # op
 # redis
-# skim
 # terraform
 
 #

@@ -50,7 +50,7 @@ gfs() {
 # Helpers
 #
 
-git_migrate_to_main() {
+git-migrate-to-main() {
   git branch -m master main
   git fetch origin
   git branch -u origin/main main

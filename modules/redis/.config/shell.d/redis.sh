@@ -18,6 +18,6 @@ export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis-cli/history"
 
 alias redis='redis-cli'
 alias redis-keys='redis-cli KEYS "*"'
-alias redis-scana='redis-cli --scan --pattern "*"'
-alias redis-flusha='redis-cli FLUSHALL'
-alias redis-flushdb='redis-cli FLUSHDB'
+alias redis-scan-all='redis-cli --scan --pattern "*"'
+alias redis-flush-all='redis-cli FLUSHALL'
+alias redis-flush-db='redis-cli FLUSHDB'

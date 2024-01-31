@@ -9,11 +9,6 @@ if ! command_exists "ruby"; then
   return 1
 fi
 
-# Ruby build
-if [ -n "${PROFILE_PREFIX}" ]; then
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=${PROFILE_PREFIX}/opt/openssl@1.1"
-fi
-
 #
 # General XDG specifications
 #
@@ -23,9 +18,6 @@ export IRBRC="${XDG_CONFIG_HOME}/irb/irbrc"
 # export GEM_HOME="${XDG_DATA_HOME}/gem"
 export GEMRC="${XDG_CONFIG_HOME}/gem/gemrc"
 export GEM_SPEC_CACHE="${XDG_CACHE_HOME}/gem/specs"
-
-# Solargraph cache
-export SOLARGRAPH_CACHE="${XDG_CACHE_HOME}/solargraph"
 
 #
 # Bundler
@@ -45,15 +37,6 @@ fi
 function gem-install-bundler() {
   gem install bundler -v "$(tail -n 1 Gemfile.lock)"
 }
-
-#
-# Version managers
-#
-
-# add asdf default gems files
-if command_exists asdf && [ -f "${XDG_CONFIG_HOME}/ruby/default-gems" ]; then
-  export ASDF_GEM_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/ruby/default-gems"
-fi
 
 # Aliases
 alias b='bundle'
