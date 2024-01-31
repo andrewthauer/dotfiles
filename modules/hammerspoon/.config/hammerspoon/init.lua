@@ -225,6 +225,7 @@ spoon.SpoonInstall:andUse('RecursiveBinder', {
       [s.singleKey('a', 'apps+')] = app_keymap,
       [s.singleKey('b', 'bookmarks+')] = bookmarks_keymap,
       [s.singleKey('f', 'find+')] = finder_keymap,
+      [s.singleKey('u', 'update spoons')] = function() spoon.SpoonInstall:updateAllRepos() end,
     }
     hs.hotkey.bind(hyper, 'space', s.recursiveBind(keymap))
   end

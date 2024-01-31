@@ -134,7 +134,6 @@ in
     ".config/shell.d/vim.sh".source = "${dotfiles.modulesDir}/vim/.config/shell.d/vim.sh";
 
     # other
-    ".config/shell.d/asdf.sh".source = "${dotfiles.modulesDir}/asdf/.config/shell.d/asdf.sh";
     ".config/shell.d/docker.sh".source = "${dotfiles.modulesDir}/docker/.config/shell.d/docker.sh";
 
     # homebrew
