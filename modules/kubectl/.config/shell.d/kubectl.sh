@@ -8,19 +8,12 @@
 # - https://kubernetes.io/docs/tasks/tools/install-kubectl/
 # - https://kubernetes.io/docs/reference/kubectl/cheatsheet
 
-# Setup kubectl for the shell
-if command_exists "kubectl"; then
-  # make helm more xdg compliant
-  export KUBECONFIG="${XDG_CONFIG_HOME}/kube/config"
-  export KUBECACHEDIR="${XDG_CACHE_HOME}/kube"
-  export KREW_ROOT="${XDG_CONFIG_HOME}/krew"
+# make helm more xdg compliant
+export KUBECONFIG="${XDG_CONFIG_HOME}/kube/config"
+export KUBECACHEDIR="${XDG_CACHE_HOME}/kube"
+export KREW_ROOT="${XDG_CONFIG_HOME}/krew"
 
-  append_path "${KREW_ROOT}/bin"
-
-# Return if requirements not found
-else
-  return 1
-fi
+append_path "${KREW_ROOT}/bin"
 
 # general
 alias k='kubectl'
@@ -70,26 +63,3 @@ k-get-kinds() {
     echo "$i"
   done
 }
-
-#
-# helm
-#
-
-if command_exists "helm"; then
-  # make helm more xdg compliant
-  export HELM_HOME="${XDG_DATA_HOME}/helm"
-fi
-
-#
-# minikube
-#
-
-if command_exists "minikube"; then
-  # make minikube more xdg compliant
-  export MINIKUBE_HOME="${XDG_CONFIG_HOME}/minikube"
-
-  # aliases
-  alias mk="minikube"
-  alias mkk="minikube kubectl --"
-  alias minikube-inject-env='eval "$(minikube docker-env)"'
-fi

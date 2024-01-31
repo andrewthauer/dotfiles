@@ -57,8 +57,9 @@ zsh
 # ansible
 # aws
 # colima
+# helm
 # home-manager
-# kubernetes
+# kubectl
 # nvim
 # op
 # redis

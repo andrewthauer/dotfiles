@@ -2,11 +2,6 @@
 # Initialize maven environment
 #
 
-# Return if requirements not found
-if ! command_exists "mvn"; then
-  return 1
-fi
-
 #
 # XDG specification
 #

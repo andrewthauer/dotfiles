@@ -2,10 +2,6 @@
 # Initialize deno environment
 #
 
-if ! command_exists deno; then
-  return 1
-fi
-
 # XDG specification
 export DENO_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/deno"
 export DENO_INSTALL_ROOT="${XDG_DATA_HOME:-$HOME/.local/share}/deno"

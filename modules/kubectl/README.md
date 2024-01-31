@@ -1,4 +1,4 @@
-# Kubernetes (K8)
+# Kubectl
 
 This package loads useful kubernetes aliases & completions in to the shell for
 `kubectl`.

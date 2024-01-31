@@ -4,10 +4,6 @@
 
 # shellcheck disable=SC2142
 
-if ! command_exists "docker"; then
-  return 1
-fi
-
 #
 # Aliases
 #

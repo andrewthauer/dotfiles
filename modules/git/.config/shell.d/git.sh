@@ -2,10 +2,6 @@
 # Initialize git environment
 #
 
-if ! command_exists "git"; then
-  return
-fi
-
 #
 # Aliases
 #

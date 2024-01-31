@@ -4,11 +4,6 @@
 # - https://github.com/rbenv/rbenv
 #
 
-# Return if requirements not found
-if ! command_exists "ruby"; then
-  return 1
-fi
-
 #
 # General XDG specifications
 #

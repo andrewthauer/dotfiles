@@ -4,11 +4,6 @@
 # - https://github.com/nodenv/nodenv
 #
 
-# Return if requirements not found
-if ! command_exists "node"; then
-  return 1
-fi
-
 #
 # XDG specifications
 #
