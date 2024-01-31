@@ -9,7 +9,7 @@ direnv
 docker
 fzf
 git
-github
+gh
 gpg
 pkgx
 ripgrep

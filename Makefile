@@ -5,7 +5,7 @@ DOTFILES_CMD = $(DOTFILES_DIR)/bin/dotfiles
 PKG_DIR = $(DOTFILES_DIR)/modules
 ALL_PKGS = $(sort $(basename $(dir $(wildcard modules/*/))))
 LOCAL_PKGS = $(sort $(notdir $(wildcard ./local*)))
-DEFAULT_PKGS = _stow _core fzf git github local ssh starship utility vim zoxide zsh
+DEFAULT_PKGS = _stow _core fzf git gh local ssh starship utility vim zoxide zsh
 
 # Subdirectories with make files
 SUBDIRS = $(sort $(basename $(dir $(wildcard */Makefile))))
