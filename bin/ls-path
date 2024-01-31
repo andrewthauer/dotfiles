@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Summary:
+#  Output the PATH variable, one entry per line
+#
+# Usage:
+#   ls-path
+
+# shellcheck disable=SC2001
+sed 's/:/\n/g' <<<"$PATH"
