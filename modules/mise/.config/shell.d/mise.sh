@@ -12,7 +12,7 @@
 #
 
 # Activate mise
-eval "$(~/.local/bin/mise activate "$CURRENT_SHELL")"
+eval "$(mise activate "$CURRENT_SHELL")"
 
 #
 # Aliases
