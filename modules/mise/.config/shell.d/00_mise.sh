@@ -1,18 +1,18 @@
 #
-# Configure mise environment
+# Configure mise-en-place environment
 #
 # - https://mise.jdx.dev/configuration.html
 #
-
-# Use mise toml instead of .tool-versions
-export MISE_USE_TOML=1
+# NOTE: We need to ensure that mise is activated before any other dotfiles
+#       modules are loaded, so that we can use mise to manage the environment.
+#
 
 #
 # Initialization
 #
 
-# Initialize mise shims
-eval "$(mise activate --shims)"
+# Activate mise
+eval "$(~/.local/bin/mise activate "$CURRENT_SHELL")"
 
 #
 # Aliases
