@@ -10,12 +10,11 @@
     # Load dotfile file into environment
     ope() {
       local env_file="${1:-$HOME/.config/.env}"
-      export $(op-dotenv2.ts "$env_file" | xargs)
+      export $(op-dotenv.ts "$env_file" | xargs)
     }
 */
 
-import * as dotenv from 'https://deno.land/std@0.212.0/dotenv/mod.ts';
-import { default as $ } from 'https://deno.land/x/dax@0.36.0/mod.ts';
+import * as dotenv from 'https://deno.land/std@0.215.0/dotenv/mod.ts';
 import { substitute } from 'https://deno.land/x/substitute@v0.2.1/mod.ts';
 
 // parse the args (note: currently assumes path is first arg)
@@ -61,7 +60,9 @@ if (Deno.args.includes('--export')) {
   });
 } else if (Deno.args.includes('--launchctl')) {
   Object.entries(env).forEach(async ([key, value]) => {
-    await $.raw`launchctl setenv "${key}" "${value}"`;
+    await new Deno.Command('launchctl', {
+      args: ['setenv', key, value ?? ''],
+    }).output();
   });
 } else {
   console.log(dotenv.stringify(env));
