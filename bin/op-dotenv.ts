@@ -14,7 +14,7 @@
     }
 */
 
-import * as dotenv from 'https://deno.land/std@0.215.0/dotenv/mod.ts';
+import * as dotenv from 'https://deno.land/std@0.216.0/dotenv/mod.ts';
 import { substitute } from 'https://deno.land/x/substitute@v0.2.1/mod.ts';
 
 // parse the args (note: currently assumes path is first arg)

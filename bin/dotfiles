@@ -15,6 +15,7 @@ usage() {
   echo "  backup     Backups up the local dotfiles directory"
   echo "  module     Manage dotfile modules"
   echo "  package    Manage system packages"
+  echo "  doctor     Check for dotfiles configuration issues"
   echo "  help       Prints this message"
 }
 

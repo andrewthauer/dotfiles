@@ -1,0 +1,11 @@
+{
+  "fmt": {
+    "singleQuote": true,
+    "exclude": [
+      "*.lock",
+      "modules/iterm2/.config/iterm2/profile.json",
+      "modules/karabiner/.config/karabiner/*",
+      "modules/hammerspoon/.config/hammerspoon/Spoons/*"
+    ]
+  }
+}

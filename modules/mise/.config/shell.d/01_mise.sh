@@ -8,11 +8,25 @@
 #
 
 #
+# Functions
+#
+
+mise-activate() {
+  eval "$(mise activate "$CURRENT_SHELL")"
+}
+
+mise-hook-env() {
+  eval "$(/opt/homebrew/bin/mise hook-env -s zsh)"
+}
+
+#
 # Initialization
 #
 
 # Activate mise
-eval "$(mise activate "$CURRENT_SHELL")"
+if [ "$MISE_AUTO_ACTIVATE" != "0" ]; then
+  mise-activate
+fi
 
 #
 # Aliases
@@ -28,3 +42,7 @@ alias mlsr="mise ls-remote"
 alias mplsr="mise plugin ls-remote --urls"
 alias mt="mise task"
 alias mtr="mise task run"
+
+# short aliases
+alias mhook="mise-hook-env"
+alias mact="mise-activate"

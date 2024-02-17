@@ -28,22 +28,19 @@ export HOMEBREW_NO_ENV_HINTS
 #
 
 # Homebrew
+alias brewb='brew bundle'
 alias brewc='brew cleanup'
 alias brewi='brew install'
-alias brewu='brew uninstall'
 alias brewl='brew list'
 alias brewo='brew outdated'
 alias brewr='brew remove'
 alias brews='brew search'
+alias brewu='brew uninstall'
 
 # Dependencies
-alias brewdeps='brew deps --installed'
-alias brewleaves='brew leaves'
-alias brewuses='brew uses --installed'
-
-# Homebrew Bundle
-alias brewb='brew bundle'
+alias brew-deps='brew deps --installed'
+alias brew-leaves='brew leaves'
+alias brew-uses='brew uses --installed'
 
 # Composite aliases
 alias brew-upgrade='brew update && brew upgrade && brew bundle && brew cleanup'
-alias brewupg='brew-upgrade'

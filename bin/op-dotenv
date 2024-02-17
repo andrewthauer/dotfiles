@@ -5,11 +5,29 @@
 # Usage:
 #   op-dotenv <dotenv-file>
 
+set -e -o pipefail
+
 op_dotenv() {
+  # Extract the --avro flag
+  while (("$#")); do
+    case "$1" in
+      -e | --export)
+        export="true"
+        shift 1
+        ;;
+      *) # do nothing
+        args="$args $1"
+        shift
+        ;;
+    esac
+  done
+
+  eval set -- "$args"
+
   local dotenv_file="$1"
 
   if [ -z "$dotenv_file" ]; then
-    echo "Usage: op-dotenv <dotenv-file>"
+    echo "Usage: op-dotenv <dotenv-file> [-e | --export]"
     exit 1
   fi
 
@@ -29,7 +47,9 @@ op_dotenv() {
     value=$(echo "${pair[1]}" | sed -e 's/^"//' -e 's/"$//')
     line="$(echo "$key=$value" | envsubst)"
     export "${line?}"
-    echo "${line}"
+    export_text=""
+    [ -n "$export" ] && export_text="export "
+    echo "${export_text}${line}"
   done
 }
 

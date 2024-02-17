@@ -23,7 +23,7 @@
 - **topical organized** packages by topic for easy reuse across different
   machines.
 - **[xdg compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
-  when possible to keep `$HOME` clean <sup id="a1">[1](#f1)</sup>.
+  when possible to keep `$HOME` clean <sup id="a1"> [1](#f1)</sup>.
 - **install scripts** for brand new systems and specific topic areas.
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.
@@ -65,7 +65,8 @@ within the `$HOME` directory.
 - `lib` - Core utilities used throughout. Must be sourced up front.
 - `modules` - Various package modules.
 
-_NOTE: Directories starting with an `__double-underscore` will be ignored by stow._
+_NOTE: Directories starting with an `__double-underscore` will be ignored by
+stow._
 
 ## Local Customization
 

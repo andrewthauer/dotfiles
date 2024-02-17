@@ -7,6 +7,9 @@
 # Use mise toml instead of .tool-versions
 export MISE_USE_TOML=1
 
+# Alias rtx to mise for backwards compatibility
+alias rtx="mise"
+
 #
 # Initialization
 #

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Summary:
+#   Check for dotfiles configuration issues
+#
+# Usage:
+#   dotfiles-doctor
+
+set -o errexit -o pipefail -o noclobber
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+usage() {
+  echo "USAGE: dotfiles doctor"
+  echo ""
+  echo "FLAGS:"
+  echo "  --help, -h   Prints help"
+}
+
+check_links() {
+  echo "Checking $XDG_CONFIG_HOME..."
+  chkstow -a -b -t "${XDG_CONFIG_HOME}"
+
+  echo "Checking $XDG_DATA_HOME..."
+  chkstow -a -b -t "${XDG_DATA_HOME}"
+
+  echo "Checking $XDG_BIN_HOME..."
+  chkstow -a -b -t "${XDG_BIN_HOME}"
+
+  echo "Checking $XDG_STATE_HOME..."
+  chkstow -a -b -t "${XDG_STATE_HOME}"
+
+  if [ -d "$XDG_LIB_HOME" ]; then
+    echo "Checking $XDG_LIB_HOME..."
+    chkstow -a -b -t "${XDG_LIB_HOME}"
+  fi
+}
+
+main() {
+  check_links
+}
+
+main "$@"
