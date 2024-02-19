@@ -1,7 +1,7 @@
-# Kubectl
+# Kubernetes
 
 This package loads useful kubernetes aliases & completions in to the shell for
-`kubectl`.
+`kubectl`, etc.
 
 ## Setup
 
