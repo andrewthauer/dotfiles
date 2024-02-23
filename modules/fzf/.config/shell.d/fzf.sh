@@ -31,11 +31,6 @@ elif [[ -n "${ZSH_VERSION}" ]]; then
   SHELL_TYPE="zsh"
 fi
 
-# Setup path
-if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}${FZF_DIR}/bin"
-fi
-
 # Completion & keybindings
 if [ -d "$SHELL_DIR" ]; then
   source "${SHELL_DIR}/completion.${SHELL_TYPE}"
@@ -51,13 +46,17 @@ unset SHELL_TYPE
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --inline-info --preview 'preview {} | head -n 500'"
 
 # Use ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow --no-messages"
+export FZF_DEFAULT_COMMAND="rg-files"
 
 # Keybindings
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_ALT_C_COMMAND="rg-dirs"
 # export FZF_CTRL_T_OPTS=""
 # export FZF_CTRL_R_OPTS=""
+
+bindkey -M emacs '^Y' fzf-cd-widget
+# bindkey -M vicmd '^Y' fzf-cd-widget
+# bindkey -M viins '^Y' fzf-cd-widget
 
 # Aliases
 alias fzfm='fzf -m'
