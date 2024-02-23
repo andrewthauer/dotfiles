@@ -18,12 +18,12 @@ local window = require('window')
 
 -- Global hyper key
 local hyper = { 'ctrl', 'alt', 'cmd', 'shift' }
-local ctrl_cmd = {'ctrl', 'cmd' }
+local tiling_key = {'ctrl', 'cmd' }
 
 -- Modifier shortcuts
 local movekey = { 'ctrl', 'alt', 'cmd' }
-local nudgekey = { 'ctrl', 'alt' }
-local yankkey = { 'ctrl', 'cmd' }
+local nudgekey = { 'ctrl', 'shift' }
+local yankkey = { 'ctrl', 'shift', 'alt' }
 
 -- Window grid
 local windowGrid = { w = 6, h = 4 }
@@ -92,7 +92,7 @@ spoon.SpoonInstall:andUse('TextClipboardHistory', {
     show_in_menubar = false,
   },
   hotkeys = {
-    toggle_clipboard = { ctrl_cmd, 'v' },
+    toggle_clipboard = { hyper, 'u' },
   },
   start = true,
 })
@@ -103,12 +103,6 @@ spoon.SpoonInstall:andUse('KSheet', {
     toggle = { hyper, ';' },
   },
 })
-
--- spoon.SpoonInstall:andUse('DismissNotifications', {
---   hotkeys = {
---     all = { ctrl_cmd, "'" },
---   },
--- })
 
 -- Colour picker
 spoon.SpoonInstall:andUse('ColorPicker', {
@@ -158,11 +152,11 @@ hs.hotkey.bind(yankkey, 'left', function() window.yankWindow(-100, 0) end) -- ya
 -- local tiling = require('tiling')
 -- local hotkey = require('hs.hotkey')
 
--- hotkey.bind(ctrl_cmd, 'c', function() tiling.cycleLayout() end)
--- hotkey.bind(ctrl_cmd, 'j', function() tiling.cycle(1) end)
--- hotkey.bind(ctrl_cmd, 'k', function() tiling.cycle(-1) end)
--- hotkey.bind(ctrl_cmd, 'space', function() tiling.promote() end)
--- hotkey.bind(ctrl_cmd, 'f', function() tiling.goToLayout('fullscreen') end)
+-- hotkey.bind(tiling_key, 'c', function() tiling.cycleLayout() end)
+-- hotkey.bind(tiling_key, 'j', function() tiling.cycle(1) end)
+-- hotkey.bind(tiling_key, 'k', function() tiling.cycle(-1) end)
+-- hotkey.bind(tiling_key, 'space', function() tiling.promote() end)
+-- hotkey.bind(tiling_key, 'f', function() tiling.goToLayout('fullscreen') end)
 
 -- If you want to set the layouts that are enabled
 -- tiling.set('layouts', {
@@ -184,12 +178,12 @@ hs.hotkey.bind(hyper, 'c', utils.launchById('com.google.Chrome'))
 hs.hotkey.bind(hyper, 'd', utils.launchById('com.todoist.mac.Todoist'))
 hs.hotkey.bind(hyper, 'f', utils.launchById('org.mozilla.firefoxdeveloperedition'))
 hs.hotkey.bind(hyper, 'h', utils.launchById('io.robbie.HomeAssistant'))
-hs.hotkey.bind(hyper, 'k', utils.launchById('com.kapeli.dashdoc'))
 hs.hotkey.bind(hyper, 'n', utils.launchById('notion.id'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
 hs.hotkey.bind(hyper, 't', utils.launchById('com.googlecode.iterm2'))
 hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
 hs.hotkey.bind(hyper, 'w', utils.launchById('com.apple.finder'))
+hs.hotkey.bind(hyper, 'z', utils.launchById('dev.zed.Zed'))
 
 -- Recursive hotkeys
 spoon.SpoonInstall:andUse('RecursiveBinder', {
