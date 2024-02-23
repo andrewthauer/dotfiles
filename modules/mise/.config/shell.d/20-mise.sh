@@ -8,6 +8,13 @@
 #
 
 #
+# Environment
+#
+
+# Use mise toml instead of .tool-versions
+export MISE_USE_TOML=1
+
+#
 # Functions
 #
 
@@ -15,13 +22,21 @@ mise-activate() {
   eval "$(mise activate "$CURRENT_SHELL")"
 }
 
+mise-activate-shims() {
+  eval "$(mise activate "$CURRENT_SHELL" --shims)"
+}
+
 mise-hook-env() {
   eval "$(/opt/homebrew/bin/mise hook-env -s zsh)"
 }
 
 #
-# Initialization
+# Activation
 #
+
+# NOTE: We add the shims directory to the PATH before activating mise, so that
+#       modules which are loaded work.
+mise-activate-shims
 
 # Activate mise
 if [ "$MISE_AUTO_ACTIVATE" != "0" ]; then
@@ -46,3 +61,6 @@ alias mtr="mise task run"
 # short aliases
 alias mhook="mise-hook-env"
 alias mact="mise-activate"
+
+# Alias rtx to mise for backwards compatibility
+alias rtx="mise"

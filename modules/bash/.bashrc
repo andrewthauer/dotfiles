@@ -3,6 +3,11 @@
 # Executes at the start of an interactive session
 #
 
+if [ -n "$DOTFILES_TRACE" ]; then
+  echo "load: ~/.bashrc"
+  echo "path: ${PATH}"
+fi
+
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 

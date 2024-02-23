@@ -1,5 +1,5 @@
 #
-# Setup homebrew environment
+# Initialize Homebrew environment
 #
 
 if [[ -z "${HOMEBREW_PREFIX}" ]]; then

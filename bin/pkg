@@ -48,7 +48,7 @@ init_package_manager() {
     "pacman") ;;
     "brew")
       # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/homebrew/.config/profile.d/homebrew.sh"
+      source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
       ;;
     "nix")
       # shellcheck disable=SC1091

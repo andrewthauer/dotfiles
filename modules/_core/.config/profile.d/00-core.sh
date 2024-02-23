@@ -3,11 +3,6 @@
 # Common environment user session
 #
 
-if [ -n "$DOTFILES_TRACE" ]; then
-  echo "sourced: ~/.config/environment"
-  echo "path: ${PATH}"
-fi
-
 # XDG configuration
 # - https://wiki.archlinux.org/index.php/XDG_Base_Directory
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -15,9 +10,6 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-
-# Dotfiles dir
-export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
 # Terminal
 export TERM="xterm"
@@ -39,13 +31,4 @@ export PAGER="less"
 # Set the Less input preprocessor
 if type lesspipe.sh >/dev/null 2>&1; then
   export LESSOPEN="|lesspipe.sh %s"
-fi
-
-# Load core utilities used by other scripts
-# shellcheck source=../../../lib/init.sh disable=SC1091
-. "${DOTFILES_DIR}/lib/init.sh"
-
-# Load extra environment files into environment
-if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then
-  source_files_in "${XDG_CONFIG_HOME}"/environment.d/*
 fi

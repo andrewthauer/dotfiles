@@ -12,35 +12,30 @@ FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
 
 # The install directory
 if [[ -d "${PROFILE_PREFIX}/opt/fzf" ]]; then
-  FZF_DIR="${PROFILE_PREFIX}/opt/fzf"
+  _FZF_DIR="${PROFILE_PREFIX}/opt/fzf"
 elif [[ -d "/usr/local/opt/fzf" ]]; then
-  FZF_DIR="/usr/local/opt/fzf"
+  _FZF_DIR="/usr/local/opt/fzf"
 elif [[ -d "${XDG_DATA_HOME}/fzf" ]]; then
-  FZF_DIR="${XDG_DATA_HOME}/fzf"
+  _FZF_DIR="${XDG_DATA_HOME}/fzf"
 else
   return 1
 fi
 
 # Shell directory
-SHELL_DIR="${FZF_DIR}/shell"
+_SHELL_DIR="${_FZF_DIR}/shell"
 
 # Current shell
 if [[ -n "${BASH_VERSION}" ]]; then
-  SHELL_TYPE="bash"
+  _SHELL_TYPE="bash"
 elif [[ -n "${ZSH_VERSION}" ]]; then
-  SHELL_TYPE="zsh"
+  _SHELL_TYPE="zsh"
 fi
 
 # Completion & keybindings
-if [ -d "$SHELL_DIR" ]; then
-  source "${SHELL_DIR}/completion.${SHELL_TYPE}"
-  source "${SHELL_DIR}/key-bindings.${SHELL_TYPE}"
+if [ -d "$_SHELL_DIR" ]; then
+  source "${_SHELL_DIR}/completion.${_SHELL_TYPE}"
+  source "${_SHELL_DIR}/key-bindings.${_SHELL_TYPE}"
 fi
-
-# Cleanup
-unset FZF_DIR
-unset SHELL_DIR
-unset SHELL_TYPE
 
 # Default options
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --inline-info --preview 'preview {} | head -n 500'"
@@ -54,9 +49,12 @@ export FZF_ALT_C_COMMAND="rg-dirs"
 # export FZF_CTRL_T_OPTS=""
 # export FZF_CTRL_R_OPTS=""
 
-bindkey -M emacs '^Y' fzf-cd-widget
-# bindkey -M vicmd '^Y' fzf-cd-widget
-# bindkey -M viins '^Y' fzf-cd-widget
+# Keybindings for zsh
+if [ "${_SHELL_TYPE}" = "zsh" ]; then
+  bindkey -M emacs '^Y' fzf-cd-widget
+  # bindkey -M vicmd '^Y' fzf-cd-widget
+  # bindkey -M viins '^Y' fzf-cd-widget
+fi
 
 # Aliases
 alias fzfm='fzf -m'
@@ -101,3 +99,8 @@ _fzf_comprun() {
     *) fzf "$@" ;;
   esac
 }
+
+# Cleanup
+unset _FZF_DIR
+unset _SHELL_DIR
+unset _SHELL_TYPE

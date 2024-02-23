@@ -137,7 +137,6 @@ in
     ".config/shell.d/docker.sh".source = "${dotfiles.modulesDir}/docker/.config/shell.d/docker.sh";
 
     # homebrew
-    ".config/profile.d/homebrew.sh".source = "${dotfiles.modulesDir}/homebrew/.config/profile.d/homebrew.sh";
     ".config/shell.d/homebrew.sh".source = "${dotfiles.modulesDir}/homebrew/.config/shell.d/homebrew.sh";
   };
 

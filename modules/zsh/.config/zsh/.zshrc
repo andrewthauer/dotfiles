@@ -12,7 +12,7 @@ fi
 [[ -n $PROFILE_STARTUP ]] && zmodload zsh/zprof
 
 # Source zsh core scripts
-source_files_in $XDG_CONFIG_HOME/zsh/init.d/*.zsh
+source_files_in "${XDG_CONFIG_HOME}"/zsh/init.d/*.zsh
 
 # Source zsh plugins
-source_files_in $XDG_CONFIG_HOME/zsh/plugins/*.zsh
+source_files_in "${XDG_CONFIG_HOME}"/zsh/plugins/*.zsh

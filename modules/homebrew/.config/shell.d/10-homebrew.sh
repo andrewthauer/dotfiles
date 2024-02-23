@@ -5,6 +5,9 @@
 # - https://docs.brew.sh/Homebrew-on-Linux
 #
 
+# Source the homebrew shellenv
+source_file "${XDG_CONFIG_HOME}/homebrew/shellenv.sh"
+
 # Check requirements
 if ! command_exists "brew"; then
   return 1
