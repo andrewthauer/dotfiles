@@ -13,7 +13,7 @@ ln -sfn $(brew --prefix)/opt/docker-compose/bin/docker-compose ~/.docker/cli-plu
 docker buildx install
 
 # startup colima, which will use the docker runtime by default
-colima start --runtime docker --cpu 2 --memory 6 --ssh-config false
+colima start --runtime docker --cpu 2 --memory 6 --ssh-config=false
 ```
 
 Or using `containerd` as the runtime:
