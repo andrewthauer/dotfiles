@@ -3,6 +3,11 @@
 # Executes commands at login pre-zshrc
 #
 
+if [ -n "$DOTFILES_TRACE" ]; then
+  echo "load: ~/.config/zsh/.zprofile"
+  echo "path: ${PATH}"
+fi
+
 # Completions file
 export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zsh/zcompdump"
 

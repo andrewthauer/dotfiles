@@ -3,6 +3,11 @@
 # Defines zsh environment & changes to use XGD directories
 #
 
+if [ -n "$DOTFILES_TRACE" ]; then
+  echo "load: ~/.config/zsh/.zshenv"
+  echo "path: ${PATH}"
+fi
+
 # The current shell type
 export CURRENT_SHELL="zsh"
 

@@ -3,6 +3,11 @@
 # Common login shell profile
 #
 
+if [ -n "$DOTFILES_TRACE" ]; then
+  echo "sourced: ~/.config/profile"
+  echo "path: ${PATH}"
+fi
+
 # Append bin directories to path
 prepend_path "${DOTFILES_DIR}/bin"
 prepend_path "${HOME}/.local/bin"
@@ -10,9 +15,4 @@ prepend_path "${HOME}/.local/bin"
 # Load extra profile files into login shell env
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then
   source_files_in "${XDG_CONFIG_HOME}"/profile.d/*
-fi
-
-# Go to the dotfiles directory
-if [[ -n "${DOTFILES_DIR}" ]]; then
-  alias dotdir='cd ${DOTFILES_DIR}'
 fi

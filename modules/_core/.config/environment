@@ -3,6 +3,11 @@
 # Common environment user session
 #
 
+if [ -n "$DOTFILES_TRACE" ]; then
+  echo "sourced: ~/.config/environment"
+  echo "path: ${PATH}"
+fi
+
 # XDG configuration
 # - https://wiki.archlinux.org/index.php/XDG_Base_Directory
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"

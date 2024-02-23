@@ -3,6 +3,11 @@
 # Executes commands at the start of an interactive session
 #
 
+if [ -n "$DOTFILES_TRACE" ]; then
+  echo "load: ~/.config/zsh/.zshrc"
+  echo "path: ${PATH}"
+fi
+
 # Enable zprof performance profiling
 [[ -n $PROFILE_STARTUP ]] && zmodload zsh/zprof
 

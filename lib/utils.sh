@@ -102,6 +102,8 @@ __SOURCED_FILES=()
 source_file() {
   local file=$1
   if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[*]}" =~ ${file} ]]; then
+    [ -n "$DOTFILES_TRACE" ] && echo "sourcing: ${file}"
+
     # shellcheck disable=SC1090
     source "$file"
     __SOURCED_FILES+=("${file}")
