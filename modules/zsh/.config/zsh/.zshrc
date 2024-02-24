@@ -5,11 +5,11 @@
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.config/zsh/.zshrc"
-  echo "path: ${PATH}"
+  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}"
 fi
 
 # Enable zprof performance profiling
-[[ -n $PROFILE_STARTUP ]] && zmodload zsh/zprof
+[ -n "$PROFILE_STARTUP" ] && zmodload zsh/zprof
 
 # Source zsh core scripts
 source_files_in "${XDG_CONFIG_HOME}"/zsh/init.d/*.zsh
