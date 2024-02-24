@@ -5,7 +5,7 @@
 # sourced before other packages are loaded.
 # --------------------------------------------------------------
 
-if [[ -n "${ZSH_VERSION}" ]]; then
+if [ -n "${ZSH_VERSION}" ]; then
   # Do not throw errors when file globs do not match anything
   setopt NULL_GLOB
 fi
@@ -22,7 +22,7 @@ fi
 function command_exists() {
   # use fastest shell specific method
   # shellcheck disable=SC1009
-  if [[ -n "$ZSH_VERSION" ]]; then
+  if [ -n "$ZSH_VERSION" ]; then
     # shellcheck disable=SC2193,SC2203
     [[ $+commands[$1] == 1 ]]
   else
@@ -101,7 +101,7 @@ function append_path() {
 __SOURCED_FILES=()
 source_file() {
   local file=$1
-  if [[ -f ${file} ]] && [[ ! "${__SOURCED_FILES[*]}" =~ ${file} ]]; then
+  if [ -f "${file}" ] && [[ ! "${__SOURCED_FILES[*]}" =~ ${file} ]]; then
     [ -n "$DOTFILES_TRACE" ] && echo "sourcing: ${file}"
 
     # shellcheck disable=SC1090
@@ -118,7 +118,7 @@ source_file() {
 #
 source_files_in() {
   for file in "$@"; do
-    if [[ -n "$PROFILE_STARTUP" ]]; then
+    if [ -n "$PROFILE_STARTUP" ]; then
       # eval function name for profiling
       fn=$(basename "$file")
       eval "$fn() { source_file $file }; $fn"
@@ -179,7 +179,7 @@ source_shell_lib() {
 #     _pyenv_lazy_init
 #
 #   # Load manually installed pyenv into the shell session
-#   elif [[ -s "${PYENV_ROOT}/bin/pyenv" ]]; then
+#   elif [ -s "${PYENV_ROOT}/bin/pyenv" ]; then
 #     prepend_path "${PYENV_ROOT}/bin"
 #     _pyenv_lazy_init
 #

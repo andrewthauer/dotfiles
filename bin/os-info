@@ -36,7 +36,7 @@ os_family() {
   for kv in "${os_info[@]}"; do
     key="${kv%%::*}"
     val="${kv##*::}"
-    [[ -f "$key" ]] && os_family="${val}"
+    [ -f "$key" ] && os_family="${val}"
   done
 
   echo "${os_family}"
@@ -46,7 +46,7 @@ package_manager() {
   local os_family
   os_family=$(os_family)
 
-  if [[ -n "$DOTFILES_PACKAGE_MANAGER" ]]; then
+  if [ -n "$DOTFILES_PACKAGE_MANAGER" ]; then
     echo "$DOTFILES_PACKAGE_MANAGER"
   else
     case ${os_family} in

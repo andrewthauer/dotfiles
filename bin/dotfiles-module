@@ -56,7 +56,7 @@ stow_modules() {
   local modules_dir="$DOTFILES_DIR/modules"
   local oper_text=""
 
-  if [ "$2" == "--all" ]; then
+  if [ "$2" = "--all" ]; then
     modules=("$(list_modules --all)")
   fi
 
@@ -86,7 +86,7 @@ stow_modules() {
   for module in ${modules[@]}; do
     local module_path="$modules_dir/$module"
 
-    if [[ ! -d "$module_path" ]]; then
+    if [ ! -d "$module_path" ]; then
       echo "Module $module does not exist"
       exit 1
     fi

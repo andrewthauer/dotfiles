@@ -58,12 +58,12 @@ install_zsh_completions() {
 main() {
   local cmd="$1"
 
-  if [[ -z "$cmd" ]]; then
+  if [ -z "$cmd" ]; then
     usage
     exit 1
   fi
 
-  if [[ ! -x $(command -v "$cmd") ]]; then
+  if [ ! -x "$(command -v "$cmd")" ]; then
     echo "Command not found: $cmd"
     exit 1
   fi

@@ -21,7 +21,7 @@ export DOTFILES_BIN="$DOTFILES_DIR/bin"
 export DOTFILES_DISABLE_SUDO="${DOTFILES_DISABLE_SUDO:-0}"
 
 clone_dotfiles() {
-  if [[ ! -d "${DOTFILES_DIR}" ]]; then
+  if [ ! -d "${DOTFILES_DIR}" ]; then
     echo "Cloning dotfiles repo..."
     git clone "https://github.com/andrewthauer/dotfiles.git" "$DOTFILES_DIR"
   fi
@@ -34,7 +34,7 @@ backup_dotfiles() {
 
   # move existing files
   for file in "${files[@]}"; do
-    if [[ -f "${file}" && ! -L "${file}" ]]; then
+    if [ -f "${file}" ] && [ ! -L "${file}" ]; then
       mv "${file}" "${file}.bak"
     fi
   done

@@ -5,14 +5,14 @@
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.bashrc"
-  echo "path: ${PATH}"
+  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}" "path: ${PATH}"
 fi
 
 # If not running interactively, don't do anything
-[[ -z "$PS1" ]] && return
+[ -z "$PS1" ] && return
 
 # Load the ~/.bash_profile if has not been loaded
-if [[ -f "${HOME}/.bash_profile" && -z $BASH_PROFILE_LOADED ]]; then
+if [ -f "${HOME}/.bash_profile" ] && [ -z "$BASH_PROFILE_LOADED" ]; then
   # shellcheck disable=SC2034
   BASH_RC_LOADED=true
   # shellcheck disable=SC1090,SC1091

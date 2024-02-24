@@ -6,7 +6,7 @@
 #
 
 # Return if requirements are not found.
-if [[ "$TERM" == "dumb" ]]; then
+if [ "$TERM" = "dumb" ]; then
   return 1
 fi
 
@@ -28,7 +28,7 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 # System
 #
 
-if [[ -n "${PROFILE_PREFIX}" && -d "${PROFILE_PREFIX}/share/zsh/site-functions" ]]; then
+if [ -n "${PROFILE_PREFIX}" ] && [ -d "${PROFILE_PREFIX}/share/zsh/site-functions" ]; then
   fpath=("${PROFILE_PREFIX}/share/zsh/site-functions" $fpath)
 fi
 
@@ -36,7 +36,7 @@ fi
 # Nix system
 #
 
-if [[ -n "${NIX_PROFILES}" && -d "${HOME}/.nix-profile/share/zsh/site-functions" ]]; then
+if [ -n "${NIX_PROFILES}" ] && [ -d "${HOME}/.nix-profile/share/zsh/site-functions" ]; then
   fpath=("${HOME}/.nix-profile/share/zsh/site-functions" $fpath)
 fi
 
@@ -47,7 +47,7 @@ fi
 # Various completions for zsh
 # - https://github.com/zsh-users/zsh-completions
 # - NOTE: Must be loaded before running compinit
-if [[ -d "${XDG_DATA_HOME}/zsh-completions/src" ]]; then
+if [ -d "${XDG_DATA_HOME}/zsh-completions/src" ]; then
   fpath=($fpath "${XDG_DATA_HOME}/zsh-completions/src")
 fi
 
@@ -55,7 +55,7 @@ fi
 # User completions
 #
 
-if [[ -d "${XDG_DATA_HOME}/zsh/site-functions" ]]; then
+if [ -d "${XDG_DATA_HOME}/zsh/site-functions" ]; then
   fpath=("${XDG_DATA_HOME}/zsh/site-functions" $fpath)
 fi
 

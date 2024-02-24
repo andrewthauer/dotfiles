@@ -8,7 +8,7 @@
 set -e
 
 export dirname_cmd="dirname"
-if [[ $(uname) == "Darwin" ]]; then
+if [ "$(uname)" = "Darwin" ]; then
   dirname_cmd="gdirname"
 fi
 

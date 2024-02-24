@@ -25,7 +25,7 @@ export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle/cache"
 export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle/plugin"
 
 # For bundler
-if [[ -z "${GITHUB_TOKEN}" ]]; then
+if [ -z "${GITHUB_TOKEN}" ]; then
   export BUNDLE_GITHUB__COM="${GITHUB_TOKEN}:x-oauth-basic"
 fi
 

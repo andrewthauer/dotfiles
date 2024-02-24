@@ -49,7 +49,7 @@ alias du1='du -kh -d1'
 alias du1s='du1 | sort -h'
 
 # Memory & cpu
-if [[ "$OSTYPE" == darwin* || "$OSTYPE" == *bsd* ]]; then
+if [[ "$OSTYPE" == darwin* ]] || [[ "$OSTYPE" == *bsd* ]]; then
   alias topc='top -o cpu'
   alias topm='top -o vsize'
 else
@@ -89,10 +89,10 @@ else
   alias open='xdg-open'
   alias o='open'
 
-  if [[ -x "$(command -v xclip)" ]]; then
+  if [ -x "$(command -v xclip)" ]; then
     alias pbcopy='xclip -selection clipboard -in'
     alias pbpaste='xclip -selection clipboard -out'
-  elif [[ -x "$(command -v xsel)" ]]; then
+  elif [ -x "$(command -v xsel)" ]; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
   fi
@@ -107,7 +107,7 @@ alias pbp='pbpaste'
 
 # untar a file
 untar() {
-  [[ -n "$2" ]] && mkdir -p "$2"
+  [ -n "$2" ] && mkdir -p "$2"
   tar -xf "$1" -C "${2:-.}"
 }
 
@@ -117,7 +117,7 @@ untar() {
 
 # Serves a directory via HTTP
 http-serve() {
-  if [[ -x $(command -v python3) ]]; then
+  if [ -x "$(command -v python3)" ]; then
     python3 -m http.server
   else
     python -m SimpleHTTPServer

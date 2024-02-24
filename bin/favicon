@@ -7,12 +7,12 @@
 
 source=$1
 
-if [[ -z "$source" ]]; then
+if [ -z "$source" ]; then
   echo "No source file provided"
   exit 1
 fi
 
-if [[ ! -x "$(command -v convert)" ]]; then
+if [ ! -x "$(command -v convert)" ]; then
   echo "ImageMagick not installed"
   exit 1
 fi

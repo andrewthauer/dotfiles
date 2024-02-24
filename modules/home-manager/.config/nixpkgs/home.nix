@@ -208,7 +208,7 @@ in
 
     initExtraFirst = ''
       # Enable zprof performance profiling
-      [[ -n $PROFILE_STARTUP ]] && zmodload zsh/zprof
+      [ -n $PROFILE_STARTUP ] && zmodload zsh/zprof
     '';
 
     initExtra = ''

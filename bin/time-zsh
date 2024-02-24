@@ -11,11 +11,11 @@
 time_cmd="/usr/bin/time"
 
 # profile with zsh/zprof
-if [[ "$1" == "-p" ]]; then
+if [ "$1" = "-p" ]; then
   PROFILE_STARTUP=true $time_cmd zsh -i -l -c "zprof; exit;"
 
 # repeat startup time 10 times
-elif [[ "$1" == "-r" ]]; then
+elif [ "$1" = "-r" ]; then
   # shellcheck disable=2034
   for i in $(seq 1 10); do
     $time_cmd zsh -i -l -c exit

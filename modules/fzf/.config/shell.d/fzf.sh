@@ -11,11 +11,11 @@ FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
 [ "${FUZZY_FINDER}" != "fzf" ] && return 1
 
 # The install directory
-if [[ -d "${PROFILE_PREFIX}/opt/fzf" ]]; then
+if [ -d "${PROFILE_PREFIX}/opt/fzf" ]; then
   _FZF_DIR="${PROFILE_PREFIX}/opt/fzf"
-elif [[ -d "/usr/local/opt/fzf" ]]; then
+elif [ -d "/usr/local/opt/fzf" ]; then
   _FZF_DIR="/usr/local/opt/fzf"
-elif [[ -d "${XDG_DATA_HOME}/fzf" ]]; then
+elif [ -d "${XDG_DATA_HOME}/fzf" ]; then
   _FZF_DIR="${XDG_DATA_HOME}/fzf"
 else
   return 1
@@ -25,9 +25,9 @@ fi
 _SHELL_DIR="${_FZF_DIR}/shell"
 
 # Current shell
-if [[ -n "${BASH_VERSION}" ]]; then
+if [ -n "${BASH_VERSION}" ]; then
   _SHELL_TYPE="bash"
-elif [[ -n "${ZSH_VERSION}" ]]; then
+elif [ -n "${ZSH_VERSION}" ]; then
   _SHELL_TYPE="zsh"
 fi
 

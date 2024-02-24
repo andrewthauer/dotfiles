@@ -49,9 +49,9 @@ local_to_volume() {
 }
 
 main() {
-  if [[ ${#SOURCE_ARR[@]} -eq 2 && ${#DEST_ARR[@]} -eq 1 ]]; then
+  if [ ${#SOURCE_ARR[@]} -eq 2 ] && [ ${#DEST_ARR[@]} -eq 1 ]; then
     volume_to_local
-  elif [[ ${#SOURCE_ARR[@]} -eq 1 && ${#DEST_ARR[@]} -eq 2 ]]; then
+  elif [ ${#SOURCE_ARR[@]} -eq 1 ] && [ ${#DEST_ARR[@]} -eq 2 ]; then
     local_to_volume
   else
     usage

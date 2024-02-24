@@ -11,11 +11,11 @@ time_cmd="/usr/bin/time"
 exit_cmd="exit > /dev/null 2>&1"
 
 # profile with zsh/zprof
-if [[ "$1" == "-p" ]]; then
+if [ "$1" = "-p" ]; then
   echo "profiling not implemented for bash"
 
 # repeat startup time 10 times
-elif [[ "$1" == "-r" ]]; then
+elif [ "$1" = "-r" ]; then
   # shellcheck disable=SC2034
   for i in $(seq 1 10); do
     $time_cmd bash -i -c "$exit_cmd"

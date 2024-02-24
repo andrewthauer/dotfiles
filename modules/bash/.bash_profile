@@ -8,7 +8,7 @@
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.bash_profile"
-  echo "path: ${PATH}"
+  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}"
 fi
 
 # The current shell type
@@ -28,10 +28,10 @@ if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then
 fi
 
 # Ensure the xdg data directory exists
-[[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p "${XDG_DATA_HOME}/bash"
+[ ! -d "${XDG_DATA_HOME}/bash" ] && mkdir -p "${XDG_DATA_HOME}/bash"
 
 # Source the ~/.bashrc file
-if [[ -f "${HOME}/.bashrc" && -z $BASH_RC_LOADED ]]; then
+if [ -f "${HOME}/.bashrc" ] && [ -z "$BASH_RC_LOADED" ]; then
   # shellcheck disable=SC2034
   BASH_PROFILE_LOADED=true
   # shellcheck disable=SC1090,SC1091

@@ -38,7 +38,7 @@ prompt_venv_symbol="☁ "
 function prompt_command() {
   # Git branch name and work tree status (only when we are inside Git working tree)
   local git_prompt=
-  if [[ "true" = "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]]; then
+  if [ "true" = "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
     # Branch name
     local branch
     branch="$(git symbolic-ref HEAD 2>/dev/null)"

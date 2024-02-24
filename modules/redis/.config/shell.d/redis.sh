@@ -5,7 +5,7 @@
 #
 
 # History file location
-[[ ! -d "${XDG_DATA_HOME}/redis-cli" ]] && mkdir -p "${XDG_DATA_HOME}/redis-cli"
+[ ! -d "${XDG_DATA_HOME}/redis-cli" ] && mkdir -p "${XDG_DATA_HOME}/redis-cli"
 export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis-cli/history"
 
 #

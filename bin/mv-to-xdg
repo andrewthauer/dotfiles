@@ -19,11 +19,11 @@ usage() {
 }
 
 get_xdg_dir() {
-  if [[ "$1" == 'config' ]]; then
+  if [ "$1" = 'config' ]; then
     echo "${XDG_CONFIG_HOME}"
-  elif [[ "$1" == 'data' ]]; then
+  elif [ "$1" = 'data' ]; then
     echo "${XDG_DATA_HOME}"
-  elif [[ "$1" == 'cache' ]]; then
+  elif [ "$1" = 'cache' ]; then
     echo "${XDG_CACHE_HOME}"
   fi
 }
@@ -31,7 +31,7 @@ get_xdg_dir() {
 main() {
   # check arguments
   xdg_dir="$(get_xdg_dir "$2")"
-  if [[ -z "$1" || -z "$xdg_dir" ]]; then
+  if [ -z "$1" ] || [ -z "$xdg_dir" ]; then
     usage
     exit 1
   fi

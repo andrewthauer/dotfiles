@@ -14,7 +14,7 @@ set -e
 
 loc=$(echo "$PATH" | sed -e $'s/:/\\\n/g' | eval "fzf ${FZF_DEFAULT_OPTS} --header='[find:path]'")
 
-if [[ -d $loc ]]; then
+if [ -d "$loc" ]; then
   # shellcheck disable=SC2005
   echo "$(rg --files "$loc" | rev | cut -d"/" -f1 | rev)" | eval "fzf ${FZF_DEFAULT_OPTS} --header='[find:exe] => ${loc}' >/dev/null"
   fzf-path

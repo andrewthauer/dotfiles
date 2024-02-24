@@ -129,7 +129,7 @@ main() {
   local sub_cmd="_fuzzy_${cmd}"
 
   # Execute the command
-  if [ "$(type -t "$sub_cmd")" == 'function' ]; then
+  if [ "$(type -t "$sub_cmd")" = 'function' ]; then
     $sub_cmd "${args[@]}" 2>&1
   else
     script-usage git-fuzzy

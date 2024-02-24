@@ -9,7 +9,7 @@
 confirm() {
   msg="$1"
 
-  [[ -z "$1" ]] && msg="Are you sure?"
+  [ -z "$1" ] && msg="Are you sure?"
   confirm_msg="${msg} [y/N]?"
 
   echo -ne "${confirm_msg} "

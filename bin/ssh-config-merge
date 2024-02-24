@@ -24,7 +24,7 @@ source_dir="${source_dir:-$XDG_CONFIG_HOME/ssh/config.d}"
 target="${target:-$XDG_CONFIG_HOME/ssh/ssh_config_all}"
 
 # Truncate the file
-if [[ -f "$target" ]]; then
+if [ -f "$target" ]; then
   echo -ne "Do you want to replace the existing '$target' file [y/N]? "
   read -r reply
   if [[ $reply =~ ^[Yy]$ ]]; then
