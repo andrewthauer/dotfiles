@@ -4,11 +4,11 @@
 #
 
 # Uncomment this to enable debug trace mode
-# export DOTFIL`ES_TRACE="1"
+# export DOTFILES_TRACE="1"
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.zshenv"
-  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}"
+  echo "path: ${PATH}"
 fi
 
 # XDG configuration

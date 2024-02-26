@@ -33,8 +33,8 @@ fi
 
 # Completion & keybindings
 if [ -d "$_SHELL_DIR" ]; then
-  source "${_SHELL_DIR}/completion.${_SHELL_TYPE}"
-  source "${_SHELL_DIR}/key-bindings.${_SHELL_TYPE}"
+  source_file "${_SHELL_DIR}/completion.${_SHELL_TYPE}"
+  source_file "${_SHELL_DIR}/key-bindings.${_SHELL_TYPE}"
 fi
 
 # Default options

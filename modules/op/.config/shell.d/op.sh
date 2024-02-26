@@ -9,7 +9,7 @@ fi
 # Initial plugins
 if [ -f "${XDG_CONFIG_HOME}/op/plugins.sh" ]; then
   # shellcheck source=./plugins.sh disable=SC1091
-  source "${XDG_CONFIG_HOME}/op/plugins.sh"
+  source_file "${XDG_CONFIG_HOME}/op/plugins.sh"
 fi
 
 # Aliases

@@ -5,7 +5,7 @@
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.bashrc"
-  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}" "path: ${PATH}"
+  echo "path: ${PATH}" "path: ${PATH}"
 fi
 
 # If not running interactively, don't do anything

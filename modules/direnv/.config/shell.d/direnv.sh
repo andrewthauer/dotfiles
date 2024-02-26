@@ -8,4 +8,4 @@
 export DIRENV_LOG_FORMAT="${DIRENV_LOG_FORMAT:-""}"
 
 # Hook direnv
-eval "$(direnv hook "$CURRENT_SHELL")"
+eval "$(direnv hook "$SHELL_TYPE")"

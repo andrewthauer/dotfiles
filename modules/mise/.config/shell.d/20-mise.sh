@@ -19,11 +19,11 @@ export MISE_USE_TOML=1
 #
 
 mise-activate() {
-  eval "$(mise activate "$CURRENT_SHELL")"
+  eval "$(mise activate "$SHELL_TYPE")"
 }
 
 mise-activate-shims() {
-  eval "$(mise activate "$CURRENT_SHELL" --shims)"
+  eval "$(mise activate "$SHELL_TYPE" --shims)"
 }
 
 mise-hook-env() {

@@ -8,19 +8,19 @@
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.bash_profile"
-  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}"
+  echo "path: ${PATH}"
 fi
 
 # The current shell type
-export CURRENT_SHELL="bash"
+export SHELL_TYPE="bash"
 
 # XDG configuration
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # Dotfiles initialization
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
-# shellcheck source=../../lib/init.sh disable=SC1091
-source "${DOTFILES_DIR}/lib/init.sh"
+# shellcheck source=../../lib/utils.sh disable=SC1091
+source "${DOTFILES_DIR}/lib/utils.sh"
 
 # Load profile files into environment
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then

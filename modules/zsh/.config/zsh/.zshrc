@@ -5,7 +5,7 @@
 
 if [ -n "$DOTFILES_TRACE" ]; then
   echo "load: ~/.config/zsh/.zshrc"
-  [ -n "$DOTFILES_TRACE_PATH" ] && echo "path: ${PATH}"
+  echo "path: ${PATH}"
 fi
 
 # Enable zprof performance profiling

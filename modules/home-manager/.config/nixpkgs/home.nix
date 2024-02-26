@@ -17,7 +17,7 @@ let
       fi
     '';
     sourceLib = ''
-      source "${dotfiles.baseDir}/lib/init.sh"
+      source "${dotfiles.baseDir}/lib/utils.sh"
     '';
     sourcePlugins = ''
       source_files_in ${config.xdg.configHome}/shell.d/*.sh
@@ -153,7 +153,7 @@ in
     historyFileSize = 2000;
     shellAliases = shellAliases;
     profileExtra = ''
-      export CURRENT_SHELL="bash"
+      export SHELL_TYPE="bash"
       ${shell.profileExtra}
       source "${config.xdg.configHome}/environment"
     '';
@@ -202,7 +202,7 @@ in
     '';
 
     envExtra = ''
-      export CURRENT_SHELL="zsh"
+      export SHELL_TYPE="zsh"
       # source "${config.xdg.configHome}/environment"
     '';
 

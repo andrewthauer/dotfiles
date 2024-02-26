@@ -167,7 +167,7 @@ source_shell_lib() {
 #     unset -f "$0"
 #
 #     # faster alternative to full 'pyenv init'
-#     export PYENV_SHELL="${CURRENT_SHELL:-$SHELL}"
+#     export PYENV_SHELL="${SHELL_TYPE:-$SHELL}"
 #     prepend_path "${PYENV_ROOT}/shims"
 #
 #     # lazy initialize
