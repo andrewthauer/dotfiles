@@ -1,0 +1,35 @@
+# https://alacritty.org/config-alacritty.html
+
+import = [
+  "~/.config/alacritty/zenburn.toml",
+]
+
+live_config_reload = true
+
+[window]
+dimensions = { columns = 140, lines = 50 }
+padding = { x = 10, y = 10 }
+dynamic_padding = true
+
+[font]
+normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+size = 13
+
+[cursor]
+style = { shape = "Underline", blinking = "Off" }
+thickness = 0.20
+
+[keyboard]
+# https://docs.rs/winit/latest/winit/keyboard/enum.NamedKey.html
+# { <key>, <mods>, <mode>, <action> | <chars> },
+bindings = [
+  # Select tab to the left /right
+  { key = "ArrowLeft", mods = "Shift | Command", action = "SelectPreviousTab" },
+  { key = "ArrowRight", mods = "Shift | Command", action = "SelectNextTab" },
+  # Move one word left / right
+  { key = "ArrowLeft",  mods ="Alt", chars ="\u001BB" },
+  { key = "ArrowRight", mods = "Alt", chars = "\u001BF" },
+  # Go to beginning / end of line
+  { key = "ArrowLeft",  mods ="Command", chars ="\u0001" },
+  { key = "ArrowRight", mods = "Command", chars = "\u0005" },
+]

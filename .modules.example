@@ -3,6 +3,7 @@ _stow
 _core
 
 # === common packages ===
+alacritty
 bash
 bat
 direnv
