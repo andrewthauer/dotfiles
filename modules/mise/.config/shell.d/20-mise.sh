@@ -11,6 +11,13 @@
 # Environment
 #
 
+# Custom details
+# MISE_AUTO_ACTIVATE_SHIMS=1
+# MISE_AUTO_ACTIVATE=0
+
+# Force mise to use aggressive activation
+export MISE_ACTIVATE_AGGRESSIVE=1
+
 # Use mise toml instead of .tool-versions
 export MISE_USE_TOML=1
 
@@ -36,7 +43,9 @@ mise-hook-env() {
 
 # NOTE: We add the shims directory to the PATH before activating mise, so that
 #       modules which are loaded work.
-mise-activate-shims
+if [ "$MISE_AUTO_ACTIVATE_SHIMS" != "0" ]; then
+  mise-activate-shims
+fi
 
 # Activate mise
 if [ "$MISE_AUTO_ACTIVATE" != "0" ]; then

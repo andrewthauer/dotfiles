@@ -40,6 +40,9 @@ result/
 .modules*
 !.modules.example
 
+# deno
+deno.lock
+
 # ignore these directories
 local/
 local*
