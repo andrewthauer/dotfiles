@@ -25,7 +25,6 @@
 **/iterm2/**/AppSupport
 
 # vim
-**/nvim/pack
 .netrwhist
 
 # zsh

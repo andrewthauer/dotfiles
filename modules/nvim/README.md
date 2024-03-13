@@ -1,22 +1,113 @@
 # nvim
 
-Configuration for [vim](https://github.com/tmux/tmux) &
-[neovim](https://neovim.io).
+Configuration for [neovim](https://neovim.io).
 
-## Setup
+## Overview
 
-```bash
-make
-```
+This is my personal configuration for neovim so far (always a work in progress).
+It is heavily inspired by [LazyVim](https://www.lazyvim.org/) but customized to
+my needs.
+
+## Plugins
+
+**Current Plugins**
+
+- Lazy
+- Mason
+- Nvim Tree
+- Treesitter
+- Conform
+- which-key
+- Fzf Lua
+
+**Plugins to consider adding**
+
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+- [neoconf.nvim](https://github.com/folke/neoconf.nvim)
+- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+- [nvim-lint](https://github.com/mfussenegger/nvim-lint)
+- [copilot.lua](https://github.com/zbirenbaum/copilot.lua)
+- [neotest](https://github.com/nvim-neotest/neotest)
+- [Mini](https://github.com/echasnovski/mini.nvim)
+  - mini.ai
+  - mini.comment
+  - mini.files
+  - mini.pairs
+  - mini.surround
+- LSP
+  - [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)
+  - [nvim-dap](https://github.com/mfussenegger/nvim-dap)
 
 ## Resources
 
-- https://www.vim.org
 - https://neovim.io
-- https://github.com/junegunn/vim-plug
+- https://www.lazyvim.org/
 - https://vimawesome.com
 
 ## Vim Cheatsheet
+
+### Vim as a Language
+
+#### Verbs
+
+Verbs are the actions we take, and they can be performed on nouns. Here are some
+examples:
+
+- d: delete
+- c: change
+- y: yank (copy)
+- v: visually select (V for line vs. character)
+
+#### Modifiers
+
+Modifiers are used before nouns to describe the way in which you’re going to do
+something. Some examples:
+
+- i: inside
+- a: around
+- NUM: number (e.g.: 1, 2, 10)
+- t: searches for something and stops before it
+- f: searches for that thing and lands on it
+- /: find a string (literal or regex)
+
+#### Nouns
+
+In English, nouns are objects you do something to. They are objects. With Vim
+it’s the same. Here are some Vim nouns:
+
+- `w`: word
+- `s`: sentence
+- `)`: sentence (another way of doing it)
+- `p`: paragraph
+- `}`: paragraph (another way of doing it)
+- `t`: tag (think HTML/XML)
+- `b`: block (think programming)
+
+#### Nouns as motion
+
+You can also use nouns as motions, meaning you can move around your content
+using them as the size of your jump. We’ll see examples of this below in the
+moving section.
+
+#### Building sentences (commands) using this Language
+
+Ok, so we have the various pieces, so how would you build a sentence using them?
+Well, just like English, you combine the verbs, modifiers, and nouns in (soon to
+be) intuitive ways. Here’s what it looks like:
+
+- `d2w`: Delete two words
+- `cis`: Change inside sentence (delete the current one and enter insert mode)
+- `yip`: Yank inside paragraph (copy the paragraph you’re in)
+- `ct<`: Change to open bracket (change the text from where you are to the next
+  open bracket)
+
+Remember, the “to” here was an open bracket, but it could have been anything.
+And the syntax for “to” was simply t, so I could have said dt. or yt; for
+“delete to the next period”, or “copy to the next semicolon”.
+
+Isn’t that beautiful? Using this thought process turns your text editing into an
+intuitive elegance, and like any other language the more you use it the more
+naturally it will come to you.
 
 ### Global
 
@@ -96,6 +187,7 @@ ce        # change (replace) to the end of the next word
 cb        # change (replace) to the start of the previous word
 c0        # change (replace) to the start of the line
 c$        # change (replace) to the end of the line
+ct?       # change (replace) to the given character
 s         # delete character and substitute text
 S         # delete line and substitute text (same as cc)
 xp        # transpose two letters (delete and paste)
