@@ -13,7 +13,7 @@ dynamic_padding = true
 
 [font]
 normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
-size = 13
+size = 16
 
 [cursor]
 style = { shape = "Underline", blinking = "Off" }

@@ -14,7 +14,7 @@
 #   DOTFILES_DIR="$HOME/my-dotfiles" ./install.sh
 #   sh -c "$(curl -fsSL https://raw.githubusercontent.com/andrewthauer/dotfiles/main/install.sh)"
 
-set -e
+set -eo pipefail
 
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 export DOTFILES_BIN="$DOTFILES_DIR/bin"
@@ -27,10 +27,17 @@ clone_dotfiles() {
   fi
 }
 
+install_base_packages() {
+  "$DOTFILES_BIN"/pkg install stow
+  "$DOTFILES_BIN"/pkg install zsh
+  "$DOTFILES_DIR"/modules/zsh/install.sh
+  "$DOTFILES_DIR"/modules/starship/install.sh
+}
+
 # shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
-  local files=(~/.profile ~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
+  local files=(~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
 
   # move existing files
   for file in "${files[@]}"; do
@@ -44,7 +51,10 @@ link_dotfile_modules() {
   local dotfiles_mod_cmd="$DOTFILES_BIN/dotfiles-module"
 
   # Link core dotfiles modules
-  "$dotfiles_mod_cmd" add _stow _core zsh utility git
+  for module in _stow _core bash zsh utility git; do
+    "$dotfiles_mod_cmd" link "$module" || echo "Failed to link module: $module"
+  done
+  # "$dotfiles_mod_cmd" add _stow _core zsh utility git
 
   # Link packager specific dotfiles
   case "$("$DOTFILES_BIN"/os-info --family)" in
@@ -64,13 +74,10 @@ main() {
   cd "$DOTFILES_DIR"
 
   # Install base tools
-  "$DOTFILES_BIN"/pkg install stow
-  "$DOTFILES_BIN"/pkg install zsh
-  "$DOTFILES_DIR"/modules/zsh/install.sh
-  "$DOTFILES_DIR"/modules/starship/install.sh
+  install_base_packages
 
   # link dotfiles modules
-  # backup_dotfiles
+  backup_dotfiles
   link_dotfile_modules
 
   # TODO: determine how to work in devcontainers without prompting for sudo password
