@@ -94,4 +94,18 @@ return {
     --   { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     -- },
   },
+
+  -- comments
+  -- https://github.com/echasnovski/mini.comment
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    -- opts = {
+    --   options = {
+    --     custom_commentstring = function()
+    --       return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+    --     end,
+    --   },
+    -- },
+  },
 }

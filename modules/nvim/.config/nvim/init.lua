@@ -1,13 +1,14 @@
--- Vim configuration in lua
+-- neovim configuration in lua
 -- https://neovim.io/doc/user/lua.html
 
--- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+Util = require("util")
 
--- use lazyvim
--- vim.g.lazyvim = true
+-- set colorscheme
 vim.g.colorscheme = "zenburn"
+
+-- use full lazyvim
+vim.g.lazyvim = false -- default
+vim.g.lazyvim = Util.str_to_boolean(os.getenv("NVIM_LAZYVIM"), vim.g.lazyvim)
 
 -- bootstrap config & plugins
 require("config.lazy")

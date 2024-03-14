@@ -1,45 +1,45 @@
+local lazyvim_full = vim.g.lazyvim == true
+
+-- Default LazyVim spec
+local lazyvim_spec = {
+  "LazyVim/LazyVim",
+  import = "lazyvim.plugins",
+  opts = {
+    colorscheme = vim.g.colorscheme,
+  },
+}
+
+-- If we are not using full LazyVim, we might might want to use some utils
+-- from it. This overrides the spec to load it without being initialized or
+-- configured without plugins, etc.
+if lazyvim_full == false then
+  -- Override LazyVim spec only be available for requireing
+  lazyvim_spec = {
+    "LazyVim/LazyVim",
+    import = nil,
+    lazy = false,
+    init = function() end,
+    config = false,
+  }
+
+  -- Also set options, so leader key is configured first
+  require("config.options")
+end
+
 return {
   -- NOTE: Only require this when not using LazyVim
   {
-    dir = ".",
+    dir = ".", -- tell lazy this is not a remote plugin
     priority = 10001, -- load before everything
     lazy = false,
-    cond = vim.g.lazyvim == false,
+    cond = lazyvim_full == false,
     init = function()
+      -- load configuration manually
       require("config.keymaps")
       require("config.autocmds")
     end,
-    dependencies = {
-      {
-        dir = ".",
-        init = function()
-          require("config.options")
-        end
-      },
-    },
   },
 
-  -- Require LazyVim for util functions only (no plugins)
-  {
-    "LazyVim/LazyVim",
-    lazy = false,
-    priority = 10000, -- load before everything
-    cond = vim.g.lazyvim == false and vim.g.lazyvim_bare == true,
-    init = function()
-      print("Initialize LazyVim without plugins")
-    end,
-    config = function()
-      print("Configure LazyVim without plugins")
-    end,
-  },
-
-  -- otherwise, require LazyVim and import its plugins
-  {
-    "LazyVim/LazyVim",
-    import = "lazyvim.plugins",
-    cond = vim.g.lazyvim == true,
-    opts = {
-      colorscheme = vim.g.colorscheme,
-    },
-  },
+  -- add dynamically builtin lazyvim spec
+  lazyvim_spec,
 }

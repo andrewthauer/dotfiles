@@ -6,8 +6,8 @@ return {
     lazy = false,
     dependencies = { "nvim-web-devicons" },
     keys = {
-      { "<c-b>", ":NvimTreeToggle<cr>" },
-      { "<c-n>", ":NvimTreeFindFile<cr>" },
+      { "<C-b>", "<cmd>NvimTreeToggle<cr>" },
+      { "<C-n>", "<cmd>NvimTreeFindFile<cr>" },
     },
     opts = {
       sort = {

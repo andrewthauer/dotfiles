@@ -19,20 +19,16 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.lazyvim = false
-vim.g.lazyvim_bare = true
-
 -- Load plugins and such with lazy.nvim
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    -- { "LazyVim/LazyVim", import = "lazyvim.plugins", cond = vim.g.lazyvim == true },
+    -- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
-    -- { import = "plugins.core.config", cond = vim.g.lazyvim == false },
     { import = "plugins" },
   },
   defaults = {
