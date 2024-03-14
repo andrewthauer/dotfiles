@@ -29,7 +29,9 @@ end
 return {
   -- NOTE: Only require this when not using LazyVim
   {
+    name = "core-local",
     dir = ".", -- tell lazy this is not a remote plugin
+    dev = true,
     priority = 10001, -- load before everything
     lazy = false,
     cond = lazyvim_full == false,

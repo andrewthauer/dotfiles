@@ -17,13 +17,13 @@ return {
     keys = function(_, _keys)
       -- local Util = require("lazyvim.util")
       local keys = {
-        { "<leader>t",  "<cmd>Telescope<cr>",                        desc = "Telescope" },
+        { "<leader>t", "<cmd>Telescope<cr>", desc = "Telescope" },
         { "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", desc = "Fuzzy find files in cwd" },
-        -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>",               { desc = "Fuzzy find recent files" } },
-        -- { "<leader>fg", "<cmd>Telescope live_grep<cr>",              { desc = "Find string in cwd" } },
-        -- { "<leader>fb", "<cmd>Telescope buffers<cr>",                { desc = "Find open buffers" } },
-        -- { "<leader>fc", "<cmd>Telescope grep_string<cr>",            { desc = "Find string under cursor in cwd" } },
-        -- { "<leader>fh", "<cmd>Telescope help_tags<cr>",              { desc = "Fuzzy find help tags " } },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Fuzzy find recent files" },
+        { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Find string in cwd" },
+        { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find open buffers" },
+        { "<leader>fc", "<cmd>Telescope grep_string<cr>", desc = "Find string under cursor in cwd" },
+        { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Fuzzy find help tags " },
         --
         -- from LazyVim
         --
@@ -98,7 +98,7 @@ return {
             -- your custom normal mode mappings
             i = {
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-              ["<C-j>"] = actions.move_selection_next,     -- move to next result
+              ["<C-j>"] = actions.move_selection_next, -- move to next result
               -- ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
               -- map actions.which_key to <C-h> (default: <C-/>)
               -- ["<C-h>"] = "which_key"
@@ -117,7 +117,7 @@ return {
             n = {
               ["q"] = actions.close,
             },
-          }
+          },
         },
       }
     end,
