@@ -1,12 +1,3 @@
--- Format python conditionally with ruff_format if available, otherwise use isort and black.
-local python_formatter = function(bufnr)
-  if require("conform").get_formatter_info("ruff_format", bufnr).available then
-    return { "ruff_format" }
-  else
-    return { "isort", "black" }
-  end
-end
-
 return {
   -- Lightweight yet powerful formatter plugin for Neovim
   -- https://github.com/stevearc/conform.nvim
@@ -18,11 +9,16 @@ return {
         go = { "goimports", "gofmt" },
         javascript = { { "prettierd", "prettier" } },
         lua = { "stylua" },
-        python = python_formatter,
+        python = function(bufnr)
+          if require("conform").get_formatter_info("ruff_format", bufnr).available then
+            return { "ruff_format" }
+          else
+            return { "isort", "black" }
+          end
+        end,
         sh = { "shfmt" },
         typescript = { { "prettierd", "prettier" } },
       },
-      -- format_on_save
       format_on_save = {
         timeout_ms = 500,
         lsp_fallback = true,

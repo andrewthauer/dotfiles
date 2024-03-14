@@ -1,10 +1,9 @@
--- -- ------------------------------------
--- -- Globals
--- -- ------------------------------------
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 
 -- Remap leader key so its easier to reach
 vim.g.mapleader = "'"
--- vim.g.mapleader = ' '
 -- vim.g.maplocalleader = ' '
 
 -- Enable .editorconfig (default is true in nvim)
@@ -22,116 +21,111 @@ vim.opt.swapfile = false
 -- Encoding
 -- ------------------------------------
 
--- set encoding=utf-8
--- set fileencoding=utf-8
--- set fileencodings=utf-8
+-- vim.opt.encoding=utf-8 = true
+-- vim.opt.fileencoding=utf-8 = true
+-- vim.opt.fileencodings=utf-8 = true
+vim.opt.spelllang = { "en" }
 
 -- ------------------------------------
 -- UI Config
 -- ------------------------------------
 
-vim.o.syntax = true                        -- Enable syntax highlighting
-vim.opt.number = true                      -- Line numbers are good
-vim.opt.relativenumber = true               -- Relative line numbers are also good
-vim.opt.ruler = true                       -- Show row/col number
-vim.opt.showcmd = true                     -- Show incomplete cmds down the bottom
-vim.opt.showmode = true                    -- Show current mode down the bottom
-vim.opt.cursorline = true                  -- Highlight current line
-vim.opt.visualbell = true                  -- No sounds
-vim.opt.autoread = true                    -- Reload files changed outside vim
--- vim.wo.number = true                       -- Line numbers "   "
--- vim.opt.showmatch = true                   -- Highlight matching [{()}]
--- vim.opt.cursorcolumn = true                -- Highlight cursor column vertically
--- vim.opt.autowrite = true                   -- Automatically write before running commands
--- vim.opt.backspace = "indent,eol,start"     -- Allow backspace in insert mode
--- vim.opt.lazyredraw = true                  -- Redraw only when we need to
+vim.opt.confirm = true                 -- Confirm to save changes before exiting modified buffer
+vim.opt.cursorline = true              -- Highlight current line
+vim.opt.laststatus = 3                 -- global statusline
+vim.opt.mouse = "a"                    -- Enable mouse mode
+vim.opt.number = true                  -- Print line number
+-- vim.opt.pumblend = 10                  -- Popup blend
+-- vim.opt.pumheight = 10                 -- Maximum number of entries in a popup
+vim.opt.relativenumber = true          -- Relative line numbers are also good
+vim.opt.ruler = true                   -- Show row/col number
+vim.opt.scrolloff = 4                  -- Lines of context
+vim.opt.showcmd = true                 -- Show incomplete cmds down the bottom
+vim.opt.showmode = true                -- Show current mode down the bottom
+vim.opt.termguicolors = true           -- True color support
+vim.opt.visualbell = true              -- No sounds
+vim.opt.virtualedit = "block"          -- Allow cursor to move where there is no text in visual block mode
+vim.opt.winminwidth = 5                -- Minimum window width
 
--- search
-vim.opt.hlsearch = true                    -- Highlight searches
-vim.opt.ignorecase = true                  -- Ignore case when searching
-vim.opt.incsearch = true                   -- Show search matches as you type
+vim.opt.autoread = true                -- Reload files changed outside vim
+vim.opt.autowrite = true               -- Automatically write before running commands
 
--- maybe
--- vim.opt.laststatus = 2                     -- ??
+-- vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 
 -- ------------------------------------
--- Persistent Undo
+-- Status Line
 -- ------------------------------------
 
--- maybe
--- Keep undo history across sessions, by storing in file
--- if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
---   silent !mkdir ~/.vim/backups > /dev/null 2>&1
---   set undodir=~/.vim/backups
---   set undofile
--- endif
+-- vim.opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+
+-- ------------------------------------
+-- Undo/Redo
+-- ------------------------------------
+
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
 
 -- ------------------------------------
 -- Indentation
 -- ------------------------------------
 
-vim.opt.shiftwidth = 2       -- How many columns of whitespace a “level of indentation” is worth.
-vim.opt.softtabstop = 2      -- How many columns of whitespace a tab keypress or a backspace keypress is worth
-vim.opt.tabstop = 2          -- How many columns of whitespace a \t is worth
-vim.opt.expandtab = true     -- Never see a \t in files
-vim.opt.autoindent = true
--- vim.opt.smartindent = true
--- vim.opt.smarttab = true
-
--- Display tabs and trailing spaces visually
--- set list listchars=tab:\ \ ,trail:·
+-- vim.opt.autoindent = true
+vim.opt.expandtab = true               -- Use spaces instead of tabs
+vim.opt.shiftround = true              -- Round indent
+vim.opt.shiftwidth = 2                 -- Size of an indent
+vim.opt.smartindent = true             -- Insert indents automatically
+vim.opt.softtabstop = 2                -- How many columns of whitespace for tab keypress/backspace
+vim.opt.tabstop = 2                    -- Number of spaces tabs count for
 
 -- ------------------------------------
 -- Text Wrapping
 -- ------------------------------------
 
--- set nowrap                      -- Don't wrap lines
--- set linebreak                   -- Wrap lines at convenient points
-
--- Set color column guide
--- set colorcolumn=120
--- highlight ColorColumn ctermbg=0 guibg=lightgrey
+vim.opt.wrap = false                   -- Disable line wrap
+-- vim.opt.linebreak = true               -- Wrap lines at convenient points
 
 -- ------------------------------------
 -- Folds
 -- ------------------------------------
 
--- set foldmethod=syntax            -- fold based on syntax
--- set foldnestmax=3                -- deepest fold is 3 levels
--- set nofoldenable                 -- dont fold by default
+-- vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+-- vim.opt.foldlevel = 99
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 
 -- ------------------------------------
 -- Completion
 -- ------------------------------------
 
--- set wildmenu                     -- Enable ctrl-n and ctrl-p to scroll thru matches
--- set wildmode=longest:list,full   -- Wildmenu automcomplete behaviour
--- -- set wildignore=               -- Stuff to ignore when tab completing (e.g. *.jpg,*.png,*.gif,*.pdf,*.pyc)
-
--- ------------------------------------
--- Scrolling
--- ------------------------------------
-
--- set scrolloff=8                  -- Start scrolling when we're 8 lines away from margins
--- set sidescrolloff=15
--- set sidescroll=1
+-- vim.opt.wildmenu = true                -- Enable ctrl-n and ctrl-p to scroll thru matches
+vim.opt.wildmode = "longest:full,full" -- Wildmenu automcomplete behaviour
 
 -- ------------------------------------
 -- Search
 -- ------------------------------------
 
--- set incsearch                    -- Find the next match as we type the search
--- set hlsearch                     -- Highlight searches by default
--- set ignorecase                   -- Ignore case when searching...
--- set smartcase                    -- ...unless we type a capital
+-- vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.hlsearch = true                -- Highlight searches
+vim.opt.ignorecase = true              -- Ignore case when searching
+vim.opt.inccommand = "nosplit"         -- preview incremental substitute
+vim.opt.incsearch = true               -- Show search matches as you type
+vim.opt.smartcase = true               -- Don't ignore case with capitals
 
 -- ------------------------------------
 -- Split Panes
 -- ------------------------------------
 
--- " More natural split opening
--- set splitbelow
--- set splitright
+-- More natural split opening
+vim.opt.splitbelow = true              -- Put new windows below current
+vim.opt.splitkeep = "screen"
+vim.opt.splitright = true              -- Put new windows right of current
+
+-- ------------------------------------
+-- Formatting
+-- ------------------------------------
+
+-- vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 
 -- ------------------------------------
 -- File Types

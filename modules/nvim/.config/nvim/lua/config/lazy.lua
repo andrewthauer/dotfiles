@@ -1,6 +1,7 @@
 -- Use lazy.nvim to boostrap plugins and such
---   https://github.com/folke/lazy.nvim
+--
 --   http://www.lazyvim.org
+--   https://github.com/folke/lazy.nvim
 --
 
 -- Setup lazy package manager (https://github.com/folke/lazy.nvimx)
@@ -18,24 +19,21 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.lazyvim = false
+vim.g.lazyvim_bare = true
+
 -- Load plugins and such with lazy.nvim
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    -- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- { "LazyVim/LazyVim", import = "lazyvim.plugins", cond = vim.g.lazyvim == true },
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- add LazyVim and import selective plugins
-    -- { import = "plugins.lazyvim.incremental" },
-    -- add LazyVim but don't import any plugins
-    { import = "plugins.lazyvim.bare" },
     -- import/override with your plugins
+    -- { import = "plugins.core.config", cond = vim.g.lazyvim == false },
     { import = "plugins" },
-    -- import custom extra modules
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "plugins.extras.lang.typescript" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

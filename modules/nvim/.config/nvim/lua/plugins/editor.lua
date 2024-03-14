@@ -32,64 +32,24 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-web-devicons" },
     keys = {
-      { "<c-p>", "<cmd>FzfLua files<cr>" },
-      -- { "<c-o>", "<cmd>FzfLua commands<cr>" },
-      -- { "<c-r>", "<cmd>FzfLua oldfiles<cr>" },
-      -- { "<c-f>", "<cmd>FzfLua live_grep<cr>" },
-      -- { "<c-g>", "<cmd>FzfLua git_files<cr>" },
-      -- { "<c-b>", "<cmd>FzfLua buffers<cr>" },
-      -- { "<c-h>", "<cmd>FzfLua help_tags<cr>" },
-      -- { "<c-m>", "<cmd>FzfLua marks<cr>" },
-      -- { "<c-s>", "<cmd>FzfLua lsp_document_symbols<cr>" },
-      -- { "<c-t>", "<cmd>FzfLua lsp_workspace_symbols<cr>" },
-      -- { "<c-w>", "<cmd>FzfLua lsp_workspace_diagnostics<cr>" },
-      -- { "<c-y>", "<cmd>FzfLua yank_history<cr>" },
+      { "<C-p>", "<cmd>FzfLua files<cr>" },
+      -- { "<C-o>", "<cmd>FzfLua commands<cr>" },
+      -- { "<C-r>", "<cmd>FzfLua oldfiles<cr>" },
+      -- { "<C-f>", "<cmd>FzfLua live_grep<cr>" },
+      -- { "<C-g>", "<cmd>FzfLua git_files<cr>" },
+      -- { "<C-b>", "<cmd>FzfLua buffers<cr>" },
+      -- { "<C-h>", "<cmd>FzfLua help_tags<cr>" },
+      -- { "<C-m>", "<cmd>FzfLua marks<cr>" },
+      -- { "<C-s>", "<cmd>FzfLua lsp_document_symbols<cr>" },
+      -- { "<C-t>", "<cmd>FzfLua lsp_workspace_symbols<cr>" },
+      -- { "<C-w>", "<cmd>FzfLua lsp_workspace_diagnostics<cr>" },
+      -- { "<C-y>", "<cmd>FzfLua yank_history<cr>" },
     },
-  },
-
-  -- telescope fuzzy finder
-  -- https://github.com/nvim-telescope/telescope.nvim
-  "nvim-telescope/telescope-fzf-native.nvim",
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
-      },
-      "nvim-tree/nvim-web-devicons",
-    },
-    keys = {
-      { "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", {} },
-      { "<leader>fg", "<cmd>Telescope live_grep<cr>", {} },
-      { "<leader>fb", "<cmd>Telescope buffers<cr>", {} },
-      { "<leader>fh", "<cmd>Telescope help_tags<cr>", {} },
-    },
-    opts = {
-      defaults = {
-        mappings = {
-          i = {
-            -- map actions.which_key to <C-h> (default: <C-/>)
-            -- actions.which_key shows the mappings for your picker,
-            -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-            ["<C-h>"] = "which_key"
-          }
-        }
-      },
-    },
-    -- config = function()
-    --   local telescope = require("telescope")
-    --   -- local actions = require("telescope.actions")
-    --   telescope.load_extension("fzf")
-    -- end,
   },
 
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
+  -- https://github.com/folke/which-key.nvim
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
