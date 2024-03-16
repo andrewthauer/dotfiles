@@ -136,9 +136,7 @@ h         # move cursor left
 j         # move cursor down
 k         # move cursor up
 l         # move cursor right
-H         # move to top of screen
 M         # move to middle of screen
-L         # move to bottom of screen
 w         # jump forwards to the start of a word
 W         # jump forwards to the start of a word (words can contain punctuation)
 e         # jump forwards to the end of a word
@@ -183,8 +181,11 @@ r         # replace a single character
 J         # join line below to the current one
 cc        # change (replace) entire line
 cw        # change (replace) to the start of the next word
+ciw       # change (replace) text inside next word
+caw       # change (replace) text around next word
 ce        # change (replace) to the end of the next word
 cb        # change (replace) to the start of the previous word
+cf?       # change (replace) next occurrence of character
 c0        # change (replace) to the start of the line
 c$        # change (replace) to the end of the line
 ct?       # change (replace) to the given character
@@ -237,7 +238,7 @@ dw        # delete (cut) the characters of the word from the cursor position to 
 D         # delete (cut) to the end of the line
 d$        # delete (cut) to the end of the line
 d^        # delete (cut) to the first non-blank character of the line
-d0        # delete (cut) to the begining of the line
+d0        # delete (cut) to the beginning of the line
 x         # delete (cut) character
 ```
 
@@ -266,21 +267,21 @@ N               # repeat search in opposite direction
 ### Working with multiple files
 
 ```bash
-:e file        # edit a file in a new buffer
-:bnext or :bn  # go to the next buffer
-:bprev or :bp  # go to the previous buffer
-:bd            # delete a buffer (close a file)
-:ls            # list all open buffers
-:sp file       # open a file in a new buffer and split window
-:vsp file      # open a file in a new buffer and vertically split window
-Ctrl + ws      # split window
-Ctrl + ww      # switch windows
-Ctrl + wq      # quit a window
-Ctrl + wv      # split window vertically
-Ctrl + wh      # move cursor to the left window (vertical split)
-Ctrl + wl      # move cursor to the right window (vertical split)
-Ctrl + wj      # move cursor to the window below (horizontal split)
-Ctrl + wk      # move cursor to the window above (horizontal split)
+:e file             # edit a file in a new buffer
+L or :bnext or :bn  # go to the next buffer
+H or :bprev or :bp  # go to the previous buffer
+:bd                 # delete a buffer (close a file)
+:ls                 # list all open buffers
+:sp file            # open a file in a new buffer and split window
+:vsp file           # open a file in a new buffer and vertically split window
+Ctrl + ws           # split window
+Ctrl + ww           # switch windows
+Ctrl + wq           # quit a window
+Ctrl + wv           # split window vertically
+Ctrl + wh           # move cursor to the left window (vertical split)
+Ctrl + wl           # move cursor to the right window (vertical split)
+Ctrl + wj           # move cursor to the window below (horizontal split)
+Ctrl + wk           # move cursor to the window above (horizontal split)
 ```
 
 ### Tabs

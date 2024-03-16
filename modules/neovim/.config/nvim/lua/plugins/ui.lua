@@ -5,7 +5,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = function(_, opts)
-      table.insert(opts.sources or {}, { theme = "zenburn", })
+      table.insert(opts.sources or {}, { theme = "zenburn" })
     end,
   },
 
@@ -18,5 +18,5 @@ return {
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
-  }
+  },
 }

@@ -1,13 +1,17 @@
 return {
+  -- disable neo-tree
+  -- https://github.com/nvim-neo-tree/neo-tree.nvim
+  { "nvim-neo-tree/neo-tree.nvim", enabled = true },
+
   -- file explorer
   -- https://github.com/nvim-tree/nvim-tree.lua
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
     lazy = false,
     dependencies = { "nvim-web-devicons" },
     keys = {
-      { "<C-b>", "<cmd>NvimTreeToggle<cr>" },
-      { "<C-n>", "<cmd>NvimTreeFindFile<cr>" },
+      { "<leader>fe", "<cmd>NvimTreeToggle<cr>" },
     },
     opts = {
       sort = {
@@ -55,7 +59,7 @@ return {
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 500
     end,
     opts = {},
     -- config = function(_, opts)

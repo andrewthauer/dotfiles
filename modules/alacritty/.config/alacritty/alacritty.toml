@@ -8,12 +8,13 @@ live_config_reload = true
 
 [window]
 dimensions = { columns = 140, lines = 50 }
-padding = { x = 10, y = 10 }
+# padding = { x = 5, y = 5 }
 dynamic_padding = true
+option_as_alt = "OnlyLeft"  # treat alt as meta key (macOS)
 
 [font]
 normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
-size = 16
+size = 15
 
 [cursor]
 style = { shape = "Underline", blinking = "Off" }
@@ -28,7 +29,7 @@ bindings = [
   { key = "ArrowRight", mods = "Shift | Command", action = "SelectNextTab" },
   # Move one word left / right
   { key = "ArrowLeft",  mods ="Alt", chars ="\u001BB" },
-  { key = "ArrowRight", mods = "Alt", chars = "\u001BF" },
+  { key = "ArrowRight", mods = "Alt", chars = "\u007BF" },
   # Go to beginning / end of line
   { key = "ArrowLeft",  mods ="Command", chars ="\u0001" },
   { key = "ArrowRight", mods = "Command", chars = "\u0005" },

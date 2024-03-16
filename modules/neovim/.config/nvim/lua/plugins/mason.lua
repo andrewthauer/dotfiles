@@ -9,16 +9,17 @@ return {
     },
     opts = {
       ensure_installed = {
-        -- "rubocop",
-        -- "stylua",
-        -- "shellcheck",
+        "rubocop",
+        "stylua",
+        "shellcheck",
         "shfmt",
-        -- "yamllint",
+        "yamllint",
       },
     },
     config = function(_, opts)
       require("mason").setup(opts)
-      -- require("util.mason").ensure_installed(opts)
+      ---@diagnostic disable-next-line: different-requires
+      require("util.mason").ensure_installed(opts)
     end,
   },
 }

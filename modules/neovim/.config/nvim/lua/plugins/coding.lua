@@ -16,37 +16,33 @@ return {
         completion = {
           completeopt = "menu,menuone,preview,noinsert",
         },
-        -- mapping = cmp.mapping.preset.insert({
-        --   ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        --   ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        --   ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        --   ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        --   ["<C-Space>"] = cmp.mapping.complete(),
-        --   ["<C-e>"] = cmp.mapping.abort(),
-        --   ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        --   ["<S-CR>"] = cmp.mapping.confirm({
-        --     behavior = cmp.ConfirmBehavior.Replace,
-        --     select = true,
-        --   }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        --   ["<C-CR>"] = function(fallback)
-        --     cmp.abort()
-        --     fallback()
-        --   end,
-        -- }),
+        mapping = cmp.mapping.preset.insert({
+          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<S-CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<C-CR>"] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
+        }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" }, -- from lsp
           { name = "path" },     -- file system paths
         }, {
           { name = "buffer" },   -- text within current buffer
-        })
+        }),
       }
     end,
-    -- config = function(_, opts)
-    --   for _, source in ipairs(opts.sources) do
-    --     source.group_index = source.group_index or 1
-    --   end
-    --   require("cmp").setup(opts)
-    -- end,
   },
 
   -- snippets
@@ -75,24 +71,23 @@ return {
         end,
       },
     },
-    -- opts = {
-    --   history = true,
-    --   delete_check_events = "TextChanged",
-    -- },
-    -- -- stylua: ignore
-    -- keys = {
-    --   {
-    --     "<tab>",
-    --     function()
-    --       return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-    --     end,
-    --     expr = true,
-    --     silent = true,
-    --     mode = "i",
-    --   },
-    --   { "<tab>", function() require("luasnip").jump(1) end,  mode = "s" },
-    --   { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-    -- },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = "i",
+      },
+      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
   },
 
   -- comments
@@ -100,12 +95,42 @@ return {
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
-    -- opts = {
-    --   options = {
-    --     custom_commentstring = function()
-    --       return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-    --     end,
-    --   },
-    -- },
+    opts = {
+      -- Options which control module behavior
+      options = {
+        -- Function to compute custom 'commentstring' (optional)
+        -- custom_commentstring = nil,
+        -- custom_commentstring = function()
+        --   return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        -- end,
+        --
+        -- Whether to ignore blank lines
+        ignore_blank_line = false,
+        -- Whether to recognize as comment only lines without indent
+        start_of_line = false,
+        -- Whether to ensure single space pad for comment parts
+        pad_comment_parts = true,
+      },
+      -- Module mappings. Use `''` (empty string) to disable one.
+      mappings = {
+        -- Toggle comment (like `gcip` - comment inner paragraph) for both
+        -- Normal and Visual modes
+        comment = 'gc',
+        -- Toggle comment on current line
+        comment_line = 'gcc',
+        -- Toggle comment on visual selection
+        comment_visual = 'gc',
+        -- Define 'comment' textobject (like `dgc` - delete whole comment block)
+        -- Works also in Visual mode if mapping differs from `comment_visual`
+        textobject = 'gc',
+      },
+      -- Hook functions to be executed at certain stage of commenting
+      hooks = {
+        -- Before successful commenting. Does nothing by default.
+        pre = function() end,
+        -- After successful commenting. Does nothing by default.
+        post = function() end,
+      },
+    },
   },
 }
