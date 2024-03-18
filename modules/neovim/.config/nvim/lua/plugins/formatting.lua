@@ -4,27 +4,57 @@ return {
   {
     "stevearc/conform.nvim",
     dependencies = { "mason.nvim" },
-    opts = {
-      formatters_by_ft = {
-        go = { "goimports", "gofmt" },
-        javascript = { { "prettierd", "prettier" } },
-        lua = { "stylua" },
-        python = function(bufnr)
-          if require("conform").get_formatter_info("ruff_format", bufnr).available then
-            return { "ruff_format" }
-          else
-            return { "isort", "black" }
+    lazy = true,
+    cmd = "ConformInfo",
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        "<leader>f",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    opts = function()
+      local opts = {
+        formatters_by_ft = {
+          ["lua"] = { "stylua" },
+          ["sh"] = { "shfmt" },
+          ["go"] = { "goimports", "gofmt" },
+          ["python"] = { "black" },
+          -- prettier
+          ["javascript"] = { "prettier" },
+          ["javascriptreact"] = { "prettier" },
+          ["typescript"] = { "prettier" },
+          ["typescriptreact"] = { "prettier" },
+          ["vue"] = { "prettier" },
+          ["css"] = { "prettier" },
+          ["scss"] = { "prettier" },
+          ["less"] = { "prettier" },
+          ["html"] = { "prettier" },
+          ["json"] = { "prettier" },
+          ["jsonc"] = { "prettier" },
+          ["yaml"] = { "prettier" },
+          ["markdown"] = { "prettier" },
+          ["markdown.mdx"] = { "prettier" },
+          ["graphql"] = { "prettier" },
+          ["handlebars"] = { "prettier" },
+        },
+        format_on_save = function(bufnr)
+          -- Disable with a global or buffer-local variable
+          if vim.g.autoformat or vim.b[bufnr].autoformat then
+            return { timeout_ms = 500, lsp_fallback = true }
           end
         end,
-        sh = { "shfmt" },
-        typescript = { { "prettierd", "prettier" } },
-      },
-      -- format_on_save = {
-      --   timeout_ms = 500,
-      --   lsp_fallback = true,
-      -- },
-      notify_on_error = true,
-    },
+        formatters = {
+          injected = { options = { ignore_errors = true } },
+        },
+        notify_on_error = true,
+      }
+      return opts
+    end,
     init = function()
       vim.api.nvim_create_user_command("Format", function(args)
         local range = nil
@@ -37,6 +67,25 @@ return {
         end
         require("conform").format({ async = true, lsp_fallback = true, range = range })
       end, { range = true })
+
+      vim.api.nvim_create_user_command("FormatDisable", function(args)
+        if args.bang then
+          -- FormatDisable! will disable formatting just for this buffer
+          vim.b.autoformat = false
+        else
+          vim.g.autoformat = false
+        end
+      end, {
+        desc = "Disable autoformat-on-save",
+        bang = true,
+      })
+
+      vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.b.autoformat = true
+        vim.g.autoformat = true
+      end, {
+        desc = "Re-enable autoformat-on-save",
+      })
     end,
   },
 }

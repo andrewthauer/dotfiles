@@ -26,11 +26,11 @@ if lazyvim_full == false then
   require("config.options")
 end
 
-return {
+local spec = {
   -- NOTE: Only require this when not using LazyVim
   {
     name = "core-local",
-    dir = ".", -- tell lazy this is not a remote plugin
+    dir = ".",        -- tell lazy this is not a remote plugin
     dev = true,
     priority = 10001, -- load before everything
     lazy = false,
@@ -45,3 +45,7 @@ return {
   -- add dynamically builtin lazyvim spec
   lazyvim_spec,
 }
+
+table.insert(spec, lazyvim_spec)
+
+return spec

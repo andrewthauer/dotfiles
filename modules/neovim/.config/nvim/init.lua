@@ -5,6 +5,7 @@ Util = require("util")
 
 -- set colorscheme
 vim.g.colorscheme = "zenburn"
+-- vim.g.colorscheme = "catppuccin"
 
 -- use full lazyvim
 vim.g.lazyvim = true -- default

@@ -20,26 +20,4 @@ return {
       vim.cmd("colorscheme catppuccin")
     end
   },
-
-  -- https://github.com/rose-pine/neovim
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    priority = 1000,
-    cond = vim.g.colorscheme == "rose-pine",
-    config = function()
-      vim.cmd("colorscheme rose-pine")
-    end
-  },
-
-  -- https://github.com/xero/miasma.nvim
-  {
-    "xero/miasma.nvim",
-    lazy = false,
-    priority = 1000,
-    cond = vim.g.colorscheme == "miasma",
-    config = function()
-      vim.cmd("colorscheme miasma")
-    end,
-  },
 }
