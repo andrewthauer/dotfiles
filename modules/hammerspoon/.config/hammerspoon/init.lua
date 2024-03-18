@@ -18,7 +18,7 @@ local window = require('window')
 
 -- Global hyper key
 local hyper = { 'ctrl', 'alt', 'cmd', 'shift' }
-local tiling_key = {'ctrl', 'cmd' }
+local tiling_key = { 'ctrl', 'cmd' }
 
 -- Modifier shortcuts
 local movekey = { 'ctrl', 'alt', 'cmd' }
@@ -47,7 +47,7 @@ spoon.SpoonInstall:andUse('MiroWindowsManager', {
 spoon.SpoonInstall:andUse('WindowGrid', {
   config = {
     gridGeometries = {
-      { windowGrid.w ..'x' .. windowGrid.h },
+      { windowGrid.w .. 'x' .. windowGrid.h },
     },
   },
   hotkeys = {
@@ -137,10 +137,10 @@ spoon.SpoonInstall:andUse('Caffeine', {
 -- hs.hotkey.bind(movekey, 'c', function() window.centerWindow() end)
 
 -- Movement hotkeys
-hs.hotkey.bind(nudgekey, 'down', function() window.nudgeWindow(0, 100) end) 	--down
-hs.hotkey.bind(nudgekey, 'up', function() window.nudgeWindow(0, -100) end)	  --up
-hs.hotkey.bind(nudgekey, 'right', function() window.nudgeWindow(100, 0) end)	--right
-hs.hotkey.bind(nudgekey, 'left', function() window.nudgeWindow(-100, 0) end)	--left
+hs.hotkey.bind(nudgekey, 'down', function() window.nudgeWindow(0, 100) end)  --down
+hs.hotkey.bind(nudgekey, 'up', function() window.nudgeWindow(0, -100) end)   --up
+hs.hotkey.bind(nudgekey, 'right', function() window.nudgeWindow(100, 0) end) --right
+hs.hotkey.bind(nudgekey, 'left', function() window.nudgeWindow(-100, 0) end) --left
 
 -- Resize hotkeys
 hs.hotkey.bind(yankkey, 'up', function() window.yankWindow(0, -100) end)   -- yank bottom up
@@ -181,7 +181,7 @@ hs.hotkey.bind(hyper, 'h', utils.launchById('io.robbie.HomeAssistant'))
 hs.hotkey.bind(hyper, 'n', utils.launchById('notion.id'))
 hs.hotkey.bind(hyper, 's', utils.launchById('com.tinyspeck.slackmacgap'))
 hs.hotkey.bind(hyper, 't', utils.launchById('org.alacritty'))
-hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
+-- hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
 hs.hotkey.bind(hyper, 'w', utils.launchById('com.apple.finder'))
 hs.hotkey.bind(hyper, 'z', utils.launchById('dev.zed.Zed'))
 
@@ -232,7 +232,7 @@ spoon.SpoonInstall:andUse('Commander', {
       hello = function() hs.alert.show('Hello!') end,
       hammerspoonConsole = function() hs.toggleConsole() end,
       spotifySong = function() hs.spotify.displayCurrentTrack() end,
-      toggleHiddenFiles = function() hs.eventtap.keyStroke({'cmd', 'shift'}, '.') end,
+      toggleHiddenFiles = function() hs.eventtap.keyStroke({ 'cmd', 'shift' }, '.') end,
       pasteUnblocker = function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end,
     },
   },
@@ -251,7 +251,7 @@ spoon.SpoonInstall:andUse('Commander', {
 -- Notification that config was loaded
 spoon.SpoonInstall:andUse('FadeLogo', {
   config = {
-    image_size = hs.geometry.size({w=75, h=75}),
+    image_size = hs.geometry.size({ w = 75, h = 75 }),
     run_time = 0.5,
     zoom = false
   },
