@@ -7,7 +7,7 @@ import = [
 live_config_reload = true
 
 [window]
-dimensions = { columns = 140, lines = 50 }
+dimensions = { columns = 200, lines = 60 }
 # padding = { x = 5, y = 5 }
 dynamic_padding = true
 option_as_alt = "OnlyLeft"  # treat alt as meta key (macOS)
@@ -29,7 +29,7 @@ bindings = [
   { key = "ArrowRight", mods = "Shift | Command", action = "SelectNextTab" },
   # Move one word left / right
   { key = "ArrowLeft",  mods ="Alt", chars ="\u001BB" },
-  { key = "ArrowRight", mods = "Alt", chars = "\u007BF" },
+  { key = "ArrowRight", mods = "Alt", chars = "\u001BF" },
   # Go to beginning / end of line
   { key = "ArrowLeft",  mods ="Command", chars ="\u0001" },
   { key = "ArrowRight", mods = "Command", chars = "\u0005" },
