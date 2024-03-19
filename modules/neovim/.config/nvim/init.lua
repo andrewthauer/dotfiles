@@ -5,11 +5,6 @@ Util = require("util")
 
 -- set colorscheme
 vim.g.colorscheme = "zenburn"
--- vim.g.colorscheme = "catppuccin"
-
--- use full lazyvim
-vim.g.lazyvim = true -- default
-vim.g.lazyvim = Util.str_to_boolean(os.getenv("NVIM_LAZYVIM"), vim.g.lazyvim)
 
 -- bootstrap config & plugins
 require("config.lazy")

@@ -10,9 +10,9 @@ return {
     opts = {
       ensure_installed = {
         "rubocop",
-        "stylua",
         "shellcheck",
         "shfmt",
+        "stylua",
         "yamllint",
       },
     },
