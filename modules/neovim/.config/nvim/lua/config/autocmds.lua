@@ -1,6 +1,4 @@
--- Autocmds are automatically loaded on the VeryLazy event
--- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
--- Add any additional autocmds here
+-- Autocmds go here
 
 local function augroup(name)
   return vim.api.nvim_create_augroup("_" .. name, { clear = true })
@@ -95,15 +93,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
-
--- Fix conceallevel for json files
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   group = augroup("json_conceal"),
---   pattern = { "json", "jsonc", "json5" },
---   callback = function()
---     vim.opt_local.conceallevel = 0
---   end,
--- })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {

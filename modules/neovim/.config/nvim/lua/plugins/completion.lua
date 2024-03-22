@@ -9,6 +9,7 @@ return {
       "hrsh7th/cmp-nvim-lsp", -- source for nvim lsp
       "hrsh7th/cmp-buffer", -- source for text in buffer
       "hrsh7th/cmp-path", -- source for file system paths
+      "hrsh7th/cmp-emoji", -- emoji
     },
     opts = function()
       local cmp = require("cmp")
@@ -38,6 +39,7 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" }, -- from lsp
           { name = "path" }, -- file system paths
+          { name = "emoji" },
         }, {
           { name = "buffer" }, -- text within current buffer
         }),

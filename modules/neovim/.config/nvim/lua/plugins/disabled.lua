@@ -2,8 +2,8 @@
 
 return {
   -- always enabled
-  -- { "akinsho/bufferline.nvim",                     enabled = false },
-  -- { "dstein64/vim-startuptime",                    enabled = false },
+  { "akinsho/bufferline.nvim",                     enabled = false },
+  { "dstein64/vim-startuptime",                    enabled = false },
   -- { "folke/neoconf.nvim",                          enabled = false },
   -- { "folke/persistence.nvim",                      enabled = false },
   -- { "folke/trouble.nvim",                          enabled = false },

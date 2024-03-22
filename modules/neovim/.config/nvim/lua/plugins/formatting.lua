@@ -9,7 +9,7 @@ return {
     keys = {
       {
         -- Customize or remove this keymap to your liking
-        "<leader>f",
+        "<leader>cf",
         function()
           require("conform").format({ async = true, lsp_fallback = true })
         end,
@@ -70,7 +70,7 @@ return {
 
       vim.api.nvim_create_user_command("FormatDisable", function(args)
         if args.bang then
-          -- FormatDisable! will disable formatting just for this buffer
+          -- FormatDisable! will disable auto formatting just for this buffer
           vim.b.autoformat = false
         else
           vim.g.autoformat = false
@@ -80,11 +80,28 @@ return {
         bang = true,
       })
 
-      vim.api.nvim_create_user_command("FormatEnable", function()
-        vim.b.autoformat = true
-        vim.g.autoformat = true
+      vim.api.nvim_create_user_command("FormatEnable", function(args)
+        if args.bang then
+          -- FormatEnable! will enable auto formatting just for this buffer
+          vim.b.autoformat = true
+        else
+          vim.g.autoformat = true
+        end
       end, {
         desc = "Re-enable autoformat-on-save",
+        bang = true,
+      })
+
+      vim.api.nvim_create_user_command("FormatToggle", function(args)
+        if args.bang then
+          -- FormatDisable! will toggle auto formatting just for this buffer
+          vim.b.autoformat = not vim.b.autoformat or false
+        else
+          vim.g.autoformat = not vim.g.autoformat or false
+        end
+      end, {
+        desc = "Toggle autoformat-on-save",
+        bang = true,
       })
     end,
   },

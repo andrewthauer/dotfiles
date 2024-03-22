@@ -1,4 +1,5 @@
 -- Options must be loaded before lazy.nvim startup
+-- stylua: ignore start
 
 -- Remap leader key so its easier to reach
 vim.g.mapleader = "'"
@@ -8,7 +9,7 @@ vim.g.mapleader = "'"
 vim.g.editorconfig = true
 
 -- Use nerd font
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- disable netrw at the very start of your init.lua
 -- vim.g.loaded_netrw = 1

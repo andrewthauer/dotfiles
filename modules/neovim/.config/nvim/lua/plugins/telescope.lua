@@ -3,6 +3,8 @@ return {
   -- https://github.com/nvim-telescope/telescope.nvim
   {
     "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    version = false, -- telescope did only one release, so use HEAD for now
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
@@ -21,49 +23,44 @@ return {
         { "<leader>t", "<cmd>Telescope<cr>", desc = "Telescope" },
         {
           "<leader>,",
-          "<cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>",
+          "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
           desc = "Switch Buffer",
         },
-        { "<leader>/", "<cmd>Telescope live_grep<CR>", desc = "Grep (root dir)" },
-        { "<leader>:", "<cmd>Telescope command_history<CR>", desc = "Command History" },
+        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+        { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         -- find
-        { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>", desc = "Buffers" },
+        { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
         -- TODO: Add this back in without needing lazyvim utils
         -- { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
+        -- { "<leader>ff", "<cmd>Telescope find_files hidden=true", desc = "Find files" },
         {
           "<leader>ff",
           function()
             builtin.find_files({ hidden = true })
           end,
-          desc = "Find Files (root dir)",
+          desc = "Find Files (Hidden)",
         },
-        {
-          "<leader>fg",
-          "<cmd>Telescope git_files<cr>",
-          desc = "Find Files (git-files)",
-        },
-        { "<leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "Recent" },
-        -- { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
-        -- -- git
-        { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-        { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
-        -- -- search
+        { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+        -- git
+        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "commits" },
+        { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "status" },
+        -- search
         { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
-        -- { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-        -- { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
+        { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
+        { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
         { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-        -- { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
-        -- { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
-        -- { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-        -- { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+        { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+        { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
+        { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-        -- { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+        { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-        -- { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-        -- { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
-        -- { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-        -- { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
+        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+        { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+        { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+        { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
         -- { "<leader>sw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
         -- { "<leader>sW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
         -- { "<leader>sw", Util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
@@ -95,6 +92,24 @@ return {
     ---@diagnostic disable-next-line: unused-local
     opts = function(_, _opts)
       local actions = require("telescope.actions")
+
+      local open_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_with_trouble(...)
+      end
+      local open_selected_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_selected_with_trouble(...)
+      end
+      local find_files_no_ignore = function()
+        local action_state = require("telescope.actions.state")
+        local line = action_state.get_current_line()
+        Util.telescope("find_files", { no_ignore = true, default_text = line })()
+      end
+      local find_files_with_hidden = function()
+        local action_state = require("telescope.actions.state")
+        local line = action_state.get_current_line()
+        Util.telescope("find_files", { hidden = true, default_text = line })()
+      end
+
       return {
         defaults = {
           layout_config = {
@@ -111,29 +126,26 @@ return {
               width = 0.8,
             },
           },
-          -- your custom insert mode mappings
           mappings = {
-            -- your custom normal mode mappings
+            -- custom normal mode mappings
+            n = {
+              ["q"] = actions.close,
+            },
+            -- custom insert mode mappings
             i = {
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next, -- move to next result
-              -- ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-              -- map actions.which_key to <C-h> (default: <C-/>)
-              -- ["<C-h>"] = "which_key"
-              --
-              -- from LazyVim
-              --
-              -- ["<c-t>"] = open_with_trouble,
-              -- ["<a-t>"] = open_selected_with_trouble,
-              -- ["<a-i>"] = find_files_no_ignore,
-              -- ["<a-h>"] = find_files_with_hidden,
-              -- ["<C-Down>"] = actions.cycle_history_next,
-              -- ["<C-Up>"] = actions.cycle_history_prev,
+              ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
               ["<C-f>"] = actions.preview_scrolling_down,
               ["<C-b>"] = actions.preview_scrolling_up,
-            },
-            n = {
-              ["q"] = actions.close,
+              ["<C-Down>"] = actions.cycle_history_next,
+              ["<C-Up>"] = actions.cycle_history_prev,
+              ["<C-t>"] = open_with_trouble,
+              ["<A-t>"] = open_selected_with_trouble,
+              ["<A-i>"] = find_files_no_ignore,
+              ["<A-h>"] = find_files_with_hidden,
+              -- map actions.which_key to <C-h> (default: <C-/>)
+              -- ["<C-h>"] = "which_key"
             },
           },
         },
