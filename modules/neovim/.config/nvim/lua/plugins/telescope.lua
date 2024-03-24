@@ -36,7 +36,7 @@ return {
         {
           "<leader>ff",
           function()
-            builtin.find_files({ hidden = true })
+            builtin.find_files({ hidden = true, no_ignore = true })
           end,
           desc = "Find Files (Hidden)",
         },

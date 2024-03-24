@@ -5,23 +5,21 @@
 vim.g.mapleader = "'"
 -- vim.g.maplocalleader = ' '
 
--- Enable .editorconfig (default is true in nvim)
-vim.g.editorconfig = true
-
--- Use nerd font
-vim.g.have_nerd_font = true
-
 -- disable netrw at the very start of your init.lua
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
--- Enable auto format (custom / lazyvim)
-vim.g.autoformat = true
-
--- See `:help vim.opt`
+vim.g.editorconfig = true         -- enable .editorconfig (default is true in nvim)
+vim.g.have_nerd_font = true       -- Use nerd font
 
 -- ------------------------------------
--- Turn Off Swap Files
+-- Custom global options
+-- ------------------------------------
+
+vim.g.autoformat = true           -- enable auto format (custom / lazyvim)
+
+-- ------------------------------------
+-- See `:help vim.opt`
 -- ------------------------------------
 
 vim.opt.swapfile = false          -- turn off swap file
@@ -53,46 +51,49 @@ vim.opt.timeoutlen = 500          -- Displays which-key popup sooner
 -- vim.opt.updatetime = 250          -- Decrease update time
 
 -- Undo/Redo
-vim.opt.undofile = true   -- Use the undo file
-vim.opt.undolevels = 1000 -- Lots of undo levels
+vim.opt.undofile = true           -- Use the undo file
+vim.opt.undolevels = 1000         -- Lots of undo levels
 
 -- Things to remember when restoring a session
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 
 -- Indentation
 -- vim.opt.breakindent = true
-vim.opt.expandtab = true   -- Use spaces instead of tabs
-vim.opt.shiftround = true  -- Round indent
-vim.opt.shiftwidth = 2     -- Size of an indent
-vim.opt.smartindent = true -- Insert indents automatically
-vim.opt.softtabstop = 2    -- How many columns of whitespace for tab keypress/backspace
-vim.opt.tabstop = 2        -- Number of spaces tabs count for
+vim.opt.expandtab = true          -- Use spaces instead of tabs
+vim.opt.shiftround = true         -- Round indent
+vim.opt.shiftwidth = 2            -- Size of an indent
+vim.opt.smartindent = true        -- Insert indents automatically
+vim.opt.softtabstop = 2           -- How many columns of whitespace for tab keypress/backspace
+vim.opt.tabstop = 2               -- Number of spaces tabs count for
 
 -- Text Wrapping
 vim.opt.wrap = false -- Disable line wrap
--- vim.opt.linebreak = true               -- Wrap lines at convenient points
+-- vim.opt.linebreak = true         -- Wrap lines at convenient points
 
 -- Folds
 vim.opt.foldlevel = 99
 -- vim.opt.foldmethod = "expr"
 
--- vim.opt.wildmenu = true                -- Enable ctrl-n and ctrl-p to scroll thru matches
+-- Completion
+vim.opt.completeopt="menu,menuone,preview,noinsert"
+
+-- vim.opt.wildmenu = true        -- Enable ctrl-n and ctrl-p to scroll thru matches
 vim.opt.wildmode = "longest:full,full" -- Wildmenu automcomplete behaviour
 
 -- Search
 -- vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"
-vim.opt.hlsearch = true        -- Highlight searches
-vim.opt.ignorecase = true      -- Ignore case when searching
-vim.opt.inccommand = "nosplit" -- preview incremental substitute
-vim.opt.incsearch = true       -- Show search matches as you type
-vim.opt.smartcase = true       -- Do not ignore case with capitals
+vim.opt.hlsearch = true           -- Highlight searches
+vim.opt.ignorecase = true         -- Ignore case when searching
+vim.opt.inccommand = "nosplit"    -- preview incremental substitute
+vim.opt.incsearch = true          -- Show search matches as you type
+vim.opt.smartcase = true          -- Do not ignore case with capitals
 
 -- Split Panes
 -- More natural split opening
-vim.opt.splitbelow = true -- Put new windows below current
+vim.opt.splitbelow = true         -- Put new windows below current
 vim.opt.splitkeep = "screen"
-vim.opt.splitright = true -- Put new windows right of current
+vim.opt.splitright = true         -- Put new windows right of current
 
 -- ------------------------------------
 -- Formatting
