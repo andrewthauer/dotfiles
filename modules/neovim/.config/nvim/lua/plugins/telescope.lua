@@ -36,15 +36,15 @@ return {
         {
           "<leader>ff",
           function()
-            builtin.find_files({ hidden = true, no_ignore = true })
+            builtin.find_files({ hidden = true, no_ignore = false })
           end,
           desc = "Find Files (Hidden)",
         },
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
         -- git
-        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "commits" },
-        { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "status" },
+        -- { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "commits" },
+        -- { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "status" },
         -- search
         { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
         { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
@@ -61,70 +61,39 @@ return {
         { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
         { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-        -- { "<leader>sw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
-        -- { "<leader>sW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
-        -- { "<leader>sw", Util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
-        -- { "<leader>sW", Util.telescope("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
-        -- { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
-        -- {
-        --   "<leader>ss",
-        --   function()
-        --     require("telescope.builtin").lsp_document_symbols({
-        --       symbols = require("lazyvim.config").get_kind_filter(),
-        --     })
-        --   end,
-        --   desc = "Goto Symbol",
-        -- },
-        -- {
-        --   "<leader>sS",
-        --   function()
-        --     require("telescope.builtin").lsp_dynamic_workspace_symbols({
-        --       symbols = require("lazyvim.config").get_kind_filter(),
-        --     })
-        --   end,
-        --   desc = "Goto Symbol (Workspace)",
-        -- },
       }
-      -- vim.list_extend(keys, my_keys)
       keys = mappings
       return keys
     end,
     ---@diagnostic disable-next-line: unused-local
     opts = function(_, _opts)
       local actions = require("telescope.actions")
+      local action_state = require("telescope.actions.state")
+      local builtin = require("telescope.builtin")
+
+      local find_files_no_ignore = function()
+        local line = action_state.get_current_line()
+        builtin.find_files({ hidden = true, no_ignore = true, default_text = line })
+      end
+
+      local find_files_with_hidden = function()
+        local line = action_state.get_current_line()
+        builtin.find_files({ hidden = true, default_text = line })
+      end
 
       local open_with_trouble = function(...)
         return require("trouble.providers.telescope").open_with_trouble(...)
       end
+
       local open_selected_with_trouble = function(...)
         return require("trouble.providers.telescope").open_selected_with_trouble(...)
-      end
-      local find_files_no_ignore = function()
-        local action_state = require("telescope.actions.state")
-        local line = action_state.get_current_line()
-        Util.telescope("find_files", { no_ignore = true, default_text = line })()
-      end
-      local find_files_with_hidden = function()
-        local action_state = require("telescope.actions.state")
-        local line = action_state.get_current_line()
-        Util.telescope("find_files", { hidden = true, default_text = line })()
       end
 
       return {
         defaults = {
-          layout_config = {
-            horizontal = {
-              height = 0.9,
-              preview_cutoff = 120,
-              prompt_position = "bottom",
-              width = 0.8,
-            },
-            vertical = {
-              height = 0.9,
-              preview_cutoff = 40,
-              prompt_position = "bottom",
-              width = 0.8,
-            },
+          file_ignore_patterns = {
+            ".git/",
+            ".cache",
           },
           mappings = {
             -- custom normal mode mappings
@@ -140,13 +109,24 @@ return {
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-Down>"] = actions.cycle_history_next,
               ["<C-Up>"] = actions.cycle_history_prev,
-              ["<C-t>"] = open_with_trouble,
-              ["<A-t>"] = open_selected_with_trouble,
               ["<A-i>"] = find_files_no_ignore,
               ["<A-h>"] = find_files_with_hidden,
+              ["<C-t>"] = open_with_trouble,
+              ["<A-t>"] = open_selected_with_trouble,
               -- map actions.which_key to <C-h> (default: <C-/>)
               -- ["<C-h>"] = "which_key"
             },
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+          grep_string = {
+            additional_args = { "--hidden" },
+          },
+          live_grep = {
+            additional_args = { "--hidden" },
           },
         },
       }

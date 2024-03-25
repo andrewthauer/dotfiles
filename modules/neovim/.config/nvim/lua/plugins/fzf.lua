@@ -4,6 +4,7 @@ return {
   "junegunn/fzf",
   {
     "ibhagwan/fzf-lua",
+    enabled = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<C-p>", "<cmd>FzfLua files<cr>" },

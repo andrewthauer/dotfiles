@@ -25,6 +25,7 @@ return {
         "pyright",
         "ruby_ls",
         "rust_analyzer",
+        "solargraph",
         -- "taplo", -- toml
         "tsserver",
         -- "yamlls",
@@ -43,6 +44,18 @@ return {
         -- custom key maps
         -- lsp.set_keymaps(require("plugins.lsp.keymaps").get())
       end)
+
+      -- format on save
+      -- lsp_zero.format_on_save({
+      --   format_opts = {
+      --     async = false,
+      --     timeout_ms = 10000,
+      --   },
+      --   servers = {
+      --     ["tsserver"] = { "javascript", "typescript" },
+      --     ["rust_analyzer"] = { "rust" },
+      --   },
+      -- })
 
       -- to learn how to use mason.nvim with lsp-zero
       -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md

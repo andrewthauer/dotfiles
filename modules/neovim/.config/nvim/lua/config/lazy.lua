@@ -7,7 +7,7 @@
 -- Setup lazy package manager (https://github.com/folke/lazy.nvimx)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
+  -- bootstrap lazy.nvi
   vim.fn.system({
     "git",
     "clone",
@@ -24,6 +24,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    -- { import = "plugins.extras.cmp-cmdline" },
   },
   defaults = {
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,

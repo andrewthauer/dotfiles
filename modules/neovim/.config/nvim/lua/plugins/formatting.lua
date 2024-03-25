@@ -71,6 +71,7 @@ return {
       vim.api.nvim_create_user_command("FormatDisable", function(args)
         if args.bang then
           -- FormatDisable! will disable auto formatting just for this buffer
+          ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = false
         else
           vim.g.autoformat = false
@@ -83,6 +84,7 @@ return {
       vim.api.nvim_create_user_command("FormatEnable", function(args)
         if args.bang then
           -- FormatEnable! will enable auto formatting just for this buffer
+          ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = true
         else
           vim.g.autoformat = true
@@ -95,6 +97,7 @@ return {
       vim.api.nvim_create_user_command("FormatToggle", function(args)
         if args.bang then
           -- FormatDisable! will toggle auto formatting just for this buffer
+          ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = not vim.b.autoformat or false
         else
           vim.g.autoformat = not vim.g.autoformat or false
