@@ -18,7 +18,7 @@ return {
         "dockerls",
         "denols",
         "gopls",
-        -- "helm_ls",
+        "helm_ls",
         -- "jsonls",
         "lua_ls",
         "marksman",
@@ -28,7 +28,7 @@ return {
         "solargraph",
         -- "taplo", -- toml
         "tsserver",
-        -- "yamlls",
+        "yamlls",
       },
     },
     keys = {},

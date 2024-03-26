@@ -6,7 +6,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = function(_, opts)
       table.insert(opts.sources or {}, {
-        theme = "zenburn",
+        theme = vim.g.colorscheme,
       })
     end,
   },

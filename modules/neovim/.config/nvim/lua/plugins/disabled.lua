@@ -7,7 +7,6 @@ return {
   -- { "folke/persistence.nvim", enabled = false },
   -- { "folke/trouble.nvim", enabled = false },
   -- { "folke/which-key.nvim", enabled = false },
-  { "echasnovski/mini.bufremove", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.surround", enabled = false },
   -- { "nvim-pack/nvim-spectre", enabled = false },

@@ -22,6 +22,13 @@ return {
         desc = "Explorer NeoTree (root dir)",
       },
       {
+        "<leader>fE",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
+      },
+      {
         "<leader>ge",
         function()
           require("neo-tree.command").execute({ source = "git_status", toggle = true })
@@ -38,6 +45,7 @@ return {
     },
     opts = {
       sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+      close_if_last_window = true,
       filesystem = {
         filtered_items = {
           visible = true,

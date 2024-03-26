@@ -7,7 +7,7 @@
 -- Setup lazy package manager (https://github.com/folke/lazy.nvimx)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvi
+  -- bootstrap lazy.nvim
   vim.fn.system({
     "git",
     "clone",

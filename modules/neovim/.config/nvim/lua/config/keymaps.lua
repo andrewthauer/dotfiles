@@ -1,6 +1,8 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+--
+-- stylua: ignore start
 
 local Util = require("util")
 
@@ -19,9 +21,6 @@ map("i", "kj", "<Esc>", { noremap = true, desc = "Alternative excape key" })
 
 -- Clear on pressing <Esc> in normal mode
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
-
--- Exit terminal mode with Esc
-map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
@@ -88,6 +87,15 @@ map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
+-- Terminal Mappings
+map("t", "<Esc><Esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+map("t", "<C-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+
 -- tabs
 -- map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 -- map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
@@ -150,39 +158,21 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- Toggle options
 map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Toggle auto format (global)" })
 map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Toggle auto format (buffer)" })
--- map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
--- map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
--- map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
--- map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
--- map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
--- map("n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
--- map("n", "<leader>ub", function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
+map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
+map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
+map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+
+---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
+map("n", "<leader>ft", function() Util.terminal(nil) end, { desc = "Open floating terminal" })
 
 -- Lazygit
-map("n", "<leader>gg", function()
-  Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
-end, { desc = "Lazygit" })
+map("n", "<leader>gg", function() Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit" })
 
 -- map("n", "<leader>gf", function()
 --   local git_path = vim.api.nvim_buf_get_name(0)
 --   Util.terminal({ "lazygit", "-f", vim.trim(git_path) }, { esc_esc = false, ctrl_hjkl = false })
 -- end, { desc = "Lazygit current file history" })
 
--- Floating terminal
-local lazyterm = function()
-  Util.terminal(nil)
-end
 
--- Open terminals
-map("n", "<leader>ft", lazyterm, { desc = "Terminal" })
-map("n", "<C-`>", "<cmd>ToggleTerm<cr>", { desc = "Terminal" })
--- map("n", "<c-/>", lazyterm, { desc = "Terminal" })
-
--- Terminal Mappings
-map("t", "<Esc><Esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
-map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-map("t", "<C-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })

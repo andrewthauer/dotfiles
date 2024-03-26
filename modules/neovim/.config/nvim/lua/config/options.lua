@@ -1,4 +1,5 @@
 -- Options must be loaded before lazy.nvim startup
+--
 -- stylua: ignore start
 
 -- Remap leader key so its easier to reach
@@ -36,7 +37,7 @@ vim.opt.relativenumber = true     -- Relative line numbers are also good
 vim.opt.pumblend = 10             -- Popup blend
 vim.opt.pumheight = 10            -- Maximum number of entries in a popup
 vim.opt.ruler = true              -- Show row/col number
-vim.opt.scrolloff = 4             -- Lines of context
+vim.opt.scrolloff = 5             -- Lines of context
 vim.opt.showcmd = true            -- Show incomplete cmds down the bottom
 vim.opt.showmode = false          -- Show current mode down the bottom
 vim.opt.termguicolors = true      -- True color support
@@ -48,7 +49,7 @@ vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
 vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim
 
 vim.opt.timeoutlen = 500          -- Displays which-key popup sooner
--- vim.opt.updatetime = 250          -- Decrease update time
+vim.opt.updatetime = 250          -- Decrease update time
 
 -- Undo/Redo
 vim.opt.undofile = true           -- Use the undo file
@@ -58,7 +59,7 @@ vim.opt.undolevels = 1000         -- Lots of undo levels
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 
 -- Indentation
--- vim.opt.breakindent = true
+vim.opt.breakindent = true
 vim.opt.expandtab = true          -- Use spaces instead of tabs
 vim.opt.shiftround = true         -- Round indent
 vim.opt.shiftwidth = 2            -- Size of an indent
@@ -81,7 +82,6 @@ vim.opt.completeopt="menu,menuone,preview,noinsert"
 vim.opt.wildmode = "longest:full,full" -- Wildmenu automcomplete behaviour
 
 -- Search
--- vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.hlsearch = true           -- Highlight searches
 vim.opt.ignorecase = true         -- Ignore case when searching
@@ -95,11 +95,6 @@ vim.opt.splitbelow = true         -- Put new windows below current
 vim.opt.splitkeep = "screen"
 vim.opt.splitright = true         -- Put new windows right of current
 
--- ------------------------------------
--- Formatting
--- ------------------------------------
-
--- vim.opt.formatoptions = "jcroqlnt" -- tcqj
--- do not add comment on cr
--- vim.opt.formatoptions = "jcqlnt" -- tcqj
--- vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+-- Sets how neovim will display certain whitespace characters in the editor.
+-- vim.opt.list = true
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
