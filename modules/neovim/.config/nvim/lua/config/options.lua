@@ -17,7 +17,7 @@ vim.g.have_nerd_font = true       -- Use nerd font
 -- Custom global options
 -- ------------------------------------
 
-vim.g.autoformat = true           -- enable auto format (custom / lazyvim)
+vim.g.autoformat_enabled = true           -- enable auto format (custom / lazyvim)
 
 -- ------------------------------------
 -- See `:help vim.opt`

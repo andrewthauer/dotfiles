@@ -43,7 +43,7 @@ return {
         },
         format_on_save = function(bufnr)
           -- Disable with a global or buffer-local variable
-          if vim.g.autoformat or vim.b[bufnr].autoformat then
+          if vim.g.autoformat_enabled or vim.b[bufnr].autoformat then
             return { timeout_ms = 500, lsp_fallback = true }
           end
         end,
@@ -73,7 +73,7 @@ return {
           ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = false
         else
-          vim.g.autoformat = false
+          vim.g.autoformat_enabled = false
         end
       end, {
         desc = "Disable autoformat-on-save",
@@ -86,7 +86,7 @@ return {
           ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = true
         else
-          vim.g.autoformat = true
+          vim.g.autoformat_enabled = true
         end
       end, {
         desc = "Re-enable autoformat-on-save",
@@ -99,7 +99,7 @@ return {
           ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = not vim.b.autoformat or false
         else
-          vim.g.autoformat = not vim.g.autoformat or false
+          vim.g.autoformat_enabled = not vim.g.autoformat_enabled or false
         end
       end, {
         desc = "Toggle autoformat-on-save",

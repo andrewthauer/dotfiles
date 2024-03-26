@@ -1,4 +1,12 @@
 return {
+  -- mini.bufremove [smart bufdelete]
+  -- https://github.com/echasnovski/mini.bufremove
+  -- Defines what tab to go on :bufdelete
+  {
+    "echasnovski/mini.bufremove",
+    event = "User BaseFile",
+  },
+
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
   -- https://github.com/folke/which-key.nvim
