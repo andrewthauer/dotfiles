@@ -12,6 +12,7 @@ return {
   },
 
   -- zenbones
+  -- https://github.com/mcchrish/zenbones.nvim
   {
     "mcchrish/zenbones.nvim",
     dependencies = {
@@ -19,19 +20,23 @@ return {
     },
     lazy = false,
     priority = 1000, -- make sure to load this before other plugins start
-    cond = vim.g.colorscheme == "zenburned",
+    cond = vim.g.colorscheme == "zenbones",
     config = function()
-      vim.cmd("colorscheme zenburned")
-    end,
-  },
-
-  -- https://github.com/catppuccin/nvim
-  {
-    "catppuccin/nvim",
-    priority = 1000,
-    cond = vim.g.colorscheme == "catppuccin",
-    config = function()
-      vim.cmd("colorscheme catppuccin")
+      -- variants
+      --   zenwritten
+      --   neobones
+      --   vimbones
+      --   rosebones
+      --   forestbone
+      --   nordbones
+      --   tokyobones
+      --   seoulbones
+      --   duckbones
+      --   zenburned
+      --   kanagawabones
+      vim.g.zenbones_variant = "zenburned"
+      local colorscheme = vim.g.zenbones_variant or "zenbones"
+      vim.cmd("colorscheme " .. colorscheme)
     end,
   },
 }

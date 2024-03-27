@@ -28,6 +28,7 @@ vim.opt.swapfile = false          -- turn off swap file
 vim.opt.autoread = true           -- Reload files changed outside vim
 vim.opt.autowrite = true          -- Automatically write before running commands
 
+vim.opt.background = "dark"       -- Set background to dark
 vim.opt.confirm = true            -- Confirm to save changes before exiting modified buffer
 vim.opt.cursorline = true         -- Highlight current line
 vim.opt.laststatus = 3            -- global statusline
@@ -44,10 +45,8 @@ vim.opt.termguicolors = true      -- True color support
 vim.opt.visualbell = true         -- No sounds
 vim.opt.virtualedit = "block"     -- Allow cursor to move where there is no text in visual block mode
 vim.opt.winminwidth = 5           -- Minimum window width
-
 vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
 vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim
-
 vim.opt.timeoutlen = 500          -- Displays which-key popup sooner
 vim.opt.updatetime = 250          -- Decrease update time
 
@@ -73,7 +72,6 @@ vim.opt.wrap = false -- Disable line wrap
 
 -- Folds
 vim.opt.foldlevel = 99
--- vim.opt.foldmethod = "expr"
 
 -- Completion
 vim.opt.completeopt="menu,menuone,preview,noinsert"

@@ -1,4 +1,4 @@
----@class util.toggle
+---@class Util.toggle
 local M = {}
 
 ---@param silent boolean?

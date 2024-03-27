@@ -10,9 +10,6 @@ local M = setmetatable({}, {
 local terminals = {}
 
 ---@class LazyTermOpts: LazyCmdOptions
----@field interactive? boolean
----@field esc_esc? boolean
----@field ctrl_hjkl? boolean
 
 -- Opens a floating terminal (interactive by default)
 ---@param cmd? string[]|string
