@@ -3,7 +3,7 @@
 -- stylua: ignore start
 
 -- Remap leader key so its easier to reach
-vim.g.mapleader = "'"
+vim.g.mapleader = " "
 -- vim.g.maplocalleader = ' '
 
 -- disable netrw at the very start of your init.lua
@@ -38,7 +38,7 @@ vim.opt.relativenumber = true     -- Relative line numbers are also good
 vim.opt.pumblend = 10             -- Popup blend
 vim.opt.pumheight = 10            -- Maximum number of entries in a popup
 vim.opt.ruler = true              -- Show row/col number
-vim.opt.scrolloff = 5             -- Lines of context
+vim.opt.scrolloff = 10           -- Lines of context
 vim.opt.showcmd = true            -- Show incomplete cmds down the bottom
 vim.opt.showmode = false          -- Show current mode down the bottom
 vim.opt.termguicolors = true      -- True color support
@@ -47,6 +47,7 @@ vim.opt.virtualedit = "block"     -- Allow cursor to move where there is no text
 vim.opt.winminwidth = 5           -- Minimum window width
 vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
 vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim
+vim.opt.timeout = true            -- Time out on mappings
 vim.opt.timeoutlen = 500          -- Displays which-key popup sooner
 vim.opt.updatetime = 250          -- Decrease update time
 

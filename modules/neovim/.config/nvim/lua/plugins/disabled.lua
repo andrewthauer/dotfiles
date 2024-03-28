@@ -4,15 +4,11 @@ return {
   -- always enabled
   { "akinsho/bufferline.nvim", enabled = false },
   { "dstein64/vim-startuptime", enabled = false },
-  -- { "folke/persistence.nvim", enabled = false },
-  -- { "folke/trouble.nvim", enabled = false },
-  -- { "folke/which-key.nvim", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.surround", enabled = false },
-  -- { "nvim-pack/nvim-spectre", enabled = false },
-  -- { "nvimdev/dashboard-nvim", enabled = false },
+  { "ahmedkhalf/project.nvim", enabled = false },
 
-  -- maybe/later list
+  -- add maybe/later list
   -- { "echasnovski/mini.ai", enabled = false },
   -- { "echasnovski/mini.indentscope", enabled = false },
   -- { "folke/noice.nvim", enabled = false },

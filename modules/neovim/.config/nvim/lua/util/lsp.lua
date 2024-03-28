@@ -17,16 +17,4 @@ function M.disable(server, cond)
   end)
 end
 
-function M.set_keymaps(spec)
-  local Keys = require("lazy.core.handler.keys")
-  local keymaps = Keys.resolve(spec)
-
-  for _, keys in pairs(keymaps) do
-    local opts = Keys.opts(keys)
-    opts.has = nil
-    opts.silent = opts.silent ~= false
-    vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
-  end
-end
-
 return M

@@ -97,12 +97,12 @@ map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<C-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 
 -- tabs
--- map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
--- map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
--- map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
--- map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
--- map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
--- map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 -- map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
@@ -116,9 +116,6 @@ map("t", "<C-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 -- map("i", ",", ",<c-g>u")
 -- map("i", ".", ".<c-g>u")
 -- map("i", ";", ";<c-g>u")
-
--- keywordprg
--- map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- Better indenting
 -- map("v", "<", "<gv")

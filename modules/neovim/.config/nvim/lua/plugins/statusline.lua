@@ -4,10 +4,14 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    ---@diagnostic disable-next-line: unused-local
     opts = function(_, opts)
-      table.insert(opts.sources or {}, {
+      return {
         theme = vim.g.colorscheme,
-      })
+        -- sections = {
+        --   lualine_a = { "mode" },
+        -- },
+      }
     end,
   },
 }

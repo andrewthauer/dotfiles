@@ -3,6 +3,13 @@ local M = {}
 M.terminal = require("util.terminal")
 M.toggle = require("util.toggle")
 
+---@param keymaps table
+function M.set_keymaps(keymaps)
+  for _, keymap in pairs(keymaps) do
+    vim.keymap.set(table.unpack(keymap))
+  end
+end
+
 ---@param name string
 ---@param fn fun(name:string)
 function M.on_load(name, fn)

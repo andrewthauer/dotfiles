@@ -1,4 +1,14 @@
 return {
+  -- open files & commands from term in current nvim instance
+  -- https://github.com/willothy/flatten.nvim
+  {
+    "willothy/flatten.nvim",
+    lazy = false,
+    -- Ensure that it runs first to minimize delay when opening file from terminal
+    priority = 1001,
+    config = true,
+  },
+
   -- mini.bufremove [smart bufdelete]
   -- https://github.com/echasnovski/mini.bufremove
   -- Defines what tab to go on :bufdelete
@@ -22,8 +32,8 @@ return {
         ["z"] = { name = "+fold" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
-        -- ["<leader><tab>"] = { name = "+tabs" },
-        ["<leader>b"] = { name = "+buffer" },
+        ["<leader><tab>"] = { name = "+tabs" },
+        ["<leader>b"] = { name = "+buffers" },
         ["<leader>c"] = { name = "+code" },
         ["<leader>f"] = { name = "+file/find" },
         ["<leader>g"] = { name = "+git" },
