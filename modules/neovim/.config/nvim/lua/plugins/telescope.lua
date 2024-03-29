@@ -19,6 +19,7 @@ return {
     },
     keys = function(_, keys)
       local builtin = require("telescope.builtin")
+      local Util = require("util")
       local mappings = {
         { "<leader>t", "<cmd>Telescope<cr>", desc = "Telescope" },
         {
@@ -30,13 +31,7 @@ return {
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-        {
-          "<leader>fc",
-          function()
-            builtin.find_files({ cwd = vim.fn.stdpath("config") })
-          end,
-          desc = "Find Config File",
-        },
+        { "<leader>fc", Util.telescope.config_files, desc = "Find Config File" },
         {
           "<leader>ff",
           function()
@@ -63,8 +58,7 @@ return {
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
         { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
       }
-      keys = mappings
-      return keys
+      return vim.tbl_extend("force", keys, mappings)
     end,
     ---@diagnostic disable-next-line: unused-local
     opts = function(_, _opts)

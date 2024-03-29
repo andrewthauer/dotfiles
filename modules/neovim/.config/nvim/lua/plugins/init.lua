@@ -1,6 +1,12 @@
 -- Must be loaded before anything else
 require("config.options")
 
+-- load local options if they exist
+local Util = require("util")
+if Util.is_module_available("config.local") then
+  require("config.local")
+end
+
 return {
   -- This plugin loads our base setup before other plugins are loaded
   {

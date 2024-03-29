@@ -13,6 +13,16 @@ return {
     deactivate = function()
       vim.cmd([[Neotree close]])
     end,
+    opts = {
+      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+      close_if_last_window = true,
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = false,
+        },
+      },
+    },
     keys = {
       {
         "<leader>fe",
@@ -41,16 +51,6 @@ return {
           require("neo-tree.command").execute({ source = "buffers", toggle = true })
         end,
         desc = "Buffer explorer",
-      },
-    },
-    opts = {
-      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-      close_if_last_window = true,
-      filesystem = {
-        filtered_items = {
-          visible = true,
-          hide_dotfiles = false,
-        },
       },
     },
   },

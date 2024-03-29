@@ -12,8 +12,8 @@ return {
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
-      sync_install = true,
       auto_install = true,
+      sync_install = true,
       ensure_installed = {
         "bash",
         "c",
@@ -33,7 +33,7 @@ return {
         "jsdoc",
         "json",
         "jsonc",
-        -- "just",  -- see below
+        "just",
         "jq",
         "kotlin",
         "lua",
@@ -59,6 +59,9 @@ return {
         "yaml",
       },
     },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
   },
 
   -- treesitter justfile support

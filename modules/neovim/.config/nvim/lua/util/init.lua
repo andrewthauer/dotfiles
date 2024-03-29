@@ -1,7 +1,25 @@
 local M = {}
 
 M.terminal = require("util.terminal")
+M.telescope = require("util.telescope")
 M.toggle = require("util.toggle")
+
+--- Check if a module is available to be required
+---@param module_name string The module to search for.
+---@return boolean available # Whether the plugin is available.
+function M.is_module_available(module_name)
+  local module = pcall(require, module_name)
+  return module ~= nil
+end
+
+--- Check if a plugin is defined in lazy. Useful with lazy loading
+--- when a plugin is not necessarily loaded yet.
+---@param plugin string The plugin to search for.
+---@return boolean available # Whether the plugin is available.
+function M.is_plugin_available(plugin)
+  local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
+  return lazy_config_avail and lazy_config.spec.plugins[plugin] ~= nil
+end
 
 ---@param keymaps table
 function M.set_keymaps(keymaps)

@@ -1,3 +1,3 @@
 .netrwhist
 lazy*.json
-tmp/
+*.local.lua

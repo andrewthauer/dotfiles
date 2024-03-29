@@ -3,10 +3,8 @@
 return {
   -- always enabled
   { "akinsho/bufferline.nvim", enabled = false },
-  { "dstein64/vim-startuptime", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.surround", enabled = false },
-  { "ahmedkhalf/project.nvim", enabled = false },
 
   -- add maybe/later list
   -- { "echasnovski/mini.ai", enabled = false },
