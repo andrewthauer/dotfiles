@@ -35,7 +35,7 @@ return {
         {
           "<leader>ff",
           function()
-            builtin.find_files({ hidden = true, no_ignore = false })
+            builtin.find_files({ hidden = true, no_ignore = true })
           end,
           desc = "Find Files (Hidden)",
         },
@@ -109,7 +109,7 @@ return {
               ["<C-t>"] = open_with_trouble,
               ["<A-t>"] = open_selected_with_trouble,
               -- map actions.which_key to <C-h> (default: <C-/>)
-              -- ["<C-h>"] = "which_key"
+              ["<C-h>"] = "which_key"
             },
           },
         },

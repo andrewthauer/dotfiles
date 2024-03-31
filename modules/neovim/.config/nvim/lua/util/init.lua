@@ -1,6 +1,5 @@
 local M = {}
 
-M.terminal = require("util.terminal")
 M.telescope = require("util.telescope")
 M.toggle = require("util.toggle")
 
@@ -21,13 +20,6 @@ function M.is_plugin_available(plugin)
   return lazy_config_avail and lazy_config.spec.plugins[plugin] ~= nil
 end
 
----@param keymaps table
-function M.set_keymaps(keymaps)
-  for _, keymap in pairs(keymaps) do
-    vim.keymap.set(table.unpack(keymap))
-  end
-end
-
 ---@param name string
 ---@param fn fun(name:string)
 function M.on_load(name, fn)
@@ -44,6 +36,13 @@ function M.on_load(name, fn)
         end
       end,
     })
+  end
+end
+
+---@param keymaps table
+function M.set_keymaps(keymaps)
+  for _, keymap in pairs(keymaps) do
+    vim.keymap.set(table.unpack(keymap))
   end
 end
 

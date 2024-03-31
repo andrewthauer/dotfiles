@@ -164,12 +164,3 @@ map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggl
 ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
 map("n", "<leader>ft", function() Util.terminal(nil) end, { desc = "Open floating terminal" })
 
--- Lazygit
-map("n", "<leader>gg", function() Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit" })
-
--- map("n", "<leader>gf", function()
---   local git_path = vim.api.nvim_buf_get_name(0)
---   Util.terminal({ "lazygit", "-f", vim.trim(git_path) }, { esc_esc = false, ctrl_hjkl = false })
--- end, { desc = "Lazygit current file history" })
-
-

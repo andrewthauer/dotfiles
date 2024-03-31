@@ -31,10 +31,11 @@ return {
             { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
             { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
             { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
-            { action = "Telescope projects", desc = " Projects", icon = " ", key = "p" },
+            { action = "Telescope neovim-project discover", desc = " Projects", icon = " ", key = "p" },
             { action = Util.telescope.config_files, desc = " Config", icon = " ", key = "c" },
             { action = 'NeovimProjectLoadRecent', desc = " Restore Session", icon = " ", key = "s" },
             { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "l" },
+            { action = "Mason", desc = " Mason", icon = "🝙 ", key = "m" },
             { action = "qa", desc = " Quit", icon = " ", key = "q" },
           },
           footer = function()
