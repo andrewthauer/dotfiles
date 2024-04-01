@@ -21,7 +21,6 @@ return {
       local builtin = require("telescope.builtin")
       local Util = require("util")
       local mappings = {
-        { "<leader>t", "<cmd>Telescope<cr>", desc = "Telescope" },
         {
           "<leader>,",
           "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
@@ -42,8 +41,8 @@ return {
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
         -- git
-        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "commits" },
-        { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "status" },
+        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+        { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
         -- search
         { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
         { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
@@ -57,6 +56,7 @@ return {
         { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
         { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
+        { "<leader>st", "<cmd>Telescope<cr>", desc = "Telescope" },
       }
       return vim.tbl_extend("force", keys, mappings)
     end,

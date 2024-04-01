@@ -129,27 +129,27 @@ function M.get_keymaps()
     --  This is where a variable was first declared, or where a function is defined, etc.
     --  To jump back, press <C-t>.
     --    <cmd>lua vim.lsp.buf.declaration()
-    { "gd", require("telescope.builtin").lsp_definitions, desc = "[G]oto [D]efinition" },
+    { "gd", require("telescope.builtin").lsp_definitions, desc = "Goto Definition" },
 
     -- WARN: This is not Goto Definition, this is Goto Declaration.
     --  For example, in C this would take you to the header.
     --    <cmd>lua vim.lsp.buf.declaration()<cr>
-    { "gD", vim.lsp.buf.declaration, desc = "[G]oto [D]eclaration" },
+    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
 
     -- Jump to the implementation of the word under your cursor.
     --  Useful when your language has ways of declaring types without an actual implementation.
     --    <cmd>lua vim.lsp.buf.implementation()<cr>
-    { "gI", require("telescope.builtin").lsp_implementations, desc = "[G]oto [I]mplementation" },
+    { "gI", require("telescope.builtin").lsp_implementations, desc = "Goto Implementation" },
 
     -- Jump to the type of the word under your cursor.
     --  Useful when you're not sure what type a variable is and you want to see
     --  the definition of its *type*, not where it was *defined*.
     --    <cmd>lua vim.lsp.buf.type_definition()<cr>
-    { "go", require("telescope.builtin").lsp_type_definitions, desc = "Type [D]efinition" },
+    { "go", require("telescope.builtin").lsp_type_definitions, desc = "Type Definition" },
 
     -- Find references for the word under your cursor.
     --   <cmd>lua vim.lsp.buf.references()<cr>
-    { "gr", require("telescope.builtin").lsp_references, desc = "[G]oto [R]eferences" },
+    { "gr", require("telescope.builtin").lsp_references, desc = "Goto References" },
 
     -- Shwo signature help for the word under your cursor.
     -- <cmd>lua vim.lsp.buf.signature_help()<cr>
@@ -157,25 +157,25 @@ function M.get_keymaps()
 
     -- Fuzzy find all the symbols in your current document.
     --  Symbols are things like variables, functions, types, etc.
-    { "<leader>ds", require("telescope.builtin").lsp_document_symbols, desc = "[D]ocument [S]ymbols" },
+    { "<leader>ds", require("telescope.builtin").lsp_document_symbols, desc = "Document Symbols" },
 
     -- Fuzzy find all the symbols in your current workspace.
     --  Similar to document symbols, except searches over your entire project.
-    { "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, desc = "[W]orkspace [S]ymbols" },
-
-    -- Rename the variable under your cursor.
-    --  Most Language Servers support renaming across files, etc.
-    { "<leader>rn", vim.lsp.buf.rename, desc = "[R]e[n]ame" },
+    { "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, desc = "Workspace Symbols" },
 
     -- Execute a code action, usually your cursor needs to be on top of an error
     -- or a suggestion from your LSP for this to activate.
-    { "<leader>ca", vim.lsp.buf.code_action, desc = "[C]ode [A]ction" },
+    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
 
     -- Execute a codelens action
-    { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "v" }, has = "codeLens" },
+    { "<leader>cl", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "v" }, has = "codeLens" },
 
     -- Show the LSP info for the current buffer.
-    { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+
+    -- Rename the variable under your cursor.
+    --  Most Language Servers support renaming across files, etc.
+    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
   }
 end
 

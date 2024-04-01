@@ -3,7 +3,7 @@ require("config.options")
 
 -- load local options if they exist
 local Util = require("util")
-if Util.is_module_available("config.local") then
+if Util.is_mod_available("config.local") then
   require("config.local")
 end
 

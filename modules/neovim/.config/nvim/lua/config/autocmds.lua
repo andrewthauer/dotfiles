@@ -83,7 +83,12 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 -- Gloalal user commands
 --
 
+-- close all buffers except the current one
+vim.api.nvim_create_user_command("BufCloseOther", function()
+  require("util.vim").close_other_buffers()
+end, {})
+
 -- wipe all named registers
 vim.api.nvim_create_user_command("RegClear", function()
-  require("util").clear_registers()
+  require("util.vim").clear_registers()
 end, {})
