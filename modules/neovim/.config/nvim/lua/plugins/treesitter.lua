@@ -1,5 +1,6 @@
 return {
   -- synatx highlighting, etc.
+  -- https://github.com/nvim-treesitter/nvim-treesitter
   -- https://github.com/tree-sitter/tree-sitter
   --
   -- There are additional nvim-treesitter modules that you can use to interact with nvim-treesitter.
@@ -24,6 +25,7 @@ return {
         "dockerfile",
         "git_config",
         "go",
+        "gotmpl",
         "graphql",
         "hcl",
         "helm",

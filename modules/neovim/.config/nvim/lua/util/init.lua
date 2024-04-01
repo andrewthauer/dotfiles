@@ -1,5 +1,6 @@
 local M = {}
 
+M.keys = require("util.keys")
 M.telescope = require("util.telescope")
 M.toggle = require("util.toggle")
 
@@ -36,13 +37,6 @@ function M.on_load(name, fn)
         end
       end,
     })
-  end
-end
-
----@param keymaps table
-function M.set_keymaps(keymaps)
-  for _, keymap in pairs(keymaps) do
-    vim.keymap.set(table.unpack(keymap))
   end
 end
 

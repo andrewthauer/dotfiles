@@ -24,6 +24,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    { import = "plugins.lang.all" },
     -- { import = "plugins.extras.cmp-cmdline" },
   },
   defaults = {
