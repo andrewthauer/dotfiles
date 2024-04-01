@@ -49,7 +49,7 @@ vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
 vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim
 vim.opt.timeout = true            -- Time out on mappings
 vim.opt.timeoutlen = 500          -- Displays which-key popup sooner
-vim.opt.updatetime = 250          -- Decrease update time
+-- vim.opt.updatetime = 250          -- Decrease update time
 
 -- Undo/Redo
 vim.opt.undofile = true           -- Use the undo file

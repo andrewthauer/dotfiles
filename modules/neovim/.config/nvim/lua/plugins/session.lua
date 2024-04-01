@@ -1,4 +1,12 @@
 return {
+  -- https://github.com/Shatur/neovim-session-manager
+  -- {
+  --   "Shatur/neovim-session-manager",
+  --   config = function()
+  --     require("session_manager").setup()
+  --   end,
+  -- },
+
   -- project & session manager
   -- https://github.com/coffebar/neovim-project
   {
@@ -12,22 +20,12 @@ return {
       { "Shatur/neovim-session-manager" },
     },
     keys = {
+      -- stylua: ignore start
       { "<leader>fp", "<cmd>Telescope neovim-project discover<cr>", desc = "Projects" },
-      {
-        "<leader>qs",
-        function()
-          require("session_manager").load_session(false)
-        end,
-        desc = "Restore Session",
-      },
+      { "<leader>qs", function() require("session_manager").load_session(false) end, desc = "Restore Session", },
       { "<leader>ql", "<cmd>NeovimProjectLoadRecent<cr>", desc = "Restore Last Session" },
-      {
-        "<leader>qd",
-        function()
-          require("session_manager").delete_current_dir_session()
-        end,
-        desc = "Delete Current Session",
-      },
+      { "<leader>qd", function() require("session_manager").delete_current_dir_session() end, desc = "Delete Current Session", },
+      -- stylua: ignore end
     },
     opts = {
       projects = vim.g.projects or {

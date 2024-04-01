@@ -12,31 +12,17 @@ my needs.
 
 **Current Plugins**
 
-- Lazy
-- Mason
-- Nvim Tree
-- Treesitter
-- Conform
-- which-key
-- Fzf Lua
+See [plugins](.config/nvim/lua/plugins) for a list of plugins that are currently
+installed.
 
 **Plugins to consider adding**
 
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- [neoconf.nvim](https://github.com/folke/neoconf.nvim)
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
-- [nvim-lint](https://github.com/mfussenegger/nvim-lint)
-- [copilot.lua](https://github.com/zbirenbaum/copilot.lua)
 - [neotest](https://github.com/nvim-neotest/neotest)
 - [Mini](https://github.com/echasnovski/mini.nvim)
   - mini.ai
-  - mini.comment
   - mini.files
   - mini.pairs
   - mini.surround
-- LSP
-  - [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)
-  - [nvim-dap](https://github.com/mfussenegger/nvim-dap)
 
 ## Resources
 

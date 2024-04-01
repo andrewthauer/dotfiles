@@ -25,17 +25,11 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
 -- Quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
--- Save file (compat)
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
-
 -- Undo compat (cmd-z>
 map("n", "<D-z>", "<cmd>undo<cr>", { noremap = true })
 map("i", "<D-z>", "<cmd>undo<cr>", { noremap = true })
 
--- fix open in browser when netrw is disabled
--- map("n", "gx", "[[:execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>]]", { noremap = true })
-
--- better up/down
+-- Better up/down
 -- map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -- map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -- map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -47,6 +41,9 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
+
+-- New file
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- Clear search with <esc>
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
@@ -67,12 +64,6 @@ map("n", "<C-j>", "<c-w>j", { desc = "go to lower window", noremap = false })
 map("n", "<C-k>", "<c-w>k", { desc = "go to upper window", noremap = false })
 map("n", "<C-l>", "<c-w>l", { desc = "go to right window", noremap = false })
 
--- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
-
 -- Windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
@@ -81,11 +72,26 @@ map("n", "<leader>w|", "<C-W>v", { desc = "Split window right", remap = true })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 
+-- Move / arrange windows
+map("n", "<leader>wh", "<C-W>H", { desc = "Move window left", remap = true })
+map("n", "<leader>wj", "<C-W>J", { desc = "Move window down", remap = true })
+map("n", "<leader>wk", "<C-W>K", { desc = "Move window up", remap = true })
+map("n", "<leader>wl", "<C-W>L", { desc = "Move window right", remap = true })
+
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+-- Tabs
+map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
 
 -- Terminal Mappings
 map("t", "<Esc><Esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -96,13 +102,18 @@ map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<C-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 
--- tabs
--- map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
--- map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
--- map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
--- map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
--- map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
--- map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+-- Better indenting
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- Toggle options
+map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Toggle Auto Format (global)" })
+map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Toggle Auto Format (buffer)" })
+map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
+map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
+map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 -- map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
@@ -116,21 +127,6 @@ map("t", "<C-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 -- map("i", ",", ",<c-g>u")
 -- map("i", ".", ".<c-g>u")
 -- map("i", ";", ";<c-g>u")
-
--- Better indenting
--- map("v", "<", "<gv")
--- map("v", ">", ">gv")
-
--- Highlights under cursor
--- map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
-
--- New file
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-
--- Formatting
--- map({ "n", "v" }, "<leader>cf", function()
---   Util.format({ force = true })
--- end, { desc = "Format" })
 
 -- Diagnostics
 -- map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
@@ -151,16 +147,3 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 -- map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 -- map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
-
--- Toggle options
-map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Toggle auto format (global)" })
-map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Toggle auto format (buffer)" })
-map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
-map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
-map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-
----@diagnostic disable-next-line: param-type-mismatch, missing-parameter
-map("n", "<leader>ft", function() Util.terminal(nil) end, { desc = "Open floating terminal" })
-
