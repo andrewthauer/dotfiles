@@ -11,8 +11,8 @@
 .envrc
 
 # github cli
-**/gh/*
-!**/gh/config.yml
+**/gh/.config/gh/*
+!**/gh/.config/gh/config.yml
 
 # hammerspoon
 **/hammerspoon/Spoons/*
