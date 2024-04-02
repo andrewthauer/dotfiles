@@ -1,12 +1,4 @@
 return {
-  -- https://github.com/Shatur/neovim-session-manager
-  -- {
-  --   "Shatur/neovim-session-manager",
-  --   config = function()
-  --     require("session_manager").setup()
-  --   end,
-  -- },
-
   -- project & session manager
   -- https://github.com/coffebar/neovim-project
   {
@@ -22,9 +14,12 @@ return {
     keys = {
       -- stylua: ignore start
       { "<leader>fp", "<cmd>Telescope neovim-project discover<cr>", desc = "Projects" },
-      { "<leader>qs", function() require("session_manager").load_session(false) end, desc = "Restore Session", },
-      { "<leader>ql", "<cmd>NeovimProjectLoadRecent<cr>", desc = "Restore Last Session" },
-      { "<leader>qd", function() require("session_manager").delete_current_dir_session() end, desc = "Delete Current Session", },
+      { "<leader>qr", "<cmd>NeovimProjectLoadRecent<cr>", desc = "Restore Last Session" },
+      { "<leader>ql", function() require("session_manager").load_session(false) end, desc = "Load Session" },
+      { "<leader>qL", function() require("session_manager").load_current_dir_session(false) end, desc = "Restore Dir Session" },
+      { "<leader>qs", function() require("session_manager").save_current_session() end, desc = "Save Session" },
+      { "<leader>qd", function() require("session_manager").delete_session() end, desc = "Delete Session" },
+      { "<leader>qD", function() require("session_manager").delete_current_dir_session() end, desc = "Delete Current Dir Session" },
       -- stylua: ignore end
     },
     opts = {
@@ -32,7 +27,9 @@ return {
         "~/.config/*",
       },
       dashboard_mode = true,
-      -- last_session_on_startup = false,
+      last_session_on_startup = false,
+      -- https://github.com/Shatur/neovim-session-manager
+      session_manager_opts = {},
     },
     init = function()
       -- enable saving the state of plugins in the session

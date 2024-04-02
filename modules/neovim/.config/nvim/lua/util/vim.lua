@@ -1,7 +1,10 @@
 local M = {}
 
+M.buffers = {}
+M.registers = {}
+
 -- Closes all buffers except the current one
-function M.close_other_buffers()
+function M.buffers.close_others()
   local current_buf = vim.api.nvim_get_current_buf()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if buf ~= current_buf then
@@ -11,7 +14,7 @@ function M.close_other_buffers()
 end
 
 -- Clear all named registers
-function M.clear_registers()
+function M.registers.clear()
   print("Clearing registers")
   vim.cmd([[
     let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')

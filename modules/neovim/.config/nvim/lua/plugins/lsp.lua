@@ -21,6 +21,9 @@ M.plugin_spec = {
         "taplo", -- toml
         "yamlls",
       },
+      inlay_hints = {
+        enabled = true,
+      },
     },
     keys = {},
     ---@diagnostic disable-next-line: unused-local
@@ -41,7 +44,9 @@ M.plugin_spec = {
         -- see :help lsp-zero-keybindings
         lsp_zero.default_keymaps({ buffer = bufnr })
         -- custom key maps
-        require("util").keys.set({ keys = M.get_keymaps(), buffer = bufnr })
+        local Util = require("util")
+        Util.lsp.on_attach(client, bufnr, opts)
+        Util.keys.set({ keys = M.get_keymaps(), buffer = bufnr })
       end)
 
       -- to learn how to use mason.nvim with lsp-zero
@@ -104,11 +109,6 @@ function M.get_keymaps()
     -- { "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format file" },
     -- { "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format selection", mode = "x" },
     -- { "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Execute code action" },
-    -- if vim.lsp.buf.range_code_action then
-    --   map('<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>', 'Execute code action')
-    -- else
-    --   map('<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Execute code action')
-    -- end
     -- { "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", "Show diagnostic" },
     -- { "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic" },
     -- { "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic" },
@@ -116,13 +116,15 @@ function M.get_keymaps()
     -- custom
     --
     -- Opens a popup that displays documentation about the word under your cursor
-    --  See `:help K` for why this keymap.
+    --   See `:help K` for why this keymap.
     { "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
 
     -- Show the signature help for the word under your cursor.
+    --   <cmd>lua vim.lsp.buf.signature_help()<cr>
     { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
 
     -- Show the signature help for the word under your cursor (insert mode).
+    --   <cmd>lua vim.lsp.buf.signature_help()<cr>
     { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
 
     -- Jump to the definition of the word under your cursor.
@@ -150,10 +152,6 @@ function M.get_keymaps()
     -- Find references for the word under your cursor.
     --   <cmd>lua vim.lsp.buf.references()<cr>
     { "gr", require("telescope.builtin").lsp_references, desc = "Goto References" },
-
-    -- Shwo signature help for the word under your cursor.
-    -- <cmd>lua vim.lsp.buf.signature_help()<cr>
-    { "gs", vim.lsp.buf.signature_help, desc = "Signiture Function Help" },
 
     -- Fuzzy find all the symbols in your current document.
     --  Symbols are things like variables, functions, types, etc.

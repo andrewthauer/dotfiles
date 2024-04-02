@@ -47,12 +47,25 @@ return {
             },
           }
 
+          -- TODO: confirm if this is needed once nvim v0.10 is released
+          local inlay_hints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+            importModuleSpecifierPreference = "non-relative",
+          }
           require("lspconfig").tsserver.setup({
             ---@diagnostic disable-next-line: unused-local
             on_attach = function(client, bufnr)
               require("util").keys.set({ keys = keys, buffer = bufnr })
             end,
             settings = {
+              javascript = { inlayHints = inlay_hints },
+              typescript = { inlayHints = inlay_hints },
               completions = {
                 completeFunctionCalls = true,
               },

@@ -21,6 +21,16 @@ return {
     },
   },
 
+  -- comment string based on the context
+  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      enable_autocmd = false,
+    },
+  },
+
   -- auto pairs
   -- https://github.com/echasnovski/mini.pairs
   {
@@ -33,14 +43,15 @@ return {
           local Util = require("lazy.core.util")
           vim.g.minipairs_disable = not vim.g.minipairs_disable
           if vim.g.minipairs_disable then
-            Util.warn("Disabled auto pairs", { title = "Option" })
+            Util.warn("Disabled Auto Pairs", { title = "Option" })
           else
-            Util.info("Enabled auto pairs", { title = "Option" })
+            Util.info("Enabled Auto Pairs", { title = "Option" })
           end
         end,
-        desc = "Toggle auto pairs",
+        desc = "Toggle Auto Pairs",
       },
     },
+    config = true,
   },
 
   -- Fast and feature-rich surround actions. For text that includes
@@ -51,22 +62,21 @@ return {
   {
     "echasnovski/mini.surround",
     keys = function(_, keys)
-      local mappings = {}
-      -- -- Populate the keys based on the user's options
-      -- local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
-      -- local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-      -- local mappings = {
-      --   { opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
-      --   { opts.mappings.delete, desc = "Delete surrounding" },
-      --   { opts.mappings.find, desc = "Find right surrounding" },
-      --   { opts.mappings.find_left, desc = "Find left surrounding" },
-      --   { opts.mappings.highlight, desc = "Highlight surrounding" },
-      --   { opts.mappings.replace, desc = "Replace surrounding" },
-      --   { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
-      -- }
-      -- mappings = vim.tbl_filter(function(m)
-      --   return m[1] and #m[1] > 0
-      -- end, mappings)
+      -- Populate the keys based on the user's options
+      local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
+      local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+      local mappings = {
+        { opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
+        { opts.mappings.delete, desc = "Delete surrounding" },
+        { opts.mappings.find, desc = "Find right surrounding" },
+        { opts.mappings.find_left, desc = "Find left surrounding" },
+        { opts.mappings.highlight, desc = "Highlight surrounding" },
+        { opts.mappings.replace, desc = "Replace surrounding" },
+        { opts.mappings.update_n_lines, desc = "Update `minisurround.config.n_lines`" },
+      }
+      mappings = vim.tbl_filter(function(m)
+        return m[1] and #m[1] > 0
+      end, mappings)
       return vim.list_extend(mappings, keys)
     end,
     opts = {

@@ -1,5 +1,22 @@
 local M = {}
 
+-- Setup lazy package manager (https://github.com/folke/lazy.nvimx)
+function M.bootstrap()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
+    -- bootstrap lazy.nvim
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable", -- latest stable release
+      lazypath,
+    })
+  end
+  vim.opt.rtp:prepend(lazypath)
+end
+
 --- Check if a plugin is defined in lazy. Useful with lazy loading
 --- when a plugin is not necessarily loaded yet.
 ---@param plugin string The plugin to search for.
