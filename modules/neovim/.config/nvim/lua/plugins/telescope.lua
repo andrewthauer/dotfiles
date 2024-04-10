@@ -31,8 +31,9 @@ return {
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
         { "<leader>fc", Util.telescope.config_files, desc = "Find Config File" },
+        { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files (Hidden)" },
         {
-          "<leader>ff",
+          "<leader>fF",
           function()
             builtin.find_files({ hidden = true, no_ignore = true })
           end,
@@ -66,14 +67,14 @@ return {
       local action_state = require("telescope.actions.state")
       local builtin = require("telescope.builtin")
 
-      local find_files_no_ignore = function()
-        local line = action_state.get_current_line()
-        builtin.find_files({ hidden = true, no_ignore = true, default_text = line })
-      end
-
-      local find_files_with_hidden = function()
-        local line = action_state.get_current_line()
-        builtin.find_files({ hidden = true, default_text = line })
+      local find_files = function(opts)
+        return function()
+          opts = opts or {}
+          opts.default_text = action_state.get_current_line()
+          opts.hidden = opts.hidden or false
+          opts.no_ignore = opts.no_ignore or false
+          builtin.find_files(opts)
+        end
       end
 
       local open_with_trouble = function(...)
@@ -89,6 +90,7 @@ return {
           file_ignore_patterns = {
             ".git/",
             ".cache",
+            "node_modules",
           },
           mappings = {
             -- custom normal mode mappings
@@ -104,12 +106,13 @@ return {
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-Down>"] = actions.cycle_history_next,
               ["<C-Up>"] = actions.cycle_history_prev,
-              ["<A-i>"] = find_files_no_ignore,
-              ["<A-h>"] = find_files_with_hidden,
+              ["<A-a>"] = find_files({ hidden = true, no_ignore = true }),
+              ["<A-i>"] = find_files({ no_ignore = true }),
+              ["<A-h>"] = find_files({ hidden = true }),
               ["<C-t>"] = open_with_trouble,
               ["<A-t>"] = open_selected_with_trouble,
               -- map actions.which_key to <C-h> (default: <C-/>)
-              ["<C-h>"] = "which_key"
+              ["<C-h>"] = "which_key",
             },
           },
         },

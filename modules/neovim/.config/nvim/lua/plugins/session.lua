@@ -27,9 +27,13 @@ return {
         "~/.config/*",
       },
       dashboard_mode = true,
-      last_session_on_startup = false,
+      -- last_session_on_startup = false,
       -- https://github.com/Shatur/neovim-session-manager
-      session_manager_opts = {},
+      session_manager_opts = {
+        autosave_last_session = true,
+        autosave_only_in_session = false,
+        autosave_ignore_not_normal = false,
+      },
     },
     init = function()
       -- enable saving the state of plugins in the session
