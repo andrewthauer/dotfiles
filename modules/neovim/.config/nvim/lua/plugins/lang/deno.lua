@@ -22,7 +22,41 @@ return {
       ensure_installed = { "denols" },
       servers = {
         denols = function()
-          require("lspconfig").denols.setup({})
+          local keys = {
+            {
+              "<leader>co",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Organize Imports",
+            },
+            {
+              "<leader>cR",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.removeUnused.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Remove Unused Imports",
+            },
+          }
+
+          require("lspconfig").denols.setup({
+            ---@diagnostic disable-next-line: unused-local
+            on_attach = function(client, bufnr)
+              require("util").keys.set({ keys = keys, buffer = bufnr })
+            end,
+          })
         end,
       },
     },

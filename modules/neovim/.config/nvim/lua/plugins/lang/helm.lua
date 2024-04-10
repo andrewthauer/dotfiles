@@ -12,6 +12,14 @@ return {
     end,
   },
 
+  -- helm syntax & filetype detection (required for helm_ls)
+  -- https://github.com/towolf/vim-helm
+  {
+    "towolf/vim-helm",
+    event = "VeryLazy",
+    ft = "helm",
+  },
+
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -21,9 +29,17 @@ return {
     opts = {
       ensure_installed = { "helm_ls" },
       servers = {
-        -- helm_ls = function()
-        --   require("lspconfig").helm_ls.setup({})
-        -- end,
+        helm_ls = function()
+          require("lspconfig").helm_ls.setup({
+            settings = {
+              ["helm-ls"] = {
+                yamlls = {
+                  path = "yaml-language-server",
+                },
+              },
+            },
+          })
+        end,
       },
     },
   },
