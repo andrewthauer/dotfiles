@@ -54,7 +54,7 @@ return {
           require("lspconfig").denols.setup({
             ---@diagnostic disable-next-line: unused-local
             on_attach = function(client, bufnr)
-              require("util").keys.set({ keys = keys, buffer = bufnr })
+              require("util").map_keys({ keys = keys, buffer = bufnr })
             end,
           })
         end,

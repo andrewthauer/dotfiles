@@ -19,7 +19,7 @@ return {
     config = function(_, opts)
       require("mason").setup(opts)
       ---@diagnostic disable-next-line: different-requires
-      require("util.mason").ensure_installed(opts)
+      require("util").plugin.ensure_installed(opts)
     end,
   },
 }

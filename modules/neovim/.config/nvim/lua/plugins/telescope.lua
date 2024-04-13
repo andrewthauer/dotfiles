@@ -18,27 +18,19 @@ return {
       { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
     },
     keys = function(_, keys)
-      local builtin = require("telescope.builtin")
       local Util = require("util")
       local mappings = {
-        {
-          "<leader>,",
-          "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
-          desc = "Switch Buffer",
-        },
-        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+        -- style: ignore start
+        -- Fast keys
+        { "<D-p>", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
+        { "<leader>,", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
+        { "<leader>/", "<csd>Telescope live_grep<cr>", desc = "Grep" },
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
         { "<leader>fc", Util.telescope.config_files, desc = "Find Config File" },
-        { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files (Hidden)" },
-        {
-          "<leader>fF",
-          function()
-            builtin.find_files({ hidden = true, no_ignore = true })
-          end,
-          desc = "Find Files (Hidden)",
-        },
+        { "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
+        { "<leader>fF", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", desc = "Find Files (Hidden)" },
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
         -- git
@@ -58,6 +50,7 @@ return {
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
         { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
         { "<leader>st", "<cmd>Telescope<cr>", desc = "Telescope" },
+        -- style: ignore end
       }
       return vim.tbl_extend("force", keys, mappings)
     end,

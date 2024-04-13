@@ -46,7 +46,7 @@ M.plugin_spec = {
         -- custom key maps
         local Util = require("util")
         Util.lsp.on_attach(client, bufnr, opts)
-        Util.keys.set({ keys = M.get_keymaps(), buffer = bufnr })
+        Util.map_keys({ keys = M.get_keymaps(), buffer = bufnr })
       end)
 
       -- to learn how to use mason.nvim with lsp-zero

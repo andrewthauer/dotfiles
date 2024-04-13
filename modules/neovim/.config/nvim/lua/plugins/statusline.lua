@@ -7,10 +7,26 @@ return {
     ---@diagnostic disable-next-line: unused-local
     opts = function(_, opts)
       return {
-        theme = vim.g.colorscheme,
-        -- sections = {
-        --   lualine_a = { "mode" },
-        -- },
+        options = {
+          theme = vim.g.colorscheme,
+          disabled_filetypes = {
+            statusline = { "dashboard" },
+          },
+        },
+        sections = {
+          lualine_c = {
+            { "filename", path = 1 },
+          },
+        },
+        extensions = {
+          "lazy",
+          "man",
+          "mason",
+          "neo-tree",
+          "quickfix",
+          "trouble",
+          "toggleterm",
+        },
       }
     end,
   },

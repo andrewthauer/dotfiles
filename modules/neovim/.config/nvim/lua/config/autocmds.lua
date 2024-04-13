@@ -37,20 +37,21 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
-    "PlenaryTestPopup",
+    "checkhealth",
     "help",
     "lazygit",
     "lspinfo",
+    "neotest-output",
+    "neotest-output-panel",
+    "neotest-summary",
     "notify",
+    "PlenaryTestPopup",
     "qf",
     "query",
     "spectre_panel",
     "startuptime",
+    "toggleterm",
     "tsplayground",
-    "neotest-output",
-    "checkhealth",
-    "neotest-summary",
-    "neotest-output-panel",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -79,17 +80,3 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
-
---
--- Gloalal user commands
---
-
--- close all buffers except the current one
-vim.api.nvim_create_user_command("BufCloseOther", function()
-  require("util.vim").close_other_buffers()
-end, {})
-
--- wipe all named registers
-vim.api.nvim_create_user_command("RegClear", function()
-  require("util.vim").clear_registers()
-end, {})
