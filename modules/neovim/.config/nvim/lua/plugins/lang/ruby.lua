@@ -16,10 +16,10 @@ return {
       "lsp-zero.nvim",
     },
     opts = {
-      ensure_installed = { "ruby_ls", "solargraph" },
+      ensure_installed = { "ruby_lsp", "solargraph" },
       servers = {
-        -- ruby_ls = function()
-        --   require("lspconfig").ruby_ls.setup({})
+        -- ruby_lsp = function()
+        --   require("lspconfig").ruby_lsp.setup({})
         -- end,
       },
     },

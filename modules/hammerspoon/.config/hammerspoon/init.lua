@@ -118,16 +118,16 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
 -- stylua: ignore start
 
 -- Movement hotkeys
-hs.hotkey.bind(nudgekey, "down", function() window.nudgeWindow(0, 100) end) --down
-hs.hotkey.bind(nudgekey, "up", function() window.nudgeWindow(0, -100) end) --up
-hs.hotkey.bind(nudgekey, "right", function() window.nudgeWindow(100, 0) end) --right
-hs.hotkey.bind(nudgekey, "left", function() window.nudgeWindow(-100, 0) end) --left
+-- hs.hotkey.bind(nudgekey, "down", function() window.nudgeWindow(0, 100) end) --down
+-- hs.hotkey.bind(nudgekey, "up", function() window.nudgeWindow(0, -100) end) --up
+-- hs.hotkey.bind(nudgekey, "right", function() window.nudgeWindow(100, 0) end) --right
+-- hs.hotkey.bind(nudgekey, "left", function() window.nudgeWindow(-100, 0) end) --left
 
 -- Resize hotkeys
-hs.hotkey.bind(yankkey, "up", function() window.yankWindow(0, -100) end) -- yank bottom up
-hs.hotkey.bind(yankkey, "down", function() window.yankWindow(0, 100) end) -- yank bottom down
-hs.hotkey.bind(yankkey, "right", function() window.yankWindow(100, 0) end) -- yank right side right
-hs.hotkey.bind(yankkey, "left", function() window.yankWindow(-100, 0) end) -- yank right side left
+-- hs.hotkey.bind(yankkey, "up", function() window.yankWindow(0, -100) end) -- yank bottom up
+-- hs.hotkey.bind(yankkey, "down", function() window.yankWindow(0, 100) end) -- yank bottom down
+-- hs.hotkey.bind(yankkey, "right", function() window.yankWindow(100, 0) end) -- yank right side right
+-- hs.hotkey.bind(yankkey, "left", function() window.yankWindow(-100, 0) end) -- yank right side left
 
 -- Application hotkeys
 -- hs.hotkey.bind(hyper, 'space', utils.launchById('com.raycast.macos'))
@@ -139,7 +139,9 @@ hs.hotkey.bind(hyper, "f", utils.launchById("org.mozilla.firefoxdeveloperedition
 hs.hotkey.bind(hyper, "h", utils.launchById("io.robbie.HomeAssistant"))
 hs.hotkey.bind(hyper, "n", utils.launchById("notion.id"))
 hs.hotkey.bind(hyper, "s", utils.launchById("com.tinyspeck.slackmacgap"))
-hs.hotkey.bind(hyper, "t", utils.launchById("org.alacritty"))
+hs.hotkey.bind(hyper, "t", utils.launchById("com.github.wez.wezterm"))
+-- hs.hotkey.bind(hyper, "t", utils.launchById("net.kovidgoyal.kitty"))
+-- hs.hotkey.bind(hyper, "t", utils.launchById("org.alacritty"))
 -- hs.hotkey.bind(hyper, 'v', utils.launchById('com.microsoft.VSCode'))
 hs.hotkey.bind(hyper, "w", utils.launchById("com.apple.finder"))
 -- hs.hotkey.bind(hyper, "z", utils.launchById("dev.zed.Zed"))

@@ -1,5 +1,7 @@
+Util = require("util")
+
 return {
-  -- zenburn for nvim
+  -- zenburn theme for nvim
   -- https://github.com/phha/zenburn.nvim
   {
     "phha/zenburn.nvim",
@@ -7,12 +9,42 @@ return {
     priority = 1000, -- make sure to load this before other plugins start
     cond = vim.g.colorscheme == "zenburn",
     config = function()
-      vim.cmd("colorscheme zenburn")
+      vim.cmd("colorscheme " .. vim.g.colorscheme)
     end,
   },
 
-  -- zenbones
+  -- catppuccin
+  -- https://github.com/catppuccin/nvim
+  {
+    "catppuccin/nvim",
+    lazy = false,
+    priority = 1000, -- make sure to load this before other plugins start
+    cond = string.find(vim.g.colorscheme, "catppuccin"),
+    opts = {},
+    config = function()
+      vim.cmd("colorscheme " .. vim.g.colorscheme)
+    end,
+  },
+
+  -- https://github.com/EdenEast/nightfox.nvim
+  -- variants:
+  --   nightfox dayfox dawnfox duskfox nordfox terafox carbonfox
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = false,
+    priority = 1000, -- make sure to load this before other plugins start
+    cond = string.find(vim.g.colorscheme, "fox"),
+    opts = {},
+    config = function()
+      vim.cmd("colorscheme " .. vim.g.colorscheme)
+    end,
+  },
+
+  -- zenbones theme
   -- https://github.com/mcchrish/zenbones.nvim
+  -- variants:
+  --   zenwritten neobones vimbones rosebones forestbone nordbones
+  --   tokyobones seoulbones duckbones zenburned kanagawabones
   {
     "mcchrish/zenbones.nvim",
     dependencies = {
@@ -20,23 +52,9 @@ return {
     },
     lazy = false,
     priority = 1000, -- make sure to load this before other plugins start
-    cond = vim.g.colorscheme == "zenbones",
+    cond = string.find(vim.g.colorscheme, "bones") or vim.g.colorscheme == "zenburned",
     config = function()
-      -- variants
-      --   zenwritten
-      --   neobones
-      --   vimbones
-      --   rosebones
-      --   forestbone
-      --   nordbones
-      --   tokyobones
-      --   seoulbones
-      --   duckbones
-      --   zenburned
-      --   kanagawabones
-      vim.g.zenbones_variant = "zenburned"
-      local colorscheme = vim.g.zenbones_variant or "zenbones"
-      vim.cmd("colorscheme " .. colorscheme)
+      vim.cmd("colorscheme " .. vim.g.colorscheme)
     end,
   },
 }

@@ -6,6 +6,26 @@ M.lsp = require("util.lsp")
 M.plugin = require("util.mason")
 M.telescope = require("util.telescope")
 M.toggle = require("util.toggle")
+M.table = {}
+
+--- Create a set from a list
+function M.table.set(list)
+  local set = {}
+  for _, l in ipairs(list) do
+    set[l] = true
+  end
+  return set
+end
+
+-- Find element v of l satisfying f(v)
+function M.table.find(f, l)
+  for _, v in ipairs(l) do
+    if f(v) then
+      return v
+    end
+  end
+  return nil
+end
 
 --- Check if a module is available to be required
 ---@param module_name string The module to search for.

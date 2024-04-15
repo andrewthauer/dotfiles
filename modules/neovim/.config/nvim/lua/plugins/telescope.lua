@@ -24,7 +24,7 @@ return {
         -- Fast keys
         { "<D-p>", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
         { "<leader>,", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
-        { "<leader>/", "<csd>Telescope live_grep<cr>", desc = "Grep" },
+        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },

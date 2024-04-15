@@ -17,6 +17,12 @@ vim.g.have_nerd_font = true       -- Use nerd font
 -- Custom global options
 -- ------------------------------------
 
+-- set colorscheme
+vim.g.colorscheme = "catppuccin-frappe"
+-- vim.g.colorscheme = "nightfox"
+-- vim.g.colorscheme = "zenburn"
+-- vim.g.colorscheme = "zenbones"
+
 -- vim.g.autoformat_enabled = true           -- enable auto format (custom / lazyvim)
 
 -- ------------------------------------
