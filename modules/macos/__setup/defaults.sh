@@ -2,6 +2,8 @@
 #
 # macOS default configuration settings
 #
+# https://macos-defaults.com/
+#
 # reference:
 #   defaults domains | awk '{gsub(", ", "\n", $0)}1' | sort
 #
@@ -15,6 +17,9 @@ sudo -v
 # =============================================================================
 # General UI
 # =============================================================================
+
+# Dark Theme
+# defaults write -g AppleInterfaceStyle -string Dark
 
 # Expand save panel by default
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
@@ -40,8 +45,8 @@ defaults write -g AppleWindowTabbingMode -string "always"
 # =============================================================================
 
 # Set fast keyboard repeat rate
-defaults write -g KeyRepeat -int 2
-defaults write -g InitialKeyRepeat -int 25
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 15
 
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 # defaults write -g AppleKeyboardUIMode -int 3
@@ -181,19 +186,28 @@ defaults write com.apple.TextInputMenuAgent "NSStatusItem Visible Item-0" -bool 
 # =============================================================================
 
 # Set the icon size of Dock items (in pixels)
-defaults write com.apple.dock tilesize -int 48
+defaults write com.apple.dock tilesize -int 36
 
-# Change minimize/maximize window effect
-# defaults write com.apple.dock mineffect -string "genie"
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+# Remove the animation when hiding/showing the Dock
+defaults write com.apple.dock autohide-time-modifier -float 0.5
+
+# Auto-hiding Dock delay (remove)
+defaults write com.apple.dock autohide-delay -float 0.2
 
 # Minimize windows into their application’s icon
 defaults write com.apple.dock minimize-to-application -bool true
 
-# Automatically hide and show the Dock
-# defaults write com.apple.dock autohide -bool false
+# Don't show recent applications
+defaults write com.apple.dock show-recents -bool false
 
-# Auto-hiding Dock delay (remove)
-# defaults write com.apple.dock autohide-delay -float 0
+# Make Dock icons of hidden applications translucent
+defaults write com.apple.dock showhidden -bool true
+
+# Change minimize/maximize window effect
+# defaults write com.apple.dock mineffect -string "genie"
 
 # Enable spring loading for all Dock items
 # defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
@@ -209,15 +223,6 @@ defaults write com.apple.dock minimize-to-application -bool true
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 # defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
-
-# Don't show recent applications
-# defaults write com.apple.dock show-recents -bool false
-
-# Make Dock icons of hidden applications translucent
-# defaults write com.apple.dock showhidden -bool true
-
-# Remove the animation when hiding/showing the Dock
-# defaults write com.apple.dock autohide-time-modifier -float 0
 
 # =============================================================================
 # Dock - persistent apps
@@ -358,11 +363,11 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 # =============================================================================
 
 # Use custom theme for Terminal.app
-TERMINAL_THEME="Zenburn"
-open "${XDG_CONFIG_HOME}/terminal/${TERMINAL_THEME}.terminal"
-sleep 1 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.Terminal "Default Window Settings" -string "${TERMINAL_THEME}"
-defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_THEME}"
+# TERMINAL_THEME="Zenburn"
+# open "${XDG_CONFIG_HOME}/terminal/${TERMINAL_THEME}.terminal"
+# sleep 1 # Wait a bit to make sure the theme is loaded
+# defaults write com.apple.Terminal "Default Window Settings" -string "${TERMINAL_THEME}"
+# defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_THEME}"
 
 # =============================================================================
 # Other applications
@@ -370,9 +375,6 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "${TERMINAL_
 
 # Dash doc sync folder path
 # defaults write com.kapeli.dashdoc "syncFolderPath" -string "${XDG_CONFIG_HOME:-$HOME/.config}"
-
-# Hammerspoon
-defaults write org.hammerspoon.Hammerspoon MJConfigFile "$(XDG_CONFIG_HOME)/hammerspoon/init.lua"
 
 # =============================================================================
 # Kill affected applications
