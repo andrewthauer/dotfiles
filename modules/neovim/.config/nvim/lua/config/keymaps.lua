@@ -17,6 +17,7 @@ end
 -- map("n", ";", ":", { noremap = true })
 
 -- Remap ESC key for insert mode
+map("i", "jk", "<Esc>", { noremap = true, desc = "Alternative excape key" })
 map("i", "kj", "<Esc>", { noremap = true, desc = "Alternative excape key" })
 
 -- Clear on pressing <Esc> in normal mode

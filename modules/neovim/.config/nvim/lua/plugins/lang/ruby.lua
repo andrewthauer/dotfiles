@@ -18,9 +18,9 @@ return {
     opts = {
       ensure_installed = { "ruby_lsp", "solargraph" },
       servers = {
-        -- ruby_lsp = function()
-        --   require("lspconfig").ruby_lsp.setup({})
-        -- end,
+        ruby_lsp = function()
+          require("lspconfig").ruby_lsp.setup({})
+        end,
       },
     },
   },

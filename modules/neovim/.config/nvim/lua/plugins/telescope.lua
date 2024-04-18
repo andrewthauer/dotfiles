@@ -38,6 +38,7 @@ return {
         { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
         -- search
         { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
+        { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
         { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
         { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
@@ -47,9 +48,12 @@ return {
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
         { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
         { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
         { "<leader>st", "<cmd>Telescope<cr>", desc = "Telescope" },
+        -- user settings
+        { "<leader>uC", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Colorscheme with Preview" },
         -- style: ignore end
       }
       return vim.tbl_extend("force", keys, mappings)
