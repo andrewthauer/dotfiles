@@ -6,7 +6,7 @@ set -e
 
 setup_default_shells() {
   # disable usage of sudo if requested
-  [ "$DOTFILES_DISABLE_SUDO" -eq 0 ] && sudo_cmd="sudo " || sudo_cmd=""
+  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
   local bash_path
   bash_path="$(which bash | head -1)"
@@ -14,14 +14,13 @@ setup_default_shells() {
   local zsh_path
   zsh_path="$(which zsh | head -1)"
 
-  local os_family
-  os_family="$("$DOTFILES_DIR"/bin/os-info family)"
-
-  if [ "${os_family}" = "macos" ]; then
-    # Add available shells
-    ! grep -q "${bash_path}" /etc/shells && echo "${bash_path}" | $sudo_cmd tee -a /etc/shells
-    ! grep -q "${zsh_path}" /etc/shells && echo "${zsh_path}" | $sudo_cmd tee -a /etc/shells
-  fi
+  case "$("$DOTFILES_BIN"/os-info --family)" in
+    "macos")
+      ! grep -q "${bash_path}" /etc/shells && echo "${bash_path}" | $sudo_cmd tee -a /etc/shells
+      ! grep -q "${zsh_path}" /etc/shells && echo "${zsh_path}" | $sudo_cmd tee -a /etc/shells
+      ;;
+    *) ;;
+  esac
 
   # Change default shell to zsh
   chsh -s "$zsh_path"

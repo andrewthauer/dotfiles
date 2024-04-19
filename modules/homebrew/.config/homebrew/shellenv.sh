@@ -20,5 +20,7 @@ if [ -z "${HOMEBREW_PREFIX}" ]; then
   fi
 fi
 
-# Set the profile prefix
-PROFILE_PREFIX="${PROFILE_PREFIX:-${HOMEBREW_PREFIX:-$(brew --prefix)}}"
+# Set the profile prefix used by other modules
+if [ -z "$PROFILE_PREFIX" ] && [ "$(command -v brew)" ]; then
+  PROFILE_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix)}"
+fi

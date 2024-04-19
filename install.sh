@@ -27,9 +27,24 @@ clone_dotfiles() {
   fi
 }
 
-install_base_packages() {
+install_core_packages() {
+  # Install os specific packages
+  case "$("$DOTFILES_BIN"/os-info --family)" in
+    "macos")
+      # shellcheck disable=SC1091
+      "$DOTFILES_DIR"/modules/homebrew/install.sh
+      source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
+      ;;
+    *) ;;
+  esac
+
+  # Install core packages
   "$DOTFILES_BIN"/pkg install stow
+  "$DOTFILES_BIN"/pkg install bash
   "$DOTFILES_BIN"/pkg install zsh
+  "$DOTFILES_BIN"/pkg install neovim
+
+  # Install dotfiles support tools
   "$DOTFILES_DIR"/modules/zsh/install.sh
   "$DOTFILES_DIR"/modules/starship/install.sh
 }
@@ -37,7 +52,7 @@ install_base_packages() {
 # shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
-  local files=(~/.bash_profile ~/.bashrc ~/.zlogin ~/.zlogout ~/.zshenv ~/.zprofile ~/.zshrc)
+  local files=(~/.bash_profile ~/.bashrc ~/.zshenv ~/.zshrc)
 
   # move existing files
   for file in "${files[@]}"; do
@@ -54,7 +69,6 @@ link_dotfile_modules() {
   for module in _stow _core bash zsh utility git; do
     "$dotfiles_mod_cmd" link "$module" || echo "Failed to link module: $module"
   done
-  # "$dotfiles_mod_cmd" add _stow _core zsh utility git
 
   # Link packager specific dotfiles
   case "$("$DOTFILES_BIN"/os-info --family)" in
@@ -73,15 +87,15 @@ main() {
   clone_dotfiles
   cd "$DOTFILES_DIR"
 
-  # Install base tools
-  install_base_packages
+  # Install core tools
+  install_core_packages
 
   # link dotfiles modules
   backup_dotfiles
   link_dotfile_modules
 
   # TODO: determine how to work in devcontainers without prompting for sudo password
-  # "$DOTFILES_BIN"/set-default-shells
+  "$DOTFILES_BIN"/set-default-shells
 
   # TODO: Ensure repo is using the ssh remote
   pushd "${DOTFILES_DIR}" >/dev/null

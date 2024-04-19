@@ -37,15 +37,20 @@ return {
           ["typescriptreact"] = { "prettier" },
           ["yaml"] = { "prettier" },
         },
+        formatters = {
+          injected = {
+            options = { ignore_errors = true },
+          },
+          shfmt = {
+            prepend_args = { "-i", "2", "-ci" },
+          },
+        },
         format_on_save = function(bufnr)
           -- Disable with a global or buffer-local variable
           if vim.g.autoformat_enabled or vim.b[bufnr].autoformat then
             return { timeout_ms = 500, lsp_fallback = true }
           end
         end,
-        formatters = {
-          injected = { options = { ignore_errors = true } },
-        },
         notify_on_error = true,
       }
       return opts

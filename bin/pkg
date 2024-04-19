@@ -93,7 +93,7 @@ main() {
   pkg_mgr="$(${DOTFILES_DIR}/bin/os-info --package-manager)"
 
   # disable usage of sudo if requested
-  [ "$DOTFILES_DISABLE_SUDO" -eq 0 ] && sudo_cmd="sudo " || sudo_cmd=""
+  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
   while (("$#")); do
     case "$1" in
