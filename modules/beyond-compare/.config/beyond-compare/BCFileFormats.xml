@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Produced by Beyond Compare 4 from Scooter Software -->
+<BCFileFormats Version="1">
+  <TTextFormat Value="&#2;BASH">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;CPP">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;COBOL">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TDataFormat Value="&#2;CSV">
+    <UseRes Value="True" />
+  </TDataFormat>
+  <TTextFormat Value="&#2;DFM">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;PAS">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;HTML">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;JAVA">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TMP3Format Value="&#2;MP3">
+    <UseRes Value="True" />
+  </TMP3Format>
+  <TTextFormat Value="&#2;JS">
+    <UseRes Value="True" />
+    <Mask Value="*.js;*.ts;*.tsx" />
+  </TTextFormat>
+  <TDataFormat Value="&#2;MSEXCEL">
+    <UseRes Value="True" />
+  </TDataFormat>
+  <TTextFormat Value="&#2;MSWORD">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;OPENOFFICE">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;PDF">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;PERL">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TPixFormat Value="&#2;PIX">
+    <UseRes Value="True" />
+  </TPixFormat>
+  <TTextFormat Value="&#2;PYTHON">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;RTF">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;SORT">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;SQL">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;VB">
+    <UseRes Value="True" />
+  </TTextFormat>
+  <TTextFormat Value="&#2;XML">
+    <UseRes Value="True" />
+  </TTextFormat>
+</BCFileFormats>
