@@ -94,6 +94,7 @@ return {
   },
 
   use_fancy_tab_bar = false,
+  tab_max_width = 24,
 
   initial_cols = 160,
   initial_rows = 50,
