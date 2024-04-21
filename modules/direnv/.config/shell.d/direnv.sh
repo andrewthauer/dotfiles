@@ -4,8 +4,8 @@
 # - https://direnv.net/
 #
 
-# Disable direnv logging
-export DIRENV_LOG_FORMAT="${DIRENV_LOG_FORMAT:-""}"
+# Customize logging or default
+export DIRENV_LOG_FORMAT="${DIRENV_LOG_FORMAT:-"direnv: %s"}"
 
 # Hook direnv
 eval "$(direnv hook "$SHELL_TYPE")"
