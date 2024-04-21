@@ -1,0 +1,19 @@
+# https://github.com/abiosoft/colima
+
+cpu: 2
+disk: 60
+memory: 6
+arch: host
+runtime: docker
+hostname: colima
+autoActivate: true
+
+# ===================================================================== #
+# ADVANCED CONFIGURATION
+# ===================================================================== #
+
+# Modify ~/.ssh/config automatically to include a SSH config for the virtual machine.
+# SSH config will still be generated in ~/.colima/ssh_config regardless.
+# Default: true
+sshConfig: false
+
