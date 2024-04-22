@@ -32,28 +32,6 @@ clone_dotfiles() {
   fi
 }
 
-install_core_packages() {
-  # Install os specific packages
-  case "$("$DOTFILES_BIN"/os-info --family)" in
-    "macos")
-      "$DOTFILES_MODULES_DIR/homebrew/install.sh"
-      # shellcheck disable=SC1091
-      source "$DOTFILES_MODULES_DIR/homebrew/.config/homebrew/shellenv.sh"
-      ;;
-    *) ;;
-  esac
-
-  # Install core packages
-  "$DOTFILES_BIN"/pkg install stow
-  "$DOTFILES_BIN"/pkg install bash
-  "$DOTFILES_BIN"/pkg install zsh
-  "$DOTFILES_BIN"/pkg install neovim
-
-  # Install dotfiles support tools
-  "$DOTFILES_MODULES_DIR"/zsh/install.sh
-  "$DOTFILES_MODULES_DIR"/starship/install.sh
-}
-
 # shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
@@ -67,17 +45,32 @@ backup_dotfiles() {
   done
 }
 
-link_dotfile_modules() {
-  # Link core dotfiles modules
-  for module in _stow _core bash zsh utility git; do
-    "$DOTFILES_BIN"/dotfiles mod link "$module" || echo "Failed to link module: $module"
-  done
-
-  # Link packager specific dotfiles
+install_packages() {
+  # Install os specific packages
   case "$("$DOTFILES_BIN"/os-info --family)" in
-    "macos")
-      "$DOTFILES_BIN"/dotfiles mod link homebrew
-      ;;
+    "macos") "$DOTFILES_MODULES_DIR/homebrew/install.sh" ;;
+    *) ;;
+  esac
+
+  # Install core packages
+  "$DOTFILES_BIN"/pkg install stow
+  "$DOTFILES_BIN"/pkg install bash
+  "$DOTFILES_BIN"/pkg install zsh
+  "$DOTFILES_BIN"/pkg install direnv
+  "$DOTFILES_BIN"/pkg install neovim
+  "$DOTFILES_BIN"/pkg install wezterm
+
+  # Install dotfiles support tools
+  "$DOTFILES_MODULES_DIR"/_core/install.sh
+  "$DOTFILES_MODULES_DIR"/zsh/install.sh
+  "$DOTFILES_MODULES_DIR"/starship/install.sh
+
+  # Link dotfiles
+  "$DOTFILES_BIN"/dotfiles mod link -f "$DOTFILES_DIR/.modules.macos"
+
+  # Link os specific dotfiles
+  case "$("$DOTFILES_BIN"/os-info --family)" in
+    "macos") "$DOTFILES_BIN"/dotfiles mod link -f "$DOTFILES_DIR/.modules.macos" ;;
     *) ;;
   esac
 }
@@ -89,9 +82,8 @@ main() {
   clone_dotfiles
   source "${DOTFILES_DIR}"/lib/init.sh
   pushd "${DOTFILES_DIR}" >/dev/null
-  install_core_packages
   backup_dotfiles
-  link_dotfile_modules
+  install_modules
   bin/set-default-shells
   popd >/dev/null
 }

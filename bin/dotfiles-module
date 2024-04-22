@@ -50,24 +50,34 @@ list_modules() {
 
 stow_modules() {
   local stow_flag="$1"
-  local modules=("${@:2}")
+  local modules=()
+  local modules_file
   local modules_dir="$DOTFILES_MODULES_DIR"
   local oper_text=""
 
-  if [ "$2" = "--all" ]; then
-    modules=("$(list_modules --all)")
-  fi
+  case "$2" in
+    --all | -a) modules=("$(list_modules --all)") ;;
+    --file | -f)
+      modules_file="$3"
+      if [ -f "$modules_file" ]; then
+        modules=("$(read_modules_file "$modules_file")")
+      else
+        echo "Module file not found: $modules_file"
+        exit 1
+      fi
+      ;;
+    *) modules=("${@:2}") ;;
+  esac
 
   if [ "${#modules[@]}" -eq 0 ]; then
-    local modules_file
-    modules_file=$(get_modules_file)
+    modules_file="$(get_modules_file)"
 
     if [ ! -f "$modules_file" ]; then
       echo "Module file not found: $modules_file"
       exit 1
     fi
 
-    modules=("$(read_modules_file)")
+    modules=("$(read_modules_file "$modules_file")")
   fi
 
   case "$stow_flag" in
@@ -95,12 +105,15 @@ stow_modules() {
 }
 
 get_modules_file() {
-  echo "$DOTFILES_MODULES_FILE"
+  echo "${1:-$DOTFILES_MODULES_FILE}"
 }
 
 read_modules_file() {
-  local modules_file
-  modules_file="$(get_modules_file)"
+  local modules_file="$1"
+  if [ ! -f "$modules_file" ]; then
+    echo "Module file not found: $modules_file"
+    exit 1
+  fi
   cat <"$modules_file" | sed -e 's/[[:space:]]*#.*// ; /^[[:space:]]*$/d'
 }
 

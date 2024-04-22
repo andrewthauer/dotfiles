@@ -37,7 +37,8 @@ result/
 
 # modules file
 .modules*
-!.modules.example
+!.modules.default
+!.modules.macos
 
 # deno
 deno.lock
