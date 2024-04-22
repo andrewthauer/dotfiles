@@ -7,7 +7,7 @@ let
 
   dotfiles = {
     baseDir = "${config.home.homeDirectory}/.dotfiles";
-    modulesDir = "${dotfiles.baseDir}/modules";
+    modulesDir = "${dotfiles.baseDir}/mod";
   };
 
   shell = rec {

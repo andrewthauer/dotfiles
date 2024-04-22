@@ -24,8 +24,10 @@
 # iterm2
 **/iterm2/**/AppSupport
 
-# vim
+# vim / neovim
 .netrwhist
+lazy*.json
+*.local.lua
 
 # zsh
 .zsh/site-functions/*
