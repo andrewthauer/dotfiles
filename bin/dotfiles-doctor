@@ -7,8 +7,6 @@
 
 set -o errexit -o pipefail -o noclobber
 
-DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
 usage() {
   echo "USAGE: dotfiles doctor"
   echo ""

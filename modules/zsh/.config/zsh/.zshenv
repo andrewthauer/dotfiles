@@ -19,8 +19,9 @@ SHELL_SESSIONS_DISABLE=1
 
 # Dotfiles initialization
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
-# shellcheck source=../../../lib/utils.sh
-source "${DOTFILES_DIR}/lib/utils.sh"
+
+# shellcheck source=../../../lib/init.sh
+source "${DOTFILES_DIR}/lib/init.sh"
 
 # Load profile files into environment
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then

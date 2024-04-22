@@ -7,8 +7,6 @@
 
 set -o errexit -o pipefail -o noclobber
 
-DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
 usage() {
   echo "USAGE: dotfiles module [command]"
   echo ""
@@ -36,7 +34,7 @@ list_modules() {
 
   case "$cmd" in
     --all | -a)
-      ls -1 "$DOTFILES_DIR/modules"
+      ls -1 "$DOTFILES_MODULES_DIR"
       ;;
     help | --help | -h)
       echo "USAGE: dotfiles module [command]"
@@ -53,7 +51,7 @@ list_modules() {
 stow_modules() {
   local stow_flag="$1"
   local modules=("${@:2}")
-  local modules_dir="$DOTFILES_DIR/modules"
+  local modules_dir="$DOTFILES_MODULES_DIR"
   local oper_text=""
 
   if [ "$2" = "--all" ]; then
@@ -97,7 +95,7 @@ stow_modules() {
 }
 
 get_modules_file() {
-  echo "${DOTFILES_MODULE_FILE:-$DOTFILES_DIR/.modules}"
+  echo "$DOTFILES_MODULES_FILE"
 }
 
 read_modules_file() {

@@ -17,7 +17,7 @@ let
       fi
     '';
     sourceLib = ''
-      source "${dotfiles.baseDir}/lib/utils.sh"
+      source "${dotfiles.baseDir}/lib/init.sh"
     '';
     sourcePlugins = ''
       source_files_in ${config.xdg.configHome}/shell.d/*.sh

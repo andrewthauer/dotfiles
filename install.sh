@@ -24,6 +24,11 @@ clone_dotfiles() {
   if [ ! -d "${DOTFILES_DIR}" ]; then
     echo "Cloning dotfiles repo..."
     git clone "https://github.com/andrewthauer/dotfiles.git" "$DOTFILES_DIR"
+
+    # Ensure repo is using the ssh remote
+    pushd "${DOTFILES_DIR}" >/dev/null
+    git remote set-url origin git@github.com:andrewthauer/dotfiles.git
+    popd >/dev/null
   fi
 }
 
@@ -31,9 +36,9 @@ install_core_packages() {
   # Install os specific packages
   case "$("$DOTFILES_BIN"/os-info --family)" in
     "macos")
+      "$DOTFILES_MODULES_DIR/homebrew/install.sh"
       # shellcheck disable=SC1091
-      "$DOTFILES_DIR"/modules/homebrew/install.sh
-      source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
+      source "$DOTFILES_MODULES_DIR/homebrew/.config/homebrew/shellenv.sh"
       ;;
     *) ;;
   esac
@@ -45,8 +50,8 @@ install_core_packages() {
   "$DOTFILES_BIN"/pkg install neovim
 
   # Install dotfiles support tools
-  "$DOTFILES_DIR"/modules/zsh/install.sh
-  "$DOTFILES_DIR"/modules/starship/install.sh
+  "$DOTFILES_MODULES_DIR"/zsh/install.sh
+  "$DOTFILES_MODULES_DIR"/starship/install.sh
 }
 
 # shellcheck disable=SC2317
@@ -63,17 +68,15 @@ backup_dotfiles() {
 }
 
 link_dotfile_modules() {
-  local dotfiles_mod_cmd="$DOTFILES_BIN/dotfiles-module"
-
   # Link core dotfiles modules
   for module in _stow _core bash zsh utility git; do
-    "$dotfiles_mod_cmd" link "$module" || echo "Failed to link module: $module"
+    "$DOTFILES_BIN"/dotfiles mod link "$module" || echo "Failed to link module: $module"
   done
 
   # Link packager specific dotfiles
   case "$("$DOTFILES_BIN"/os-info --family)" in
     "macos")
-      "$dotfiles_mod_cmd" add homebrew
+      "$DOTFILES_BIN"/dotfiles mod link homebrew
       ;;
     *) ;;
   esac
@@ -83,23 +86,13 @@ main() {
   echo "DOTFILES_DIR: $DOTFILES_DIR"
   echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
 
-  # clone the dotfiles (if needed)
   clone_dotfiles
-  cd "$DOTFILES_DIR"
-
-  # Install core tools
+  source "${DOTFILES_DIR}"/lib/init.sh
+  pushd "${DOTFILES_DIR}" >/dev/null
   install_core_packages
-
-  # link dotfiles modules
   backup_dotfiles
   link_dotfile_modules
-
-  # TODO: determine how to work in devcontainers without prompting for sudo password
-  "$DOTFILES_BIN"/set-default-shells
-
-  # TODO: Ensure repo is using the ssh remote
-  pushd "${DOTFILES_DIR}" >/dev/null
-  git remote set-url origin git@github.com:andrewthauer/dotfiles.git
+  bin/set-default-shells
   popd >/dev/null
 }
 

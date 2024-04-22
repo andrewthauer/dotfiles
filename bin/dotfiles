@@ -19,6 +19,9 @@ usage() {
   echo "  help       Prints this message"
 }
 
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+source "${DOTFILES_DIR}/lib/init.sh"
+
 main() {
   cmd="$1"
   [ -n "$cmd" ] && shift

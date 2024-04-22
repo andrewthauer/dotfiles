@@ -19,8 +19,9 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # Dotfiles initialization
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
-# shellcheck source=../../lib/utils.sh disable=SC1091
-source "${DOTFILES_DIR}/lib/utils.sh"
+
+# shellcheck source=../../lib/init.sh disable=SC1091
+source "${DOTFILES_DIR}/lib/init.sh"
 
 # Load profile files into environment
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then

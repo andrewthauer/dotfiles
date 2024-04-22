@@ -16,7 +16,7 @@ install_zsh_plugins() {
 
 main() {
   # shellcheck disable=SC2086
-  pkg_mgr="$(${DOTFILES_DIR}/bin/os-info --package-manager)"
+  pkg_mgr="$("$DOTFILES_DIR"/bin/os-info --package-manager)"
 
   install_zsh_plugins
 }

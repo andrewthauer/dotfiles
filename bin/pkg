@@ -5,6 +5,7 @@
 set -o errexit -o pipefail -o noclobber
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+source "${DOTFILES_DIR}/lib/init.sh"
 
 usage() {
   local cmd
@@ -47,12 +48,16 @@ init_package_manager() {
     "yum") ;;
     "pacman") ;;
     "brew")
-      # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
+      if ! command -v brew &>/dev/null; then
+        # shellcheck disable=SC1091
+        source "${DOTFILES_MODULES_DIR}/homebrew/.config/homebrew/shellenv.sh"
+      fi
       ;;
     "nix")
-      # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
+      if ! command -v nix-env &>/dev/null; then
+        # shellcheck disable=SC1091
+        source "${DOTFILES_MODULES_DIR}/nix/.config/profile.d/nix.sh"
+      fi
       ;;
     *) ;;
   esac

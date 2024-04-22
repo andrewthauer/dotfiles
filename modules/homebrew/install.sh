@@ -5,12 +5,15 @@
 
 set -e
 
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_BIN="${DOTFILES_DIR}/bin"
+
 install_homebrew() {
   echo "Checking if homebrew is installed..."
 
   # Load homebrew shellenv to see if it's installed
   # shellcheck disable=SC1091
-  source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
+  source "$CURRENT_DIR"/.config/homebrew/shellenv.sh
 
   # Check if homebrew is installed
   if [ -x "$(command -v brew)" ]; then
