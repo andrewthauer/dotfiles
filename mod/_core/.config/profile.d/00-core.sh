@@ -16,7 +16,7 @@ export TERM="xterm"
 
 # Editor
 export EDITOR="nvim"
-export VISUAL="${EDITOR}"
+export VISUAL="nvim --cmd 'let g:flatten_wait=1'"
 
 # Colors
 export CLICOLOR=1

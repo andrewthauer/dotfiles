@@ -4,37 +4,29 @@
 # - https://github.com/Homebrew/homebrew-bundle
 #
 
-# Pre-requisites
-# brew 'git'
-# brew 'make'
-# brew 'stow'
-
-# Bash
-# brew 'bash'
-# brew 'bash-completion@2'
-
-# Zsh
-# brew 'zsh'
-# brew 'zsh-autosuggestions'
-# brew 'zsh-completions'
-# brew 'zsh-history-substring-search'
-# brew 'zsh-syntax-highlighting'
-
-# Core shell packages
-# brew 'bat'
-# brew 'direnv'
-# brew 'fzf'
-# brew 'gh'
-# brew 'jq'
-# brew 'neovim'
-# brew 'ripgrep'
-# brew 'starship'
-# brew 'tmux'
-# brew 'zoxide'
-
-# Gnu utilities
-# brew 'coreutils'
-# brew 'gpg'
+brew 'bash'
+brew 'bash-completion@2'
+brew 'bat'
+brew 'coreutils'
+brew 'direnv'
+brew 'fzf'
+brew 'gh'
+brew 'git'
+brew 'gpg'
+brew 'jq'
+brew 'make'
+brew 'neovim'
+brew 'ripgrep'
+brew 'starship'
+brew 'stow'
+brew 'tmux'
+brew 'yq'
+brew 'zoxide'
+brew 'zsh'
+brew 'zsh-autosuggestions'
+brew 'zsh-completions'
+brew 'zsh-history-substring-search'
+brew 'zsh-syntax-highlighting'
 
 #
 # Local Brewfile's
@@ -42,7 +34,8 @@
 
 Dir.glob(File.expand_path('~/.config/homebrew/Brewfile.*')).each do |file|
   next if file.end_with?('.lock.json')
-  instance_eval File.read(file) if File.exists?(file)
+
+  instance_eval File.read(file) if File.exist?(file)
 end
 
 #
@@ -53,18 +46,17 @@ require 'os'
 return unless OS.mac?
 
 # macOS specific taps
-tap 'homebrew/cask'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
-tap 'homebrew/services'
-
-# Caskroom apps
-cask 'firefox-developer-edition'
-cask 'hammerspoon'
-cask 'iterm2'
-cask 'karabiner-elements'
-# cask 'raycast'
+# tap 'homebrew/cask'
+# tap 'homebrew/cask-fonts'
+# tap 'homebrew/cask-versions'
+# tap 'homebrew/services'
 
 # Caskroom fonts
 cask 'font-fira-code'
 cask 'font-fira-mono'
+
+# Caskroom apps
+cask 'firefox-developer-edition'
+cask 'hammerspoon'
+cask 'karabiner-elements'
+cask 'wezterm'

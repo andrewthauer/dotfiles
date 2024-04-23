@@ -45,33 +45,11 @@ backup_dotfiles() {
   done
 }
 
-install_packages() {
-  # Install os specific packages
+os_setup() {
   case "$("$DOTFILES_BIN"/os-info --family)" in
-    "macos") "$DOTFILES_MODULES_DIR/homebrew/install.sh" ;;
-    *) ;;
-  esac
-
-  # Install core packages
-  "$DOTFILES_BIN"/pkg install stow
-  "$DOTFILES_BIN"/pkg install bash
-  "$DOTFILES_BIN"/pkg install zsh
-  "$DOTFILES_BIN"/pkg install direnv
-  "$DOTFILES_BIN"/pkg install neovim
-  "$DOTFILES_BIN"/pkg install wezterm
-
-  # Install dotfiles support tools
-  "$DOTFILES_MODULES_DIR"/_core/install.sh
-  "$DOTFILES_MODULES_DIR"/zsh/install.sh
-  "$DOTFILES_MODULES_DIR"/starship/install.sh
-
-  # Link dotfiles
-  "$DOTFILES_BIN"/dotfiles mod link -f "$DOTFILES_DIR/.modules.macos"
-
-  # Link os specific dotfiles
-  case "$("$DOTFILES_BIN"/os-info --family)" in
-    "macos") "$DOTFILES_BIN"/dotfiles mod link -f "$DOTFILES_DIR/.modules.macos" ;;
-    *) ;;
+    "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
+    "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
+    *) echo "No OS specific setup script";;
   esac
 }
 
@@ -83,7 +61,7 @@ main() {
   source "${DOTFILES_DIR}"/lib/init.sh
   pushd "${DOTFILES_DIR}" >/dev/null
   backup_dotfiles
-  install_modules
+  os_setup
   bin/set-default-shells
   popd >/dev/null
 }

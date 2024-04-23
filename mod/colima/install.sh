@@ -1,6 +1,6 @@
 #!/user/bin/env bash
 
-set -e -o pipefail
+set -eou pipefail
 
 main() {
   # Install colima, docker, docker-compose and docker-buildx
