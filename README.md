@@ -63,7 +63,8 @@ within the `$HOME` directory.
 
 - `bin` - General purpose scripts which are added to the path.
 - `lib` - Core utilities used throughout. Must be sourced up front.
-- `mod` - Various package modules organized by topic.
+- `modules` - Various package modules.
+- `scripts` - Scripts used for setup and maintenance.
 
 _NOTE: Directories starting with an `__double-underscore` will be ignored by
 stow._
