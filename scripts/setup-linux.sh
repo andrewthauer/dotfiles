@@ -25,7 +25,7 @@ main() {
 
   # Default modules
   modules=(
-    _stow
+    _base
     _core
     bash
     bat

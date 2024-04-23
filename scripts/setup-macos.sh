@@ -17,19 +17,19 @@ main() {
   brew bundle
 
 # Install dotfiles module scripts
-  "$mod_dir/_core/install.sh"
+  "$mod_dir/+_core/install.sh"
   "$mod_dir/colima/install.sh"
   "$mod_dir/hammerspoon/install.sh"
 
   # Setup macos defaults
-  "$mod_dir"/macos/__setup/defaults.sh
+  "$mod_dir"/macos/.config/macos/defaults.sh
 
   # Ensure local modules directory exists
   mkdir -p "$DOTFILES_MODULES_DIR/local"
 
   # Default modules
   modules=(
-    _stow
+    _base
     _core
     1password
     bash
