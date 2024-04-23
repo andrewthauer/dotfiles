@@ -7,9 +7,7 @@ local Util = require("util")
 require("config.options")
 
 -- load any local configuration options
-if Util.is_mod_available("config.local") then
-  require("config.local")
-end
+Util.try_require("config.local")
 
 -- bootstrap config & plugins
 require("config.lazy")

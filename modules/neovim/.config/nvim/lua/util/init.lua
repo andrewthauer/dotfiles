@@ -30,7 +30,7 @@ end
 --- Check if a module is available to be required
 ---@param module_name string The module to search for.
 ---@return boolean available # Whether the plugin is available.
-function M.is_mod_available(module_name)
+function M.try_require(module_name)
   local module = pcall(require, module_name)
   return module ~= nil
 end

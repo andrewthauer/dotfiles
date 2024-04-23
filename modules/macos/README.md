@@ -7,7 +7,7 @@
 The `macOS` default settings can be configured with:
 
 ```shell
-_setup/defaults.sh
+scripts/macos-defaults.sh
 ```
 
 ## Homebrew & Linuxbrew

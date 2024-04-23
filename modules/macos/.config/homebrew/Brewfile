@@ -15,6 +15,7 @@ brew 'git'
 brew 'gpg'
 brew 'jq'
 brew 'make'
+brew 'mise'
 brew 'neovim'
 brew 'ripgrep'
 brew 'starship'
@@ -47,8 +48,8 @@ return unless OS.mac?
 
 # macOS specific taps
 # tap 'homebrew/cask'
-# tap 'homebrew/cask-fonts'
-# tap 'homebrew/cask-versions'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
 # tap 'homebrew/services'
 
 # Caskroom fonts
@@ -56,6 +57,7 @@ cask 'font-fira-code'
 cask 'font-fira-mono'
 
 # Caskroom apps
+cask '1password-cli'
 cask 'firefox-developer-edition'
 cask 'hammerspoon'
 cask 'karabiner-elements'

@@ -5,7 +5,10 @@ set -eo pipefail
 main() {
   local bin_dir="$DOTFILES_BIN"
   local mod_dir="$DOTFILES_MODULES_DIR"
-  local modules=()
+  local default_modules=()
+
+  # Core setup
+  # "$mod_dir/_core/install.sh"
 
   # Install Homebrew
   "$mod_dir/homebrew/install.sh"
@@ -14,21 +17,11 @@ main() {
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # Install MacOS specific packages
+  export HOMEBREW_BUNDLE_FILE="${mod_dir}/macos/.config/homebrew/Brewfile"
   brew bundle
 
-# Install dotfiles module scripts
-  "$mod_dir/+_core/install.sh"
-  "$mod_dir/colima/install.sh"
-  "$mod_dir/hammerspoon/install.sh"
-
-  # Setup macos defaults
-  "$mod_dir"/macos/.config/macos/defaults.sh
-
-  # Ensure local modules directory exists
-  mkdir -p "$DOTFILES_MODULES_DIR/local"
-
   # Default modules
-  modules=(
+  default_modules=(
     _base
     _core
     1password
@@ -59,18 +52,28 @@ main() {
     zsh
   )
 
+  # Ensure local modules directory exists
+  mkdir -p "$DOTFILES_MODULES_DIR/local"
+
   # Create a modules file if it doesn't exist
   if [ ! -f "$DOTFILES_MODULES_FILE" ]; then
     cat <<EOF >"$DOTFILES_MODULES_FILE"
 $(
       IFS=$'\n'
-      echo "${modules[*]}"
+      echo "${default_modules[*]}"
     )
 EOF
   fi
 
   # Link dotfiles
   "$bin_dir/dotfiles" mod link
+
+  # Install dotfiles module scripts
+  "$mod_dir/docker/install.sh"
+  "$mod_dir/hammerspoon/install.sh"
+
+  # Setup macos defaults
+  "$DOTFILES_DIR/scripts/macos-defaults.sh"
 }
 
 main "$@"

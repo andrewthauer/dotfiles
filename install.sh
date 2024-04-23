@@ -26,9 +26,9 @@ clone_dotfiles() {
     git clone "https://github.com/andrewthauer/dotfiles.git" "$DOTFILES_DIR"
 
     # Ensure repo is using the ssh remote
-    pushd "${DOTFILES_DIR}" >/dev/null
-    git remote set-url origin git@github.com:andrewthauer/dotfiles.git
-    popd >/dev/null
+    # pushd "${DOTFILES_DIR}" >/dev/null
+    # git remote set-url origin git@github.com:andrewthauer/dotfiles.git
+    # popd >/dev/null
   fi
 }
 
