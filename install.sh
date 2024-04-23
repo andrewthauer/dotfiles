@@ -45,25 +45,26 @@ backup_dotfiles() {
   done
 }
 
-os_setup() {
+main() {
+  echo "DOTFILES_DIR: $DOTFILES_DIR"
+  echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
+
+  # Clone and initialize dotfiles env
+  clone_dotfiles
+  source "${DOTFILES_DIR}"/lib/init.sh
+
+  # Backup existing dotfiles
+  backup_dotfiles
+
+  # Run OS specific setup script
   case "$("$DOTFILES_BIN"/os-info --family)" in
     "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
     "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
     *) echo "No OS specific setup script";;
   esac
-}
 
-main() {
-  echo "DOTFILES_DIR: $DOTFILES_DIR"
-  echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
-
-  clone_dotfiles
-  source "${DOTFILES_DIR}"/lib/init.sh
-  pushd "${DOTFILES_DIR}" >/dev/null
-  backup_dotfiles
-  os_setup
-  bin/set-default-shells
-  popd >/dev/null
+  # Set default shells
+  "$DOTFILES_DIR/scripts/set-default-shells.sh"
 }
 
 # Run the script
