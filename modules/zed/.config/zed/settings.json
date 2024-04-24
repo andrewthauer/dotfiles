@@ -31,7 +31,7 @@
     "font_size": 14,
     "shell": "system"
   },
-  "theme": "One Dark",
+  "theme": "Catppuccin Frappé",
   "ui_font_family": "FiraCode Nerd Font Propo",
   "ui_font_size": 16,
   "vim_mode": true
