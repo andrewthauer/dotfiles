@@ -75,12 +75,12 @@ M.plugin_spec = {
   {
     "VonHeikemen/lsp-zero.nvim",
     branch = "v3.x",
-    dependenciens = {
+    dependencies = {
       "nvim-cmp",
       ---@diagnostic disable-next-line: unused-local
       opts = function(_, opts)
         ---@diagnostic disable-next-line: unused-local
-        local cmp_action = require("lsp-zero").cmp_action()
+        -- local cmp_action = require("lsp-zero").cmp_action()
         -- local mapping = {
         --   -- basic completions for Neovim's lua api
         --   ["<C-f>"] = cmp_action.luasnip_jump_forward(),
