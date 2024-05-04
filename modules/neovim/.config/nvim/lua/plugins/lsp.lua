@@ -1,6 +1,80 @@
-local M = {}
+local function get_keymaps()
+  return {
+    --
+    -- neovim native
+    --
+    -- vim.lsp.codelens
+    -- vim.lsp.buf.code_action
+    -- vim.lsp.buf.declaration
+    -- vim.lsp.buf.definition
+    -- vim.lsp.buf.document_highlight
+    -- vim.lsp.buf.format
+    -- vim.lsp.buf.hover
+    -- vim.lsp.buf.implementation
+    -- vim.lsp.buf.incoming_calls
+    -- vim.lsp.buf.outgoing_calls
+    -- vim.lsp.buf.references
+    -- vim.lsp.buf.references
+    -- vim.lsp.buf.signature_help
+    -- vim.lsp.buf.type_definition
+    --
+    -- New neovim defaults (>= 0.10)
+    { "crn", vim.lsp.buf.rename, desc = "Rename" },
+    { "crr", vim.lsp.buf.code_action, desc = "Code Action" },
+    -- { "gr", vim.lsp.buf.references, desc = "References" },
+    { "<C-R>", vim.lsp.buf.code_action, desc = "Code Action", mode = "v" },
+    { "<C-S>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i", has = "signatureHelp" },
+    --
+    -- From lsp-zero
+    --
+    -- { "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol" },
+    -- { "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format file" },
+    -- { "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format selection", mode = "x" },
+    -- { "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Execute code action" },
+    -- { "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", "Show diagnostic" },
+    -- { "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic" },
+    -- { "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic" },
+    --
+    -- custom
+    --
+    -- Opens a popup that displays documentation about the word under your cursor
+    --   See `:help K` for why this keymap.
+    { "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
+    -- Show the signature help for the word under your cursor.
+    --   <cmd>lua vim.lsp.buf.signature_help()<cr>
+    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    -- Show the signature help for the word under your cursor (insert mode).
+    --   <cmd>lua vim.lsp.buf.signature_help()<cr>
+    { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+    -- WARN: This is not Goto Definition, this is Goto Declaration.
+    --  For example, in C this would take you to the header.
+    --    <cmd>lua vim.lsp.buf.declaration()<cr>
+    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+    -- Execute a code action, usually your cursor needs to be on top of an error
+    -- or a suggestion from your LSP for this to activate.
+    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+    -- Execute a codelens action
+    { "<leader>cl", vim.lsp.codelens.run, desc = "Run Codelens", mode = "v", has = "codeLens" },
+    -- Most Language Servers support renaming across files, etc.
+    -- Rename the variable under your cursor.
+    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+    -- Show the LSP info for the current buffer.
+    { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    --
+    -- telescope helpers
+    --
+    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+    { "ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
+    { "<leader>ws", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace Symbols" },
+    { "<leader>wS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols (Dynamic)" },
+    { "<leader>cci", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "Incoming Calls" },
+    { "<leader>cco", "<cmd>Telescope lsp_outgoing_calls<cr>", desc = "Outgoing Calls" },
+    { "<leader>ctd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+    { "<leader>ctD", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definition" },
+  }
+end
 
-M.plugin_spec = {
+return {
   -- configurations for nvim lsp
   -- https://github.com/neovim/nvim-lspconfig
   {
@@ -46,7 +120,7 @@ M.plugin_spec = {
         -- custom key maps
         local Util = require("util")
         Util.lsp.on_attach(client, bufnr, opts)
-        Util.map_keys({ keys = M.get_keymaps(), buffer = bufnr })
+        Util.map_keys({ keys = get_keymaps(), buffer = bufnr })
       end)
 
       -- to learn how to use mason.nvim with lsp-zero
@@ -99,82 +173,3 @@ M.plugin_spec = {
     },
   },
 }
-
-function M.get_keymaps()
-  return {
-    --
-    -- From lsp-zero
-    --
-    -- { "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol" },
-    -- { "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format file" },
-    -- { "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format selection", mode = "x" },
-    -- { "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Execute code action" },
-    -- { "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", "Show diagnostic" },
-    -- { "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic" },
-    -- { "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic" },
-    --
-    -- custom
-    --
-    -- Opens a popup that displays documentation about the word under your cursor
-    --   See `:help K` for why this keymap.
-    { "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
-
-    -- Show the signature help for the word under your cursor.
-    --   <cmd>lua vim.lsp.buf.signature_help()<cr>
-    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-
-    -- Show the signature help for the word under your cursor (insert mode).
-    --   <cmd>lua vim.lsp.buf.signature_help()<cr>
-    { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-
-    -- Jump to the definition of the word under your cursor.
-    --  This is where a variable was first declared, or where a function is defined, etc.
-    --  To jump back, press <C-t>.
-    --    <cmd>lua vim.lsp.buf.declaration()
-    { "gd", require("telescope.builtin").lsp_definitions, desc = "Goto Definition" },
-
-    -- WARN: This is not Goto Definition, this is Goto Declaration.
-    --  For example, in C this would take you to the header.
-    --    <cmd>lua vim.lsp.buf.declaration()<cr>
-    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-
-    -- Jump to the implementation of the word under your cursor.
-    --  Useful when your language has ways of declaring types without an actual implementation.
-    --    <cmd>lua vim.lsp.buf.implementation()<cr>
-    { "gI", require("telescope.builtin").lsp_implementations, desc = "Goto Implementation" },
-
-    -- Jump to the type of the word under your cursor.
-    --  Useful when you're not sure what type a variable is and you want to see
-    --  the definition of its *type*, not where it was *defined*.
-    --    <cmd>lua vim.lsp.buf.type_definition()<cr>
-    { "go", require("telescope.builtin").lsp_type_definitions, desc = "Type Definition" },
-
-    -- Find references for the word under your cursor.
-    --   <cmd>lua vim.lsp.buf.references()<cr>
-    { "gr", require("telescope.builtin").lsp_references, desc = "Goto References" },
-
-    -- Fuzzy find all the symbols in your current document.
-    --  Symbols are things like variables, functions, types, etc.
-    { "<leader>ds", require("telescope.builtin").lsp_document_symbols, desc = "Document Symbols" },
-
-    -- Fuzzy find all the symbols in your current workspace.
-    --  Similar to document symbols, except searches over your entire project.
-    { "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, desc = "Workspace Symbols" },
-
-    -- Execute a code action, usually your cursor needs to be on top of an error
-    -- or a suggestion from your LSP for this to activate.
-    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
-
-    -- Execute a codelens action
-    { "<leader>cl", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "v" }, has = "codeLens" },
-
-    -- Show the LSP info for the current buffer.
-    { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-
-    -- Rename the variable under your cursor.
-    --  Most Language Servers support renaming across files, etc.
-    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
-  }
-end
-
-return M.plugin_spec

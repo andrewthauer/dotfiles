@@ -19,7 +19,7 @@ return {
   -- https://github.com/willothy/flatten.nvim
   {
     "willothy/flatten.nvim",
-    -- cond = false,
+    cond = false,
     lazy = false,
     -- Ensure that it runs first to minimize delay when opening file from terminal
     priority = 1001,
