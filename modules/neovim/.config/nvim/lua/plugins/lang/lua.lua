@@ -9,14 +9,22 @@ return {
     end,
   },
 
+  -- mason installation
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "lua-language-server" })
+    end,
+  },
+
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    depdencies = {
+    dependencies = {
       "lsp-zero.nvim",
     },
     opts = {
-      ensure_installed = { "tsserver" },
+      ensure_installed = { "lua_ls" },
       servers = {
         lua_ls = function()
           local lsp_zero = require("lsp-zero")

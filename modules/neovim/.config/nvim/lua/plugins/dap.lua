@@ -69,7 +69,7 @@ return {
       -- https://github.com/jay-babu/mason-nvim-dap.nvim
       {
         "jay-babu/mason-nvim-dap.nvim",
-        dependencies = "mason.nvim",
+        dependencies = { "williamboman/mason.nvim" },
         cmd = { "DapInstall", "DapUninstall" },
         opts = {
           automatic_installation = true,

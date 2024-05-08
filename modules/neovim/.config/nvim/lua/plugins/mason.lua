@@ -4,6 +4,7 @@ return {
     -- https://github.com/williamboman/mason.nvim
     "williamboman/mason.nvim",
     cmd = "Mason",
+    build = ":MasonUpdate",
     keys = {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
     },
@@ -18,7 +19,6 @@ return {
     },
     config = function(_, opts)
       require("mason").setup(opts)
-      ---@diagnostic disable-next-line: different-requires
       require("util").plugin.ensure_installed(opts)
     end,
   },

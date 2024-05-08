@@ -20,6 +20,9 @@ main() {
   export HOMEBREW_BUNDLE_FILE="${mod_dir}/macos/.config/homebrew/Brewfile"
   brew bundle --no-lock
 
+  # Ensure some directories exist
+  mkdir -p "$HOME/.ssh"
+
   # Default modules
   default_modules=(
     _base
@@ -33,6 +36,7 @@ main() {
     fzf
     git
     github
+    go
     gpg
     hammerspoon
     homebrew
@@ -41,12 +45,15 @@ main() {
     macos
     mise
     neovim
+    nodejs
+    python
     ripgrep
+    ruby
+    rust
     ssh
     starship
     tmux
     utility
-    vim
     wezterm
     zoxide
     zsh

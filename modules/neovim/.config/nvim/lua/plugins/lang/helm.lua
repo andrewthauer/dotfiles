@@ -20,10 +20,18 @@ return {
     ft = "helm",
   },
 
+  -- mason installation
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "helm-ls" })
+    end,
+  },
+
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    depdencies = {
+    dependencies = {
       "lsp-zero.nvim",
     },
     opts = {

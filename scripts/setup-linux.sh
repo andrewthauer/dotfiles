@@ -18,6 +18,9 @@ main() {
     zoxide \
     zsh
 
+  # Ensure some directories exist
+  mkdir -p "$HOME/.ssh"
+
   # Install dotfiles module scripts
   "$mod_dir/_core/install.sh"
   "$mod_dir/zsh/install.sh"
@@ -43,7 +46,6 @@ main() {
     starship
     tmux
     utility
-    vim
     wezterm
     zoxide
     zsh

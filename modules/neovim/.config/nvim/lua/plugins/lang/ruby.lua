@@ -9,10 +9,18 @@ return {
     end,
   },
 
+  -- mason installation
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "ruby-lsp", "solargraph" })
+    end,
+  },
+
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    depdencies = {
+    dependencies = {
       "lsp-zero.nvim",
     },
     opts = {
