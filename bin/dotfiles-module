@@ -100,7 +100,7 @@ stow_modules() {
     fi
 
     echo "$oper_text module $module"
-    stow -t "${HOME}" -d "$modules_dir" "$stow_flag" "$module"
+    pkg exec "stow -t "${HOME}" -d "$modules_dir" "$stow_flag" "$module""
   done
 }
 

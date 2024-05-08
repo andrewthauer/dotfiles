@@ -22,6 +22,8 @@ usage() {
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 source "${DOTFILES_DIR}/lib/init.sh"
 
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 main() {
   cmd="$1"
   [ -n "$cmd" ] && shift

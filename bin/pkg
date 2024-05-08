@@ -18,6 +18,7 @@ usage() {
   echo "COMMANDS"
   echo "  install, add     Installs package(s)"
   echo "  uninstall, rm    Uninstalls package(s)"
+  echo "  exec, x          Execute a command"
   echo "  help             Prints this message"
   echo ""
   echo "FLAGS"
@@ -26,7 +27,6 @@ usage() {
   echo "EXAMPLES"
   echo "  $cmd install git zsh bash"
   echo "  $cmd install --type brew git"
-  echo "  $cmd add --type brew foobar"
 }
 
 link() {
@@ -131,6 +131,10 @@ main() {
     uninstall | u | remove | rm)
       init_package_manager "$pkg_mgr"
       uninstall_package "$@"
+      ;;
+    exec | x)
+      init_package_manager "$pkg_mgr"
+      exec "${@}"
       ;;
     help | --help | -h)
       usage

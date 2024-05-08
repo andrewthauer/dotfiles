@@ -18,7 +18,7 @@ main() {
 
   # Install MacOS specific packages
   export HOMEBREW_BUNDLE_FILE="${mod_dir}/macos/.config/homebrew/Brewfile"
-  brew bundle
+  brew bundle --no-lock
 
   # Default modules
   default_modules=(
