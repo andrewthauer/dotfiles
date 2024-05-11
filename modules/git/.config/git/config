@@ -5,6 +5,7 @@
 [core]
   mergeoptions = --no-edit
   excludesfile = ~/.config/git/ignore
+  editor = nvim
 
 [init]
   defaultBranch = main
@@ -209,8 +210,3 @@
 # Include additional local/private config settings
 [include]
   path = ~/.config/git/config.local
-[credential]
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
