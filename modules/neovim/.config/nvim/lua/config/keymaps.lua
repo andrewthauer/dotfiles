@@ -26,22 +26,14 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
 -- Quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
--- Undo compat (cmd-z>
-map("n", "<D-z>", "<cmd>undo<cr>", { noremap = true })
-map("i", "<D-z>", "<cmd>undo<cr>", { noremap = true })
-
--- Better up/down
--- map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
 -- Buffers
--- map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
--- map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
+
+-- Buffer prev/next
+-- map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+-- map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 -- New file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
@@ -114,23 +106,11 @@ map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word
 map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
 map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
 map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+
 -- remove once nvim v0.10 is released and inlay hints are supported
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
   map( "n", "<leader>uh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
 end
-
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
--- map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
--- map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
--- map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
--- map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
--- map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
--- map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-
--- Add undo break-points
--- map("i", ",", ",<c-g>u")
--- map("i", ".", ".<c-g>u")
--- map("i", ";", ";<c-g>u")
 
 -- Diagnostics
 -- map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
@@ -144,7 +124,6 @@ end
 --   end
 -- end
 -- map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
--- -- map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 -- map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 -- map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 -- map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })

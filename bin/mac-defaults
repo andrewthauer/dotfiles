@@ -5,5 +5,82 @@
 # Usage:
 #   mac-defaults-domains
 #   mac-defaults-domains | grep com.apple
+#
+# Notes:
+#   defaults read "Apple Global Domain" AppleShowAllExtensions
+#   defaults read-type "Apple Global Domain" AppleShowAllExtensions
+#   defaults help
+#   defaults find $WORD
+#   defaults read com.apple.dock | grep wvous # Hot Corners
 
-defaults domains | awk '{gsub(", ", "\n", $0)}1' | sort
+set -o errexit -o pipefail -o noclobber
+
+usage() {
+  local cmd
+  cmd="$(basename "$0")"
+  echo "SUMMARY"
+  echo "  Manage system defaults on macOS"
+  echo ""
+  echo "USAGE: $cmd [flags] [command]"
+  echo ""
+  echo "COMMANDS"
+  echo "  list-domains     List available domains"
+  echo "  diff             Find a setting change by capturing a diff"
+  echo "  help             Prints this message"
+  echo ""
+  echo "FLAGS"
+  echo "  --helpt          Print help"
+}
+
+defaults_diff() {
+  local domain="${1:-}"
+  local before="$(mktemp)"
+  local after="$(mktemp)"
+
+  defaults read $domain >|"$before"
+  read -p "Make macOS settings change and press enter to continue ..."
+  defaults read $domain >|"$after"
+
+  delta --side-by-side --paging always "$before" "$after"
+}
+
+find_setting_info() {
+  local setting="$1"
+
+}
+
+main() {
+  local pos_args=""
+
+  while (("$#")); do
+    case "$1" in
+      *) # preserve positional arguments
+        pos_args="$pos_args $1"
+        shift
+        ;;
+    esac
+  done
+
+  # Set positional arguments in their proper place
+  eval set -- "$pos_args"
+
+  cmd="$1"
+  [ -n "$cmd" ] && shift
+
+  case "$cmd" in
+    list-domains)
+      defaults domains | awk '{gsub(", ", "\n", $0)}1' | sort
+      ;;
+    diff)
+      defaults_diff
+      ;;
+    help | --help | -h)
+      usage
+      ;;
+    *)
+      usage
+      ;;
+  esac
+}
+
+main "$@"
