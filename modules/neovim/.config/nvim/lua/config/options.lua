@@ -4,7 +4,7 @@
 
 -- Remap leader key so its easier to reach
 vim.g.mapleader = " "
--- vim.g.maplocalleader = ' '
+-- vim.g.maplocalleader = " "
 
 -- disable netrw at the very start of your init.lua
 -- vim.g.loaded_netrw = 1
@@ -17,23 +17,15 @@ vim.g.have_nerd_font = true       -- Use nerd font
 -- Custom global options
 -- ------------------------------------
 
--- set colorscheme
 vim.g.colorscheme = "catppuccin-frappe"
--- vim.g.colorscheme = "nightfox"
--- vim.g.colorscheme = "zenburn"
--- vim.g.colorscheme = "zenbones"
-
--- vim.g.autoformat_enabled = true           -- enable auto format (custom / lazyvim)
+-- vim.g.autoformat_enabled = true   -- enable auto format (custom / lazyvim)
 
 -- ------------------------------------
 -- See `:help vim.opt`
 -- ------------------------------------
 
-vim.opt.swapfile = false          -- turn off swap file
-
 vim.opt.autoread = true           -- Reload files changed outside vim
 vim.opt.autowrite = true          -- Automatically write before running commands
-
 vim.opt.background = "dark"       -- Set background to dark
 vim.opt.confirm = true            -- Confirm to save changes before exiting modified buffer
 vim.opt.cursorline = true         -- Highlight current line
@@ -41,12 +33,13 @@ vim.opt.laststatus = 3            -- global statusline
 vim.opt.mouse = "a"               -- Enable mouse mode
 vim.opt.number = true             -- Print line number
 vim.opt.relativenumber = true     -- Relative line numbers are also good
-vim.opt.pumblend = 10             -- Popup blend
-vim.opt.pumheight = 10            -- Maximum number of entries in a popup
+-- vim.opt.pumblend = 10             -- Popup blend
+-- vim.opt.pumheight = 10            -- Maximum number of entries in a popup
 vim.opt.ruler = true              -- Show row/col number
 vim.opt.scrolloff = 10            -- Lines of context
 vim.opt.showcmd = true            -- Show incomplete cmds down the bottom
 vim.opt.showmode = false          -- Show current mode down the bottom
+vim.opt.swapfile = false          -- turn off swap file
 vim.opt.termguicolors = true      -- True color support
 vim.opt.visualbell = true         -- No sounds
 vim.opt.virtualedit = "block"     -- Allow cursor to move where there is no text in visual block mode
@@ -74,7 +67,7 @@ vim.opt.softtabstop = 2           -- How many columns of whitespace for tab keyp
 vim.opt.tabstop = 2               -- Number of spaces tabs count for
 
 -- Text Wrapping
-vim.opt.wrap = false -- Disable line wrap
+vim.opt.wrap = false              -- Disable line wrap
 -- vim.opt.linebreak = true         -- Wrap lines at convenient points
 
 -- Folds
@@ -83,8 +76,8 @@ vim.opt.foldlevel = 99
 -- Completion
 vim.opt.completeopt="menu,menuone,preview,noinsert"
 
--- vim.opt.wildmenu = true        -- Enable ctrl-n and ctrl-p to scroll thru matches
-vim.opt.wildmode = "longest:full,full" -- Wildmenu automcomplete behaviour
+-- vim.opt.wildmenu = true              -- Enable ctrl-n and ctrl-p to scroll thru matches
+-- vim.opt.wildmode = "longest:full,full"  -- Wildmenu automcomplete behaviour
 
 -- Search
 vim.opt.grepprg = "rg --vimgrep"

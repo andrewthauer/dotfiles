@@ -4,7 +4,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "lua" })
+        vim.list_extend(opts.ensure_installed, {
+          "bash",
+        })
       end
     end,
   },
@@ -15,8 +17,8 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
-        "lua-language-server",
-        "stylua",
+        "shellcheck",
+        "shfmt",
       })
     end,
   },
@@ -28,14 +30,23 @@ return {
       "lsp-zero.nvim",
     },
     opts = {
-      ensure_installed = { "lua_ls" },
+      ensure_installed = { "marksman" },
       servers = {
-        lua_ls = function()
-          local lsp_zero = require("lsp-zero")
-          local lua_opts = lsp_zero.nvim_lua_ls()
-          require("lspconfig").lua_ls.setup(lua_opts)
-        end,
+        -- marksman = function()
+        --   require("lspconfig").marksman.setup({})
+        -- end,
       },
     },
+  },
+
+  -- markdown preview
+  -- https://github.com/iamcco/markdown-preview.nvim
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
   },
 }

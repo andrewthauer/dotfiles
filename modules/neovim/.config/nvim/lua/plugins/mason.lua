@@ -8,15 +8,10 @@ return {
     keys = {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
     },
-    opts = {
-      ensure_installed = {
-        "rubocop",
-        "shellcheck",
-        "shfmt",
-        "stylua",
-        "yamllint",
-      },
-    },
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {})
+    end,
     config = function(_, opts)
       require("mason").setup(opts)
       require("util").plugin.ensure_installed(opts)

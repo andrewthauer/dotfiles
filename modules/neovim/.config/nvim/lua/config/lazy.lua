@@ -12,8 +12,6 @@ require("util.lazy").bootstrap()
 require("lazy").setup({
   spec = {
     { import = "plugins" },
-    { import = "plugins.lang.all" },
-    -- { import = "plugins.extras.cmp-cmdline" },
   },
   defaults = {
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
