@@ -9,6 +9,7 @@ brew 'bash-completion@2'
 brew 'bat'
 brew 'coreutils'
 brew 'direnv'
+brew 'fd'
 brew 'fzf'
 brew 'gh'
 brew 'git'
@@ -52,7 +53,6 @@ return unless OS.mac?
 # macOS specific taps
 # tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
 # tap 'homebrew/services'
 
 # Caskroom fonts
@@ -62,7 +62,7 @@ cask 'font-fira-mono'
 # Caskroom apps
 cask '1password-cli'
 cask 'discord'
-cask 'firefox-developer-edition'
+cask 'firefox@developer-edition'
 cask 'hammerspoon'
 cask 'karabiner-elements'
 cask 'wezterm'
