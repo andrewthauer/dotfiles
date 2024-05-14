@@ -8,7 +8,7 @@ main() {
   local default_modules=()
 
   # Core setup
-  # "$mod_dir/_core/install.sh"
+  # "$mod_dir/_base/install.sh"
 
   # Install Homebrew
   "$mod_dir/homebrew/install.sh"
@@ -26,7 +26,6 @@ main() {
   # Default modules
   default_modules=(
     _base
-    _core
     1password
     bash
     bat

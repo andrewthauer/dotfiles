@@ -5,26 +5,10 @@
 # - https://docs.brew.sh/Homebrew-on-Linux
 #
 
-# Source the homebrew shellenv
-source_file "${XDG_CONFIG_HOME}/homebrew/shellenv.sh"
-
 # Check requirements
 if ! command_exists "brew"; then
   return 1
 fi
-
-#
-# Environment
-#
-
-# XDG specification
-export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/homebrew/Brewfile"
-
-# Do not create a lock file
-export HOMEBREW_BUNDLE_NO_LOCK
-
-# No dev hints
-export HOMEBREW_NO_ENV_HINTS
 
 #
 # Aliases

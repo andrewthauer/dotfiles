@@ -22,14 +22,13 @@ main() {
   mkdir -p "$HOME/.ssh"
 
   # Install dotfiles module scripts
-  "$mod_dir/_core/install.sh"
+  "$mod_dir/_base/install.sh"
   "$mod_dir/zsh/install.sh"
   "$mod_dir/starship/install.sh"
 
   # Default modules
   modules=(
     _base
-    _core
     bash
     bat
     colima

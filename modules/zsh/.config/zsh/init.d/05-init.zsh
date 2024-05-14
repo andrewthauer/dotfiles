@@ -1,4 +1,27 @@
 #
+# Load regular zsh plugins
+#
+
+# Load all modules / plugins
+source_files_in "${XDG_CONFIG_HOME}"/shell.d/*(^pre).*sh
+
+#
+# ZSH Prompt
+#
+
+# disable auto correct
+unsetopt correct
+unsetopt correct_all
+disable_correction=true
+
+# initialize prompt
+autoload -U promptinit
+promptinit
+
+# use starship prompt
+eval "$(starship init zsh)"
+
+#
 # Post completion script
 #
 
