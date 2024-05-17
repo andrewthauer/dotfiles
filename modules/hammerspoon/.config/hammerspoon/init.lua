@@ -106,7 +106,7 @@ spoon.SpoonInstall:andUse("ClipboardTool", {
     -- hist_size = 100,
     paste_on_select = true,
     show_copied_alert = false,
-    show_in_menubar = true,
+    show_in_menubar = false,
   },
   hotkeys = {
     show_clipboard = { hyper, "v" },

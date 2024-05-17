@@ -30,6 +30,7 @@ main() {
     bash
     bat
     colima
+    deno
     direnv
     docker
     fzf

@@ -9,21 +9,27 @@ brew 'bash-completion@2'
 brew 'bat'
 brew 'coreutils'
 brew 'direnv'
+brew 'dust'
 brew 'fd'
 brew 'fzf'
 brew 'gh'
 brew 'git'
 brew 'git-delta'
 brew 'gpg'
+brew 'hyperfine'
 brew 'jq'
 brew 'lazygit'
 brew 'libyaml'
 brew 'make'
 brew 'mise'
 brew 'neovim'
+brew 'netcat'
 brew 'ripgrep'
+brew 'shellcheck'
+brew 'shfmt'
 brew 'starship'
 brew 'stow'
+brew 'tree'
 brew 'tmux'
 brew 'yq'
 brew 'zoxide'
@@ -50,10 +56,19 @@ end
 require 'os'
 return unless OS.mac?
 
-# macOS specific taps
+# gnu utils
+# brew 'findutils'
+# brew 'gettext', link: true
+# brew 'gawk'
+brew 'gnu-sed'
+# brew 'gnu-tar'
+# brew 'gnutls'
+# brew 'grep'
+# brew 'gsed'
+# brew 'parallel'
+
 # tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
-# tap 'homebrew/services'
 
 # Caskroom fonts
 cask 'font-fira-code'
@@ -61,8 +76,16 @@ cask 'font-fira-mono'
 
 # Caskroom apps
 cask '1password-cli'
+cask 'beyond-compare'
 cask 'discord'
 cask 'firefox@developer-edition'
 cask 'hammerspoon'
 cask 'karabiner-elements'
+cask 'keymapp'
+cask 'visual-studio-code'
 cask 'wezterm'
+
+# other
+# cask '1password'
+# cask 'google-chrome'
+# cask 'slack'

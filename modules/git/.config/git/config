@@ -1,14 +1,28 @@
-# Local/private config goes in the include
-[include]
-  path = ~/.config/git/credentials
+# https://git-scm.com/docs/git-config
+
+[branch]
+  sort = -committerdate
+
+[commit]
+  verbose = true
 
 [core]
-  mergeoptions = --no-edit
   excludesfile = ~/.config/git/ignore
+  mergeoptions = --no-edit
   editor = nvim
+  pager = delta
+
+[diff]
+  algorithm = histogram
+
+[fetch]
+  prune = true
 
 [init]
   defaultBranch = main
+
+[merge]
+  conflictStyle = zdiff3
 
 [pull]
 	ff = only
@@ -18,195 +32,25 @@
   autoSetupRemote = true
 
 [rebase]
-  # Git message starts with !fixup
   autosquash = true
 
 [rerere]
   enabled = true
 
-[protocol]
-  # https://github.blog/changelog/2018-11-08-git-protocol-v2-support/
-	version = 2
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
 
-[alias]
-  #
-  # Config
-  #
+[user]
+  name = Andrew Thauer
+  email = 6507159+andrewthauer@users.noreply.github.com
 
-  # List configuration
-  cf = config --list
+[include]
+  path = ~/.config/git/aliases
 
-  #
-  # Remotes
-  #
-
-  # Add the upstream branch
-  add-upstream = !git remote add upstream $1
-  # Set the upstream branch
-  set-upstream = !git remote set-url upstream $1
-
-  #
-  # Branching
-  #
-
-  # Shortcut for `git branch`
-  br = branch
-  # Delete a branch
-  brd = branch -d
-  # Show local branches with details
-  brls = branch -vv
-  # Shortcut for `git checkout`
-  co = checkout
-  # Shortcut for `git checkout -b`
-  cob = checkout -b
-  # Checkout default branch
-  cod = !git checkout `git default-branch`
-  # Alias for `git sd`
-  cm = sd
-  # Switch to the default branch
-  sd = !git switch `git default-branch`
-  # Switch branches
-  sw = switch
-  # Switch and create branch
-  swc = switch -c
-  # Git worktree
-  wt = worktree
-  # Backup the current branch
-  backup-branch = !git branch "backup/`git branch-name`"
-  # Show the current branch name
-  branch-name = !git rev-parse --abbrev-ref HEAD
-  # Get default branch for repo
-  default-branch = !git symbolic-ref --short refs/remotes/origin/HEAD | sed 's@^origin/@@'
-  # set the default branch
-  set-default-branch = "!f() { git remote set-head origin ${1:-main}; }; f"
-  # List branches
-  ls-branches = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 10 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[36m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
-  # Show remote merged
-  ls-merged-branches = !git branch -r --merged | grep -v `git default-branch`
-  # Delete all merged branches but default
-  kill-branches = !git branch --merged | grep -v '\\b`git default-branch`\\b' | xargs git branch -d
-  # Create a new feature branch `git new-feat [ticketNum] [branchName]`
-  new-feat = "!f() { ticketNum=$1; suffix=$2; branchName=$([[ -n $suffix ]] && echo $ticketNum-$suffix || echo $ticketNum); git checkout -b \"${branchName}\"; }; f"
-
-  #
-  # Fetch, Pull & Push
-  #
-
-  # Fetch and prune all branches that do not exist in remote
-  fetchp = fetch -p
-  # Pull submodules and all recursively
-  pulla = !git pull && git submodule update --init --recursive && git submodule update --recursive
-  # Push force no-verify
-  pushf = push --force-with-lease --no-verify
-  # Push upstream
-  pushu = !git push -u origin `git branch-name`
-  # Pull & push the current branch
-  sync = !git pull && git push
-  # Update a fork with the default branch
-  sync-fork = "!f() { branchName=${1:-`git default-branch`}; git fetch upstream && git checkout $branchName && git merge upstream/$branchName; }; f"
-
-  #
-  # Staging & Commits
-  #
-
-  # Show current branch status with short format
-  st = status -sb
-  # Show current branch status with untracked files
-  stu = status --untracked-files
-  # Commit the staged changes
-  ci = commit
-  # Commit ammend
-  cia = !git commit --amend
-  # Commit ammend with no edit
-  cian = !git commit --amend --no-edit --date 'now'
-  # Commit fixup (git commit --fixup :/second)
-  cif = !git commit --fixup
-  # Commit ammend with no edit
-  cim = !git commit -m
-  # Commit then squashbase
-  cis = !git commit -m 'chore: squash' && git squash
-  # Commit then squashbase
-  cisb = !git commit -m 'chore: squash' && git squashbase
-  # Reset and clean the repo dir
-  clean-pristine = !git reset --hard && git clean -fdX
-  # Reset to origin/[default-branch] (e.g. main)
-  reset-to-default = !git fetch origin && git reset --hard origin/`git default-branch`
-  # Reset to origin/[current-branch]
-  reset-to-origin = !git fetch --all && git reset --hard origin/`git branch-name`
-  # Reset to head
-  uncommit = reset HEAD^
-  # Unstage all files
-  unstage = reset HEAD
-
-  #
-  # Merging, Patching & Rebase
-  #
-
-  # Do not auto commit in order to inspect the result
-  nomerge = --no-commit --no-ff $@
-  # Rebase
-  rb = rebase
-  # Shortcut for `git rebase --continue`
-  rbc = rebase --continue
-  # Shortcut for `git rebase --interactive`
-  rbi = rebase --interactive
-  # Rebase default branch (main, develop, etc)
-  rbd = "!f() { branchName=`git default-branch`; git rebase -i $branchName; }; f"
-  # Alias for rbd
-  rbm = rbd
-  # squash up to
-  squash = "!f() { git rebase -i HEAD~${1:-2}; }; f"
-  # Squash up to default branch (main, develop, etc)
-  squashbase = "!f() { branchName=${1:-`git default-branch`}; commitCount=`git count $branchName`; git rebase -i HEAD~$commitCount; }; f"
-  # Display a log of incoming changes
-  in = !git ll HEAD..HEAD@{u}
-  # Display a log of outgoing changes
-  out = !git ll HEAD@{u}..HEAD
-  # Stage our files during a merge
-  ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
-  # Stage the incoming changes
-  theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
-  # Cherry pick commits
-  cp = cherry-pick
-  # Cherry pick with sign off line
-  cps = cherry-pick -s
-
-  #
-  # Diff, Log & Introspection
-  #
-
-  # Display the number of commits between branches
-  count = "!f() { compareBranch=${1-`git default-branch`}; git rev-list --count HEAD ^$compareBranch; }; f"
-  # Shows the files changed between
-  df = diff --stat
-  # Show changes that have been staged
-  dfs = diff --cached
-  # Use fuzzy finder for diff
-  dfz = !git-fuzzy-diff
-  # A more concise and readable git log (one line per commit)
-  ls = log --oneline --decorate --pretty=format:"%C(auto,yellow)%h%C(auto)%d\\ %C(auto,reset)%s\\ \\ [%C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)]"
-  # Display a pretty change log (fancy git log --stat --pretty=short)
-  ll = log --stat --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n"
-  # List differences from yesterday
-  today = diff @{yesterday}.. --stat
-  # Print the last commit title & hash
-  last = !git --no-pager log -1 --oneline --color
-  # Display the last tag info
-  lasttag = describe --tags --abbrev=0
-  # List authors
-  authors = shortlog -sn
-
-  #
-  # Advanced (wip)
-  #
-
-  # autotrack = "!x() { b=`git symbolic-ref -q --short HEAD` && git branch -u \"origin/$b\" || echo \"error: not a branch\"; }; x"
-  # delete-remote-merged = git branch -r --merged | grep -v `git default-branch` | sed 's/origin\///' | xargs -n 1 git push --delete origin
-  # pullbase = "!f() { defaultBranch=$(git default-branch); branchName=${1-$defaultBranch}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
-  # rup = !git remote update `git rev-parse --symbolic-full-name HEAD@{u}|cut -d/ -f3`
-  # unassume = update-index --no-assume-unchanged
-  # unassumeall = !git assumed | xargs git update-index --no-assume-unchanged
+# Include os specific config (defined in macos module)
+[include]
+  path = ~/.config/git/config-macos
 
 # Include additional local/private config settings
 [include]
-  path = ~/.config/git/config.local
+  path = ~/.config/git/config-local

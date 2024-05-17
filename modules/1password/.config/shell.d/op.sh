@@ -27,12 +27,3 @@ use-1password-ssh-agent() {
     return 1
   fi
 }
-
-# Load 1Password environment variables
-# alias ope='eval $(op-dotenv.ts "$HOME"/.config/.env --export)'
-ope() {
-  local env_file="${1:-${DOTFILES_ENV_FILE:-$HOME/.config/.env}}"
-  # shellcheck disable=sc2046
-  eval $(op-dotenv.ts "$env_file" --export)
-}
-
