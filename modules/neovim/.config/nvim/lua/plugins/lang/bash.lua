@@ -30,23 +30,8 @@ return {
       "lsp-zero.nvim",
     },
     opts = {
-      ensure_installed = { "marksman" },
-      servers = {
-        -- marksman = function()
-        --   require("lspconfig").marksman.setup({})
-        -- end,
-      },
+      ensure_installed = { "bash-language-server" },
+      servers = {},
     },
-  },
-
-  -- markdown preview
-  -- https://github.com/iamcco/markdown-preview.nvim
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
   },
 }

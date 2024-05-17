@@ -8,69 +8,63 @@ local M = {}
 function M.option(option, silent, values)
   if values then
     if vim.opt_local[option]:get() == values[1] then
-      ---@diagnostic disable-next-line: no-unknown
       vim.opt_local[option] = values[2]
     else
-      ---@diagnostic disable-next-line: no-unknown
       vim.opt_local[option] = values[1]
     end
-    return print("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+    return print(string.format("Set %s to %s", option, vim.opt_local[option]:get()))
   end
-  ---@diagnostic disable-next-line: no-unknown
+
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if not silent then
     if vim.opt_local[option]:get() then
-      print("Enabled " .. option, { title = "Option" })
+      print("Enabled " .. option)
     else
-      print("Disabled " .. option, { title = "Option" })
+      print("Disabled " .. option)
     end
   end
 end
 
 local nu = { number = true, relativenumber = true }
 function M.number()
-  if vim.opt_local.number:get() or vim.opt_local.relativenumber:get() then
+  ---@diagnostic disable-next-line: undefined-field
+  if vim.opt_local.number.get() or vim.opt_local.relativenumber:get() then
+    ---@diagnostic disable-next-line: undefined-field
     nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
-    print("Disabled line numbers", { title = "Option" })
+    print("Disabled line numbers")
   else
     vim.opt_local.number = nu.number
     vim.opt_local.relativenumber = nu.relativenumber
-    print("Enabled line numbers", { title = "Option" })
+    print("Enabled line numbers")
   end
 end
 
-local enabled = true
+-- Toggle diagnostics on and off
 function M.diagnostics()
-  -- if this Neovim version supports checking if diagnostics are enabled
-  -- then use that for the current state
-  if vim.diagnostic.is_disabled then
-    enabled = not vim.diagnostic.is_disabled()
-  end
-  enabled = not enabled
-
-  if enabled then
-    vim.diagnostic.enable()
-    print("Enabled diagnostics", { title = "Diagnostics" })
-  else
-    vim.diagnostic.disable()
-    print("Disabled diagnostics", { title = "Diagnostics" })
-  end
+  local diagnostics_enabled = not vim.diagnostic.is_enabled()
+  vim.diagnostic.enable(diagnostics_enabled)
+  print(string.format("Toggle diagnostics to %s", diagnostics_enabled))
 end
 
 ---@param buf? number
 ---@param value? boolean
+---@diagnostic disable-next-line: unused-local
 function M.inlay_hints(buf, value)
-  local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-  if type(ih) == "function" then
-    ih(buf, value)
-  elseif type(ih) == "table" and ih.enable then
-    if value == nil then
-      value = not ih.is_enabled(buf)
-    end
-    ih.enable(buf, value)
-  end
+  -- TODO: Implement inlay hint toggling
+
+  -- local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+  --
+  -- if type(ih) == "function" then
+  --   ih(buf, value)
+  -- elseif type(ih) == "table" and ih.enable then
+  --   if value == nil then
+  --     value = not ih.is_enabled(buf)
+  --   end
+  --
+  --   ih.enable(buf, value)
+  -- end
 end
 
 setmetatable(M, {
