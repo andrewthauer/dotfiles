@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Summary:
+#  Extracts a tarball to a directory
+#
+# Usage:
+#   untar <file> [directory]
+
+[ -n "$2" ] && mkdir -p "$2"
+tar -xf "$1" -C "${2:-.}"

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Summary:
+#   Lists processes using tcp ports
+#
+# Usage:
+#   ls-tcp
+
+lsof -i -n -P | grep TCP

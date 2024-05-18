@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Summary:
+#   Run a simple http server
+#
+# Usage:
+#  http-serve
+
+http-serve() {
+  if [ -x "$(command -v python3)" ]; then
+    python3 -m http.server
+  else
+    python -m SimpleHTTPServer
+  fi
+}
+
+http-serve "$@"
