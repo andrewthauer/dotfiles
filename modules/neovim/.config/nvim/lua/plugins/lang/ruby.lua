@@ -22,6 +22,17 @@ return {
     end,
   },
 
+  -- linting
+  {
+    "mfussenegger/nvim-lint",
+    opts = function(_, opts)
+      opts.linters_by_ft = opts.linters_by_ft or {}
+      vim.list_extend(opts.linters_by_ft, {
+        ruby = { "rubocop" },
+      })
+    end,
+  },
+
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
