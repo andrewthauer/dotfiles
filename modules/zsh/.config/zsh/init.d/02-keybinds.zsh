@@ -1,9 +1,10 @@
 #
 # ZSH Key Bindings
 #
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+# - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
+# - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
+# - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+# - https://pubs.opengroup.org/onlinepubs/7908799/xcurses/terminfo.html
 #
 
 # Make sure that the terminal is in application mode when zle is active, since
@@ -19,82 +20,71 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
   zle -N zle-line-finish
 fi
 
-# Use emacs key bindings
-bindkey -e
+# Use vi key bindings
+bindkey -v
 
-# [Esc-w] - Kill from the cursor to the mark
-bindkey '\ew' kill-region
+#
+# Cursor Movement
+#
 
-# [Esc-l] - run command: ls
-bindkey -s '\el' 'ls\n'
+bindkey '^[w' forward-word
+bindkey '^[b' backward-word
 
-# [Ctrl-r] - Search backward incrementally for a specified string. The string may begin with ^ to anchor the search to the beginning of the line.
-bindkey '^r' history-incremental-search-backward
+bindkey '^x' delete-char
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
 
-# [PageUp] - Up a line of history
-if [ "${terminfo[kpp]}" != "" ]; then
-  bindkey "${terminfo[kpp]}" up-line-or-history
-fi
+# bindkey '^b' kill-word
+bindkey '^L' kill-word
+bindkey '^w' backward-kill-word
+bindkey '^H' backward-kill-word # ctrl+bspc
+bindkey '^[^?' backward-kill-word # alt+bspc
 
-# [PageDown] - Down a line of history
-if [ "${terminfo[knp]}" != "" ]; then
-  bindkey "${terminfo[knp]}" down-line-or-history
-fi
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
 
-# start typing + [Up-Arrow] - fuzzy find history forward
-if [ "${terminfo[kcuu1]}" != "" ]; then
-  autoload -U up-line-or-beginning-search
-  zle -N up-line-or-beginning-search
-  bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
-fi
-
-# start typing + [Down-Arrow] - fuzzy find history backward
-if [ "${terminfo[kcud1]}" != "" ]; then
-  autoload -U down-line-or-beginning-search
-  zle -N down-line-or-beginning-search
-  bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
-fi
-
-# [Home] - Go to beginning of line
-if [ "${terminfo[khome]}" != "" ]; then
-  bindkey "${terminfo[khome]}" beginning-of-line
-fi
-
-# [End] - Go to end of line
-if [ "${terminfo[kend]}" != "" ]; then
-  bindkey "${terminfo[kend]}" end-of-line
-fi
+#
+# History
+#
 
 # [Space] - do history expansion
 bindkey ' ' magic-space
 
-# [Ctrl-RightArrow] - move forward one word
-bindkey '^[[1;5C' forward-word
+# bindkey '^P' up-line-or-history
+# bindkey '^P' down-line-or-history
+# bindkey "${terminfo[kpp]}" up-line-or-history         # page up
+# bindkey "${terminfo[knp]}" down-line-or-history       # page down
 
-# [Ctrl-LeftArrow] - move backward one word
-bindkey '^[[1;5D' backward-word
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
+bindkey "${terminfo[kcuu1]}" history-search-backward  # up key
+bindkey "${terminfo[kcud1]}" history-search-forward   # down key
+
+# bindkey '^r' history-incremental-search-backward
+
+# start typing + kindbind for fuzzy find history backward
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^P' down-line-or-beginning-search
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+
+# start typing + keybind for fuzzy find history forward
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+bindkey '^N' up-line-or-beginning-search
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+
+#
+# Other helpers
+#
 
 # [Shift-Tab] - move through the completion menu backwards
-if [ "${terminfo[kcbt]}" != "" ]; then
-  bindkey "${terminfo[kcbt]}" reverse-menu-complete
-fi
-
-# [Backspace] - delete backward
-bindkey '^?' backward-delete-char
-
-# [Delete] - delete forward
-if [ "${terminfo[kdch1]}" != "" ]; then
-  bindkey "${terminfo[kdch1]}" delete-char
-else
-  bindkey "^[[3~" delete-char
-  bindkey "^[3;5~" delete-char
-  bindkey "\e[3~" delete-char
-fi
+bindkey "${terminfo[kcbt]}" reverse-menu-complete
 
 # Edit the current command line in $EDITOR
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey '\C-x\C-e' edit-command-line
-
-# file rename magick
-bindkey "^[m" copy-prev-shell-word
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
