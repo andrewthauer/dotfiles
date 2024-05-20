@@ -35,7 +35,20 @@ return {
         map("n", "<leader>ghd", gs.diffthis, "Diff This")
         -- map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
         -- map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        -- stylua: ignore end
       end,
+    },
+  },
+
+  -- git sharable links
+  -- https://github.com/linrongbin16/gitlinker.nvim
+  {
+    "linrongbin16/gitlinker.nvim",
+    cmd = "GitLink",
+    opts = {},
+    keys = {
+      { "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
+      { "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
     },
   },
 

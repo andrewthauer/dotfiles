@@ -14,6 +14,7 @@ main() {
   "$mod_dir/homebrew/install.sh"
 
   # Load Homebrew shellenv
+  # shellcheck source=/dev/null
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # Install MacOS specific packages
