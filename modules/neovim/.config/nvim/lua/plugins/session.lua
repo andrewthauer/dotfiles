@@ -24,7 +24,7 @@ return {
     },
     opts = {
       projects = vim.g.projects or {
-        "~/.config/*",
+        "~/src/*/*",
       },
       dashboard_mode = true,
       -- last_session_on_startup = false,

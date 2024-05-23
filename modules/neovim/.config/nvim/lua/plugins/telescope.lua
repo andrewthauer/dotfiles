@@ -104,8 +104,9 @@ return {
       return {
         defaults = {
           file_ignore_patterns = {
-            ".git/",
-            ".cache",
+            "%.git/",
+            "!%.github/",
+            "%.cache",
             "node_modules",
           },
           mappings = {

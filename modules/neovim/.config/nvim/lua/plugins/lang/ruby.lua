@@ -15,7 +15,7 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
-        "rubocop",
+        -- "rubocop",
         "ruby-lsp",
         "solargraph",
       })
@@ -28,7 +28,7 @@ return {
     opts = function(_, opts)
       opts.linters_by_ft = opts.linters_by_ft or {}
       vim.list_extend(opts.linters_by_ft, {
-        ruby = { "rubocop" },
+        -- ruby = { "rubocop" },
       })
     end,
   },
