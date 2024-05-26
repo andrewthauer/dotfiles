@@ -20,8 +20,9 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
   zle -N zle-line-finish
 fi
 
-# Use vi key bindings
-bindkey -v
+# Key bindings to use
+# bindkey -e   # Use emacs key bindings
+bindkey -v   # Use vi key bindings
 
 #
 # Cursor Movement

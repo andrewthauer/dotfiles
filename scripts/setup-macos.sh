@@ -18,7 +18,7 @@ main() {
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # Install MacOS specific packages
-  export HOMEBREW_BUNDLE_FILE="${mod_dir}/macos/.config/homebrew/Brewfile"
+  export HOMEBREW_BUNDLE_FILE="${mod_dir}/homebrew/.config/homebrew/Brewfile"
   brew bundle --no-lock
 
   # Ensure some directories exist

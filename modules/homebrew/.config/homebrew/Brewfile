@@ -82,6 +82,7 @@ cask 'firefox@developer-edition'
 cask 'hammerspoon'
 cask 'karabiner-elements'
 cask 'keymapp'
+cask 'obsidian'
 cask 'visual-studio-code'
 cask 'wezterm'
 
