@@ -21,13 +21,13 @@ return {
       local Util = require("util")
       local mappings = {
         -- style: ignore start
-        -- Fast keys
-        { "<D-p>", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
+        -- fast keys
         { "<leader>,", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
         { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-        { "<leader>tt", "<cmd>Telescope<cr>", desc = "Telescope" },
-        { "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Resume" },
+        -- telescope general
+        { "<leader>tp", "<cmd>Telescope<cr>", desc = "Telescope Pickers" },
+        { "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Resume Telescope" },
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
         { "<leader>fc", Util.telescope.config_files, desc = "Find Config File" },
@@ -36,7 +36,7 @@ return {
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git)" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
         -- git
-        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+        { "leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
         { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
         -- search
         { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
@@ -62,15 +62,6 @@ return {
         { "<leader>sQ", "<cmd>Telescope quickfixhistory<cr>", desc = "Quickfix History" },
         { "<leader>st", "<cmd>Telescope tags<cr>", desc = "Tags" },
         { "<leader>sT", "<cmd>Telescope current_buffer_tags<cr>", desc = "Tags (Current Buffer)" },
-        -- lsp
-        { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-        { "ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
-        { "<leader>ws", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace Symbols" },
-        { "<leader>wS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols (Dynamic)" },
-        { "<leader>cci", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "Incoming Calls" },
-        { "<leader>cco", "<cmd>Telescope lsp_outgoing_calls<cr>", desc = "Outgoing Calls" },
-        { "<leader>ctd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
-        { "<leader>ctD", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definition" },
         -- user settings
         { "<leader>uC", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Colorscheme with Preview" },
         -- style: ignore end

@@ -23,6 +23,24 @@ return {
     end,
   },
 
+  -- mason installation
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "lsp-zero.nvim" },
+    opts = function(_, opts)
+      local lsp_zero = require("lsp-zero")
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
+        "bash-language-server",
+      })
+      opts.handlers = opts.handlers or {}
+      vim.list_extend(opts.handlers, {
+        -- disable for now
+        bashls = lsp_zero.noop,
+      })
+    end,
+  },
+
   -- linting
   {
     "mfussenegger/nvim-lint",
@@ -43,7 +61,6 @@ return {
     },
     opts = {
       ensure_installed = { "bash-language-server" },
-      servers = {},
     },
   },
 }

@@ -59,7 +59,7 @@ local function get_keymaps()
     -- Rename the variable under your cursor.
     { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
     -- Show the LSP info for the current buffer.
-    { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    { "<leader>ci", "<cmd>LspInfo<cr>", desc = "LSP Info" },
     --
     -- telescope helpers
     --
@@ -153,7 +153,6 @@ return {
       "nvim-cmp",
       ---@diagnostic disable-next-line: unused-local
       opts = function(_, opts)
-        ---@diagnostic disable-next-line: unused-local
         -- local cmp_action = require("lsp-zero").cmp_action()
         -- local mapping = {
         --   -- basic completions for Neovim's lua api
