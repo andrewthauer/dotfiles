@@ -21,8 +21,8 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 # Key bindings to use
-# bindkey -e   # Use emacs key bindings
-bindkey -v   # Use vi key bindings
+bindkey -e   # Use emacs key bindings
+# bindkey -v   # Use vi key bindings
 
 #
 # Cursor Movement
