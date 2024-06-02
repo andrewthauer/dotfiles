@@ -1,7 +1,8 @@
 # https://alacritty.org/config-alacritty.html
 
 import = [
-  "~/.config/alacritty/zenburn.toml",
+  "~/.config/alacritty/catpupuccin-frappe.toml",
+  # "~/.config/alacritty/zenburn.toml",
 ]
 
 live_config_reload = true

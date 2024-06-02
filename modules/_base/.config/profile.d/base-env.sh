@@ -1,4 +1,3 @@
-!/usr/bin/env bash
 #
 # Common environment user session
 #
@@ -8,7 +7,7 @@
 
 # Editor
 export EDITOR="nvim"
-export VISUAL="nvim --cmd 'let g:flatten_wait=1'"
+export VISUAL="nvim -b"
 
 # Colors
 export CLICOLOR=1

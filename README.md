@@ -17,10 +17,10 @@
 ## Features
 
 - **extremely fast startup!** with lazy loading for expensive operations.
-- **limited dependencies** make it very portable.
+- **limited dependencies** make it very portable and easy to install.
 - **[`stow`](https://www.gnu.org/software/stow/) powered:** symlink dotfiles and
   thus keep them always up-to-date.
-- **topical organized** packages by topic for easy reuse across different
+- **topical organized** modules by topic for easy reuse across different
   machines.
 - **[xdg compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
   when possible to keep `$HOME` clean <sup id="a1"> [1](#f1)</sup>.
@@ -28,13 +28,11 @@
 - **posix compliant** so it works with most shells (`bash`, `zsh`).
 - **optimized for zsh** with auto-completion & syntax highlighting.
 - **useful aliases & utilities** for maximum productivity.
-- **vim & nvim** work interchangeably.
 - **[homebrew](https://brew.sh) compatible** packages with smart fallbacks.
 
 ## Pre-requisites
 
 - [`git`](https://git-scm.com/)
-- [`make`](https://www.gnu.org/software/make/)
 - [`stow`](https://www.gnu.org/software/stow/stow.html)
 
 ## Installation
