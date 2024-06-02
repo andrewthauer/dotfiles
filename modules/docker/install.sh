@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-main() {
+install_macos() {
   # Source docker profile
   source "${DOTFILES_MODULES_DIR}/docker/.config/profile.d/docker.sh"
 
@@ -22,6 +22,19 @@ main() {
   ln -sfn "$(brew --prefix)"/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
   ln -sfn "$(brew --prefix)"/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
   docker buildx install
+
+  # Setup colima
+  echo "Setting up colima..."
+  ln -s "$HOME/.config/colima" "$HOME/.colima"
+}
+
+main() {
+  case "$("$DOTFILES_BIN"/os-info --family)" in
+    "macos")
+      install_macos
+      ;;
+    *) ;;
+  esac
 }
 
 main "$@"
