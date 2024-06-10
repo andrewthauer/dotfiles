@@ -1,56 +1,71 @@
-#!/usr/bin/env bash
-# Summary:
-#   Resolves a dotenv file and prints the resolved environment variables
-#
-# Usage:
-#   op-dotenv <dotenv-file>
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env --allow-run
+/* vim: set filetype=typescript : */
+/*
 
-set -e -o pipefail
+  Usage: op-dotenv.ts <dotenv_path> [--export]
 
-op_dotenv() {
-  # Extract the --avro flag
-  while (("$#")); do
-    case "$1" in
-      -e | --export)
-        export="true"
-        shift 1
-        ;;
-      *) # do nothing
-        args="$args $1"
-        shift
-        ;;
-    esac
-  done
+  Examples:
 
-  eval set -- "$args"
+    # Alias dotfile file into environment
+    alias ope='eval $(op-dotenv.ts "$HOME/.config/.env" --export)'
 
-  local dotenv_file="$1"
+    # Load dotfile file into environment
+    ope() {
+      local env_file="${1:-$HOME/.config/.env}"
+      export $(op-dotenv.ts "$env_file" | xargs)
+    }
+*/
 
-  if [ -z "$dotenv_file" ]; then
-    echo "Usage: op-dotenv <dotenv-file> [-e | --export]"
-    exit 1
-  fi
+import * as dotenv from 'https://deno.land/std@0.216.0/dotenv/mod.ts';
+import { substitute } from 'https://deno.land/x/substitute@v0.2.1/mod.ts';
 
-  if [ ! -f "$dotenv_file" ]; then
-    echo "File $dotenv_file does not exist"
-    exit 1
-  fi
-
-  env_text=$(cat <"$dotenv_file" |
-    op inject |
-    sed -e 's/[[:space:]]*#.*// ; /^[[:space:]]*$/d')
-
-  echo "$env_text" | while read -r line; do
-    IFS='='
-    read -r -a pair <<<"$line"
-    key="${pair[0]}"
-    value=$(echo "${pair[1]}" | sed -e 's/^"//' -e 's/"$//')
-    line="$(echo "$key=$value" | envsubst)"
-    export "${line?}"
-    export_text=""
-    [ -n "$export" ] && export_text="export "
-    echo "${export_text}${line}"
-  done
+// parse the args (note: currently assumes path is first arg)
+const envPath = Deno.args[0];
+if (!envPath) {
+  console.error('op-dotenv.ts <dotenv_path> [--export]');
+  Deno.exit(1);
 }
 
-op_dotenv "$@"
+// load the dotenv file
+const contents = Deno.readTextFileSync(envPath);
+let env = dotenv.parse(contents);
+
+// resolve environment variables from 1password cli
+const command = new Deno.Command('op', {
+  args: ['inject'],
+  stdin: 'piped',
+  stdout: 'piped',
+});
+const process = command.spawn();
+const writer = process.stdin.getWriter();
+writer.write(new TextEncoder().encode(dotenv.stringify(env)));
+writer.releaseLock();
+await process.stdin.close();
+const output = await process.output();
+const rawEnv = new TextDecoder().decode(output.stdout);
+
+// parse the environment variables
+env = dotenv.parse(rawEnv);
+
+// substitute environment variables
+Object.entries(env).forEach(([key, value]) => {
+  Deno.env.set(key, value);
+  const newValue = substitute(value, Deno.env.get);
+  Deno.env.set(key, newValue);
+  env[key] = newValue;
+});
+
+// output the environment variables
+if (Deno.args.includes('--export')) {
+  Object.entries(env).forEach(([key, value]) => {
+    console.log(`export ${key}="${value}"`);
+  });
+} else if (Deno.args.includes('--launchctl')) {
+  Object.entries(env).forEach(async ([key, value]) => {
+    await new Deno.Command('launchctl', {
+      args: ['setenv', key, value ?? ''],
+    }).output();
+  });
+} else {
+  console.log(dotenv.stringify(env));
+}
