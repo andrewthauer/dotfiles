@@ -17,6 +17,9 @@ option_as_alt = "OnlyLeft"  # treat alt as meta key (macOS)
 normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
 size = 15
 
+[colors.primary]
+background = "#313445"
+
 [cursor]
 style = { shape = "Underline", blinking = "Off" }
 thickness = 0.20

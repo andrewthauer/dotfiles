@@ -8,5 +8,7 @@ return {
   { import = "plugins.lang.python" },
   { import = "plugins.lang.ruby" },
   { import = "plugins.lang.rust" },
+  -- { import = "plugins.lang.swift" },
+  { import = "plugins.lang.terraform" },
   { import = "plugins.lang.typescript" },
 }

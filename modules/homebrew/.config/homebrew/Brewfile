@@ -72,6 +72,7 @@ tap 'homebrew/cask-fonts'
 
 # Caskroom fonts
 cask 'font-fira-code'
+cask 'font-fira-code-nerd-font'
 cask 'font-fira-mono'
 
 # Caskroom apps

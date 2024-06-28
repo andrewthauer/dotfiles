@@ -7,12 +7,12 @@
   Examples:
 
     # Alias dotfile file into environment
-    alias ope='eval $(op-dotenv.ts "$HOME/.config/.env" --export)'
+    alias ope='eval $(op-dotenv "$HOME/.config/.env" --export)'
 
     # Load dotfile file into environment
     ope() {
       local env_file="${1:-$HOME/.config/.env}"
-      export $(op-dotenv.ts "$env_file" | xargs)
+      export $(op-dotenv "$env_file" | xargs)
     }
 */
 
@@ -22,7 +22,7 @@ import { substitute } from 'https://deno.land/x/substitute@v0.2.1/mod.ts';
 // parse the args (note: currently assumes path is first arg)
 const envPath = Deno.args[0];
 if (!envPath) {
-  console.error('op-dotenv.ts <dotenv_path> [--export]');
+  console.error('op-dotenv <dotenv_path> [--export]');
   Deno.exit(1);
 }
 
