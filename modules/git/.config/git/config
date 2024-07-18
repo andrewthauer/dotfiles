@@ -10,7 +10,7 @@
   excludesfile = ~/.config/git/ignore
   mergeoptions = --no-edit
   editor = nvim
-  pager = delta --side-by-side --line-numbers
+  # pager = delta --side-by-side --line-numbers
 
 [delta]
   navigate = true    # use n and N to move between diff sections
@@ -27,7 +27,7 @@
   defaultBranch = main
 
 [interactive]
-  diffFilter = delta --color-only
+  # diffFilter = delta --color-only
 
 [merge]
   # conflictStyle = zdiff3

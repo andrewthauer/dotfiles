@@ -11,6 +11,21 @@ local function get_args(config)
   return config
 end
 
+-- local function on_attach()
+--   if vim.fn.filereadable(".vscode/launch.json") then
+--     local dap_vscode = require("dap.ext.vscode")
+--     dap_vscode.load_launchjs(nil, {
+--       ["chrome"] = js_based_languages,
+--       ["node"] = js_based_languages,
+--       ["pwa-node"] = js_based_languages,
+--       ["pwa-chrome"] = js_based_languages,
+--       ["node-terminal"] = js_based_languages,
+--     })
+--   end
+--   -- require("dap").continue()
+--   require("dap").continue({ before = get_args })
+-- end
+
 return {
   {
     -- debug adapter protocol
@@ -73,9 +88,6 @@ return {
         cmd = { "DapInstall", "DapUninstall" },
         opts = {
           automatic_installation = true,
-
-          -- You can provide additional configuration to the handlers,
-          -- see mason-nvim-dap README for more information
           handlers = {},
           ensure_installed = {},
         },
@@ -83,11 +95,11 @@ return {
     },
     keys = {
       -- stylua: ignore start
-      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
       { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
       { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
       { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
       { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
       { "<leader>dj", function() require("dap").down() end, desc = "Down" },
@@ -102,33 +114,35 @@ return {
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
       -- stylua: ignore end
     },
-    -- config = function()
-    --   local Config = require("lazyvim.config")
-    --   vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-    --
-    --   for name, sign in pairs(Config.icons.dap) do
-    --     sign = type(sign) == "table" and sign or { sign }
-    --     vim.fn.sign_define(
-    --       "Dap" .. name,
-    --       { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-    --     )
-    --   end
-    -- end,
+    ---@diagnostic disable-next-line: unused-local
     config = function(_, opts)
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+
+      -- local Config = require("lazyvim.config")
+      -- for name, sign in pairs(Config.icons.dap) do
+      --   sign = type(sign) == "table" and sign or { sign }
+      --   vim.fn.sign_define(
+      --     "Dap" .. name,
+      --     { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+      --   )
+      -- end
+
       -- setup dap config by VsCode launch.json file
-      -- require("dap.ext.vscode").load_launchjs()
-      -- local dap = require("dap")
-      -- local dapui = require("dapui")
-      -- dapui.setup(opts)
-      -- dap.listeners.after.event_initialized["dapui_config"] = function()
-      --   dapui.open({})
-      -- end
-      -- dap.listeners.before.event_terminated["dapui_config"] = function()
-      --   dapui.close({})
-      -- end
-      -- dap.listeners.before.event_exited["dapui_config"] = function()
-      --   dapui.close({})
-      -- end
+      local js_based_languages = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+      local vscode = require("dap.ext.vscode")
+      local _filetypes = require("mason-nvim-dap.mappings.filetypes")
+      local filetypes = vim.tbl_deep_extend("force", _filetypes, {
+        ["chrome"] = js_based_languages,
+        ["node"] = js_based_languages,
+        ["pwa-node"] = js_based_languages,
+        ["pwa-chrome"] = js_based_languages,
+        ["node-terminal"] = js_based_languages,
+      })
+      local json = require("plenary.json")
+      vscode.json_decode = function(str)
+        return vim.json.decode(json.json_strip_comments(str))
+      end
+      vscode.load_launchjs(nil, filetypes) -- setup dap config by VsCode launch.json file
     end,
   },
 }

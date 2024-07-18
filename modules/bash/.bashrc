@@ -26,4 +26,3 @@ source_files_in "${XDG_CONFIG_HOME}"/bash/init.d/*.sh
 # Append bin directories to path
 prepend_path "${DOTFILES_DIR}/bin"
 prepend_path "${HOME}/.local/bin"
-

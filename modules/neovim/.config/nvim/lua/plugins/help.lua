@@ -5,37 +5,34 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {
-      plugins = { spelling = true },
-      defaults = {
-        mode = { "n", "v" },
-        ["g"] = { name = "+Goto" },
-        ["gs"] = { name = "+Surround" },
-        ["z"] = { name = "+Fold" },
-        ["]"] = { name = "+Next" },
-        ["["] = { name = "+Prev" },
-        ["<leader><tab>"] = { name = "+Tabs" },
-        ["<leader>b"] = { name = "+Buffers" },
-        ["<leader>c"] = { name = "+Code" },
-        ["<leader>cc"] = { name = "+Calls (In/Out)" },
-        ["<leader>ct"] = { name = "+Type Definitions" },
-        ["<leader>d"] = { name = "+Document/Debug" },
-        ["<leader>f"] = { name = "+File/find" },
-        ["<leader>g"] = { name = "+Git/Goto" },
-        ["<leader>gh"] = { name = "+Git Hunks" },
-        ["<leader>q"] = { name = "+Quit/Session" },
-        ["<leader>r"] = { name = "+Rename" },
-        ["<leader>s"] = { name = "+Search" },
-        ["<leader>t"] = { name = "+Telescope" },
-        ["<leader>u"] = { name = "+UI Toggles" },
-        ["<leader>w"] = { name = "+Windows/Workspace" },
-        ["<leader>x"] = { name = "+Diagnostics/Quickfix" },
-      },
-    },
-    config = function(_, opts)
+    opts = {},
+    ---@diagnostic disable-next-line: unused-local
+    config = function(_, _opts)
       local wk = require("which-key")
-      wk.setup(opts)
-      wk.register(opts.defaults)
+      wk.add({
+        --   -- mode = { "n", "v" },
+        { "g", desc = "+Goto" },
+        { "gs", desc = "+Surround" },
+        { "z", desc = "+Fold" },
+        { "]", desc = "+Next" },
+        { "[", desc = "+Prev" },
+        { "<leader><tab>", desc = "+Tabs" },
+        { "<leader>b", desc = "+Buffers" },
+        { "<leader>c", desc = "+Code" },
+        { "<leader>cc", desc = "+Calls (In/Out)" },
+        { "<leader>ct", desc = "+Type Definitions" },
+        { "<leader>d", desc = "+Document/Debug" },
+        { "<leader>f", desc = "+File/find" },
+        { "<leader>g", desc = "+Git/Goto" },
+        { "<leader>gh", desc = "+Git Hunks" },
+        { "<leader>q", desc = "+Quit/Session" },
+        { "<leader>r", desc = "+Rename" },
+        { "<leader>s", desc = "+Search" },
+        { "<leader>t", desc = "+Telescope" },
+        { "<leader>u", desc = "+UI Toggles" },
+        { "<leader>w", desc = "+Windows/Workspace" },
+        { "<leader>x", desc = "+Diagnostics/Quickfix" },
+      })
     end,
   },
 
