@@ -56,7 +56,6 @@ return {
             },
           }
 
-          -- TODO: confirm if this is needed once nvim v0.10 is released
           local inlay_hints = {
             includeInlayParameterNameHints = "all",
             includeInlayParameterNameHintsWhenArgumentMatchesName = true,

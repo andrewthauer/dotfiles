@@ -32,7 +32,13 @@ return {
       servers = {
         lua_ls = function()
           local lsp_zero = require("lsp-zero")
-          local lua_opts = lsp_zero.nvim_lua_ls()
+          local lua_opts = lsp_zero.nvim_lua_ls({
+            settings = {
+              Lua = {
+                hint = { enable = true },
+              },
+            },
+          })
           require("lspconfig").lua_ls.setup(lua_opts)
         end,
       },

@@ -43,7 +43,8 @@ local function get_keymaps()
     { "[d", vim.diagnostic.goto_prev, desc = "Previous diagnostic" },
     { "]d", vim.diagnostic.goto_next, desc = "Next diagnostic" },
     { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
-    { "<leader>cL", vim.lsp.codelens.run, desc = "Run Codelens", mode = "v", has = "codeLens" },
+    { "<leader>cL", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
+    { "<leader>cU", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
     { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
     { "<leader>cI", "<cmd>LspInfo<cr>", desc = "LSP Info" },
     --
@@ -86,6 +87,9 @@ return {
         "yamlls",
       },
       inlay_hints = {
+        enabled = false,
+      },
+      codelens = {
         enabled = true,
       },
     },
@@ -105,13 +109,34 @@ return {
 
       ---@diagnostic disable-next-line: unused-local
       lsp_zero.on_attach(function(client, bufnr)
+        -- enable inlay hints
+        if opts.inlay_hints.enabled and vim.lsp.inlay_hint then
+          if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          end
+        end
+
+        -- code lens
+        if opts.codelens.enabled and vim.lsp.codelens then
+          if client.supports_method("textDocument/codeLens") or client.server_capabilities.codeLensProvider then
+            vim.lsp.codelens.refresh({ bufnr = 0 })
+            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+              buffer = bufnr,
+              callback = vim.lsp.codelens.refresh,
+            })
+          end
+        end
+
+        -- keymaps
         -- see :help lsp-zero-keybindings
         -- lsp_zero.default_keymaps({ buffer = bufnr })
-        -- custom key maps
         local Util = require("util")
-        Util.lsp.on_attach(client, bufnr, opts)
         Util.map_keys({ keys = get_keymaps(), buffer = bufnr })
       end)
+
+      if opts.inlay_hints.enabled then
+        vim.lsp.inlay_hint.enable(true)
+      end
 
       -- to learn how to use mason.nvim with lsp-zero
       -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md

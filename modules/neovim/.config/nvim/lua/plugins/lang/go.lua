@@ -27,9 +27,23 @@ return {
     opts = {
       ensure_installed = { "gopls" },
       servers = {
-        -- gopls = function()
-        --   require("lspconfig").gopls.setup({})
-        -- end,
+        gopls = function()
+          require("lspconfig").gopls.setup({
+            settings = {
+              gopls = {
+                hints = {
+                  rangeVariableTypes = true,
+                  parameterNames = true,
+                  constantValues = true,
+                  assignVariableTypes = true,
+                  compositeLiteralFields = true,
+                  compositeLiteralTypes = true,
+                  functionTypeParameters = true,
+                },
+              },
+            },
+          })
+        end,
       },
     },
   },

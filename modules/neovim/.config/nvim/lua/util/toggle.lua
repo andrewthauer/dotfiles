@@ -48,23 +48,15 @@ function M.diagnostics()
   print(string.format("Toggle diagnostics to %s", diagnostics_enabled))
 end
 
----@param buf? number
----@param value? boolean
----@diagnostic disable-next-line: unused-local
-function M.inlay_hints(buf, value)
-  -- TODO: Implement inlay hint toggling
-
-  -- local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-  --
-  -- if type(ih) == "function" then
-  --   ih(buf, value)
-  -- elseif type(ih) == "table" and ih.enable then
-  --   if value == nil then
-  --     value = not ih.is_enabled(buf)
-  --   end
-  --
-  --   ih.enable(buf, value)
-  -- end
+-- Toggle inlay hints on and off
+function M.inlay_hints()
+  if vim.lsp.inlay_hint.is_enabled() then
+    vim.lsp.inlay_hint.enable(false, nil)
+    print("Disabled inlay hints")
+  else
+    vim.lsp.inlay_hint.enable(true, nil)
+    print("Enabled inlay hints")
+  end
 end
 
 setmetatable(M, {
