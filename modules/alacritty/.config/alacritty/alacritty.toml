@@ -13,6 +13,9 @@ dimensions = { columns = 200, lines = 60 }
 dynamic_padding = true
 option_as_alt = "OnlyLeft"  # treat alt as meta key (macOS)
 
+[scrolling]
+history = 100000
+
 [font]
 normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
 size = 15

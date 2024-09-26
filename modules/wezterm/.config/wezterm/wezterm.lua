@@ -103,6 +103,8 @@ return {
   font_size = 15.0,
 
   keys = {
+    { key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-1) },
+    { key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(1) },
     { key = "LeftArrow", mods = "SHIFT|CMD", action = act.ActivateTabRelative(-1) },
     { key = "RightArrow", mods = "SHIFT|CMD", action = act.ActivateTabRelative(1) },
     { key = "LeftArrow", mods = "SHIFT|OPT", action = act.MoveTabRelative(-1) },

@@ -20,9 +20,6 @@ end
 map("i", "jk", "<Esc>", { noremap = true, desc = "Alternative excape key" })
 map("i", "kj", "<Esc>", { noremap = true, desc = "Alternative excape key" })
 
--- Clear on pressing <Esc> in normal mode
-map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
-
 -- Quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
@@ -39,7 +36,7 @@ map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- Clear search with <esc>
-map("n", "<Esc>", "<cmd>nohlsearch<cr>")
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search" })
 map("n", "<Esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 map("i", "<Esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 

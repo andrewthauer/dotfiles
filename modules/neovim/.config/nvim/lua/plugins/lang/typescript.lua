@@ -26,7 +26,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        tsserver = function()
+        ts_ls = function()
           local keys = {
             {
               "<leader>co",
@@ -68,7 +68,7 @@ return {
             importModuleSpecifierPreference = "non-relative",
           }
 
-          require("lspconfig").tsserver.setup({
+          require("lspconfig").ts_ls.setup({
             ---@diagnostic disable-next-line: unused-local
             on_attach = function(client, bufnr)
               require("util").map_keys({ keys = keys, buffer = bufnr })

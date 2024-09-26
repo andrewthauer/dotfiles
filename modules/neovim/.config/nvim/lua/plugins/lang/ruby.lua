@@ -16,8 +16,8 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         -- "rubocop",
-        "ruby-lsp",
-        "solargraph",
+        -- "ruby-lsp",
+        -- "solargraph",
       })
     end,
   },
@@ -42,9 +42,9 @@ return {
     opts = {
       ensure_installed = { "ruby_lsp", "solargraph" },
       servers = {
-        ruby_lsp = function()
-          require("lspconfig").ruby_lsp.setup({})
-        end,
+        -- ruby_lsp = function()
+        --   require("lspconfig").ruby_lsp.setup({})
+        -- end,
       },
     },
   },

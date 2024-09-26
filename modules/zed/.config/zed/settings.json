@@ -7,8 +7,12 @@
 // from the command palette or from `Zed` application menu.
 {
   "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
     "button": true,
-    "version": "1"
+    "version": "2"
   },
   "autosave": "off",
   "buffer_font_size": 16,

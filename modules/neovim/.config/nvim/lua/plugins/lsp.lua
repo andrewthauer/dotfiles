@@ -122,10 +122,10 @@ return {
         }, opts.servers),
       })
 
-      -- avoid conflicts with denols & tsserver
-      if lsp_util.get_config("denols") and lsp_util.get_config("tsserver") then
+      -- avoid conflicts with ts_ls & tsserver
+      if lsp_util.get_config("denols") and lsp_util.get_config("ts_ls") then
         local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-        lsp_util.disable("tsserver", is_deno)
+        lsp_util.disable("ts_ls", is_deno)
         lsp_util.disable("denols", function(root_dir)
           return not is_deno(root_dir)
         end)
