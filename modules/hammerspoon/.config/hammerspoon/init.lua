@@ -229,10 +229,11 @@ hs.hotkey.bind(hyper, "s", utils.launchById("com.tinyspeck.slackmacgap"))
 -- hs.hotkey.bind(hyper, "t", utils.launchById("org.alacritty"))
 hs.hotkey.bind(hyper, "t", utils.launchById("com.github.wez.wezterm"))
 hs.hotkey.bind(hyper, "w", utils.launchById("com.apple.finder"))
+hs.hotkey.bind(hyper, "z", utils.launchById("dev.zed.Zed"))
 -- stylua: ignore end
 
 -------------------------------------------------------------------------------
--- Recusrive key binder
+-- Recursive key binder
 -------------------------------------------------------------------------------
 
 spoon.SpoonInstall:andUse("RecursiveBinder", {
