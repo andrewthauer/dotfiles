@@ -1,4 +1,128 @@
-local function get_keymaps()
+local M = {}
+
+local plugin_spec = {
+  -- configurations for nvim lsp
+  -- https://github.com/neovim/nvim-lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+      { "antosha417/nvim-lsp-file-operations", config = true },
+      { "folke/neodev.nvim", opts = {} },
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+    },
+    opts = {
+      ensure_installed = {
+        "jsonls",
+        "lua_ls",
+        "taplo", -- toml
+        "yamlls",
+      },
+      inlay_hints = {
+        enabled = false,
+      },
+      codelens = {
+        enabled = true,
+      },
+    },
+    keys = {},
+    ---@diagnostic disable-next-line: unused-local
+    config = function(_, opts)
+      local lsp_zero = require("lsp-zero")
+
+      -- set sign icons
+      lsp_zero.set_sign_icons({
+        error = "✘",
+        warn = "▲",
+        hint = "⚑",
+        info = "»",
+      })
+
+      ---@diagnostic disable-next-line: unused-local
+      lsp_zero.on_attach(function(client, bufnr)
+        -- enable inlay hints
+        if opts.inlay_hints.enabled and vim.lsp.inlay_hint then
+          if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          end
+        end
+
+        -- code lens
+        if opts.codelens.enabled and vim.lsp.codelens then
+          if client.supports_method("textDocument/codeLens") or client.server_capabilities.codeLensProvider then
+            vim.lsp.codelens.refresh({ bufnr = 0 })
+            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+              buffer = bufnr,
+              callback = vim.lsp.codelens.refresh,
+            })
+          end
+        end
+
+        -- keymaps
+        -- see :help lsp-zero-keybindings
+        -- lsp_zero.default_keymaps({ buffer = bufnr })
+        local Util = require("util")
+        Util.map_keys({ keys = M.get_keymaps(), buffer = bufnr })
+      end)
+
+      if opts.inlay_hints.enabled then
+        vim.lsp.inlay_hint.enable(true)
+      end
+
+      -- to learn how to use mason.nvim with lsp-zero
+      -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
+      require("mason-lspconfig").setup({
+        ensure_installed = opts.ensure_installed,
+        handlers = vim.tbl_extend("force", {
+          lsp_zero.default_setup,
+        }, opts.servers),
+      })
+
+      -- avoid conflicts with ts_ls & tsserver
+      if M.get_lsp_config("denols") and M.get_lsp_config("ts_ls") then
+        local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
+        M.disable_lsp("ts_ls", is_deno)
+        M.disable_lsp("denols", function(root_dir)
+          return not is_deno(root_dir)
+        end)
+      end
+    end,
+  },
+
+  -- Neovim's LSP client with minimum effort
+  -- https://lsp-zero.netlify.app
+  -- https://github.com/VonHeikemen/lsp-zero.nvim
+  {
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-cmp",
+      ---@diagnostic disable-next-line: unused-local
+      opts = function(_, opts)
+        -- local cmp_action = require("lsp-zero").cmp_action()
+        -- local mapping = {
+        --   -- basic completions for Neovim's lua api
+        --   ["<C-f>"] = cmp_action.luasnip_jump_forward(),
+        --   ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+        --   -- enable SuperTab
+        --   ["<Tab>"] = cmp_action.luasnip_supertab(),
+        --   ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
+        --   -- regular tab
+        --   -- ["<Tab>"] = cmp_action.tab_complete(),
+        --   -- ["<S-Tab>"] = cmp_action.select_prev_or_fallback(),
+        -- }
+        -- for _, key in ipairs(mapping) do
+        --   table.insert(opts.mapping, key)
+        -- end
+      end,
+    },
+  },
+}
+
+function M.get_keymaps()
   return {
     -- stylua: ignore start
     --
@@ -65,125 +189,22 @@ local function get_keymaps()
   }
 end
 
-return {
-  -- configurations for nvim lsp
-  -- https://github.com/neovim/nvim-lspconfig
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      { "antosha417/nvim-lsp-file-operations", config = true },
-      { "folke/neodev.nvim", opts = {} },
-      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
-    },
-    opts = {
-      ensure_installed = {
-        "jsonls",
-        "lua_ls",
-        "taplo", -- toml
-        "yamlls",
-      },
-      inlay_hints = {
-        enabled = false,
-      },
-      codelens = {
-        enabled = true,
-      },
-    },
-    keys = {},
-    ---@diagnostic disable-next-line: unused-local
-    config = function(_, opts)
-      local lsp_zero = require("lsp-zero")
-      local lsp_util = require("util.lsp")
+-- Get an lsp server configuration
+function M.get_lsp_config(server)
+  local configs = require("lspconfig.configs")
+  return rawget(configs, server)
+end
 
-      -- set sign icons
-      lsp_zero.set_sign_icons({
-        error = "✘",
-        warn = "▲",
-        hint = "⚑",
-        info = "»",
-      })
+-- Disable an lsp server
+function M.disable_lsp(server, cond)
+  local util = require("lspconfig.util")
+  local lsp_config = M.get_lsp_config(server)
 
-      ---@diagnostic disable-next-line: unused-local
-      lsp_zero.on_attach(function(client, bufnr)
-        -- enable inlay hints
-        if opts.inlay_hints.enabled and vim.lsp.inlay_hint then
-          if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-          end
-        end
+  lsp_config.document_config.on_new_config = util.add_hook_before(lsp_config.document_config.on_new_config, function(config, root_dir)
+    if cond(root_dir, config) then
+      config.enabled = false
+    end
+  end)
+end
 
-        -- code lens
-        if opts.codelens.enabled and vim.lsp.codelens then
-          if client.supports_method("textDocument/codeLens") or client.server_capabilities.codeLensProvider then
-            vim.lsp.codelens.refresh({ bufnr = 0 })
-            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-              buffer = bufnr,
-              callback = vim.lsp.codelens.refresh,
-            })
-          end
-        end
-
-        -- keymaps
-        -- see :help lsp-zero-keybindings
-        -- lsp_zero.default_keymaps({ buffer = bufnr })
-        local Util = require("util")
-        Util.map_keys({ keys = get_keymaps(), buffer = bufnr })
-      end)
-
-      if opts.inlay_hints.enabled then
-        vim.lsp.inlay_hint.enable(true)
-      end
-
-      -- to learn how to use mason.nvim with lsp-zero
-      -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
-      require("mason-lspconfig").setup({
-        ensure_installed = opts.ensure_installed,
-        handlers = vim.tbl_extend("force", {
-          lsp_zero.default_setup,
-        }, opts.servers),
-      })
-
-      -- avoid conflicts with ts_ls & tsserver
-      if lsp_util.get_config("denols") and lsp_util.get_config("ts_ls") then
-        local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-        lsp_util.disable("ts_ls", is_deno)
-        lsp_util.disable("denols", function(root_dir)
-          return not is_deno(root_dir)
-        end)
-      end
-    end,
-  },
-
-  -- Neovim's LSP client with minimum effort
-  -- https://lsp-zero.netlify.app
-  -- https://github.com/VonHeikemen/lsp-zero.nvim
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-cmp",
-      ---@diagnostic disable-next-line: unused-local
-      opts = function(_, opts)
-        -- local cmp_action = require("lsp-zero").cmp_action()
-        -- local mapping = {
-        --   -- basic completions for Neovim's lua api
-        --   ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-        --   ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-        --   -- enable SuperTab
-        --   ["<Tab>"] = cmp_action.luasnip_supertab(),
-        --   ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
-        --   -- regular tab
-        --   -- ["<Tab>"] = cmp_action.tab_complete(),
-        --   -- ["<S-Tab>"] = cmp_action.select_prev_or_fallback(),
-        -- }
-        -- for _, key in ipairs(mapping) do
-        --   table.insert(opts.mapping, key)
-        -- end
-      end,
-    },
-  },
-}
+return plugin_spec

@@ -2,8 +2,6 @@ local M = {}
 
 -- M.keys = require("util.keys")
 M.lazy = require("util.lazy")
-M.lsp = require("util.lsp")
-M.plugin = require("util.mason")
 M.telescope = require("util.telescope")
 M.toggle = require("util.toggle")
 M.table = {}
