@@ -24,22 +24,36 @@ return {
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "lsp-zero.nvim",
-    },
     opts = {
       ensure_installed = { "lua_ls" },
       servers = {
         lua_ls = function()
-          local lsp_zero = require("lsp-zero")
-          local lua_opts = lsp_zero.nvim_lua_ls({
+          local runtime_path = vim.split(package.path, ";")
+          table.insert(runtime_path, "lua/?.lua")
+          table.insert(runtime_path, "lua/?/init.lua")
+
+          require("lspconfig").lua_ls.setup({
             settings = {
               Lua = {
+                runtime = {
+                  version = "LuaJIT",
+                  path = runtime_path,
+                },
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME,
+                    "${3rd}/luv/library",
+                    -- "${3rd}/busted/library",
+                  },
+                },
+                diagnostics = {
+                  globals = { "vim" },
+                },
                 hint = { enable = true },
               },
             },
           })
-          require("lspconfig").lua_ls.setup(lua_opts)
         end,
       },
     },

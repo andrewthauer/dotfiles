@@ -17,9 +17,21 @@ return {
       vim.list_extend(opts.ensure_installed, {
         -- "rubocop",
         -- "ruby-lsp",
-        -- "solargraph",
       })
     end,
+  },
+
+  -- setup lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      ensure_installed = { "ruby_lsp", "solargraph" },
+      servers = {
+        -- ruby_lsp = function()
+        --   require("lspconfig").ruby_lsp.setup({})
+        -- end,
+      },
+    },
   },
 
   -- linting
@@ -31,21 +43,5 @@ return {
         -- ruby = { "rubocop" },
       })
     end,
-  },
-
-  -- setup lspconfig
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "lsp-zero.nvim",
-    },
-    opts = {
-      ensure_installed = { "ruby_lsp", "solargraph" },
-      servers = {
-        -- ruby_lsp = function()
-        --   require("lspconfig").ruby_lsp.setup({})
-        -- end,
-      },
-    },
   },
 }

@@ -27,9 +27,6 @@ return {
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "lsp-zero.nvim",
-    },
     opts = {
       ensure_installed = {
         -- "marksman",

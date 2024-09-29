@@ -14,18 +14,17 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "ruff", "ruff-lsp" })
+      vim.list_extend(opts.ensure_installed, {
+        "pyright",
+      })
     end,
   },
 
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "lsp-zero.nvim",
-    },
     opts = {
-      ensure_installed = { "ruff-lsp" },
+      ensure_installed = { "pyright" },
       servers = {
         -- pyright = function()
         --   require("lspconfig").pyright.setup({})

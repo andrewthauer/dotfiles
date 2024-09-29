@@ -1,6 +1,14 @@
 local M = {}
 
 local plugin_spec = {
+  -- Neovim's LSP client with minimum effort
+  -- https://lsp-zero.netlify.app
+  -- https://github.com/VonHeikemen/lsp-zero.nvim
+  {
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v4.x",
+  },
+
   -- configurations for nvim lsp
   -- https://github.com/neovim/nvim-lspconfig
   {
@@ -33,16 +41,7 @@ local plugin_spec = {
     config = function(_, opts)
       local lsp_zero = require("lsp-zero")
 
-      -- set sign icons
-      lsp_zero.set_sign_icons({
-        error = "✘",
-        warn = "▲",
-        hint = "⚑",
-        info = "»",
-      })
-
-      ---@diagnostic disable-next-line: unused-local
-      lsp_zero.on_attach(function(client, bufnr)
+      local lsp_attach = function(client, bufnr)
         -- enable inlay hints
         if opts.inlay_hints.enabled and vim.lsp.inlay_hint then
           if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
@@ -61,27 +60,29 @@ local plugin_spec = {
           end
         end
 
-        -- keymaps
-        -- see :help lsp-zero-keybindings
         -- lsp_zero.default_keymaps({ buffer = bufnr })
         local Util = require("util")
         Util.map_keys({ keys = M.get_keymaps(), buffer = bufnr })
-      end)
-
-      if opts.inlay_hints.enabled then
-        vim.lsp.inlay_hint.enable(true)
       end
 
-      -- to learn how to use mason.nvim with lsp-zero
-      -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
+      -- configure lsp
+      lsp_zero.extend_lspconfig({
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        lsp_attach = lsp_attach,
+        sign_text = { error = "✘", warn = "▲", hint = "⚑", info = "»" },
+        float_border = "rounded",
+      })
+
       require("mason-lspconfig").setup({
         ensure_installed = opts.ensure_installed,
         handlers = vim.tbl_extend("force", {
-          lsp_zero.default_setup,
+          function(server_name)
+            require("lspconfig")[server_name].setup({})
+          end,
         }, opts.servers),
       })
 
-      -- avoid conflicts with ts_ls & tsserver
+      -- avoid conflicts with ts_ls & denols
       if M.get_lsp_config("denols") and M.get_lsp_config("ts_ls") then
         local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
         M.disable_lsp("ts_ls", is_deno)
@@ -90,35 +91,6 @@ local plugin_spec = {
         end)
       end
     end,
-  },
-
-  -- Neovim's LSP client with minimum effort
-  -- https://lsp-zero.netlify.app
-  -- https://github.com/VonHeikemen/lsp-zero.nvim
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-cmp",
-      ---@diagnostic disable-next-line: unused-local
-      opts = function(_, opts)
-        -- local cmp_action = require("lsp-zero").cmp_action()
-        -- local mapping = {
-        --   -- basic completions for Neovim's lua api
-        --   ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-        --   ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-        --   -- enable SuperTab
-        --   ["<Tab>"] = cmp_action.luasnip_supertab(),
-        --   ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
-        --   -- regular tab
-        --   -- ["<Tab>"] = cmp_action.tab_complete(),
-        --   -- ["<S-Tab>"] = cmp_action.select_prev_or_fallback(),
-        -- }
-        -- for _, key in ipairs(mapping) do
-        --   table.insert(opts.mapping, key)
-        -- end
-      end,
-    },
   },
 }
 
@@ -200,11 +172,14 @@ function M.disable_lsp(server, cond)
   local util = require("lspconfig.util")
   local lsp_config = M.get_lsp_config(server)
 
-  lsp_config.document_config.on_new_config = util.add_hook_before(lsp_config.document_config.on_new_config, function(config, root_dir)
-    if cond(root_dir, config) then
-      config.enabled = false
+  lsp_config.document_config.on_new_config = util.add_hook_before(
+    lsp_config.document_config.on_new_config,
+    function(config, root_dir)
+      if cond(root_dir, config) then
+        config.enabled = false
+      end
     end
-  end)
+  )
 end
 
 return plugin_spec
