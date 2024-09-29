@@ -38,7 +38,7 @@ return {
         { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git)" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
         -- git
-        { "leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
         { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
         -- search
         { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },

@@ -37,7 +37,6 @@ local plugin_spec = {
       },
     },
     keys = {},
-    ---@diagnostic disable-next-line: unused-local
     config = function(_, opts)
       local lsp_zero = require("lsp-zero")
 
@@ -97,12 +96,24 @@ local plugin_spec = {
 function M.get_keymaps()
   return {
     -- stylua: ignore start
-    --
-    -- neovim native
-    --
-    -- { "gla", vim.lsp.buf.code_action, desc = "LSP Code Actions" },
-    -- { "gld", vim.lsp.buf.declaration, desc = "LSP Declaration" },
-    -- { "glD", vim.lsp.buf.definition, desc = "LSP Definition" },
+    -- New neovim defaults not released (> 0.10)
+    { "grn", vim.lsp.buf.rename, desc = "Rename symbol" },
+    { "gra", vim.lsp.buf.code_action, desc = "LSP Code Action" },
+    { "grr", vim.lsp.buf.references, desc = "LSP References" },
+    { "<c-s>", vim.lsp.buf.signature_help, desc = "LSP Signature Help", mode = "i", has ="signitureHelp" },
+    -- custom
+    { "K", vim.lsp.buf.hover, desc = "Hover documentation" },
+    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i", has = "signatureHelp" },
+    { "gd", vim.lsp.buf.definition, desc = "Go to definition" },
+    { "gD", vim.lsp.buf.declaration, desc = "Go to declaration" },
+    { "<F2>", vim.lsp.buf.rename, desc = "Rename symbol" },
+    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+    { "<leader>cL", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
+    { "<leader>cU", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+    { "<leader>cI", "<cmd>LspInfo<cr>", desc = "LSP Info" },
+    -- not used
     -- { "glh", vim.lsp.buf.document_highlight, desc = "LSP Document Highlight" },
     -- { "glf", vim.lsp.buf.format, desc = "LSP Format" },
     -- { "glI", vim.lsp.buf.implementation, desc = "LSP Implementation" },
@@ -111,43 +122,13 @@ function M.get_keymaps()
     -- { "glr", vim.lsp.buf.references, desc = "LSP References" },
     -- { "glH", vim.lsp.buf.signature_help, desc = "LSP Signiture Help" },
     -- { "glt", vim.lsp.buf.type_definition, desc = "LSP Type Definition" },
-    --
-    -- New neovim defaults (>= 0.10)
-    -- { "crn", vim.lsp.buf.rename, desc = "Rename" },
-    -- { "crr", vim.lsp.buf.code_action, desc = "Code Action" },
-    -- { "gr", vim.lsp.buf.references, desc = "References" },
-    -- { "<C-R>", vim.lsp.buf.code_action, desc = "Code Action", mode = "v" },
-    -- { "<C-S>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i", has = "signatureHelp" },
-    --
-    -- custom
-    --
-    { "K", vim.lsp.buf.hover, desc = "Hover documentation" },
-    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-    { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i", has = "signatureHelp" },
-    { "gd", vim.lsp.buf.definition, desc = "Go to definition" },
-    { "gD", vim.lsp.buf.declaration, desc = "Go to declaration" },
-    -- { "gi", vim.lsp.buf.implementation, desc = "Go to implementation" },
-    -- { "go", vim.lsp.buf.type_definition, desc = "Go to type definition" },
-    -- { "gr", vim.lsp.buf.references, desc = "Go to reference" },
-    -- { "gs", vim.lsp.buf.signature_help", desc = "Show function signature" },
-    { "<F2>", vim.lsp.buf.rename, desc = "Rename symbol" },
     -- { "<F3>", "<cmd>vim.lsp.buf.format({async = true})<cr>", desc = "Format file" },
     -- { "<F3>", "<cmd>vim.lsp.buf.format({async = true})<cr>", "desc = Format selection", mode = "x" },
     -- { "<F4>", "<cmd>vim.lsp.buf.code_action()<cr>", desc = "Execute code action" },
     -- { "<F4>", "<cmd>vim.lsp.buf.range_code_action()<cr>", desc = "Execute code action", mode = "x" },
-    -- { "gl", vim.diagnostic.open_float", "desc = Show diagnostic" },
-    { "[d", vim.diagnostic.goto_prev, desc = "Previous diagnostic" },
-    { "]d", vim.diagnostic.goto_next, desc = "Next diagnostic" },
-    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
-    { "<leader>cL", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
-    { "<leader>cU", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
-    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
-    { "<leader>cI", "<cmd>LspInfo<cr>", desc = "LSP Info" },
-    --
     -- telescope helpers
-    --
-    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References (Telescope)" },
-    { "ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols (Telescope)" },
+    { "<leader>gr", "<cmd>Telescope lsp_references<cr>", desc = "References (Telescope)" },
+    { "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols (Telescope)" },
     { "<leader>cd", "<cmd>Telescope lsp_definitions<cr>", desc = "Definitions (Telescope)" },
     { "<leader>cD", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definitions (Telescope)" },
     { "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations (Telescope)" },

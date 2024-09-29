@@ -27,9 +27,8 @@ end
 
 local nu = { number = true, relativenumber = true }
 function M.number()
-  ---@diagnostic disable-next-line: undefined-field
+  ---@diagnostic disable-next-line: undefined-field, missing-parameter
   if vim.opt_local.number.get() or vim.opt_local.relativenumber:get() then
-    ---@diagnostic disable-next-line: undefined-field
     nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false

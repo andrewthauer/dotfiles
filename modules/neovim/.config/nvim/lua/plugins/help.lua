@@ -25,6 +25,7 @@ return {
         { "<leader>f", desc = "+File/find" },
         { "<leader>g", desc = "+Git/Goto" },
         { "<leader>gh", desc = "+Git Hunks" },
+        { "<leader>m", desc = "+Multiple Cursors" },
         { "<leader>q", desc = "+Quit/Session" },
         { "<leader>r", desc = "+Rename" },
         { "<leader>s", desc = "+Search" },
