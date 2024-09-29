@@ -20,6 +20,7 @@ vim.g.have_nerd_font = true       -- Use nerd font
 vim.g.colorscheme = "catppuccin-frappe"
 -- vim.g.autoformat_enabled = true   -- enable auto format (custom / lazyvim)
 
+
 -- ------------------------------------
 -- See `:help vim.opt`
 -- ------------------------------------
@@ -48,6 +49,9 @@ vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
 vim.opt.clipboard = "unnamed"     -- Sync clipboard between OS and Neovim
 vim.opt.timeout = true            -- Time out on mappings
 vim.opt.timeoutlen = 500          -- Displays which-key popup sooner
+vim.opt.title = true
+vim.opt.titlelen = 0              -- do not shorten title
+vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 -- vim.opt.updatetime = 250          -- Decrease update time
 
 -- Undo/Redo

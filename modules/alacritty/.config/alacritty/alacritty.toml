@@ -17,7 +17,7 @@ option_as_alt = "OnlyLeft"  # treat alt as meta key (macOS)
 history = 100000
 
 [font]
-normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+normal = { family = "FiraCode Nerd Font Mono" }
 size = 15
 
 [colors.primary]

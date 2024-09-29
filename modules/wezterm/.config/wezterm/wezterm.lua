@@ -99,7 +99,7 @@ return {
   initial_cols = 160,
   initial_rows = 50,
 
-  font = wezterm.font("Fira Code"),
+  font = wezterm.font("FiraCode Nerd Font Mono"),
   font_size = 15.0,
 
   keys = {

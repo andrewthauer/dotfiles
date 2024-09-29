@@ -226,8 +226,9 @@ hs.hotkey.bind(hyper, "f", utils.launchById("org.mozilla.firefoxdeveloperedition
 hs.hotkey.bind(hyper, "h", utils.launchById("io.robbie.HomeAssistant"))
 hs.hotkey.bind(hyper, "n", utils.launchById("notion.id"))
 hs.hotkey.bind(hyper, "s", utils.launchById("com.tinyspeck.slackmacgap"))
+hs.hotkey.bind(hyper, "t", utils.launchById("net.kovidgoyal.kitty"))
 -- hs.hotkey.bind(hyper, "t", utils.launchById("org.alacritty"))
-hs.hotkey.bind(hyper, "t", utils.launchById("com.github.wez.wezterm"))
+-- hs.hotkey.bind(hyper, "t", utils.launchById("com.github.wez.wezterm"))
 hs.hotkey.bind(hyper, "w", utils.launchById("com.apple.finder"))
 hs.hotkey.bind(hyper, "z", utils.launchById("dev.zed.Zed"))
 -- stylua: ignore end
