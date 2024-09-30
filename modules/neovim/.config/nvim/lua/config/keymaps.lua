@@ -96,14 +96,14 @@ map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
 -- Toggle options
-map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Toggle Auto Format (global)" })
-map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Toggle Auto Format (buffer)" })
-map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
-map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
-map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-map("n", "<leader>uh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
+map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Auto Format (global)" })
+map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Auto Format (buffer)" })
+Util.toggle.map("<leader>us", Util.toggle("spell", { name = "Spelling" }))
+Util.toggle.map("<leader>uw", Util.toggle("wrap", { name = "Word Wrap" }))
+Util.toggle.map("<leader>uL", Util.toggle("relativenumber", { name = "Relative Number" }))
+Util.toggle.map("<leader>ul", Util.toggle.number)
+Util.toggle.map("<leader>ud", Util.toggle.diagnostics)
+Util.toggle.map("<leader>uh", Util.toggle.inlay_hints)
 
 -- Diagnostics
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })

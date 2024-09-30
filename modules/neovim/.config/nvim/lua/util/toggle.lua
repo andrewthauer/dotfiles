@@ -1,62 +1,108 @@
 ---@diagnostic disable: duplicate-set-field
 
----@class Util.toggle
+---@class Toggle
+---@field name string
+---@field get fun():boolean
+---@field set fun(state:boolean)
+
 local M = {}
 
----@param silent boolean?
----@param values? {[1]:any, [2]:any}
-function M.option(option, silent, values)
-  if values then
-    if vim.opt_local[option]:get() == values[1] then
-      vim.opt_local[option] = values[2]
-    else
-      vim.opt_local[option] = values[1]
-    end
-    return print(string.format("Set %s to %s", option, vim.opt_local[option]:get()))
-  end
-
-  vim.opt_local[option] = not vim.opt_local[option]:get()
-  if not silent then
-    if vim.opt_local[option]:get() then
-      print("Enabled " .. option)
-    else
-      print("Disabled " .. option)
-    end
-  end
+---@param toggle Toggle
+function M.wrap(toggle)
+  return setmetatable(toggle, {
+    __call = function()
+      toggle.set(not toggle.get())
+      local state = toggle.get()
+      if state then
+        print(string.format("Enabled %s", toggle.name))
+      else
+        print(string.format("Disabled %s", toggle.name))
+      end
+      return state
+    end,
+  })
 end
 
+---@param lhs string
+---@param toggle Toggle
+function M.map(lhs, toggle)
+  local t = M.wrap(toggle)
+  vim.keymap.set("n", lhs, function()
+    t()
+  end, { desc = "Toggle " .. toggle.name })
+end
+
+---@param opts? {values?: {[1]:any, [2]:any}, name?: string}
+function M.option(option, opts)
+  opts = opts or {}
+  local name = opts.name or option
+  local on = opts.values and opts.values[2] or true
+  local off = opts.values and opts.values[1] or false
+  return M.wrap({
+    name = name,
+    get = function()
+      return vim.opt_local[option]:get() == on
+    end,
+    set = function(state)
+      vim.opt_local[option] = state and on or off
+    end,
+  })
+end
+
+-- toggle line numbers
 local nu = { number = true, relativenumber = true }
-function M.number()
-  ---@diagnostic disable-next-line: undefined-field, missing-parameter
-  if vim.opt_local.number.get() or vim.opt_local.relativenumber:get() then
-    nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    print("Disabled line numbers")
-  else
-    vim.opt_local.number = nu.number
-    vim.opt_local.relativenumber = nu.relativenumber
-    print("Enabled line numbers")
-  end
-end
+M.number = M.wrap({
+  name = "Line Numbers",
+  get = function()
+    return vim.opt_local.number:get() or vim.opt_local.relativenumber:get()
+  end,
+  set = function(state)
+    if state then
+      vim.opt_local.number = nu.number
+      vim.opt_local.relativenumber = nu.relativenumber
+    else
+      nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+    end
+  end,
+})
 
 -- Toggle diagnostics on and off
-function M.diagnostics()
-  local diagnostics_enabled = not vim.diagnostic.is_enabled()
-  vim.diagnostic.enable(diagnostics_enabled)
-  print(string.format("Toggle diagnostics to %s", diagnostics_enabled))
-end
+M.diagnostics = M.wrap({
+  name = "Diagnostics",
+  get = function()
+    local enabled = false
+    if vim.diagnostic.is_enabled then
+      enabled = vim.diagnostic.is_enabled()
+    elseif vim.diagnostic.is_disabled then
+      enabled = not vim.diagnostic.is_disabled()
+    end
+    return enabled
+  end,
+  set = function(state)
+    if vim.fn.has("nvim-0.10") == 0 then
+      if state then
+        pcall(vim.diagnostic.enable)
+      else
+        pcall(vim.diagnostic.disable)
+      end
+    else
+      vim.diagnostic.enable(state)
+    end
+  end,
+})
 
 -- Toggle inlay hints on and off
-function M.inlay_hints()
-  if vim.lsp.inlay_hint.is_enabled() then
-    vim.lsp.inlay_hint.enable(false, nil)
-    print("Disabled inlay hints")
-  else
-    vim.lsp.inlay_hint.enable(true, nil)
-    print("Enabled inlay hints")
-  end
-end
+M.inlay_hints = M.wrap({
+  name = "Inlay Hints",
+  get = function()
+    return vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+  end,
+  set = function(state)
+    vim.lsp.inlay_hint.enable(state, { bufnr = 0 })
+  end,
+})
 
 setmetatable(M, {
   __call = function(m, ...)
