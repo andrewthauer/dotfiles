@@ -7,7 +7,7 @@ return {
   { import = "plugins.lang.lua" },
   { import = "plugins.lang.markdown" },
   { import = "plugins.lang.python" },
-  { import = "plugins.lang.ruby" },
+  -- { import = "plugins.lang.ruby" },
   { import = "plugins.lang.rust" },
   -- { import = "plugins.lang.swift" },
   { import = "plugins.lang.terraform" },

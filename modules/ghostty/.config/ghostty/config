@@ -1,0 +1,11 @@
+# vim: set filetype=conf :
+#
+# to see config docs:
+#   ghostty +show-config --default --docs
+#
+
+theme = catppuccin-frappe
+font-family = FiraCode Nerd Font Mono
+font-size = 16
+cursor-style = block
+macos-option-as-alt = true

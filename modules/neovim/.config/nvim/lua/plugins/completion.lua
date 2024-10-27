@@ -85,7 +85,7 @@ return {
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected item
-          ["<CR>"] = cmp.mapping.confirm({ behavior = "replace", select = false }),
+          ["<CR>"] = cmp.mapping.confirm({ behavior = "replace", select = true }),
           -- Manually invoke completions
           ["<C-Space>"] = cmp.mapping.complete(),
           -- Navigate the completion list using vim natural up/down
