@@ -16,56 +16,36 @@
     }
 */
 
-import * as dotenv from 'https://deno.land/std@0.216.0/dotenv/mod.ts';
-import { substitute } from 'https://deno.land/x/substitute@v0.2.1/mod.ts';
+import $ from 'jsr:@david/dax';
+import { parse, stringify } from 'jsr:@bearz/dotenv';
+import { expand } from 'jsr:@bearz/dotenv/expand';
 
-// parse the args (note: currently assumes path is first arg)
-const envPath = Deno.args[0];
-if (!envPath) {
-  console.error('op-dotenv <dotenv_path> [--export]');
-  Deno.exit(1);
+async function main() {
+  // note: currently assumes path is first arg to the dotenv file
+  const path = Deno.args?.[0];
+  if (!path) {
+    console.error('op-dotenv <dotenv_path> [--export]');
+    Deno.exit(1);
+  }
+
+  // read, parse, resolve secrets, and expand the environment variables
+  const envPath = $.path(path).resolve();
+  let env: Record<string, string> = parse(await envPath.readText());
+  const secretsEnv = await $`op inject`.stdinText(stringify(env)).text();
+  env = expand(parse(secretsEnv));
+
+  // output the environment variables
+  if (Deno.args.includes('--export')) {
+    Object.entries(env).forEach(([key, value]) => {
+      console.log(`export ${key}="${value}"`);
+    });
+  } else if (Deno.args.includes('--launchctl')) {
+    Object.entries(env).forEach(async ([key, value]) => {
+      await $.raw`launchctl setenv ${key} "${value ?? ''}"`;
+    });
+  } else {
+    console.log(stringify(env));
+  }
 }
 
-// load the dotenv file
-const contents = Deno.readTextFileSync(envPath);
-let env = dotenv.parse(contents);
-
-// resolve environment variables from 1password cli
-const command = new Deno.Command('op', {
-  args: ['inject'],
-  stdin: 'piped',
-  stdout: 'piped',
-});
-const process = command.spawn();
-const writer = process.stdin.getWriter();
-writer.write(new TextEncoder().encode(dotenv.stringify(env)));
-writer.releaseLock();
-await process.stdin.close();
-const output = await process.output();
-const rawEnv = new TextDecoder().decode(output.stdout);
-
-// parse the environment variables
-env = dotenv.parse(rawEnv);
-
-// substitute environment variables
-Object.entries(env).forEach(([key, value]) => {
-  Deno.env.set(key, value);
-  const newValue = substitute(value, Deno.env.get);
-  Deno.env.set(key, newValue);
-  env[key] = newValue;
-});
-
-// output the environment variables
-if (Deno.args.includes('--export')) {
-  Object.entries(env).forEach(([key, value]) => {
-    console.log(`export ${key}="${value}"`);
-  });
-} else if (Deno.args.includes('--launchctl')) {
-  Object.entries(env).forEach(async ([key, value]) => {
-    await new Deno.Command('launchctl', {
-      args: ['setenv', key, value ?? ''],
-    }).output();
-  });
-} else {
-  console.log(dotenv.stringify(env));
-}
+await main();
