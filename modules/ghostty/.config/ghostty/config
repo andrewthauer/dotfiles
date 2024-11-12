@@ -8,3 +8,6 @@ theme = catppuccin-frappe
 font-family = FiraCode Nerd Font Mono
 font-size = 16
 macos-option-as-alt = true
+
+# keybinds
+# keybind = global:ctrl+escape=toggle_quick_terminal

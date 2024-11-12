@@ -17,15 +17,17 @@
   "autosave": "off",
   "buffer_font_size": 15,
   "buffer_font_family": "FiraCode Nerd Font Mono",
-  "deno":{
-    "enable": true
-  },
   "ensure_final_newline_on_save": true,
   "features": {
     "copilot": true
   },
   "format_on_save": "off",
-  "tab_size": 2,
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!solargraph", "rubocop", "..."]
+    }
+  },
+  "lsp": {},
   "telemetry": {
     "diagnostics": false,
     "metrics": false
