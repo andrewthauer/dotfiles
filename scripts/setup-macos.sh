@@ -39,6 +39,7 @@ main() {
     github
     go
     gpg
+    ghostty
     hammerspoon
     homebrew
     karabiner
@@ -56,6 +57,7 @@ main() {
     tmux
     utility
     wezterm
+    zed
     zoxide
     zsh
   )
@@ -76,9 +78,20 @@ EOF
   # Link dotfiles
   "$bin_dir/dotfiles" mod link
 
+  # Setup SSH for GitHub
+  if [ -f $HOME/.ssh/known_hosts ]; then
+    ssh-keygen -R github.com
+    ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+  else
+    ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
+  fi
+
   # Install dotfiles module scripts
   "$mod_dir/docker/install.sh"
   "$mod_dir/hammerspoon/install.sh"
+
+  # install mise versions
+  mise install node
 
   # Setup macos defaults
   "$DOTFILES_DIR/scripts/macos-defaults.sh"

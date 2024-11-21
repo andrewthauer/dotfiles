@@ -6,6 +6,7 @@ return {
   { import = "plugins.lang.just" },
   { import = "plugins.lang.lua" },
   { import = "plugins.lang.markdown" },
+  { import = "plugins.lang.nushell" },
   { import = "plugins.lang.python" },
   -- { import = "plugins.lang.ruby" },
   { import = "plugins.lang.rust" },

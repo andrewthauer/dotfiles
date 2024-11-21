@@ -59,16 +59,13 @@ return unless OS.mac?
 # gnu utils
 # brew 'findutils'
 # brew 'gettext', link: true
-# brew 'gawk'
-brew 'gnu-sed'
+# brew 'gawke
+# brew 'gnu-sed'
 # brew 'gnu-tar'
 # brew 'gnutls'
 # brew 'grep'
 # brew 'gsed'
 # brew 'parallel'
-
-# tap 'homebrew/cask'
-tap 'homebrew/cask-fonts'
 
 # Caskroom fonts
 cask 'font-fira-code'
@@ -86,6 +83,7 @@ cask 'keymapp'
 cask 'obsidian'
 cask 'visual-studio-code'
 cask 'wezterm'
+cask 'zed'
 
 # other
 # cask '1password'
