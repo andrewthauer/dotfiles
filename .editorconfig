@@ -19,7 +19,7 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-[*.{cs,py,rs}]
+[*.{cs,nu,py,rs}]
 indent_style = space
 indent_size = 4
 
