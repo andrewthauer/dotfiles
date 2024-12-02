@@ -1,13 +1,10 @@
 [
   {
-    "label": "lazygit",
+    "label": "Lazygit",
     "command": "lazygit",
     "args": [],
     "env": {},
     "use_new_terminal": true,
-    "allow_concurrent_runs": false,
-    "reveal": "always",
-    "hide": "never",
-    "shell": "system"
+    "allow_concurrent_runs": false
   }
 ]

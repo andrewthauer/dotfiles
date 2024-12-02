@@ -7,12 +7,6 @@
     }
   },
   {
-    "context": "Editor",
-    "bindings": {
-      // "space b d": "workspace::CloseWindow",
-    }
-  },
-  {
     "context": "Terminal",
     "bindings": {
       // "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"]
@@ -72,6 +66,7 @@
       "space f p": "projects::OpenRecent",
       "space f r": "pane::RevealInProjectPanel",
       "space g b": "branches::OpenRecent",
+      "space g g": ["task::Spawn", { "task_name": "Lazygit" }],
       "space s d": "diagnostics::Deploy",
       "space s r": "workspace::NewSearch",
       "space s f": "project_panel::ToggleFocus",

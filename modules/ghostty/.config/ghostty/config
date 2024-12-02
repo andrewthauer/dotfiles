@@ -7,7 +7,11 @@
 theme = catppuccin-frappe
 font-family = FiraCode Nerd Font Mono
 font-size = 16
+
 macos-option-as-alt = true
 
 # keybinds
-# keybind = global:ctrl+escape=toggle_quick_terminal
+keybind = cmd+right=text:\x05  # end of line
+keybind = cmd+left=text:\x01   # start of line
+keybind = alt+left=esc:b       # back one word
+keybind = alt+right=esc:f      # forward one word

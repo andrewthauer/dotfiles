@@ -8,6 +8,13 @@
 # reference:
 #   defaults domains | awk '{gsub(", ", "\n", $0)}1' | sort
 #
+# Figuring out settings with PListBuddy + https://github.com/8ta4/plist
+#
+#   1. brew install 8ta4/plist/plist
+#   2. plist
+#   3. open macos settings, change setting
+#   4. copy command from plist output to this file
+#
 
 # Default dotfiles home directory
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
@@ -69,24 +76,57 @@ defaults write -g com.apple.keyboard.fnState -bool true
 # Input - Keyboard Shortcuts
 # =============================================================================
 
-# Disable input sources switching (System Preferences > Keyboard > Shortcuts > Input Sources)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{ enabled = 0; value = { parameters = (32, 49, 262144); type = 'standard'; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "{ enabled = 0; value = { parameters = (32, 49, 786432); type = 'standard'; }; }"
+#
+# Launchpad & Dock
+#
 
-# Disable show mission control with ^up
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 32 "{ enabled = 0; value = { parameters = (65535, 126, 8650752); type = 'standard'; }; }"
+# Disable turn docking hiding on with ^cmd-d
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:52:enabled'" -c "Add ':AppleSymbolicHotKeys:52:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
 
-# Disable show application windows with ^down
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 33 "{ enabled = 0; value = { parameters = (65535, 125, 8650752); type = 'standard'; }; }"
+# Disable show launchpad
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:160:enabled'" -c "Add ':AppleSymbolicHotKeys:160:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
 
-# Disable mission control move space left with ^left
-# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 79 "{ enabled = 0; value = { parameters = (665535, 123, 8650752); type = 'standard'; }; }"
+#
+# Mission Control
+#
 
-# Disable mission control move space right with ^right
-# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 81 "{ enabled = 0; value = { parameters = (665535, 123, 8650752); type = 'standard'; }; }"
+# Disable mission control with ctrl+up
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:32:enabled'" -c "Add ':AppleSymbolicHotKeys:32:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
 
-# Disabe mission control switch to desktop 1 with ^1
-# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 118 "{ enabled = 0; value = { parameters = (665535, 18, 262144); type = 'standard'; }; }"
+# Disable application windows with ctrl+down
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:33:enabled'" -c "Add ':AppleSymbolicHotKeys:33:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+# Disable show desktop with ctrl+f11
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:36:enabled'" -c "Add ':AppleSymbolicHotKeys:36:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+# Disable quick note with fn+q
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:190:enabled'" -c "Add ':AppleSymbolicHotKeys:190:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+#
+# Input Sources
+#
+
+# Disable switch to next input source with ctrl+space
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:60:enabled'" -c "Add ':AppleSymbolicHotKeys:60:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+# Disable switch to previous input source with ctrl+option+space
+/usr/libexec/PlistBuddy -c "Delete ':AppleSymbolicHotKeys:61:enabled'" -c "Add ':AppleSymbolicHotKeys:61:enabled' bool 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+#
+# Service
+#
+
+# Disable Search > Search with google with shift+cmd+l
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:enabled_context_menu'" -c "Add ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:enabled_context_menu' bool 'false'" "$HOME/Library/Preferences/pbs.plist"
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:enabled_services_menu'" -c "Add ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:enabled_services_menu' bool 'false'" "$HOME/Library/Preferences/pbs.plist"
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ContextMenu'" -c "Add ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ContextMenu' bool 'false'" "$HOME/Library/Preferences/pbs.plist"
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ServicesMenu'" -c "Add ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ServicesMenu' bool 'false'" "$HOME/Library/Preferences/pbs.plist"
+
+# Disable Search > Spotlight with shift+cmd+f
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:enabled_context_menu'" "$HOME/Library/Preferences/pbs.plist"
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:enabled_services_menu'" "$HOME/Library/Preferences/pbs.plist"
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:presentation_modes:ContextMenu'" "$HOME/Library/Preferences/pbs.plist"
+/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:presentation_modes:ServicesMenu'" "$HOME/Library/Preferences/pbs.plist"
 
 # =============================================================================
 # Input - Mouse, Trackpad
