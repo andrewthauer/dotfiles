@@ -48,7 +48,7 @@ local/
 local*
 local-*/
 *-local/
-/tmp*
+**/tmp*
 */local
 */local-*
 **/secrets
