@@ -11,4 +11,3 @@ fi
 nvim-plugin-install() {
   nvim +PlugInstall +qall
 }
-

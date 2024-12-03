@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Summary:
+#   Remove all tags for image name
+#
+# Usage:
+#   docker-rmi--all-tags <image>
+#
+
+set -e
+
+function main() {
+  docker images | grep "$1" | awk '{system("docker rmi " "'"$1:"'" $2)}'
+}
+
+main "$@"

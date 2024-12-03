@@ -57,19 +57,7 @@ fi
 #
 
 alias m="mise"
-alias md="mise deactivate"
-alias mi="mise install"
-alias mr="mise run"
-alias mu="mise use"
-alias mx="mise exec"
-alias mlsr="mise ls-remote"
-alias mplsr="mise plugin ls-remote --urls"
-alias mt="mise task"
-alias mtr="mise task run"
 
 # short aliases
 alias mhook="mise-hook-env"
 alias mact="mise-activate"
-
-# Alias rtx to mise for backwards compatibility
-alias rtx="mise"

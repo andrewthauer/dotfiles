@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# Summary:
+#   Cleans up Go modules and binaries
+#
+# Usage:
+#   go-clean all
+#   go-clean bin
+#
+
+set -e
+
+go-clean-all() {
+  # go clean -i: Remove the corresponding installed archive or binary (what ‘go install’ would create).
+
+  # Clean recursively, i.e., apply the clean command to all dependencies.
+  go clean -r
+
+  # Clean the entire module cache (usually located in $GOPATH/pkg/mod), including both cached packages, builds, and cached downloaded modules.
+  go clean -cache
+
+  # Clean the entire test result cache.
+  go clean -testcache
+
+  # Clean the entire module download cache.
+  go clean -modcache
+}
+
+go-clean-bin() {
+  local go_path
+  go_path="$(go env GOPATH)"
+
+  if [ ! -d "${go_path}" ]; then
+    echo "GOPATH not found"
+    return 1
+  fi
+
+  rm "${go_path}"/bin/*
+}
+
+main() {
+  local cmd="${1:-all}"
+
+  case "${cmd}" in
+    all)
+      go-clean-all
+      ;;
+    bin)
+      go-clean-bin
+      ;;
+    *)
+      echo "Unknown command: ${cmd}"
+      echo "Usage: go-clean all | go-clean bin"
+      return 1
+      ;;
+  esac
+}
+
+main "$@"

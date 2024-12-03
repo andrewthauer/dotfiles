@@ -34,6 +34,4 @@ function gem-install-bundler() {
 }
 
 # Aliases
-alias b='bundle'
 alias be='bundle exec'
-alias bu='bundle update'

@@ -14,16 +14,6 @@ fi
 # Aliases
 #
 
-# Homebrew
-alias brewb='brew bundle'
-alias brewc='brew cleanup'
-alias brewi='brew install'
-alias brewl='brew list'
-alias brewo='brew outdated'
-alias brewr='brew remove'
-alias brews='brew search'
-alias brewu='brew uninstall'
-
 # Dependencies
 alias brew-deps='brew deps --installed'
 alias brew-leaves='brew leaves'

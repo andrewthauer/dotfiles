@@ -80,13 +80,3 @@ alias dcdown='docker compose down'
 alias dclogs='docker compose logs'
 alias dclogsf='docker compose logs -f'
 alias dctail='docker compose logs --tail=all -f'
-
-#
-# Remove all tags for image name
-#
-# usage:
-#   docker_rmi_all_tags my_image
-#
-function docker_rmi_all_tags() {
-  docker images | grep "$1" | awk '{system("docker rmi " "'"$1:"'" $2)}'
-}
