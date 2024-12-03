@@ -11,9 +11,6 @@ if ! command_exists "zoxide"; then
   return 1
 fi
 
-# The data location
-export _ZO_DATA_DIR="${XDG_DATA_HOME}/zoxide"
-
 # When set to 1, z will print the matched directory before navigating to it.
 export _ZO_ECHO=1
 

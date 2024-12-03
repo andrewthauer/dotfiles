@@ -6,8 +6,7 @@
 # XDG specification
 #
 
-# Set the maven home
-# export M2_HOME="${XDG_DATA_HOME}/sdk/maven/current"
+export MAVEN_OPTS=-Dmaven.repo.local="${XDG_DATA_HOME}"/maven/repository
 
 # Override the config/cache location
 alias mvn='mvn -gs "${XDG_CONFIG_HOME}/maven/settings.xml"'

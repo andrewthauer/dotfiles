@@ -6,11 +6,9 @@
 # Environment
 #
 
-# Create XDG directories if needed
+# XDG specification
 [ ! -d "${XDG_CONFIG_HOME}/pg" ] && mkdir -p "${XDG_CONFIG_HOME}/pg"
 [ ! -d "${XDG_CACHE_HOME}/pg" ] && mkdir "${XDG_CACHE_HOME}/pg"
-
-# XDG specification
 export PSQLRC="${XDG_CONFIG_HOME}/pg/psqlrc"
 export PSQL_HISTORY="${XDG_CACHE_HOME}/pg/psql_history"
 export PGPASSFILE="${XDG_CONFIG_HOME}/pg/pgpass"
