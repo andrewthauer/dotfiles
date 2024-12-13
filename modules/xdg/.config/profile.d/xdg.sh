@@ -16,12 +16,9 @@ export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 # CocoaPods
 export CP_HOME_DIR="${XDG_DATA_HOME}/cocoapods"
 
-# Confluent CLI
-export HOME_CONFLUENT_PATH="${XDG_CONFIG_HOME}/confluent"
-
 # deno
 # export DENO_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/deno"
-export DENO_INSTALL_ROOT="${XDG_DATA_HOME:-$HOME/.local/share}/deno"
+# export DENO_INSTALL_ROOT="${XDG_DATA_HOME:-$HOME/.local/share}/deno"
 
 # docker
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
@@ -57,6 +54,10 @@ export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
 export MAVEN_OPTS=-Dmaven.repo.local="${XDG_DATA_HOME}"/maven/repository
 alias mvn='mvn -gs "${XDG_CONFIG_HOME}/maven/settings.xml"'
 
+# mysql
+# [ ! -d "${XDG_DATA_HOME}/mysql" ] && mkdir "${XDG_DATA_HOME}/mysql"
+# export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql/history"
+
 # nodejs
 export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
 
@@ -91,6 +92,10 @@ export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/config"
 # export POETRY_DATA_DIR="${XDG_DATA_HOME}/pypoetry"
 # export POETRY_CACHE_DIR="${XDG_CACHE_HOME}/pypoetry"
 
+# redis
+# [ ! -d "${XDG_DATA_HOME}/redis-cli" ] && mkdir -p "${XDG_DATA_HOME}/redis-cli"
+# export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis-cli/history"
+
 # ruby (supported since v3)
 # export IRBRC="${XDG_CONFIG_HOME}/irb/irbrc"
 # export GEMRC="${XDG_CONFIG_HOME}/gem/gemrc"
@@ -109,8 +114,8 @@ export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 # Subversion
 alias svn='svn --config-dir ${XDG_CONFIG_HOME}/subversion'
 
-# tmux
-alias tmux='tmux -f ${XDG_CONFIG_HOME}/tmux/tmux.conf'
+# tmux (added in v3.1)
+# alias tmux='tmux -f ${XDG_CONFIG_HOME}/tmux/tmux.conf'
 
 # Wget
 export WGETRC="${XDG_CONFIG_HOME}/wgetrc"

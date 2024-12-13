@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Summary:
+#   Flush the DNS cache on macOS
+#
+# Usage:
+#   mac-flush-dns
+
+if [[ "$OSTYPE" != darwin* ]]; then
+  echo "Only compatible with macOS"
+  exit 1
+fi
+
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder

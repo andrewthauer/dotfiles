@@ -1,9 +1,0 @@
-# See https://mise.jdx.dev/configuration.html
-
-# plugins can read the versions files used by other version managers (if enabled by the plugin)
-# for example, .nvmrc in the case of node's nvm
-legacy_version_file = true
-# legacy_version_file_disable_tools = ['python'] # disable for specific tools
-
-# experimental features
-experimental = true

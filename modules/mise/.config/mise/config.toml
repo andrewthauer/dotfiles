@@ -1,0 +1,37 @@
+# See https://mise.jdx.dev/configuration.html
+
+[settings]
+disable_backends = [""]
+experimental = true
+legacy_version_file = true
+libgit2 = false
+python_venv_auto_create = true
+
+[settings.pipx]
+uvx = true
+
+[tools]
+bun = "latest"
+cue = "0.11"
+deno = "latest"
+gitleaks = "latest"
+go = "latest"
+java = ["21"]
+# kotlin = "latest"
+lua = "latest"
+maven = "latest"
+node = ["22"]
+python = ["3.12"]
+ruby = ["latest"]
+rust = "1.81.0"
+testscript = "latest"
+txtar-x = "latest"
+usage = "latest"
+uv = "latest"
+
+[plugins]
+# poetry = "https://github.com/mise-plugins/mise-poetry.git"
+
+[alias]
+testscript = "go:github.com/rogpeppe/go-internal/cmd/testscript"
+txtar-x = "go:github.com/rogpeppe/go-internal/cmd/txtar-x"

@@ -15,12 +15,6 @@
 # MISE_AUTO_ACTIVATE_SHIMS=1
 # MISE_AUTO_ACTIVATE=0
 
-# Force mise to use aggressive activation
-export MISE_ACTIVATE_AGGRESSIVE=1
-
-# Use mise toml instead of .tool-versions
-export MISE_USE_TOML=1
-
 #
 # Functions
 #
@@ -57,6 +51,7 @@ fi
 #
 
 alias m="mise"
+alias mr="mise run"
 
 # short aliases
 alias mhook="mise-hook-env"

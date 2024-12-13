@@ -44,7 +44,6 @@ main() {
     ssh
     starship
     tmux
-    utility
     wezterm
     zoxide
     xdg

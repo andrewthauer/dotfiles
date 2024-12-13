@@ -55,7 +55,6 @@ main() {
     ssh
     starship
     tmux
-    utility
     wezterm
     xdg
     zed
