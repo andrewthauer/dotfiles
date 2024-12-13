@@ -1,6 +1,6 @@
 # kitty
 
-> Cross-platform, fast, feature-rich, GPU based terminal 
+> Cross-platform, fast, feature-rich, GPU based terminal
 
 # Resources
 

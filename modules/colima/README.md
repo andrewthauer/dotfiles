@@ -2,7 +2,6 @@
 
 ## Setup
 
-
 ```sh
 # Run the base docker setup
 $DOTFILES_DIR/modules/docker/install.sh

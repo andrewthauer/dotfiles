@@ -1,8 +1,8 @@
-version: "1"
+version: '1'
 git_protocol: ssh
 aliases:
-    o: repo view --web
-    open: repo view --web
-    pro: pr view --web
-    prw: pr create --web
-    prd: pr create --draft
+  o: repo view --web
+  open: repo view --web
+  pro: pr view --web
+  prw: pr create --web
+  prd: pr create --draft
