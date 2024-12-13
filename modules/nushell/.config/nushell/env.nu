@@ -2,6 +2,13 @@
 # Nushell Environment Config File
 #
 
+# TODO: Only update if not already set
+$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
+
+# Editor
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim -b"
+
 # Use nushell functions to define your right and left prompt
 # Use starship prompt instead
 # $env.PROMPT_COMMAND = { || create_left_prompt }
@@ -58,19 +65,86 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
 # which is built into the nushell stdlib:
-# use std "path add"
-# $env.PATH = ($env.PATH | split row (char esep))
-# path add /some/path
-# path add ($env.CARGO_HOME | path join "bin")
-# path add ($env.HOME | path join ".local" "bin")
-$env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
+use std "path add"
+path add /usr/local/sbin
+path add /usr/local/bin
+path add /opt/homebrew/bin
+path add ($env.HOME | path join ".local" "bin")
+path add ($env.HOME | path join ".dotfiles" "bin")
+# $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
 $env.PATH = ($env.PATH | uniq)
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
 #
-# Prep certain modules for use
+# Other
+#
+
+load-env {
+    # 1password
+    SSH_AUTH_SOCK: $"($env.HOME)/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    # homebrew
+    HOMEBREW_BUNDLE_NO_LOCK: ""
+    HOMEBREW_NO_ENV_HINTS: ""
+}
+
+# XDG Base Directory Specifications
+# TODO: Figure out how to modularize these better
+load-env {
+    # ansible
+    ANSIBLE_CONFIG: $"($env.XDG_CONFIG_HOME)/ansible/ansible.cfg"
+    # aws cli
+    AWS_SHARED_CREDENTIALS_FILE: $"($env.XDG_CONFIG_HOME)/aws/credentials"
+    AWS_CONFIG_FILE: $"($env.XDG_CONFIG_HOME)/aws/config"
+    AWS_CLI_HISTORY_FILE: $"($env.XDG_DATA_HOME)/aws/history"
+    AWS_CREDENTIALS_FILE: $"($env.XDG_CONFIG_HOME)/aws/credentials"
+    AWS_WEB_IDENTITY_TOKEN_FILE: $"($env.XDG_CONFIG_HOME)/aws/token"
+    # CocoaPods
+    CP_HOME_DIR: $"($env.XDG_DATA_HOME)/cocoapods"
+    # Confluent CLI
+    HOME_CONFLUENT_PATH: $"($env.XDG_CONFIG_HOME)/confluent"
+    # deno
+    # export DENO_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/deno"
+    DENO_INSTALL_ROOT: $"($env.XDG_DATA_HOME)/deno"
+    # docker
+    DOCKER_CONFIG: $"($env.XDG_CONFIG_HOME)/docker"
+    # Gradle
+    GRADLE_USER_HOME: $"($env.XDG_DATA_HOME)/gradle"
+    # Go
+    # export GOPATH="${XDG_DATA_HOME}/go"
+    # export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
+    # helm
+    # export HELM_HOME="${XDG_DATA_HOME}/helm"
+    # homebrew
+    HOMEBREW_BUNDLE_FILE: $"($env.XDG_CONFIG_HOME)/homebrew/Brewfile"
+    # kubernetes
+    KUBECONFIG: $"($env.XDG_CONFIG_HOME)/kube/config"
+    KUBECACHEDIR: $"($env.XDG_CACHE_HOME)/kube"
+    # krew
+    KREW_ROOT: $"($env.XDG_CONFIG_HOME)/krew"
+    # maven
+    MAVEN_OPTS: $"-Dmaven.repo.local=\"($env.XDG_DATA_HOME)\"/maven/repository"
+    # alias mvn $"mvn -gs \"($env.XDG_CONFIG_HOME)/maven/settings.xml\""
+    # nodejs
+    NODE_REPL_HISTORY: $"($.env.XDG_DATA_HOME)/node_repl_history"
+    NPM_CONFIG_USERCONFIG: $"($env.XDG_CONFIG_HOME)/npm/config"
+    # postgres
+    # PSQLRC: $"${XDG_CONFIG_HOME}/pg/psqlrc"
+    # PSQL_HISTORY: $"($env.XDG_CACHE_HOME)/pg/psql_history"
+    # PGPASSFILE: $"($env.XDG_CONFIG_HOME)/pg/pgpass"
+    # $"($env.XDG_CONFIG_HOME)/pg/pg_service.conf" | path exists { PGSERVICEFILE: $"($env.XDG_CONFIG_HOME)/pg/pg_service.conf" }
+    # python
+    # PYTHONSTARTUP: $"($env.XDG_CONFIG_HOME)/python/pythonrc.py"
+    # rust
+    CARGO_HOME: $"($env.XDG_DATA_HOME)/cargo"
+    RUSTUP_HOME: $"($env.XDG_DATA_HOME)/rustup"
+    # svn
+    # alias svn='svn --config-dir ${XDG_CONFIG_HOME}/subversion'
+}
+
+#
+# Initialize certain modules
 # TODO: Figure out how to modularize these better
 #
 
