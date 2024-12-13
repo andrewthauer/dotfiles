@@ -11,8 +11,9 @@ if ! command_exists "zoxide"; then
   return 1
 fi
 
-# When set to 1, z will print the matched directory before navigating to it.
-export _ZO_ECHO=1
+# Set the data directory for zoxide
+# NOTE: on macOS defaults to "$HOME/Library/Application Support"
+export _ZO_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
 
 # Initialize xodize for bash
 if [ -n "${BASH_VERSION}" ]; then

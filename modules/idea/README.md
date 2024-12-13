@@ -1,3 +1,11 @@
 # IntelliJ IDEA
 
-https://www.jetbrains.com/idea/
+## Installation
+
+```sh
+brew install intellij-idea-ce
+```
+
+## Resources
+
+- https://www.jetbrains.com/idea/

@@ -57,6 +57,7 @@ main() {
     tmux
     utility
     wezterm
+    xdg
     zed
     zoxide
     zsh

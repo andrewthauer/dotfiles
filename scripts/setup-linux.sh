@@ -47,6 +47,7 @@ main() {
     utility
     wezterm
     zoxide
+    xdg
     zsh
   )
 

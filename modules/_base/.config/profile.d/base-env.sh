@@ -13,8 +13,6 @@ export VISUAL="nvim -b"
 export CLICOLOR=1
 
 # Pager
-export LESSHISTFILE="${XDG_CACHE_HOME}/less/history"
-export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
 export LESS="-F -g -i -M -R -S -w -X -z-4"
 export LESSCHARSET="utf-8"
 export PAGER="less"
