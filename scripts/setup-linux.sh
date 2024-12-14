@@ -33,7 +33,6 @@ main() {
     _base
     bash
     bat
-    colima
     direnv
     docker
     fzf
