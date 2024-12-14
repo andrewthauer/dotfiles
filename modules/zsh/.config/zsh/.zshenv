@@ -30,3 +30,8 @@ export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
 # shellcheck source=../../../lib/init.sh
 source "${DOTFILES_DIR}/lib/init.sh"
+
+# Export all environment files
+if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then
+  export_env_files_in "${XDG_CONFIG_HOME}"/environment.d/*.conf
+fi

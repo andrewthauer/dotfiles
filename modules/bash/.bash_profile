@@ -28,6 +28,11 @@ export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 # shellcheck source=../../lib/init.sh disable=SC1091
 source "${DOTFILES_DIR}/lib/init.sh"
 
+# Export all environment files
+if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then
+  export_env_files_in "${XDG_CONFIG_HOME}"/environment.d/*.conf
+fi
+
 # Load profile files into environment
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then
   source_files_in "${XDG_CONFIG_HOME}"/profile.d/*

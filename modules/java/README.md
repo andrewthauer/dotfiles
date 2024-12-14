@@ -1,10 +1,10 @@
-# Maven
+# Java
 
-This package initializes the `maven` environment.
+## Resources
 
-## Setup
+- https://maven.apache.org
 
-### Enable XDG cache
+## Setup Maven
 
 Create a `settings.xml` file in the `~/.config/maven` directory.
 
@@ -20,7 +20,3 @@ Create a `settings.xml` file in the `~/.config/maven` directory.
 
 Then link the `~/.m2/setting.xml` directory to the
 `~/.config/maven/settings.xml` file.
-
-## Resources
-
-- https://maven.apache.org

@@ -143,6 +143,40 @@ source_shell_lib() {
 }
 
 #
+# Export all environment files in a glob
+#
+# examples:
+#   export_env_files_in ${XDG_CONFIG_HOME}/environment.d/*.conf
+#
+export_env_files_in() {
+  for file in "$@"; do
+    export_env_file "$file"
+  done
+
+  unset file
+}
+
+#
+# Export all name=value pairs in a file
+#
+# examples:
+#   export_env_files_in ${XDG_CONFIG_HOME}/environment.d/*.conf
+#
+# @see https://gist.github.com/mihow/9c7f559807069a03e302605691f85572
+#
+export_env_file() {
+  file="${1}"
+
+  if [ -f "$file" ]; then
+    set -o allexport
+    source_file "$file"
+    set +o allexport
+  fi
+
+  unset file
+}
+
+#
 # lazy load function helper
 #
 # usage:
