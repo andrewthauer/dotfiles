@@ -100,12 +100,13 @@ stow_modules() {
     fi
 
     echo "$oper_text module $module"
-    pkg exec "stow -t "${HOME}" -d "$modules_dir" "$stow_flag" "$module""
+    pkg exec "stow -t ${HOME} -d $modules_dir $stow_flag $module"
   done
 }
 
 get_modules_file() {
-  echo "${1:-$DOTFILES_MODULES_FILE}"
+  # echo "${1:-$DOTFILES_MODULES_FILE}"
+  echo "${DOTFILES_MODULES_FILE}"
 }
 
 read_modules_file() {

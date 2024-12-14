@@ -27,7 +27,6 @@ main() {
   # Default modules
   default_modules=(
     _base
-    1password
     bash
     bat
     colima
@@ -48,6 +47,7 @@ main() {
     mise
     neovim
     nodejs
+    op
     python
     ripgrep
     ruby
@@ -79,7 +79,7 @@ EOF
   "$bin_dir/dotfiles" mod link
 
   # Setup SSH for GitHub
-  if [ -f $HOME/.ssh/known_hosts ]; then
+  if [ -f "$HOME/.ssh/known_hosts" ]; then
     ssh-keygen -R github.com
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   else

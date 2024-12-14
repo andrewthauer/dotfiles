@@ -2,13 +2,15 @@
 
 set -eo pipefail
 
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+
 main() {
-  local bin="$DOTFILES_BIN"
-  local mod="$DOTFILES_MODULES_DIR"
+  local bin_dir="$DOTFILES_BIN"
+  local mod_dir="$DOTFILES_MODULES_DIR"
   local modules=()
 
   # Install packages with package manager
-  "$bin/pkg" \
+  "$bin_dir/pkg" \
     stow \
     bash \
     direnv \

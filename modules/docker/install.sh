@@ -3,9 +3,6 @@
 set -eou pipefail
 
 install_macos() {
-  # Source docker profile
-  source "${DOTFILES_MODULES_DIR}/docker/.config/profile.d/docker.sh"
-
   # Setup config directories
   mkdir -p "${XDG_CONFIG_HOME}/docker"
   if [ ! -L "${HOME}/.docker" ]; then

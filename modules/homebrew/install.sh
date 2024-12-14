@@ -6,7 +6,7 @@
 set -e
 
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_BIN="${DOTFILES_DIR}/bin"
+DOTFILES_BIN="${DOTFILES_DIR:-$HOME/.dotfiles}/bin"
 
 install_homebrew() {
   echo "Checking if homebrew is installed..."

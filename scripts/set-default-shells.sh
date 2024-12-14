@@ -34,7 +34,7 @@ set_default_shell() {
   fi
 
   # Change default shell to zsh
-  chsh -s "$zsh_path"
+  chsh -s "$shell_path"
 }
 
 main() {

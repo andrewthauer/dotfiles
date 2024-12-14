@@ -51,6 +51,8 @@ main() {
 
   # Clone and initialize dotfiles env
   clone_dotfiles
+
+  # shellcheck source=lib/init.sh disable=SC1091
   source "${DOTFILES_DIR}"/lib/init.sh
 
   # Backup existing dotfiles

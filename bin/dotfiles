@@ -20,6 +20,7 @@ usage() {
 }
 
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+# shellcheck source=lib/init.sh disable=SC1091
 source "${DOTFILES_DIR}/lib/init.sh"
 
 PATH="$DOTFILES_DIR/bin:$PATH"
