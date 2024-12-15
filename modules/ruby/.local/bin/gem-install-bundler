@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+main() {
+  local path="${1:-.}"
+  local gemfile_lock="$path/Gemfile.lock"
+
+  if [ ! -f "$gemfile_lock" ]; then
+    echo "Gemfile.lock not found in $path"
+    exit 1
+  fi
+
+  gem install bundler -v "$(tail -n 1 "$gemfile_lock")"
+}
+
+main "$@"

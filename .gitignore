@@ -3,6 +3,7 @@
 
 # editors
 .vscode
+.zed
 
 # log files
 *.*log
