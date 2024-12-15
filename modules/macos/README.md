@@ -10,6 +10,18 @@ The `macOS` default settings can be configured with:
 scripts/macos-defaults.sh
 ```
 
+## Environment Variables & XDG
+
+```sh
+# NOTE: If the plist file is already loaded, you need to unload it first
+
+# Load the plist file
+launchctl load ~/Library/LaunchAgents/dotfiles.launchctl.env.plist
+
+# Unload the plist file
+launchctl unload ~/Library/LaunchAgents/dotfiles.launchctl.env.plist
+```
+
 ## Homebrew & Linuxbrew
 
 Run [`brew bundle`](https://github.com/Homebrew/homebrew-bundle) to install all
