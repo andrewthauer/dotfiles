@@ -4,8 +4,15 @@
 # - https://direnv.net/
 #
 
-# Customize logging or default
-export DIRENV_LOG_FORMAT="${DIRENV_LOG_FORMAT:-"direnv: %s"}"
+# Initialize direnv for bash
+if [ -n "${BASH_VERSION}" ]; then
+  eval "$(direnv hook bash)"
 
-# Hook direnv
-eval "$(direnv hook "$SHELL_TYPE")"
+# Initialize direnv for zsh
+elif [ -n "${ZSH_VERSION}" ]; then
+  eval "$(direnv hook zsh)"
+
+# No shell support
+else
+  return 1
+fi

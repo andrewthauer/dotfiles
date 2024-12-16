@@ -153,7 +153,6 @@ in
     historyFileSize = 2000;
     shellAliases = shellAliases;
     profileExtra = ''
-      export SHELL_TYPE="bash"
       ${shell.profileExtra}
       source "${config.xdg.configHome}/environment"
     '';
@@ -202,7 +201,6 @@ in
     '';
 
     envExtra = ''
-      export SHELL_TYPE="zsh"
       # source "${config.xdg.configHome}/environment"
     '';
 

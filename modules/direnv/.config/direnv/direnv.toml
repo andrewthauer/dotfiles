@@ -2,3 +2,4 @@
 
 [global]
 warn_timeout = "10s"
+log_format = "direnv: %s"
