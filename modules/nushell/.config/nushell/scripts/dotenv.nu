@@ -1,11 +1,22 @@
-def from-env [] -> record {
-    lines
+# Parse a dotenv file into a record
+def "from env" [
+    --expand (-e)  # Expand the variables in the input
+] -> record {
+    mut $e = lines
         | split column '#'
         | get column1
         | compact --empty
         | parse "{key}={value}"
         | each { |i| $i | str trim --char '"' | str trim --char "'" }
-        # | transpose --header-row --as-record
+        | transpose --header-row --as-record
+
+    if ($expand) {
+        $e = ($e
+            | items {|k, v| {key: $k, value: (expand-var $v)} }
+            | transpose --header-row --as-record)
+    }
+
+    $e
 }
 
 def expand-var [input: string] -> string {

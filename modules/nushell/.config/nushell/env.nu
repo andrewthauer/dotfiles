@@ -60,14 +60,12 @@ $env.EDITOR = "nvim"
 $env.VISUAL = "nvim -b"
 
 # Load helpers
-source scripts/env.nu
+source scripts/dotenv.nu
 
 # Load environment variables from files
 glob ~/.config/environment.d/*.conf
     | each { |f| open $f }
-    | from-env
-    | each { |i| { key: $i.key, value: (expand-var $i.value) } }
-    | reduce -f {} { |row, acc| $acc | upsert $row.key $row.value }
+    | from env --expand
     | load-env
 
 # starship prompt - https://starship.rs/#nushell

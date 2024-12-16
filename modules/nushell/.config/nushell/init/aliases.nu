@@ -52,6 +52,9 @@ export def brew-upgrade [] { brew update; brew upgrade; brew bundle; brew cleanu
 # kubernetes
 export alias k = kubectl
 
+# lazygit
+export alias lg = lazygit
+
 # mise
 export alias m = mise
 
