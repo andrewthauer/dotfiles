@@ -3,9 +3,9 @@
 #
 
 $env.config = {
-    show_banner: false # true or false to enable or disable the welcome banner at startup
+    show_banner: false
     table: {
-        mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+        mode: rounded
     }
 }
 
@@ -14,5 +14,6 @@ use ~/.cache/starship/init.nu
 source ~/.cache/zoxide/init.nu
 source ~/.cache/mise/activate.nu
 
-# Load dotfiles config
-use config *
+# Source files
+source ./init/mod.nu
+source ./completions/mod.nu

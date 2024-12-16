@@ -52,7 +52,7 @@ launchctl_env_files() {
 main() {
   export_xdg_env
   launchctl_xdg_dirs
-  launchctl_env_files
+  # launchctl_env_files
 }
 
 main "$@"

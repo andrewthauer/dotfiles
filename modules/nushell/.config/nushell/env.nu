@@ -2,13 +2,6 @@
 # Nushell Environment Config File
 #
 
-# TODO: Only update if not already set
-$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
-
-# Editor
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim -b"
-
 # Use nushell functions to define your right and left prompt
 # Use starship prompt instead
 # $env.PROMPT_COMMAND = { || create_left_prompt }
@@ -32,21 +25,6 @@ $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 # $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| "" }
 # $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "" }
 # $env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| "" }
-
-# Specifies how environment variables are:
-# - converted from a string to a value on Nushell startup (from_string)
-# - converted from a value back to a string when running external commands (to_string)
-# Note: The conversions happen *after* config.nu is loaded
-$env.ENV_CONVERSIONS = {
-    "PATH": {
-        from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
-        to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
-    }
-    "Path": {
-        from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
-        to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
-    }
-}
 
 # Directories to search for scripts when calling source or use
 # The default for this is $nu.default-config-dir/scripts
@@ -74,79 +52,23 @@ path add ($env.HOME | path join ".dotfiles" "bin")
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
 $env.PATH = ($env.PATH | uniq)
 
-# To load from a custom file you can use:
-# source ($nu.default-config-dir | path join 'custom.nu')
+# TODO: Only update if not already set
+$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
 
-#
-# Other
-#
+# Editor
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim -b"
 
-load-env {
-    # 1password
-    SSH_AUTH_SOCK: $"($env.HOME)/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-    # homebrew
-    HOMEBREW_BUNDLE_NO_LOCK: ""
-    HOMEBREW_NO_ENV_HINTS: ""
-}
+# Load helpers
+source scripts/env.nu
 
-# XDG Base Directory Specifications
-# TODO: Figure out how to modularize these better
-load-env {
-    # ansible
-    ANSIBLE_CONFIG: $"($env.XDG_CONFIG_HOME)/ansible/ansible.cfg"
-    # aws cli
-    AWS_SHARED_CREDENTIALS_FILE: $"($env.XDG_CONFIG_HOME)/aws/credentials"
-    AWS_CONFIG_FILE: $"($env.XDG_CONFIG_HOME)/aws/config"
-    AWS_CLI_HISTORY_FILE: $"($env.XDG_DATA_HOME)/aws/history"
-    AWS_CREDENTIALS_FILE: $"($env.XDG_CONFIG_HOME)/aws/credentials"
-    AWS_WEB_IDENTITY_TOKEN_FILE: $"($env.XDG_CONFIG_HOME)/aws/token"
-    # CocoaPods
-    CP_HOME_DIR: $"($env.XDG_DATA_HOME)/cocoapods"
-    # Confluent CLI
-    HOME_CONFLUENT_PATH: $"($env.XDG_CONFIG_HOME)/confluent"
-    # deno
-    # export DENO_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/deno"
-    DENO_INSTALL_ROOT: $"($env.XDG_DATA_HOME)/deno"
-    # docker
-    DOCKER_CONFIG: $"($env.XDG_CONFIG_HOME)/docker"
-    # Gradle
-    GRADLE_USER_HOME: $"($env.XDG_DATA_HOME)/gradle"
-    # Go
-    # export GOPATH="${XDG_DATA_HOME}/go"
-    # export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
-    # helm
-    # export HELM_HOME="${XDG_DATA_HOME}/helm"
-    # homebrew
-    HOMEBREW_BUNDLE_FILE: $"($env.XDG_CONFIG_HOME)/homebrew/Brewfile"
-    # kubernetes
-    KUBECONFIG: $"($env.XDG_CONFIG_HOME)/kube/config"
-    KUBECACHEDIR: $"($env.XDG_CACHE_HOME)/kube"
-    # krew
-    KREW_ROOT: $"($env.XDG_CONFIG_HOME)/krew"
-    # maven
-    MAVEN_OPTS: $"-Dmaven.repo.local=\"($env.XDG_DATA_HOME)\"/maven/repository"
-    # alias mvn $"mvn -gs \"($env.XDG_CONFIG_HOME)/maven/settings.xml\""
-    # nodejs
-    NODE_REPL_HISTORY: $"($.env.XDG_DATA_HOME)/node_repl_history"
-    NPM_CONFIG_USERCONFIG: $"($env.XDG_CONFIG_HOME)/npm/config"
-    # postgres
-    # PSQLRC: $"${XDG_CONFIG_HOME}/pg/psqlrc"
-    # PSQL_HISTORY: $"($env.XDG_CACHE_HOME)/pg/psql_history"
-    # PGPASSFILE: $"($env.XDG_CONFIG_HOME)/pg/pgpass"
-    # $"($env.XDG_CONFIG_HOME)/pg/pg_service.conf" | path exists { PGSERVICEFILE: $"($env.XDG_CONFIG_HOME)/pg/pg_service.conf" }
-    # python
-    # PYTHONSTARTUP: $"($env.XDG_CONFIG_HOME)/python/pythonrc.py"
-    # rust
-    CARGO_HOME: $"($env.XDG_DATA_HOME)/cargo"
-    RUSTUP_HOME: $"($env.XDG_DATA_HOME)/rustup"
-    # svn
-    # alias svn='svn --config-dir ${XDG_CONFIG_HOME}/subversion'
-}
-
-#
-# Initialize certain modules
-# TODO: Figure out how to modularize these better
-#
+# Load environment variables from files
+glob ~/.config/environment.d/*.conf
+    | each { |f| open $f }
+    | from-env
+    | each { |i| { key: $i.key, value: (expand-var $i.value) } }
+    | reduce -f {} { |row, acc| $acc | upsert $row.key $row.value }
+    | load-env
 
 # starship prompt - https://starship.rs/#nushell
 $env.STARSHIP_SHELL = "nu"
@@ -159,3 +81,6 @@ mkdir ~/.cache/zoxide
 
 # mise - https://mise.jdx.dev/installing-mise.html#nushell
 ^mise activate nu | save -f ~/.cache/mise/activate.nu
+
+# To load from a custom file you can use:
+# source ($nu.default-config-dir | path join 'custom.nu')
