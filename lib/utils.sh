@@ -201,7 +201,7 @@ export_env_file() {
 #     unset -f "$0"
 #
 #     # faster alternative to full 'pyenv init'
-#     export PYENV_SHELL="${SHELL_TYPE:-$SHELL}"
+#     export PYENV_SHELL="zsh"
 #     prepend_path "${PYENV_ROOT}/shims"
 #
 #     # lazy initialize
