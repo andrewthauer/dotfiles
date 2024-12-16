@@ -4,6 +4,8 @@ def from-env [] -> record {
         | get column1
         | compact --empty
         | parse "{key}={value}"
+        | each { |i| $i | str trim --char '"' | str trim --char "'" }
+        # | transpose --header-row --as-record
 }
 
 def expand-var [input: string] -> string {
