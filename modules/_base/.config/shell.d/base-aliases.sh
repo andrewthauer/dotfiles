@@ -23,9 +23,9 @@ alias sudo='sudo '
 #
 
 # Listing
-alias l='ls -1A'       # Lists in one column, hidden files.
-alias ll='ls -alF'     # Lists human readable sizes.
-alias la='ll -a'       # Lists human readable sizes, hidden files.
+alias l='ls -1A'   # Lists in one column, hidden files.
+alias ll='ls -alF' # Lists human readable sizes.
+alias la='ll -a'   # Lists human readable sizes, hidden files.
 
 #
 # encoding / decoding

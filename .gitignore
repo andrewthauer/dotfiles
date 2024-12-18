@@ -44,6 +44,9 @@ result/
 # deno
 deno.lock
 
+# mise
+mise.local.toml
+
 # ignore these directories
 local/
 local*

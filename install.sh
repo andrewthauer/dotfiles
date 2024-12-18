@@ -62,7 +62,7 @@ main() {
   case "$("$DOTFILES_BIN"/os-info --family)" in
     "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
     "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
-    *) echo "No OS specific setup script";;
+    *) echo "No OS specific setup script" ;;
   esac
 
   # Set default shells
