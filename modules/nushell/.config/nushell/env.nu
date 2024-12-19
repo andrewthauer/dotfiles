@@ -39,26 +39,6 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
 ]
 
-# To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-# An alternate way to add entries to $env.PATH is to use the custom command `path add`
-# which is built into the nushell stdlib:
-use std "path add"
-path add /usr/local/sbin
-path add /usr/local/bin
-path add /opt/homebrew/bin
-path add ($env.HOME | path join ".local" "bin")
-path add ($env.HOME | path join ".dotfiles" "bin")
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
-$env.PATH = ($env.PATH | uniq)
-
-# TODO: Only update if not already set
-$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
-
-# Editor
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim -b"
-
 # Load helpers
 source scripts/dotenv.nu
 
@@ -67,6 +47,28 @@ glob ~/.config/environment.d/*.conf
     | each { |f| open $f }
     | from env --expand
     | load-env
+
+# To add entries to PATH (on Windows you might use Path), you can use the following pattern:
+# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
+# An alternate way to add entries to $env.PATH is to use the custom command `path add`
+# which is built into the nushell stdlib:
+use std "path add"
+path add /usr/local/sbin
+path add /usr/local/bin
+path add /opt/homebrew/bin
+path add ($env.KREW_ROOT | path join "bin")
+path add ($env.HOME | path join ".local" "bin")
+path add ($env.HOME | path join ".dotfiles" "bin")
+# $env.PATH = ($env.PATH | split row (char esep) | prepend '/opt/homebrew/bin')
+$env.PATH = ($env.PATH | uniq)
+
+# TODO: Only update if not already set
+$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
+$env.DOTFILES_BIN = $"($env.HOME)/.dotfiles/bin"
+
+# Editor
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim -b"
 
 # starship prompt - https://starship.rs/#nushell
 $env.STARSHIP_SHELL = "nu"

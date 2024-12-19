@@ -9,6 +9,9 @@ $env.config = {
     }
 }
 
+# Change the shell theme
+source ./themes/catppuccin-frappe.nu
+
 # TODO: Figure out how to modularize these
 use ~/.cache/starship/init.nu
 source ~/.cache/zoxide/init.nu
