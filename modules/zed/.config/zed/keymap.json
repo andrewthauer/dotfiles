@@ -2,8 +2,8 @@
   {
     "context": "!Workspace",
     "bindings": {
-      "ctrl-/": "terminal_panel::ToggleFocus",
-      "ctrl-cmd-p": "projects::OpenRecent"
+      "ctrl-cmd-p": "projects::OpenRecent",
+      "ctrl-/": ["workspace::SendKeystrokes", "cmd-j"]
     }
   },
   {
@@ -28,8 +28,33 @@
   {
     "context": "vim_mode == normal",
     "bindings": {
-      "ctrl-left": ["workspace::SendKeystrokes", ": tabprevious enter"],
-      "ctrl-right": ["workspace::SendKeystrokes", ": tabnext enter"]
+      "space ,": "file_finder::Toggle",
+      "space /": "workspace::NewSearch",
+      "space b d": "workspace::CloseWindow",
+      "space c s": "outline::Toggle",
+      "space f b": "file_finder::Toggle",
+      "space f e": "workspace::ToggleLeftDock",
+      "space f f": "file_finder::Toggle",
+      "space f p": "projects::OpenRecent",
+      "space f r": "pane::RevealInProjectPanel",
+      "space g b": "branches::OpenRecent",
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "Lazygit", "reveal_target": "center" }
+      ],
+      "space o l": "editor::OpenPermalinkToLine",
+      "space s d": "diagnostics::Deploy",
+      "space s r": "workspace::NewSearch",
+      "space s f": "project_panel::ToggleFocus",
+      "space s o": "outline_panel::ToggleFocus",
+      "space s p": "projects::OpenRecent",
+      "space s s": "outline::Toggle",
+      "space |": "pane::SplitLeft",
+      "space t t": "workspace::NewCenterTerminal",
+      "space w h": "pane::SplitLeft",
+      "space w k": "pane::SplitUp",
+      "space w j": "pane::SplitDown",
+      "space w l": "pane::SplitRight"
     }
   },
   {
@@ -42,7 +67,6 @@
   {
     "context": "(Editor && vim_mode == normal) || Dock || Terminal",
     "bindings": {
-      "ctrl-/": ["workspace::SendKeystrokes", "cmd-j"],
       "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
       "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
       "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
@@ -51,50 +75,6 @@
       "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
       "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
       "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
-    }
-  },
-  {
-    "context": "(Editor && vim_mode == normal) || EmptyPane && !Assitant",
-    "bindings": {
-      "space ,": "file_finder::Toggle",
-      "space /": "workspace::NewSearch",
-      "space b d": "workspace::CloseWindow",
-      "space c s": "outline::Toggle",
-      "space f b": "file_finder::Toggle",
-      "space f e": "workspace::ToggleLeftDock",
-      "space f f": "file_finder::Toggle",
-      "space f p": "projects::OpenRecent",
-      "space f r": "pane::RevealInProjectPanel",
-      "space g b": "branches::OpenRecent",
-      "space g g": ["task::Spawn", { "task_name": "Lazygit" }],
-      "space s d": "diagnostics::Deploy",
-      "space s r": "workspace::NewSearch",
-      "space s f": "project_panel::ToggleFocus",
-      "space s o": "outline_panel::ToggleFocus",
-      "space s p": "projects::OpenRecent",
-      "space s s": "outline::Toggle",
-      "space |": "pane::SplitLeft",
-      "space w h": "pane::SplitLeft",
-      "space w k": "pane::SplitUp",
-      "space w j": "pane::SplitDown",
-      "space w l": "pane::SplitRight"
-    }
-  },
-  {
-    "context": "Editor && VimControl && !VimWaiting && !menu",
-    "bindings": {
-      // "space g g": ["task::Spawn", { "task_name": "Lazygit" }]
-      "space g g": [
-        "workspace::SendKeystrokes",
-        ": new center terminal enter lazygit enter"
-      ]
-    }
-  },
-  {
-    "context": "vim_mode == normal && Editor && (showing_code_actions || showing_completions)",
-    "bindings": {
-      // "ctrl-k": "editor::ContextMenuPrev",
-      // "ctrl-j": "editor::ContextMenuNext"
     }
   }
 ]
