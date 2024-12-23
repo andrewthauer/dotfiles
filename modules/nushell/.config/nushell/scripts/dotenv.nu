@@ -1,7 +1,7 @@
 # Parse a dotenv file into a record
 def "from env" [
     --expand (-e)  # Expand the variables in the input
-] -> record {
+]: list -> record {
     mut $e = lines
         | split column '#'
         | get column1
@@ -19,7 +19,7 @@ def "from env" [
     $e
 }
 
-def expand-var [input: string] -> string {
+def expand-var [input: string]: nothing -> string {
     const tokenRegex = '(\$\{?[a-zA-Z_][a-zA-Z0-9_]*\}?)'
     const varRegex = '\$\{?([a-zA-Z_][a-zA-Z0-9_]*)\}?'
 
