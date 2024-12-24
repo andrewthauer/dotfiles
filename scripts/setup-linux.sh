@@ -44,7 +44,6 @@ main() {
     ripgrep
     ssh
     starship
-    tmux
     zoxide
     xdg
     zsh

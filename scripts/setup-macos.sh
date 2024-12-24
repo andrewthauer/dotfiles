@@ -53,7 +53,6 @@ main() {
     rust
     ssh
     starship
-    tmux
     xdg
     zed
     zoxide

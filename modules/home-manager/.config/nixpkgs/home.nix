@@ -295,8 +295,4 @@ in
     enableZshIntegration = true;
     # settings = { };
   };
-
-  # programs.tmux = {
-  #   enable = true;
-  # };
 }
