@@ -7,8 +7,11 @@
 theme = catppuccin-frappe
 font-family = FiraCode Nerd Font Mono
 font-size = 16
-
 macos-option-as-alt = true
+
+# window
+window-width = 128
+window-height = 48
 
 # keybinds
 keybind = cmd+right=text:\x05  # end of line
