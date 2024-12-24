@@ -82,7 +82,6 @@ cask 'karabiner-elements'
 cask 'keymapp'
 cask 'obsidian'
 cask 'visual-studio-code'
-cask 'wezterm'
 cask 'zed'
 
 # other

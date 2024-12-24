@@ -226,10 +226,7 @@ hs.hotkey.bind(hyper, "f", utils.launchById("org.mozilla.firefoxdeveloperedition
 hs.hotkey.bind(hyper, "h", utils.launchById("io.robbie.HomeAssistant"))
 hs.hotkey.bind(hyper, "n", utils.launchById("notion.id"))
 hs.hotkey.bind(hyper, "s", utils.launchById("com.tinyspeck.slackmacgap"))
--- hs.hotkey.bind(hyper, "t", utils.launchById("org.alacritty"))
 hs.hotkey.bind(hyper, "t", utils.launchById("com.mitchellh.ghostty"))
--- hs.hotkey.bind(hyper, "t", utils.launchById("net.kovidgoyal.kitty"))
--- hs.hotkey.bind(hyper, "t", utils.launchById("com.github.wez.wezterm"))
 hs.hotkey.bind(hyper, "w", utils.launchById("com.apple.finder"))
 hs.hotkey.bind(hyper, "l", utils.launchById("dev.zed.Zed"))
 -- stylua: ignore end
@@ -249,7 +246,7 @@ spoon.SpoonInstall:andUse("RecursiveBinder", {
       [s.singleKey("m", "Obsidian")] = utils.launchById("md.obsidian"),
       [s.singleKey("o", "OneNote")] = utils.launchById("com.microsoft.onenote.mac"),
       [s.singleKey("s", "Slack")] = utils.launchById("com.tinyspeck.slackmacgap"),
-      [s.singleKey("t", "Terminal")] = utils.launchById("com.github.wez.wezterm"),
+      [s.singleKey("t", "Terminal")] = utils.launchById("com.mitchellh.ghostty"),
       [s.singleKey("v", "VS Code")] = utils.launchById("com.microsoft.VSCode"),
     }
     -- hs.hotkey.bind(hyper, "o", s.recursiveBind(app_keymap))
