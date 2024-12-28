@@ -88,6 +88,7 @@ return {
   -- config debug adapter for node
   {
     "mfussenegger/nvim-dap",
+    enbled = false,
     optional = true,
     dependencies = {
       {

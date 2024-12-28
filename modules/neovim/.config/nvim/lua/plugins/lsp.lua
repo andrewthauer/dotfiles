@@ -84,6 +84,7 @@ local plugin_spec = {
       -- avoid conflicts with ts_ls & denols
       if M.get_lsp_config("denols") and M.get_lsp_config("ts_ls") then
         local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
+        -- M.disable_lsp("vtsls", is_deno)
         M.disable_lsp("ts_ls", is_deno)
         M.disable_lsp("denols", function(root_dir)
           return not is_deno(root_dir)

@@ -4,9 +4,7 @@ return {
   {
     "mfussenegger/nvim-lint",
     opts = {
-      linters_by_ft = {
-        ruby = { "rubocop" },
-      },
+      linters_by_ft = {},
     },
     config = function(_, opts)
       local lint = require("lint")

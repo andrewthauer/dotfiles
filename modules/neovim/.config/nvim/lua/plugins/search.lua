@@ -1,27 +1,26 @@
 return {
   -- search/replace in multiple files
-  -- https://github.com/nvim-pack/nvim-spectre
+  -- https://github.com/MagicDuck/grug-far.nvim
   {
-    "nvim-pack/nvim-spectre",
-    build = false,
-    cmd = "Spectre",
-    opts = {
-      open_cmd = "noswapfile vnew",
-      default = {
-        find = {
-          cmd = "rg",
-          options = { "ignore-case", "hidden" },
-        },
-      },
-    },
+    "MagicDuck/grug-far.nvim",
+    opts = { headerMaxWidth = 80 },
+    cmd = "GrugFar",
     keys = {
-      -- style: ignore start
-      { "<leader>sr", '<cmd>lua require("spectre").open()<cr>', desc = "Replace in files (Spectre)" },
-      { "<leader>S", '<cmd>lua require("spectre").toggle()<cr>', desc = "Toggle Spectre" },
-      { "<leader>sw", '<cmd>lua  require("spectre").open_visual({ select_word = true })<cr>', desc = "Search current word" },
-      { "<leader>sw", '<esc><cmd>lua  require("spectre").open_visual()<cr>', desc = "Search current word", mode = { "v" } },
-      { "<leader>sp", '<cmd>lua  require("spectre").open_file_search({ select_word = true })<cr>', desc = "Search on current file" },
-      -- style: ignore end
+      {
+        "<leader>sr",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.open({
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Search and Replace",
+      },
     },
   },
 }

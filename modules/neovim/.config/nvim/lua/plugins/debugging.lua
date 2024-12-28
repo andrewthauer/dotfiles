@@ -31,6 +31,7 @@ return {
     -- debug adapter protocol
     -- https://github.com/mfussenegger/nvim-dap
     "mfussenegger/nvim-dap",
+    enabled = false,
     dependencies = {
       -- fancy UI for the debugger
       -- https://github.com/rcarriga/nvim-dap-ui
