@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-uninstall_nix() {
+set -eou pipefail
+
+uninstall_nix_macos() {
   sudo -v
 
   # open https://gist.github.com/chriselsner/3ebe962a4c4bd1f14d39897fc5619732
@@ -65,9 +67,20 @@ uninstall_nix() {
   rm -rf ~/{.nix-profile,.nix-defexpr,.nix-channels,.nixpkgs,.config/nixpkgs.cache/nix}
 }
 
-printf "This will completely remove nix. Are you sure you want to continue [y/N]? "
-read -r answer
-case "${answer}" in [yY] | [yY][eE][sS])
-  uninstall_nix
-  ;;
-esac
+main() {
+  case "$("$DOTFILES_BIN"/os-info --family)" in
+    "macos")
+      printf "This will completely remove nix. Are you sure you want to continue [y/N]? "
+      read -r answer
+      case "${answer}" in [yY] | [yY][eE][sS])
+        uninstall_nix
+        ;;
+      esac
+      ;;
+    *)
+      echo "Not implemented for this OS"
+      ;;
+  esac
+}
+
+main "$@"

@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
-#
-# Setup homebrew
-#
 
-set -e
+set -eou pipefail
 
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_BIN="${DOTFILES_DIR:-$HOME/.dotfiles}/bin"
@@ -44,7 +41,10 @@ main() {
       install_homebrew
       # install_brews
       ;;
-    *) ;;
+    *)
+      echo "Not implemented for this OS"
+      exit 1
+      ;;
   esac
 }
 

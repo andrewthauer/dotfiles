@@ -26,7 +26,10 @@ main() {
     "macos")
       install_macos
       ;;
-    *) ;;
+    *)
+      echo "Not implemented for this OS"
+      exit 1
+      ;;
   esac
 }
 

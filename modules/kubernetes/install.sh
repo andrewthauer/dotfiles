@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
-#
-# Setup kubernetes tools
-#
 
-set -e
+set -eou pipefail
 
 install_krew() {
   (
@@ -22,10 +19,13 @@ main() {
   case "$("$DOTFILES_BIN"/os-info --family)" in
     "macos")
       brew install kubectl
-      install_krew
       ;;
-    *) ;;
+    *)
+      "$DOTFILES_DIR"/bin/pkg install "kubectl"
+      ;;
   esac
+
+  install_krew
 }
 
 main "$@"

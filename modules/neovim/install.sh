@@ -11,7 +11,9 @@ main() {
     "macos")
       brew install neovim
       ;;
-    *) ;;
+    *)
+      "$DOTFILES_DIR"/bin/pkg install "neovim"
+      ;;
   esac
 
   install_plugins

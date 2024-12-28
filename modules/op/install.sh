@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
+set -eou pipefail
 
-configure_launch_agent() {
+configure_launch_agent_macos() {
   mkdir -p ~/Library/LaunchAgents
 
   cat <<EOF >~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist
@@ -30,9 +30,13 @@ EOF
 main() {
   case "$("$DOTFILES_BIN"/os-info --family)" in
     "macos")
-      configure_launch_agent
+      brew install 1password-cli
+      configure_launch_agent_macos
       ;;
-    *) ;;
+    *)
+      echo "Not implemented for this OS"
+      exit 1
+      ;;
   esac
 }
 
