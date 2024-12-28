@@ -12,18 +12,19 @@ uvx = true
 
 [tools]
 bun = "latest"
+"cargo:lazyjj" = "latest"
 cue = "0.11"
 deno = "latest"
 gitleaks = "latest"
 go = "latest"
-java = ["21"]
+java = "23"
 # kotlin = "latest"
 lua = "latest"
 maven = "latest"
-node = ["22"]
-python = ["3.12"]
+node = "23"
+python = "3.13"
 ruby = ["latest"]
-rust = "1.81.0"
+rust = "1.83.0"
 testscript = "latest"
 txtar-x = "latest"
 usage = "latest"
