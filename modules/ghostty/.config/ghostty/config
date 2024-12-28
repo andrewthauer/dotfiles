@@ -12,9 +12,3 @@ macos-option-as-alt = true
 # window
 window-width = 128
 window-height = 48
-
-# keybinds
-keybind = cmd+right=text:\x05  # end of line
-keybind = cmd+left=text:\x01   # start of line
-keybind = alt+left=esc:b       # back one word
-keybind = alt+right=esc:f      # forward one word
