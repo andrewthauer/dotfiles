@@ -22,7 +22,7 @@ export alias wget = wget --hsts-file=$"($env.XDG_CACHE_HOME)/wget-hsts"
 #
 
 # directory listing
-export alias l = ls
+export alias l = ls -a
 export alias ll = ls -la
 export alias ex = explore
 
