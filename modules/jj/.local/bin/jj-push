@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+print_usage() {
+  cat <<EOF
+Usage: $(basename "$0") --revision <revision> --branch <branch> [--remote remote] [--dry-run]
+
+Push a Jujutsu revision to a github remote branch.
+
+Arguments:
+    -r, --revision   The Jujutsu revision to push
+    -b, --branch     The git branch to push to
+    --remote         The git remote to push to (defaults to 'origin')
+    -h, --help       Show this help message
+    --dry-run      Print commands without executing them
+EOF
+}
+
+check_dependencies() {
+  if ! command -v git >/dev/null 2>&1; then
+    echo "Error: git is not installed"
+    exit 1
+  fi
+
+  if ! command -v jj >/dev/null 2>&1; then
+    echo "Error: jj is not installed"
+    exit 1
+  fi
+}
+
+get_commit_for_revision() {
+  local revision=$1
+  jj log --revisions "$revision" --quiet --no-graph --template 'self.commit_id()'
+}
+
+execute() {
+  if [[ "$dry_run" == true ]]; then
+    echo "[DRY RUN]: $*"
+  else
+    "$@"
+  fi
+}
+
+main() {
+  local dry_run=false
+  local revision=
+  local branch=
+  local remote="origin"
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --help | -h)
+        print_usage
+        exit 0
+        ;;
+      --dry-run)
+        dry_run=true
+        shift
+        ;;
+      --revision | -r)
+        revision="$2"
+        shift 2
+        ;;
+      --branch | -b)
+        branch="$2"
+        shift 2
+        ;;
+      --remote)
+        remote="$2"
+        shift 2
+        ;;
+      *)
+        echo "Error: Unknown option: $1"
+        print_usage
+        exit 1
+        ;;
+    esac
+  done
+
+  check_dependencies
+
+  if [[ -z "$revision" ]]; then
+    echo "Error: Missing required argument: revision" >&2
+    print_usage
+    exit 1
+  fi
+
+  if [[ -z "$branch" ]]; then
+    echo "Error: Missing required argument: branch" >&2
+    print_usage
+    exit 1
+  fi
+
+  local commit
+  commit=$(get_commit_for_revision "$revision")
+
+  if [[ -z "$commit" ]]; then
+    echo "Error: Could not find commit for revision '$revision'" >&2
+    exit 1
+  fi
+
+  execute git push "$remote" "$commit:main"
+}
+
+main "$@"

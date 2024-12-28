@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+print_usage() {
+  cat <<EOF
+Usage: $(basename "$0") [--help] [--dry-run]
+
+Set up a colocated Jujutsu repository in the current Git repository.
+
+Options:
+  --help     Show this help message and exit
+  --dry-run  Print commands without executing them
+EOF
+}
+
+check_dependencies() {
+  if ! command -v git >/dev/null 2>&1; then
+    echo "Error: git is not installed"
+    exit 1
+  fi
+
+  if ! command -v jj >/dev/null 2>&1; then
+    echo "Error: jj is not installed"
+    exit 1
+  fi
+}
+
+get_git_root() {
+  git rev-parse --show-toplevel
+}
+
+is_git_repo() {
+  git rev-parse --git-dir >/dev/null 2>&1
+}
+
+has_uncommitted_changes() {
+  ! git diff --quiet HEAD
+}
+
+is_on_default_branch() {
+  local current_branch
+  local default_branch
+
+  current_branch=$(git branch --show-current)
+  default_branch=$(get_default_branch)
+
+  [[ "${current_branch}" = "${default_branch}" ]]
+}
+
+get_default_branch() {
+  git remote show origin 2>/dev/null | grep 'HEAD branch' | cut -d' ' -f5 || echo "main"
+}
+
+is_jj_initialized() {
+  local git_root
+  git_root=$(get_git_root)
+  [[ -d "${git_root}/.jj" ]]
+}
+
+execute() {
+  local cmd="$1"
+  if [[ "${dry_run}" == true ]]; then
+    echo "${cmd}"
+  else
+    eval "${cmd}"
+  fi
+}
+
+main() {
+  local dry_run=false
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --help)
+        print_usage
+        exit 0
+        ;;
+      --dry-run)
+        dry_run=true
+        shift
+        ;;
+      *)
+        echo "Error: Unknown option: $1"
+        print_usage
+        exit 1
+        ;;
+    esac
+  done
+
+  check_dependencies
+
+  if ! is_git_repo; then
+    echo "Error: Not in a Git repository"
+    exit 1
+  fi
+
+  if is_jj_initialized; then
+    echo "Repository is already initialized with Jujutsu"
+    exit 0
+  fi
+
+  if has_uncommitted_changes; then
+    echo "Error: Repository has uncommitted changes"
+    exit 1
+  fi
+
+  if ! is_on_default_branch; then
+    echo "Error: Not on the default branch"
+    exit 1
+  fi
+
+  local git_root default_branch
+  git_root=$(get_git_root)
+  default_branch=$(get_default_branch)
+
+  local git_email
+  git_email="$(git -C "${git_root}" config user.email)"
+
+  execute "jj git init --colocate \"${git_root}\""
+  execute "jj --repository \"${git_root}\" bookmark track \"${default_branch}@origin\""
+  execute "jj --repository \"${git_root}\" config set --repo user.email $git_email"
+  execute "jj describe --reset-author --no-edit"
+}
+
+main "$@"
