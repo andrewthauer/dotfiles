@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+print_usage() {
+  cat <<EOF
+Usage: $(basename "$0") [--dry-run]
+
+Create a GitHub Pull Request from a Jujutsu revision.
+
+Arguments:
+    -r, --revision     The Jujutsu revision to create a PR for
+    -b, --bookmark     The bookmark / branch name to use
+    -h, --help         Show this help message
+    --dry-run          Print commands without executing them
+EOF
+}
+
+die() {
+  echo "ERROR: $*" >&2
+  exit 1
+}
+
+check_dependencies() {
+  if ! command -v git >/dev/null 2>&1; then
+    echo "Error: git is not installed"
+    exit 1
+  fi
+
+  if ! command -v jj >/dev/null 2>&1; then
+    echo "Error: jj is not installed"
+    exit 1
+  fi
+}
+
+description() {
+  local rev="$1"
+  jj log --no-graph --no-pager --quiet --template 'self.description()' --revisions "${rev}" ||
+    die "Failed to get revision description"
+}
+
+get_tracking_branch() {
+  local rev="$1"
+  jj bookmark list --tracked --template "if(tracking_present, name)" --revisions "${rev}" ||
+    die "Failed to get tracking branch"
+}
+
+create_pr() {
+  local revision="$1"
+  local title="$2"
+  local body="$3"
+  local dry_run="$4"
+  local draft="$5"
+
+  if [ "${dry_run}" == "true" ]; then
+    echo "Would push changes and create $([ "${draft}" = "true" ] && echo "draft ")PR with:"
+    echo "Title: ${title}"
+    echo "Body:"
+    echo "${body}"
+    return
+  fi
+
+  # jj git push --change "${revision}" || die "Failed to push changes"
+  # local branch
+  # branch=$(get_tracking_branch "${revision}") || die "Failed to get branch after push"
+  # [ -z "${branch}" ] && die "No branch created after push"
+  #
+  # local draft_flag="true"
+  # [ "${draft}" = "true" ] && draft_flag="--draft"
+  #
+  # printf "%s" "${body}" |
+  #   gh pr create --head "${branch}" --title "${title}" --body-file - ${draft_flag} ||
+  #   die "Failed to create PR for branch '${branch}'"
+  #
+  # echo "Successfully created$([ "${draft}" = "true" ] && echo " draft") PR for branch '${branch}'"
+}
+
+execute() {
+  if [[ "$dry_run" == true ]]; then
+    echo "[DRY RUN]: $*"
+  else
+    "$@"
+  fi
+}
+
+main() {
+  local dry_run=false
+  local revision=
+  # local branch=
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --help | -h)
+        print_usage
+        exit 0
+        ;;
+      --dry-run)
+        dry_run=true
+        shift
+        ;;
+      --revision | -r)
+        revision="$2"
+        shift 2
+        ;;
+      # --branch | -b)
+      #   branch="$2"
+      #   shift 2
+      #   ;;
+      *)
+        echo "Error: Unknown option: $1"
+        print_usage
+        exit 1
+        ;;
+    esac
+  done
+
+  check_dependencies
+
+  if [[ -z "$revision" ]]; then
+    echo "Error: Missing required argument: revision" >&2
+    print_usage
+    exit 1
+  fi
+
+  local desc
+  desc=$(description "${revision}")
+
+  local title
+  title=$(echo "${desc}" | head -n 1)
+
+  local pull_description
+  pull_description=$(echo "${desc}" | tail -n +3)
+
+  local body
+  body="${pull_description}"
+  # $(blockers "${revision}")"
+
+  if [ -z "${title}" ]; then
+    die "Empty PR title"
+  fi
+
+  local branch
+  branch=$(get_tracking_branch "${revision}")
+
+  if [ -z "${branch}" ]; then
+    echo "No branch is currently being tracked"
+    exit 0
+    # if [ "${no_create}" = "true" ]; then
+    #   echo "No branch is currently being tracked and --no-create was specified"
+    #   exit 0
+    # fi
+    # create_pr "${revision}" "${title}" "${body}" "${dry_run}" "${draft}"
+  fi
+
+  echo "Creating PR for revision ${revision} on branch ${branch} with title: ${title}"
+}
+
+main "$@"
