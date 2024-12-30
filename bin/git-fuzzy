@@ -90,30 +90,30 @@ _fuzzy_diff() {
 main() {
   while (("$#")); do
     case "$1" in
-      -f | --fuzzy-finder)
-        FUZZY_FINDER="$2"
-        shift 2
-        ;;
-      --fzf)
-        FUZZY_FINDER="fzf"
-        shift 1
-        ;;
-      --sk)
-        FUZZY_FINDER="sk"
-        shift 1
-        ;;
-      --) # end argument parsing
-        shift
-        break
-        ;;
-      --* | -*) # unsupported flags
-        echo "Error: Unsupported flag $1" >&2
-        exit 1
-        ;;
-      *) # preserve positional arguments
-        pos_args="$pos_args $1"
-        shift
-        ;;
+    -f | --fuzzy-finder)
+      FUZZY_FINDER="$2"
+      shift 2
+      ;;
+    --fzf)
+      FUZZY_FINDER="fzf"
+      shift 1
+      ;;
+    --sk)
+      FUZZY_FINDER="sk"
+      shift 1
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    --* | -*) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      pos_args="$pos_args $1"
+      shift
+      ;;
     esac
   done
 

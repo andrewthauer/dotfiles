@@ -31,26 +31,26 @@ vimpack-help() {
 vimpack-install() {
   while (("$#")); do
     case "$1" in
-      -b | --branch)
-        branch="--branch $2"
-        shift 2
-        ;;
-      -p | --post-install)
-        post_install="$2"
-        shift 1
-        ;;
-      --) # end argument parsing
-        shift
-        break
-        ;;
-      --* | -*) # unsupported flags
-        echo "Error: Unsupported flag $1" >&2
-        exit 1
-        ;;
-      *) # preserve positional arguments
-        pos_args="$pos_args $1"
-        shift
-        ;;
+    -b | --branch)
+      branch="--branch $2"
+      shift 2
+      ;;
+    -p | --post-install)
+      post_install="$2"
+      shift 1
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    --* | -*) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      pos_args="$pos_args $1"
+      shift
+      ;;
     esac
   done
 

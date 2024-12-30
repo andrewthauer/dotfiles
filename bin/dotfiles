@@ -30,26 +30,26 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-    backup)
-      dotfiles-backup "$@"
-      ;;
-    module | modules | mod | m)
-      dotfiles-module "$@"
-      ;;
-    package | pkg | p)
-      pkg "$@"
-      ;;
-    help | h | --help | -h)
+  backup)
+    dotfiles-backup "$@"
+    ;;
+  module | modules | mod | m)
+    dotfiles-module "$@"
+    ;;
+  package | pkg | p)
+    pkg "$@"
+    ;;
+  help | h | --help | -h)
+    usage
+    ;;
+  *)
+    sub_cmd="dotfiles-${cmd}"
+    if [[ -x $(command -v "$sub_cmd") ]]; then
+      $sub_cmd "$@" 2>&1
+    else
       usage
-      ;;
-    *)
-      sub_cmd="dotfiles-${cmd}"
-      if [[ -x $(command -v "$sub_cmd") ]]; then
-        $sub_cmd "$@" 2>&1
-      else
-        usage
-      fi
-      ;;
+    fi
+    ;;
   esac
 }
 

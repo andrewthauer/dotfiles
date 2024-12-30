@@ -1,6 +1,4 @@
 DOTFILES_DIR = $(CURDIR)
-SHFMT_FLAGS = -i 2 -ci
-PRETTIER_FLAGS = .config/.prettierrc --ignore-path .config/.prettierignore
 
 default: lint
 
@@ -15,11 +13,11 @@ shellcheck:
 .PHONY: fmt-check
 fmt-check:
 	@deno fmt --check --quiet
-	@shfmt -l $(SHFMT_FLAGS) $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shfmt -l $(SHFMT_FLAGS) $$(find . -name '*.sh')
+	@shfmt --list $$(find . -type f -path '*/bin/**' ! -name '*.*')
+	@shfmt --list $$(find . -name '*.sh')
 
 .PHONY: fmt
 fmt:
 	@deno fmt --quiet
-	@shfmt -w $(SHFMT_FLAGS) $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shfmt -w $(SHFMT_FLAGS) $$(find . -name '*.sh')
+	@shfmt --write $$(find . -type f -path '*/bin/**' ! -name '*.*')
+	@shfmt --write $$(find . -name '*.sh')

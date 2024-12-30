@@ -11,6 +11,14 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+[*.{bash,sh,zsh}]
+indent_style = space
+indent_size = 2
+binary_next_line = false
+switch_case_indent = true
+space_redirects = false
+function_next_line = false
+
 [{Makefile,*.mk}]
 indent_style = tab
 indent_size = 4

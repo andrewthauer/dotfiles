@@ -72,19 +72,19 @@ main() {
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --help)
-        print_usage
-        exit 0
-        ;;
-      --dry-run)
-        dry_run=true
-        shift
-        ;;
-      *)
-        echo "Error: Unknown option: $1"
-        print_usage
-        exit 1
-        ;;
+    --help)
+      print_usage
+      exit 0
+      ;;
+    --dry-run)
+      dry_run=true
+      shift
+      ;;
+    *)
+      echo "Error: Unknown option: $1"
+      print_usage
+      exit 1
+      ;;
     esac
   done
 

@@ -33,18 +33,18 @@ list_modules() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-    --all | -a)
-      ls -1 "$DOTFILES_MODULES_DIR"
-      ;;
-    help | --help | -h)
-      echo "USAGE: dotfiles module [command]"
-      echo ""
-      echo "FLAGS:"
-      echo "  --all, -a    List all modules"
-      ;;
-    *)
-      read_modules_file | sort
-      ;;
+  --all | -a)
+    ls -1 "$DOTFILES_MODULES_DIR"
+    ;;
+  help | --help | -h)
+    echo "USAGE: dotfiles module [command]"
+    echo ""
+    echo "FLAGS:"
+    echo "  --all, -a    List all modules"
+    ;;
+  *)
+    read_modules_file | sort
+    ;;
   esac
 }
 
@@ -56,17 +56,17 @@ stow_modules() {
   local oper_text=""
 
   case "$2" in
-    --all | -a) modules=("$(list_modules --all)") ;;
-    --file | -f)
-      modules_file="$3"
-      if [ -f "$modules_file" ]; then
-        modules=("$(read_modules_file "$modules_file")")
-      else
-        echo "Module file not found: $modules_file"
-        exit 1
-      fi
-      ;;
-    *) modules=("${@:2}") ;;
+  --all | -a) modules=("$(list_modules --all)") ;;
+  --file | -f)
+    modules_file="$3"
+    if [ -f "$modules_file" ]; then
+      modules=("$(read_modules_file "$modules_file")")
+    else
+      echo "Module file not found: $modules_file"
+      exit 1
+    fi
+    ;;
+  *) modules=("${@:2}") ;;
   esac
 
   if [ "${#modules[@]}" -eq 0 ]; then
@@ -81,13 +81,13 @@ stow_modules() {
   fi
 
   case "$stow_flag" in
-    -S) oper_text="Linking" ;;
-    -D) oper_text="Unlinking" ;;
-    -R) oper_text="Relinking" ;;
-    *)
-      echo "Unknown flag: $stow_flag"
-      exit 1
-      ;;
+  -S) oper_text="Linking" ;;
+  -D) oper_text="Unlinking" ;;
+  -R) oper_text="Relinking" ;;
+  *)
+    echo "Unknown flag: $stow_flag"
+    exit 1
+    ;;
   esac
 
   # shellcheck disable=SC2068
@@ -123,21 +123,21 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-    list | ls)
-      list_modules "$@"
-      ;;
-    link | add | install)
-      link "$@"
-      ;;
-    unlink | remove | rm | uninstall)
-      unlink "$@"
-      ;;
-    help | --help | -h)
-      usage
-      ;;
-    *)
-      usage
-      ;;
+  list | ls)
+    list_modules "$@"
+    ;;
+  link | add | install)
+    link "$@"
+    ;;
+  unlink | remove | rm | uninstall)
+    unlink "$@"
+    ;;
+  help | --help | -h)
+    usage
+    ;;
+  *)
+    usage
+    ;;
   esac
 }
 
