@@ -6,9 +6,13 @@
 #   mac-rimraf-dsstore # start at current directory
 #   mac-rimraf-dsstore /path
 
-if [[ "$OSTYPE" != darwin* ]]; then
-  echo "Only compatible with macOS"
-  exit 1
-fi
+main() {
+  if [[ "$OSTYPE" != darwin* ]]; then
+    echo "Only compatible with macOS"
+    exit 1
+  fi
 
-find "${1:-.}" -iname ".DS_Store" -delete
+  find "${1:-.}" -iname ".DS_Store" -delete
+}
+
+main "$@"

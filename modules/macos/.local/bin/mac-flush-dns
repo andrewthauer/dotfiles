@@ -5,10 +5,14 @@
 # Usage:
 #   mac-flush-dns
 
-if [[ "$OSTYPE" != darwin* ]]; then
-  echo "Only compatible with macOS"
-  exit 1
-fi
+main() {
+  if [[ "$OSTYPE" != darwin* ]]; then
+    echo "Only compatible with macOS"
+    exit 1
+  fi
 
-sudo dscacheutil -flushcache
-sudo killall -HUP mDNSResponder
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
+
+main "$@"

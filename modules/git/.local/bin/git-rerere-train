@@ -5,4 +5,8 @@
 # Usage:
 #   git rerere-train
 
-"$(git install-path)"/share/git-core/contrib/rerere-train.sh "$*"
+main() {
+  "$(git install-path)"/share/git-core/contrib/rerere-train.sh "$*"
+}
+
+main "$@"

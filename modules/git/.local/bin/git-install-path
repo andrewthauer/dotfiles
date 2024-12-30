@@ -5,4 +5,8 @@
 # Usage:
 #   git install-path
 
-realpath "$(which git)" | awk -F'/bin/git' '{print $1}'
+main() {
+  realpath "$(which git)" | awk -F'/bin/git' '{print $1}'
+}
+
+main "$@"

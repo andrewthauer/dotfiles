@@ -3,7 +3,7 @@
 #   Migrates a repo to use main as the default branch
 #
 # Usage:
-#   git-migrate-to-main
+#   git migrate-to-main
 #
 
 set -e
