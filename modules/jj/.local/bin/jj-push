@@ -12,8 +12,9 @@ Arguments:
     -r, --revision   The Jujutsu revision to push
     -b, --branch     The git branch to push to
     --remote         The git remote to push to (defaults to 'origin')
+    --force          Force push to the remote branch
     -h, --help       Show this help message
-    --dry-run      Print commands without executing them
+    --dry-run        Print commands without executing them
 EOF
 }
 
@@ -47,6 +48,7 @@ main() {
   local revision=
   local branch=
   local remote="origin"
+  local force=false
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -69,6 +71,10 @@ main() {
     --remote)
       remote="$2"
       shift 2
+      ;;
+    --force)
+      force=true
+      shift 1
       ;;
     *)
       echo "Error: Unknown option: $1"
@@ -100,7 +106,12 @@ main() {
     exit 1
   fi
 
-  execute git push "$remote" "$commit:main"
+  local force_flag=""
+  if [[ "$force" == true ]]; then
+    force_flag="--force"
+  fi
+
+  execute git push "$force_flag" "$remote" "$commit:main"
 }
 
 main "$@"
