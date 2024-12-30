@@ -10,9 +10,14 @@ python_venv_auto_create = true
 [settings.pipx]
 uvx = true
 
+[settings.rust]
+# Set in modules/rust/.config/environment.d/rust.conf since settings do not
+# expand variables or support templates atm.
+# cargo_home = "~/.local/share/cargo"
+# rustup_home = "~/.local/share/rustup"
+
 [tools]
 bun = "latest"
-"cargo:lazyjj" = "latest"
 cue = "0.11"
 deno = "latest"
 gitleaks = "latest"
@@ -23,8 +28,8 @@ lua = "latest"
 maven = "latest"
 node = "23"
 python = "3.13"
-ruby = ["latest"]
-rust = "1.83.0"
+ruby = "latest"
+rust = "latest"
 testscript = "latest"
 txtar-x = "latest"
 usage = "latest"
