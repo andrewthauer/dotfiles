@@ -1,6 +1,20 @@
+# see https://jj-vcs.github.io/jj/latest/config/
+
 [user]
 name = "Andrew Thauer"
 email = "6507159+andrewthauer@users.noreply.github.com"
 
 [ui]
 default-command = "log"
+# diff-editor = ":builtin"
+# Work around for deleted files not working in builtin
+#   see https://github.com/jj-vcs/jj/issues/3702
+#   install scm-diff-editor:
+#     mise use -g -p ~/.config/mise/config.local.toml scm-diff-editor
+diff-editor = "scm-diff-editor"
+# diff-instructions = false
+
+[merge-tools.scm-diff-editor]
+# see woraround above
+program = "scm-diff-editor"
+edit-args = ["--dir-diff", "$left", "$right"]
