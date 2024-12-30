@@ -17,7 +17,6 @@
 set -eo pipefail
 
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-export DOTFILES_BIN="$DOTFILES_DIR/bin"
 export DOTFILES_DISABLE_SUDO="${DOTFILES_DISABLE_SUDO:-0}"
 
 clone_dotfiles() {
@@ -59,7 +58,7 @@ main() {
   backup_dotfiles
 
   # Run OS specific setup script
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
     "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
     *) echo "No OS specific setup script" ;;

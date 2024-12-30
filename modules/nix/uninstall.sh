@@ -68,7 +68,7 @@ uninstall_nix_macos() {
 }
 
 main() {
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       printf "This will completely remove nix. Are you sure you want to continue [y/N]? "
       read -r answer

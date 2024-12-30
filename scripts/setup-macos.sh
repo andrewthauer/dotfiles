@@ -2,9 +2,12 @@
 
 set -eo pipefail
 
+DOTFILES_DIR="${DOTFILES:-$HOME/.dotfiles}"
+DOTFILES_MODULES_FILE="${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/.modules}"
+
 main() {
-  local bin_dir="$DOTFILES_BIN"
-  local mod_dir="$DOTFILES_MODULES_DIR"
+  local bin_dir="$DOTFILES_DIR/bin"
+  local mod_dir="$DOTFILES_DIR/modules"
   local default_modules=()
 
   # Core setup
@@ -60,7 +63,7 @@ main() {
   )
 
   # Ensure local modules directory exists
-  mkdir -p "$DOTFILES_MODULES_DIR/local"
+  mkdir -p "$mod_dir/local"
 
   # Create a modules file if it doesn't exist
   if [ ! -f "$DOTFILES_MODULES_FILE" ]; then

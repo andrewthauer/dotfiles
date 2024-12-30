@@ -2,11 +2,12 @@
 
 set -eo pipefail
 
-DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+DOTFILES_MODULES_FILE="${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/.modules}"
 
 main() {
-  local bin_dir="$DOTFILES_BIN"
-  local mod_dir="$DOTFILES_MODULES_DIR"
+  local bin_dir="$DOTFILES_DIR/bin"
+  local mod_dir="$DOTFILES_DIR/modules"
   local modules=()
 
   # Install packages with package manager
@@ -39,6 +40,7 @@ main() {
     git
     github
     gpg
+    local
     mise
     neovim
     ripgrep
@@ -48,6 +50,9 @@ main() {
     xdg
     zsh
   )
+
+  # Ensure local modules directory exists
+  mkdir -p "$mod_dir/local"
 
   # Create a modules file if it doesn't exist
   if [ ! -f "$DOTFILES_MODULES_FILE" ]; then

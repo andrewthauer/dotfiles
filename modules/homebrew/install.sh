@@ -3,7 +3,7 @@
 set -eou pipefail
 
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_BIN="${DOTFILES_DIR:-$HOME/.dotfiles}/bin"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 install_homebrew() {
   echo "Checking if homebrew is installed..."
@@ -36,7 +36,7 @@ install_brews() {
 }
 
 main() {
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       install_homebrew
       # install_brews

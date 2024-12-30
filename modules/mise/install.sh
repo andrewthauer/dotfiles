@@ -3,7 +3,7 @@
 set -eou pipefail
 
 main() {
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       brew install mise
       ;;

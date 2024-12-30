@@ -28,7 +28,7 @@ EOF
 }
 
 main() {
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       brew install 1password-cli
       configure_launch_agent_macos

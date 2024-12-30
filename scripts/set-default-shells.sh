@@ -15,7 +15,7 @@ add_shell() {
   # disable usage of sudo if requested
   [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       ! grep -q "${shell_path}" /etc/shells && echo "${shell_path}" | $sudo_cmd tee -a /etc/shells
       ;;

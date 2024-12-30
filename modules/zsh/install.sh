@@ -11,13 +11,13 @@ install_zsh_plugins() {
       plugins=("zsh-syntax-highlighting zsh-autosuggestions")
       ;;
     *)
-      "$DOTFILES_DIR/bin/pkg" install "${plugins[@]}"
+      "$DOTFILES_DIR"/bin/pkg install "${plugins[@]}"
       ;;
   esac
 }
 
 main() {
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       brew install zsh
       ;;

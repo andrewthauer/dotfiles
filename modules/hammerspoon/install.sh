@@ -20,7 +20,7 @@ configire_hammerspoon() {
 }
 
 main() {
-  case "$("$DOTFILES_BIN"/os-info --family)" in
+  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       install_hammerspoon
       install_spoons

@@ -9,6 +9,9 @@ $env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
 $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 
+# TODO: Only update if not already set
+$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
+
 # Load helpers
 source ($nu.default-config-dir | path join 'scripts/dotenv.nu')
 source ($nu.default-config-dir | path join 'scripts/path.nu')
@@ -31,10 +34,6 @@ prepand_path ($env.KREW_ROOT | path join "bin")
 prepand_path ($env.HOME | path join ".local" "bin")
 prepand_path ($env.HOME | path join ".dotfiles" "bin")
 $env.PATH = ($env.PATH | uniq)
-
-# TODO: Only update if not already set
-$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
-$env.DOTFILES_BIN = $"($env.HOME)/.dotfiles/bin"
 
 # Editor
 $env.config.buffer_editor = "vi"
