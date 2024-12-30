@@ -111,7 +111,7 @@ main() {
     force_flag="--force"
   fi
 
-  execute git push "$force_flag" "$remote" "$commit:main"
+  execute git push $force_flag "$remote" "$commit:main"
 }
 
 main "$@"
