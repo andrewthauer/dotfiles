@@ -105,7 +105,7 @@ find_latest() {
   # shellcheck disable=SC2016
   ls "${dir}"/**/*(e:'[[ $REPLY =~ ${pattern} ]]':.om[1])
 }
-```  
+```
 
 ### Function Exists
 
@@ -139,7 +139,6 @@ join_by() {
   echo "$*"
 }
 ```
-
 
 ### Tar with Timestamp
 
