@@ -13,12 +13,10 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      -- ensure_installed = { "nushell" },
-      servers = {
-        nushell = function()
-          require("lspconfig").nushell.setup({})
-        end,
-      },
+      ensure_installed = { "nushell" },
+      nushell = function()
+        require("lspconfig").nushell.setup({})
+      end,
     },
   },
 }
