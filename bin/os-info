@@ -50,12 +50,12 @@ package_manager() {
     echo "$DOTFILES_PACKAGE_MANAGER"
   else
     case ${os_family} in
-    "macos") echo "brew" ;;
-    "debian") echo "apt" ;;
-    "fedora") echo "dnf" ;;
-    "rhel") echo "yum" ;;
-    "arch") echo "pacman" ;;
-    *) ;;
+      "macos") echo "brew" ;;
+      "debian") echo "apt" ;;
+      "fedora") echo "dnf" ;;
+      "rhel") echo "yum" ;;
+      "arch") echo "pacman" ;;
+      *) ;;
     esac
   fi
 }
@@ -65,23 +65,23 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-  family | type | t | --family | --type)
-    os_family
-    ;;
-  arch | a | --arch | -a)
-    get_arch "$@"
-    ;;
-  package-manager | p | --package-manager | -p)
-    package_manager
-    ;;
-  help | --help | -h)
-    usage
-    ;;
-  *)
-    echo "os-family: $(os_family)"
-    echo "arch: $(get_arch)"
-    echo "package-manager: $(package_manager)"
-    ;;
+    family | type | t | --family | --type)
+      os_family
+      ;;
+    arch | a | --arch | -a)
+      get_arch "$@"
+      ;;
+    package-manager | p | --package-manager | -p)
+      package_manager
+      ;;
+    help | --help | -h)
+      usage
+      ;;
+    *)
+      echo "os-family: $(os_family)"
+      echo "arch: $(get_arch)"
+      echo "package-manager: $(package_manager)"
+      ;;
   esac
 }
 

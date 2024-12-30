@@ -4,9 +4,7 @@
 
 set -o errexit -o pipefail -o noclobber
 
-DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-# shellcheck source=lib/init.sh disable=SC1091
-source "${DOTFILES_DIR}/lib/init.sh"
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 usage() {
   local cmd
@@ -30,37 +28,29 @@ usage() {
   echo "  $cmd install --type brew git"
 }
 
-link() {
-  stow_modules -S "$@"
-}
-
-unlink() {
-  stow_modules -D "$@"
-}
-
 init_package_manager() {
   local pkg_mgr="$1"
 
   # TODO: Validate if package manager command exists
 
   case ${pkg_mgr} in
-  "apt") $sudo_cmd apt update -y ;;
-  "dnf") ;;
-  "yum") ;;
-  "pacman") ;;
-  "brew")
-    if ! command -v brew &>/dev/null; then
-      # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
-    fi
-    ;;
-  "nix")
-    if ! command -v nix-env &>/dev/null; then
-      # shellcheck disable=SC1091
-      source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
-    fi
-    ;;
-  *) ;;
+    "apt") $sudo_cmd apt update -y ;;
+    "dnf") ;;
+    "yum") ;;
+    "pacman") ;;
+    "brew")
+      if ! command -v brew &>/dev/null; then
+        # shellcheck disable=SC1091
+        source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
+      fi
+      ;;
+    "nix")
+      if ! command -v nix-env &>/dev/null; then
+        # shellcheck disable=SC1091
+        source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
+      fi
+      ;;
+    *) ;;
   esac
 }
 
@@ -68,22 +58,22 @@ install_package() {
   local pkgs="$1"
 
   case ${pkg_mgr} in
-  "apt") $sudo_cmd apt install -y "$pkgs" ;;
-  "dnf") $sudo_cmd dnf install -y "$pkgs" ;;
-  "yum") $sudo_cmd yum install -y "$pkgs" ;;
-  "pacman") $sudo_cmd pacman -S "$pkgs" ;;
-  "brew")
-    # shellcheck disable=SC2086
-    brew install $pkgs
-    ;;
-  "nix-env")
-    local nix_pkgs=("$pkgs")
-    # shellcheck disable=SC2068
-    for pkg in ${nix_pkgs[@]}; do
-      nix-env -iA nixpkgs."$pkg"
-    done
-    ;;
-  *) ;;
+    "apt") $sudo_cmd apt install -y "$pkgs" ;;
+    "dnf") $sudo_cmd dnf install -y "$pkgs" ;;
+    "yum") $sudo_cmd yum install -y "$pkgs" ;;
+    "pacman") $sudo_cmd pacman -S "$pkgs" ;;
+    "brew")
+      # shellcheck disable=SC2086
+      brew install $pkgs
+      ;;
+    "nix-env")
+      local nix_pkgs=("$pkgs")
+      # shellcheck disable=SC2068
+      for pkg in ${nix_pkgs[@]}; do
+        nix-env -iA nixpkgs."$pkg"
+      done
+      ;;
+    *) ;;
   esac
 }
 
@@ -103,18 +93,18 @@ main() {
 
   while (("$#")); do
     case "$1" in
-    --type | -t)
-      pkg_mgr="$2"
-      shift 2
-      ;;
-    --) # end argument parsing
-      shift
-      break
-      ;;
-    *) # preserve positional arguments
-      pos_args="$pos_args $1"
-      shift
-      ;;
+      --type | -t)
+        pkg_mgr="$2"
+        shift 2
+        ;;
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      *) # preserve positional arguments
+        pos_args="$pos_args $1"
+        shift
+        ;;
     esac
   done
 
@@ -125,24 +115,24 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-  install | i | add)
-    init_package_manager "$pkg_mgr"
-    install_package "$@"
-    ;;
-  uninstall | u | remove | rm)
-    init_package_manager "$pkg_mgr"
-    uninstall_package "$@"
-    ;;
-  exec | x)
-    init_package_manager "$pkg_mgr"
-    exec "${@}"
-    ;;
-  help | --help | -h)
-    usage
-    ;;
-  *)
-    usage
-    ;;
+    install | i | add)
+      init_package_manager "$pkg_mgr"
+      install_package "$@"
+      ;;
+    uninstall | u | remove | rm)
+      init_package_manager "$pkg_mgr"
+      uninstall_package "$@"
+      ;;
+    exec | x)
+      init_package_manager "$pkg_mgr"
+      exec "${@}"
+      ;;
+    help | --help | -h)
+      usage
+      ;;
+    *)
+      usage
+      ;;
   esac
 }
 

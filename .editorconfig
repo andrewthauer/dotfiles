@@ -11,9 +11,10 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{bash,sh,zsh}]
+[{**.bash,**.sh,**.zsh,**/bin/*}]
 indent_style = space
 indent_size = 2
+# shfmt options
 binary_next_line = false
 switch_case_indent = true
 space_redirects = false
@@ -23,7 +24,7 @@ function_next_line = false
 indent_style = tab
 indent_size = 4
 
-[*.{css,html,js,rb}]
+[*.{css,html,js,rb,ts}]
 indent_style = space
 indent_size = 2
 

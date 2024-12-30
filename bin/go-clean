@@ -41,17 +41,17 @@ main() {
   local cmd="${1:-all}"
 
   case "${cmd}" in
-  all)
-    go-clean-all
-    ;;
-  bin)
-    go-clean-bin
-    ;;
-  *)
-    echo "Unknown command: ${cmd}"
-    echo "Usage: go-clean all | go-clean bin"
-    return 1
-    ;;
+    all)
+      go-clean-all
+      ;;
+    bin)
+      go-clean-bin
+      ;;
+    *)
+      echo "Unknown command: ${cmd}"
+      echo "Usage: go-clean all | go-clean bin"
+      return 1
+      ;;
   esac
 }
 

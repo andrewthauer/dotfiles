@@ -12,44 +12,44 @@ usage() {
   echo "USAGE: dotfiles [command]"
   echo ""
   echo "COMMANDS:"
-  echo "  backup     Backups up the local dotfiles directory"
-  echo "  module     Manage dotfile modules"
-  echo "  package    Manage system packages"
-  echo "  doctor     Check for dotfiles configuration issues"
-  echo "  help       Prints this message"
+  echo "  module, mod, m       Manage dotfile modules"
+  echo "  package, pkg, p      Manage system packages"
+  echo "  doctor               Check for dotfiles configuration issues"
+  echo "  backup               Backups up the local dotfiles directory"
+  echo "  help                 Prints this message"
 }
 
 export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-# shellcheck source=lib/init.sh disable=SC1091
-source "${DOTFILES_DIR}/lib/init.sh"
-
-PATH="$DOTFILES_DIR/bin:$PATH"
+export PATH="$DOTFILES_DIR/bin:$PATH"
 
 main() {
   cmd="$1"
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-  backup)
-    dotfiles-backup "$@"
-    ;;
-  module | modules | mod | m)
-    dotfiles-module "$@"
-    ;;
-  package | pkg | p)
-    pkg "$@"
-    ;;
-  help | h | --help | -h)
-    usage
-    ;;
-  *)
-    sub_cmd="dotfiles-${cmd}"
-    if [[ -x $(command -v "$sub_cmd") ]]; then
-      $sub_cmd "$@" 2>&1
-    else
+    module | mod | m)
+      dotfiles-module "$@"
+      ;;
+    package | pkg | p)
+      pkg "$@"
+      ;;
+    doctor)
+      dotfiles-doctor "$@"
+      ;;
+    backup)
+      dotfiles-backup "$@"
+      ;;
+    help | h | --help | -h)
       usage
-    fi
-    ;;
+      ;;
+    *)
+      sub_cmd="dotfiles-${cmd}"
+      if [[ -x $(command -v "$sub_cmd") ]]; then
+        $sub_cmd "$@" 2>&1
+      else
+        usage
+      fi
+      ;;
   esac
 }
 

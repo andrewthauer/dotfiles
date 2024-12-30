@@ -17,14 +17,14 @@ internal_ip() {
 }
 
 case "$1" in
-public)
-  public_ip
-  ;;
-internal)
-  internal_ip
-  ;;
-*)
-  echo "Public:   $(public_ip)"
-  echo "Internal: $(internal_ip)"
-  ;;
+  public)
+    public_ip
+    ;;
+  internal)
+    internal_ip
+    ;;
+  *)
+    echo "Public:   $(public_ip)"
+    echo "Internal: $(internal_ip)"
+    ;;
 esac

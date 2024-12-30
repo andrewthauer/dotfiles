@@ -24,24 +24,24 @@ parse_args() {
   # named args
   while [ "$1" != "" ]; do
     case "$1" in
-    -t | --target)
-      target="$2"
-      shift
-      ;;
-    -r | --repo)
-      repo="$2"
-      shift
-      ;;
-    -x | --post-install)
-      post_install="$2"
-      shift
-      ;;
-    -n | --no-user) no_user=true ;;
-    -h | --help)
-      usage
-      exit
-      ;;               # quit and show usage
-    *) args+=("$1") ;; # if no match, add it to the positional args
+      -t | --target)
+        target="$2"
+        shift
+        ;;
+      -r | --repo)
+        repo="$2"
+        shift
+        ;;
+      -x | --post-install)
+        post_install="$2"
+        shift
+        ;;
+      -n | --no-user) no_user=true ;;
+      -h | --help)
+        usage
+        exit
+        ;;               # quit and show usage
+      *) args+=("$1") ;; # if no match, add it to the positional args
     esac
     shift # move to next kv pair
   done

@@ -7,17 +7,18 @@ lint: shellcheck fmt-check
 
 .PHONY: shellcheck
 shellcheck:
-	@shellcheck $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shellcheck $$(find . -name '*.sh')
+	@shellcheck $$(make shell-files)
 
 .PHONY: fmt-check
 fmt-check:
 	@deno fmt --check --quiet
-	@shfmt --list $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shfmt --list $$(find . -name '*.sh')
+	@shfmt --list $$(make shell-files)
 
 .PHONY: fmt
 fmt:
 	@deno fmt --quiet
-	@shfmt --write $$(find . -type f -path '*/bin/**' ! -name '*.*')
-	@shfmt --write $$(find . -name '*.sh')
+	@shfmt --write $$(make shell-files)
+
+.PHONY: shell-files
+shell-files:
+	@shfmt -f . | grep -v '^.*.zsh'
