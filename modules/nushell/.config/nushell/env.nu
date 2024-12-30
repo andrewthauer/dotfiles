@@ -38,7 +38,7 @@ $env.PATH = ($env.PATH | uniq)
 # Editor
 $env.config.buffer_editor = "vi"
 $env.EDITOR = "nvim"
-$env.VISUAL = "nvim -b"
+$env.VISUAL = "nvim"
 
 # starship prompt - https://starship.rs/#nushell
 $env.STARSHIP_SHELL = "nu"
