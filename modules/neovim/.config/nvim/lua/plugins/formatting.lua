@@ -19,30 +19,11 @@ return {
     opts = function()
       local opts = {
         formatters_by_ft = {
-          ["lua"] = { "stylua" },
-          ["go"] = { "gofmt" },
-          ["sh"] = { "shfmt" },
-          -- ["python"] = { "black" },
-          -- prettier
-          ["css"] = { "prettier" },
-          ["html"] = { "prettier" },
-          ["graphql"] = { "prettier" },
-          -- ["javascript"] = { "prettier" },
-          -- ["javascriptreact"] = { "prettier" },
-          -- ["json"] = { "prettier" },
-          ["jsonc"] = { "prettier" },
-          ["markdown"] = { "prettier" },
-          ["markdown.mdx"] = { "prettier" },
-          -- ["typescript"] = { "prettier" },
-          -- ["typescriptreact"] = { "prettier" },
-          -- ["yaml"] = { "prettier" },
+          -- defined in lang/*.lua
         },
         formatters = {
           injected = {
             options = { ignore_errors = true },
-          },
-          shfmt = {
-            prepend_args = { "-i", "2", "-ci" },
           },
         },
         format_on_save = function(bufnr)

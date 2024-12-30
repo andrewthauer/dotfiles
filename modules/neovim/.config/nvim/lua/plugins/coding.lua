@@ -1,5 +1,5 @@
 return {
-  -- enhance typescript comments
+  -- enhance treesitter comments
   -- https://github.com/folke/ts-comments.nvim
   {
     "folke/ts-comments.nvim",

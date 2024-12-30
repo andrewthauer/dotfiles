@@ -2,7 +2,10 @@ return {
   -- load language plugins
   { import = "plugins.lang.deno" },
   { import = "plugins.lang.go" },
+  { import = "plugins.lang.graphql" },
   { import = "plugins.lang.helm" },
+  { import = "plugins.lang.html" },
+  { import = "plugins.lang.json" },
   { import = "plugins.lang.just" },
   { import = "plugins.lang.lua" },
   { import = "plugins.lang.markdown" },
@@ -13,4 +16,5 @@ return {
   -- { import = "plugins.lang.swift" },
   { import = "plugins.lang.terraform" },
   { import = "plugins.lang.typescript" },
+  { import = "plugins.lang.yaml" },
 }

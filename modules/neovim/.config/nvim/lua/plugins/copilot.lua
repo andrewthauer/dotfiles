@@ -34,14 +34,14 @@ return {
         enabled = true,
         auto_trigger = true,
         -- default keymaps
-        -- keymap = {
-        --   accept = "<M-l>",
-        --   accept_word = false,
-        --   accept_line = false,
-        --   next = "<M-]>",
-        --   prev = "<M-[>",
-        --   dismiss = "<C-]>",
-        -- },
+        keymap = {
+          -- accept = "<M-l>",
+          -- accept_word = false,
+          -- accept_line = false,
+          -- next = "<M-]>",
+          -- prev = "<M-[>",
+          -- dismiss = "<C-]>",
+        },
       },
       filetypes = {
         help = false,
@@ -58,14 +58,18 @@ return {
   -- https://github.com/CopilotC-Nvim/CopilotChat.nvim
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    -- lazy = false,
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      debug = true, -- Enable debugging
+      debug = false, -- Enable debugging
       -- See Configuration section for rest
+    },
+    keys = {
+      { "<leader>co", "<cmd>CopilotChat<cr>", desc = "Copilot Chat" },
     },
     -- See Commands section for default commands if you want to lazy load on them
   },

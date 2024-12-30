@@ -73,6 +73,7 @@ local plugin_spec = {
       })
 
       require("mason-lspconfig").setup({
+        automatic_installation = true,
         ensure_installed = opts.ensure_installed,
         handlers = vim.tbl_extend("force", {
           function(server_name)
@@ -127,18 +128,6 @@ function M.get_keymaps()
     -- { "<F3>", "<cmd>vim.lsp.buf.format({async = true})<cr>", "desc = Format selection", mode = "x" },
     -- { "<F4>", "<cmd>vim.lsp.buf.code_action()<cr>", desc = "Execute code action" },
     -- { "<F4>", "<cmd>vim.lsp.buf.range_code_action()<cr>", desc = "Execute code action", mode = "x" },
-    -- telescope helpers
-    { "<leader>gr", "<cmd>Telescope lsp_references<cr>", desc = "References (Telescope)" },
-    { "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols (Telescope)" },
-    { "<leader>cd", "<cmd>Telescope lsp_definitions<cr>", desc = "Definitions (Telescope)" },
-    { "<leader>cD", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definitions (Telescope)" },
-    { "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations (Telescope)" },
-    { "<leader>cci", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "Incoming Calls (Telescope)" },
-    { "<leader>cco", "<cmd>Telescope lsp_outgoing_calls<cr>", desc = "Outgoing Calls (Telescope)" },
-    { "<leader>cR", "<cmd>Telescope lsp_references<cr>", desc = "References (Telescope)" },
-    { "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols (Telescope)" },
-    { "<leader>ws", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace Symbols (Telescope)" },
-    { "<leader>wS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols, Dynamic (Telescope)" },
     -- stylua: ignore end
   }
 end

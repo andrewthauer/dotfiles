@@ -7,13 +7,12 @@ return {
     priority = 100,
     dependencies = {
       { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim" },
       -- https://github.com/Shatur/neovim-session-manager
       { "Shatur/neovim-session-manager" },
     },
     keys = {
       -- stylua: ignore start
-      { "<leader>fp", "<cmd>Telescope neovim-project discover<cr>", desc = "Projects" },
+      { "<leader>qp", "<cmd>NeovimProjectDiscover<cr>", desc = "Projects" },
       { "<leader>qr", "<cmd>NeovimProjectLoadRecent<cr>", desc = "Restore Last Session" },
       { "<leader>ql", function() require("session_manager").load_session(false) end, desc = "Load Session" },
       { "<leader>qL", function() require("session_manager").load_current_dir_session(false) end, desc = "Restore Dir Session" },
@@ -29,6 +28,9 @@ return {
       dashboard_mode = true,
       -- last_session_on_startup = false,
       -- https://github.com/Shatur/neovim-session-manager
+      picker = {
+        type = "fzf-lua",
+      },
       session_manager_opts = {
         autosave_last_session = true,
         autosave_only_in_session = false,
