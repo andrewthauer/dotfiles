@@ -39,10 +39,10 @@ return {
         table.insert(opts.formatters_by_ft[ft], formatter)
       end
 
-      opts.formatters = opts.formatters or {}
-      opts.formatters.shfmt = {
-        prepend_args = { "-i", "2", "-ci" },
-      }
+      -- opts.formatters = opts.formatters or {}
+      -- opts.formatters.shfmt = {
+      --   prepend_args = { "-i", "2", "-ci" },
+      -- }
     end,
   },
 
