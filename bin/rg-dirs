@@ -7,12 +7,16 @@
 
 set -e
 
-export dirname_cmd="dirname"
-if [ "$(uname)" = "Darwin" ]; then
-  dirname_cmd="gdirname"
-fi
+main() {
+  export dirname_cmd="dirname"
+  if [ "$(uname)" = "Darwin" ]; then
+    dirname_cmd="gdirname"
+  fi
 
-rg --files --null --hidden --no-messages --glob "!.git" "${1:-.}" 2>/dev/null |
-  xargs -0 "$dirname_cmd" |
-  awk '!h[$0]++' |
-  sort -u
+  rg --files --null --hidden --no-messages --glob "!.git" "${1:-.}" 2>/dev/null |
+    xargs -0 "$dirname_cmd" |
+    awk '!h[$0]++' |
+    sort -u
+}
+
+main "$@"

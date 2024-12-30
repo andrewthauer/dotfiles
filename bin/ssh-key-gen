@@ -9,37 +9,42 @@
 # Exit if there are any errors
 set -e
 
-# The target directory for the new key
-TARGET_DIR="${1:-$HOME/.ssh}"
+main() {
+  # The target directory for the new key
+  local target_dir="${1:-$HOME/.ssh}"
 
-# Get the name of the new key
-printf "Key name (default: id_rsa): "
-read -r KEY_NAME
-KEY_NAME="${KEY_NAME:-id_rsa}"
+  # Get the name of the new key
+  printf "Key name (default: id_rsa): "
+  read -r key_name
+  local key_name="${key_name:-id_rsa}"
 
-# The path to the new key
-KEY_PATH="${TARGET_DIR}/${KEY_NAME}"
-if [ -e "${KEY_PATH}" ]; then
-  echo "${KEY_PATH} already exists"
-  exit 1
-else
-  mkdir -p "${TARGET_DIR}"
-fi
+  # The path to the new key
+  local key_path="${target_dir}/${key_name}"
+  if [ -e "${key_path}" ]; then
+    echo "${key_path} already exists"
+    exit 1
+  else
+    mkdir -p "${target_dir}"
+  fi
 
-# Get username or comment
-printf "Username or comment: "
-read -r COMMENT
-[ -n "$COMMENT" ] && COMMENT_ARG="-C ${COMMENT}"
+  # Get username or comment
+  local comment_arg=
+  printf "Username or comment: "
+  read -r comment
+  [ -n "$comment" ] && comment_arg="-C ${comment}"
 
-# Generate a new ssh key key
-ssh-keygen -t rsa -b 4096 "${COMMENT_ARG}" -f "${KEY_PATH}"
-echo "Created ${KEY_PATH}"
+  # Generate a new ssh key key
+  ssh-keygen -t rsa -b 4096 "${comment_arg}" -f "${key_path}"
+  echo "Created ${key_path}"
 
-# Add key to ssh agent
-eval "$(ssh-agent -s)" && ssh-add "${KEY_PATH}"
+  # Add key to ssh agent
+  eval "$(ssh-agent -s)" && ssh-add "${key_path}"
 
-# Copy public key to clipboard
-if [ "$(command -v pbcopy)" ]; then
-  pbcopy <"${KEY_PATH}.pub"
-  echo "Public key copied to clipboard"
-fi
+  # Copy public key to clipboard
+  if [ "$(command -v pbcopy)" ]; then
+    pbcopy <"${key_path}.pub"
+    echo "Public key copied to clipboard"
+  fi
+}
+
+main "$@"

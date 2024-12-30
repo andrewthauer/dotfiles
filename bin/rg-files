@@ -7,5 +7,9 @@
 
 set -e
 
-rg --files --hidden --no-messages --glob "!.git" "${1-.}" 2>/dev/null |
-  sort -u
+main() {
+  rg --files --hidden --no-messages --glob "!.git" "${1-.}" 2>/dev/null |
+    sort -u
+}
+
+main "$@"

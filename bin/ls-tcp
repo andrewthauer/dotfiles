@@ -5,4 +5,8 @@
 # Usage:
 #   ls-tcp
 
-lsof -i -n -P | grep TCP
+main() {
+  lsof -i -n -P | grep TCP
+}
+
+main "$@"

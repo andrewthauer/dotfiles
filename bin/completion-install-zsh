@@ -1,12 +1,12 @@
 #!/usr/bin/env zsh
 # shellcheck shell=bash
-# SUMMARY
+# Summary
 #   Installs completions for a command
 #
-# USAGE
+# Usage
 #   completion-install-zsh [command]
 #
-# EXAMPLE
+# Examples
 #   completion-install-zsh rustup
 
 ZDOTDIR="${ZDOTDIR:-$HOME}"

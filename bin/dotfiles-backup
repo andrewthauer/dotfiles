@@ -7,16 +7,20 @@
 
 set -e
 
-TARGET_DIR="${1:-$DOTFILES_BACKUP_DIR}"
+main() {
+  local target_dir="${1:-$DOTFILES_BACKUP_DIR}"
 
-if [ ! -d "${TARGET_DIR}" ]; then
-  echo "Invalid target directory: '${TARGET_DIR}'"
-  exit 1
-fi
+  if [ ! -d "${target_dir}" ]; then
+    echo "Invalid target directory: '${target_dir}'"
+    exit 1
+  fi
 
-rsync \
-  -arv \
-  --delete \
-  --exclude ".git" \
-  "${DOTFILES_DIR}/" \
-  "${TARGET_DIR}"
+  rsync \
+    -arv \
+    --delete \
+    --exclude ".git" \
+    "${DOTFILES_DIR}/" \
+    "${target_dir}"
+}
+
+main "$@"

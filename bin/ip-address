@@ -3,9 +3,16 @@
 #   Query IP addresses
 #
 # Usage:
+#   ip-address [options]
+#
+# Options:
+#  --public, -p      Show public IP address
+#  --internal, -i    Show internal IP address
+#
+# Examples
 #   ip-address
-#   ip-address public
-#   ip-address internal
+#   ip-address --public
+#   ip-address --internal
 
 public_ip() {
   # curl ifconfig.co
@@ -16,15 +23,19 @@ internal_ip() {
   ipconfig getifaddr en0
 }
 
-case "$1" in
-  public)
-    public_ip
-    ;;
-  internal)
-    internal_ip
-    ;;
-  *)
-    echo "Public:   $(public_ip)"
-    echo "Internal: $(internal_ip)"
-    ;;
-esac
+main() {
+  case "$1" in
+    --public | -p)
+      public_ip
+      ;;
+    --internal | -i)
+      internal_ip
+      ;;
+    *)
+      echo "Public:   $(public_ip)"
+      echo "Internal: $(internal_ip)"
+      ;;
+  esac
+}
+
+main "$@"

@@ -5,12 +5,15 @@
 # Usage:
 #  http-serve
 
-http-serve() {
+main() {
   if [ -x "$(command -v python3)" ]; then
     python3 -m http.server
-  else
+  elif [ -x "$(command -v python)" ]; then
     python -m SimpleHTTPServer
+  else
+    echo "Python is required to run this script"
+    exit 1
   fi
 }
 
-http-serve "$@"
+main "$@"

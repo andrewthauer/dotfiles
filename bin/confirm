@@ -6,7 +6,7 @@
 #   confirm && echo continuing ...
 #   confirm "Do you want to continue? [y/N]" && echo continuing ...
 
-confirm() {
+main() {
   msg="$1"
 
   [ -z "$1" ] && msg="Are you sure?"
@@ -23,4 +23,4 @@ confirm() {
   exit 1
 }
 
-confirm "$@"
+main "$@"

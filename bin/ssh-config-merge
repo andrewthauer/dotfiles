@@ -19,30 +19,34 @@
 
 set -e
 
-# The source directory and target file
-source_dir="${source_dir:-$XDG_CONFIG_HOME/ssh/config.d}"
-target="${target:-$XDG_CONFIG_HOME/ssh/ssh_config_all}"
+main() {
+  # The source directory and target file
+  source_dir="${source_dir:-$XDG_CONFIG_HOME/ssh/config.d}"
+  target="${target:-$XDG_CONFIG_HOME/ssh/ssh_config_all}"
 
-# Truncate the file
-if [ -f "$target" ]; then
-  echo -ne "Do you want to replace the existing '$target' file [y/N]? "
-  read -r reply
-  if [[ $reply =~ ^[Yy]$ ]]; then
-    cat /dev/null >"$target"
-  else
-    return 1
+  # Truncate the file
+  if [ -f "$target" ]; then
+    echo -ne "Do you want to replace the existing '$target' file [y/N]? "
+    read -r reply
+    if [[ $reply =~ ^[Yy]$ ]]; then
+      cat /dev/null >"$target"
+    else
+      return 1
+    fi
   fi
-fi
 
-# Append configs to the ssh_config file
-for conf in "$source_dir"/*; do
-  echo "Appending: $conf"
-  cat "$conf" >>"$target"
-  echo "" >>"$target"
-done
+  # Append configs to the ssh_config file
+  for conf in "$source_dir"/*; do
+    echo "Appending: $conf"
+    cat "$conf" >>"$target"
+    echo "" >>"$target"
+  done
 
-# Update permissions
-chmod 600 "$target"
+  # Update permissions
+  chmod 600 "$target"
 
-# Done
-echo "Created: $target"
+  # Done
+  echo "Created: $target"
+}
+
+main "$@"

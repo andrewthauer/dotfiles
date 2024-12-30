@@ -5,5 +5,9 @@
 # Usage:
 #   ls-path
 
-# shellcheck disable=SC2001
-sed 's/:/\n/g' <<<"$PATH"
+main() {
+  # shellcheck disable=SC2001
+  sed 's/:/\n/g' <<<"$PATH"
+}
+
+main "$@"

@@ -5,5 +5,9 @@
 # Usage:
 #   untar <file> [directory]
 
-[ -n "$2" ] && mkdir -p "$2"
-tar -xf "$1" -C "${2:-.}"
+main() {
+  [ -n "$2" ] && mkdir -p "$2"
+  tar -xf "$1" -C "${2:-.}"
+}
+
+main "$@"
