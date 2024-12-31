@@ -119,6 +119,7 @@ in
     ".config/starship.toml".source = "${dotfiles.modulesDir}/starship/.config/starship.toml";
 
     # git
+    ".config/git/aliases".source = "${dotfiles.modulesDir}/git/.config/git/aliases";
     ".config/git/config".source = "${dotfiles.modulesDir}/git/.config/git/config";
     ".config/git/ignore".source = "${dotfiles.modulesDir}/git/.config/git/ignore";
 
@@ -130,14 +131,10 @@ in
 
     # neovim
     ".config/nvim".source = "${dotfiles.modulesDir}/vim/.config/nvim";
-    ".config/profile.d/vim.sh".source = "${dotfiles.modulesDir}/vim/.config/profile.d/vim.sh";
-    ".config/shell.d/vim.sh".source = "${dotfiles.modulesDir}/vim/.config/shell.d/vim.sh";
+    ".config/shell.d/nvim.sh".source = "${dotfiles.modulesDir}/vim/.config/shell.d/nvim.sh";
 
     # other
     ".config/shell.d/docker.sh".source = "${dotfiles.modulesDir}/docker/.config/shell.d/docker.sh";
-
-    # homebrew
-    ".config/shell.d/homebrew.sh".source = "${dotfiles.modulesDir}/homebrew/.config/shell.d/homebrew.sh";
   };
 
   home.sessionVariables = {

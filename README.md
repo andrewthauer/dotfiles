@@ -25,10 +25,10 @@
 - **[xdg compliance](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)**
   when possible to keep `$HOME` clean <sup id="a1"> [1](#f1)</sup>.
 - **install scripts** for brand new systems and specific topic areas.
-- **posix compliant** so it works with most shells (`bash`, `zsh`).
-- **optimized for zsh** with auto-completion & syntax highlighting.
+- **mostly posix compliant** so it works with most shells (`bash`, `zsh`).
+- **full featured zsh** with auto-completion & syntax highlighting.
 - **useful aliases & utilities** for maximum productivity.
-- **[homebrew](https://brew.sh) compatible** packages with smart fallbacks.
+- **cross platform** portability.
 
 ## Pre-requisites
 

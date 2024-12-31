@@ -34,13 +34,14 @@ export-env {
 
       match $spans.0 {
           # carapace completions are incorrect for nu
-          # nu => $fish_completer
-          # # fish completes commits and branch names in a nicer way
-          # git => $fish_completer
-          # # carapace doesn't have completions for asdf
-          # asdf => $fish_completer
+          nu => $fish_completer
+          # fish completes commits and branch names in a nicer way
+          git => $fish_completer
+          # carapace doesn't have completions for mise
+          mise => $fish_completer
           # use zoxide completions for zoxide commands
           __zoxide_z | __zoxide_zi => $zoxide_completer
+          # use carapace for everything else
           _ => $carapace_completer
       } | do $in $spans
   }

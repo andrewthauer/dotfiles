@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Summary:
+#   Upgrades all brew packages
+#
+# Usage:
+#   brew-upgrade
+
+main() {
+  brew update && brew upgrade && brew bundle && brew cleanup
+}
+
+main "$@"

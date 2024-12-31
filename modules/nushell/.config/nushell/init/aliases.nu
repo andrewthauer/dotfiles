@@ -46,9 +46,6 @@ export alias gs = git switch
 export alias gst = git status
 export alias gwt = git worktree
 
-# homebrew
-export def brew-upgrade [] { brew update; brew upgrade; brew bundle; brew cleanup; }
-
 # kubernetes
 export alias k = kubectl
 
