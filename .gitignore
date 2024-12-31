@@ -39,7 +39,7 @@ result
 result/
 
 # modules file
-.modules*
+modules.txt
 
 # deno
 deno.lock

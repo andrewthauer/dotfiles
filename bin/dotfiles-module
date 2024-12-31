@@ -11,10 +11,11 @@ usage() {
   echo "USAGE: dotfiles module [command]"
   echo ""
   echo "COMMANDS:"
-  echo "  list, ls        List modules"
-  echo "  link, ln        Link a module"
-  echo "  unlink, rm      Unlink a module"
-  echo "  help            Prints this message"
+  echo "  list, ls           List modules"
+  echo "  link, ln           Link a module"
+  echo "  unlink, rm         Unlink a module"
+  echo "  modules-file, f    Get the modules filename"
+  echo "  help               Prints this message"
   echo ""
   echo "FLAGS:"
   echo "  --help, -h   Prints help"
@@ -105,7 +106,7 @@ stow_modules() {
 }
 
 get_modules_file() {
-  echo "${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/.modules}"
+  echo "${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/modules.txt}"
 }
 
 read_modules_file() {
@@ -132,6 +133,9 @@ main() {
       ;;
     unlink | rm)
       unlink "$@"
+      ;;
+    modules-file | f)
+      get_modules_file
       ;;
     help | --help | -h)
       usage

@@ -3,12 +3,13 @@
 set -eo pipefail
 
 DOTFILES_DIR="${DOTFILES:-$HOME/.dotfiles}"
-DOTFILES_MODULES_FILE="${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/.modules}"
 
 main() {
   local bin_dir="$DOTFILES_DIR/bin"
   local mod_dir="$DOTFILES_DIR/modules"
   local default_modules=()
+  local mods_file
+  mods_file="$("$bin_dir"/dotfiles mod modules-file)"
 
   # Core setup
   # "$mod_dir/_base/install.sh"
@@ -66,8 +67,8 @@ main() {
   mkdir -p "$mod_dir/local"
 
   # Create a modules file if it doesn't exist
-  if [ ! -f "$DOTFILES_MODULES_FILE" ]; then
-    cat <<EOF >"$DOTFILES_MODULES_FILE"
+  if [ ! -f "$mods_file" ]; then
+    cat <<EOF >"$mods_file"
 $(
       IFS=$'\n'
       echo "${default_modules[*]}"

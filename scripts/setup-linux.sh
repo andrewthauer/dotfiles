@@ -3,12 +3,13 @@
 set -eo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-DOTFILES_MODULES_FILE="${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/.modules}"
 
 main() {
   local bin_dir="$DOTFILES_DIR/bin"
   local mod_dir="$DOTFILES_DIR/modules"
-  local modules=()
+  local default_modules=()
+  local mods_file
+  mods_file="$("$bin_dir"/dotfiles mod modules-file)"
 
   # Install packages with package manager
   "$bin_dir/pkg" \
@@ -30,7 +31,7 @@ main() {
   "$mod_dir/starship/install.sh"
 
   # Default modules
-  modules=(
+  default_modules=(
     _base
     bash
     bat
@@ -55,11 +56,11 @@ main() {
   mkdir -p "$mod_dir/local"
 
   # Create a modules file if it doesn't exist
-  if [ ! -f "$DOTFILES_MODULES_FILE" ]; then
-    cat <<EOF >"$DOTFILES_MODULES_FILE"
+  if [ ! -f "$mods_file" ]; then
+    cat <<EOF >"$mods_file"
 $(
       IFS=$'\n'
-      echo "${modules[*]}"
+      echo "${default_modules[*]}"
     )
 EOF
   fi
