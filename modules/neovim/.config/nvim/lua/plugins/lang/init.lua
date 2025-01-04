@@ -15,6 +15,7 @@ return {
   { import = "plugins.lang.rust" },
   -- { import = "plugins.lang.swift" },
   { import = "plugins.lang.terraform" },
+  { import = "plugins.lang.toml" },
   { import = "plugins.lang.typescript" },
   { import = "plugins.lang.yaml" },
 }

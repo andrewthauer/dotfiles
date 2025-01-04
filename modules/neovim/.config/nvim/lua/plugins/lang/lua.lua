@@ -40,6 +40,10 @@ return {
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      { "folke/neodev.nvim", opts = {} },
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+    },
     opts = {
       ensure_installed = { "lua_ls" },
       servers = {

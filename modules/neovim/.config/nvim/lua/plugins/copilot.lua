@@ -8,21 +8,34 @@ return {
     build = ":Copilot auth",
     dependencies = {
       {
-        "nvim-cmp",
+        "saghen/blink.cmp",
         dependencies = {
           {
-            -- https://github.com/zbirenbaum/copilot-cmp
-            "zbirenbaum/copilot-cmp",
-            -- disable copilot in completion list (can be annoying)
-            cond = false,
-            config = function()
-              require("copilot_cmp").setup()
-            end,
+            "giuxtaposition/blink-cmp-copilot",
           },
         },
-        opts = function(_, opts)
-          table.insert(opts.sources, 1, { name = "copilot" })
-        end,
+        opts = {
+          sources = {
+            -- default = { "lsp", "path", "snippets", "buffer", "copilot" },
+            providers = {
+              copilot = {
+                name = "copilot",
+                module = "blink-cmp-copilot",
+                score_offset = 100,
+                async = true,
+                transform_items = function(_, items)
+                  local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+                  local kind_idx = #CompletionItemKind + 1
+                  CompletionItemKind[kind_idx] = "Copilot"
+                  for _, item in ipairs(items) do
+                    item.kind = kind_idx
+                  end
+                  return items
+                end,
+              },
+            },
+          },
+        },
       },
     },
     opts = {
@@ -30,7 +43,7 @@ return {
         enabled = false,
       },
       suggestion = {
-        -- This is not recommened when using with with copilot-cmp
+        -- This is not recommened when using with with copilot-cmp or blink-cmp-copilot
         enabled = true,
         auto_trigger = true,
         -- default keymaps

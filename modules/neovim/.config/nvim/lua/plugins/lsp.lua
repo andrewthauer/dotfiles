@@ -1,6 +1,64 @@
 local M = {}
 
 local plugin_spec = {
+  -- add blink.compat
+  -- https://github.com/Saghen/blink.compat
+  {
+    "saghen/blink.compat",
+    version = "*",
+    lazy = true,
+    opts = {},
+  },
+
+  -- completions provided by blink
+  -- https://cmp.saghen.dev/
+  {
+    "saghen/blink.cmp",
+    version = "*",
+    dependencies = {
+      "rafamadriz/friendly-snippets", -- https://github.com/rafamadriz/friendly-snippets
+      "hrsh7th/cmp-emoji", -- https://github.com/hrsh7th/cmp-emoji
+    },
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = "super-tab",
+        cmdline = {
+          preset = "enter",
+        },
+      },
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        accept = {
+          -- Disable auto brackets (some LSPs may add auto brackets themselves anyway
+          -- auto_brackets = { enabled = false },
+        },
+        list = {
+          selection = "manual",
+        },
+        -- Menu style
+        menu = {},
+        -- Show documentation when selecting a completion item
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        -- ghost_text = { enabled = true },
+      },
+      -- signature = { enabled = true }
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer", "emoji" },
+        providers = {
+          emoji = {
+            name = "emoji",
+            module = "blink.compat.source",
+          },
+        },
+      },
+    },
+    opts_extend = { "sources.default" },
+  },
+
   -- Neovim's LSP client with minimum effort
   -- https://lsp-zero.netlify.app
   -- https://github.com/VonHeikemen/lsp-zero.nvim
@@ -15,20 +73,12 @@ local plugin_spec = {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
+      "saghen/blink.cmp",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      { "antosha417/nvim-lsp-file-operations", config = true },
-      { "folke/neodev.nvim", opts = {} },
-      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
     },
     opts = {
-      ensure_installed = {
-        "jsonls",
-        "lua_ls",
-        "taplo", -- toml
-        "yamlls",
-      },
+      ensure_installed = {},
       inlay_hints = {
         enabled = false,
       },
@@ -66,12 +116,13 @@ local plugin_spec = {
 
       -- configure lsp
       lsp_zero.extend_lspconfig({
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
         lsp_attach = lsp_attach,
         sign_text = { error = "✘", warn = "▲", hint = "⚑", info = "»" },
         float_border = "rounded",
       })
 
+      -- setup mason to install language servers
       require("mason-lspconfig").setup({
         automatic_installation = true,
         ensure_installed = opts.ensure_installed,
