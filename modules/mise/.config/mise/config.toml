@@ -4,7 +4,7 @@
 disable_backends = [""]
 experimental = true
 legacy_version_file = true
-libgit2 = false
+# libgit2 = false
 python_venv_auto_create = true
 
 [settings.pipx]
@@ -20,7 +20,6 @@ uvx = true
 bun = "latest"
 cue = "0.11"
 deno = "latest"
-gitleaks = "latest"
 go = "latest"
 java = "23"
 # kotlin = "latest"
@@ -30,14 +29,5 @@ node = "23"
 python = "3.13"
 ruby = "latest"
 rust = "latest"
-testscript = "latest"
-txtar-x = "latest"
 usage = "latest"
 uv = "latest"
-
-[plugins]
-# poetry = "https://github.com/mise-plugins/mise-poetry.git"
-
-[alias]
-testscript = "go:github.com/rogpeppe/go-internal/cmd/testscript"
-txtar-x = "go:github.com/rogpeppe/go-internal/cmd/txtar-x"
