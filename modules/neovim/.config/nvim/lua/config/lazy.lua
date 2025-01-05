@@ -12,6 +12,7 @@ require("util.lazy").bootstrap()
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    { import = "plugins.lang" },
   },
   defaults = {
     -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
@@ -28,7 +29,7 @@ require("lazy").setup({
     -- automatically check for plugin updates
     enabled = true,
     notify = true,
-    frequency = 86400 -- check for updates once a day
+    frequency = 86400, -- check for updates once a day
   },
   change_detection = {
     -- automatically reload changed files and reload ui

@@ -2,26 +2,27 @@ return {
   -- add to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "hcl",
-          "terraform",
-        })
-      end
-    end,
+    opts = {
+      ensure_installed = { "hcl", "terraform" },
+    },
   },
 
   -- mason installation
   {
     "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "terraform-ls",
-        "tflint",
-      })
-    end,
+    opts = {
+      ensure_installed = { "terraform-ls", "tflint" },
+    },
+  },
+
+  -- setup lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        terraformls = {},
+      },
+    },
   },
 
   -- formatting configuration

@@ -7,11 +7,7 @@ local plugin_spec = {
     "williamboman/mason.nvim",
     cmd = "Mason",
     build = ":MasonUpdate",
-    keys = {},
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {})
-    end,
+    opts_extend = { "ensure_installed" },
     config = function(_, opts)
       require("mason").setup(opts)
       M.ensure_installed(opts)
@@ -34,7 +30,7 @@ function M.ensure_installed(opts)
   end)
 
   local function ensure_installed()
-    for _, tool in ipairs(opts.ensure_installed) do
+    for _, tool in ipairs(opts.ensure_installed or {}) do
       local p = mr.get_package(tool)
       if not p:is_installed() then
         p:install()

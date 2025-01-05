@@ -2,14 +2,9 @@ return {
   -- add to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "gotmpl",
-          "yaml",
-        })
-      end
-    end,
+    opts = {
+      ensure_installed = { "gotmpl", "yaml" },
+    },
   },
 
   -- helm syntax & filetype detection (required for helm_ls)
@@ -23,13 +18,9 @@ return {
   -- mason installation
   {
     "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "helm-ls",
-        "yamllint",
-      })
-    end,
+    opts = {
+      ensure_installed = { "yamllint" },
+    },
   },
 
   -- setup lspconfig
@@ -38,17 +29,15 @@ return {
     opts = {
       ensure_installed = { "helm_ls" },
       servers = {
-        helm_ls = function()
-          require("lspconfig").helm_ls.setup({
-            settings = {
-              ["helm-ls"] = {
-                yamlls = {
-                  path = "yaml-language-server",
-                },
+        helm_ls = {
+          settings = {
+            ["helm-ls"] = {
+              yamlls = {
+                path = "yaml-language-server",
               },
             },
-          })
-        end,
+          },
+        },
       },
     },
   },

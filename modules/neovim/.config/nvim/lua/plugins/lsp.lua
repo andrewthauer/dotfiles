@@ -25,7 +25,7 @@ local plugin_spec = {
       keymap = {
         preset = "super-tab",
         cmdline = {
-          preset = "enter",
+          preset = "super-tab",
         },
       },
       appearance = {
@@ -79,6 +79,7 @@ local plugin_spec = {
     },
     opts = {
       ensure_installed = {},
+      servers = {},
       inlay_hints = {
         enabled = false,
       },
@@ -86,9 +87,9 @@ local plugin_spec = {
         enabled = true,
       },
     },
-    keys = {},
     config = function(_, opts)
       local lsp_zero = require("lsp-zero")
+      local util = require("util")
 
       local lsp_attach = function(client, bufnr)
         -- enable inlay hints
@@ -122,15 +123,46 @@ local plugin_spec = {
         float_border = "rounded",
       })
 
+      local servers = opts.servers
+
+      local function setup(server)
+        local server_opts = servers[server] or {}
+
+        if server_opts then
+          if type(server_opts) == "function" then
+            server_opts()
+            return
+          end
+        elseif servers["*"] then
+          if servers.setup["*"](server, server_opts) then
+            return
+          end
+        end
+
+        require("lspconfig")[server].setup(server_opts)
+      end
+
+      -- get all available servers from mason-lspconfig
+      local mason_lspconfig = require("mason-lspconfig")
+      local all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+
+      -- setup servers that are not available through mason-lspconfig
+      local ensure_installed = {} -- type string[]
+      for server, server_opts in pairs(servers) do
+        if server_opts then
+          if not vim.tbl_contains(all_mslp_servers, server) then
+            setup(server)
+          else
+            ensure_installed[#ensure_installed + 1] = server
+          end
+        end
+      end
+
       -- setup mason to install language servers
-      require("mason-lspconfig").setup({
+      mason_lspconfig.setup({
         automatic_installation = true,
-        ensure_installed = opts.ensure_installed,
-        handlers = vim.tbl_extend("force", {
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-        }, opts.servers),
+        ensure_installed = vim.tbl_deep_extend("force", ensure_installed, opts.ensure_installed),
+        handlers = { setup },
       })
 
       -- avoid conflicts with ts_ls & denols

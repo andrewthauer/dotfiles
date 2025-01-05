@@ -2,49 +2,24 @@ return {
   -- add to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "typescript",
-          "tsx",
-        })
-      end
-    end,
+    opts = {
+      ensure_installed = { "javascript", "jsdoc", "typescript", "tsx" },
+    },
   },
 
   -- mason installation
   {
     "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "typescript-language-server" })
-    end,
-  },
-
-  -- conform formatters
-  {
-    "stevearc/conform.nvim",
-    opts = function(_, opts)
-      local formatters_by_ft = {
-        -- Use LSP for formatting
-        -- ["javascript"] = "prettier",
-        -- ["javascriptreact"] = "prettier",
-        -- ["typescript"] = "prettier",
-        -- ["typescriptreact"] = "prettier",
-      }
-
-      opts.formatters_by_ft = opts.formatters_by_ft or {}
-      for ft, formatter in pairs(formatters_by_ft) do
-        opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
-        table.insert(opts.formatters_by_ft[ft], formatter)
-      end
-    end,
+    opts = {
+      ensure_installed = { "typescript-language-server" },
+    },
   },
 
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
     opts = {
+      ensure_installed = { "ts_ls" },
       servers = {
         ts_ls = function()
           local keys = {
@@ -54,6 +29,7 @@ return {
                 vim.lsp.buf.code_action({
                   apply = true,
                   context = {
+                    ---@diagnostic disable-next-line: assign-type-mismatch
                     only = { "source.organizeImports.ts" },
                     diagnostics = {},
                   },
@@ -67,6 +43,7 @@ return {
                 vim.lsp.buf.code_action({
                   apply = true,
                   context = {
+                    ---@diagnostic disable-next-line: assign-type-mismatch
                     only = { "source.removeUnused.ts" },
                     diagnostics = {},
                   },
@@ -103,6 +80,26 @@ return {
         end,
       },
     },
+  },
+
+  -- conform formatters
+  {
+    "stevearc/conform.nvim",
+    opts = function(_, opts)
+      local formatters_by_ft = {
+        -- Use LSP for formatting
+        -- ["javascript"] = "prettier",
+        -- ["javascriptreact"] = "prettier",
+        -- ["typescript"] = "prettier",
+        -- ["typescriptreact"] = "prettier",
+      }
+
+      opts.formatters_by_ft = opts.formatters_by_ft or {}
+      for ft, formatter in pairs(formatters_by_ft) do
+        opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
+        table.insert(opts.formatters_by_ft[ft], formatter)
+      end
+    end,
   },
 
   -- config debug adapter for node

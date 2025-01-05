@@ -3,7 +3,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "just" },
+      ensure_installed = { "sql" },
     },
   },
 }

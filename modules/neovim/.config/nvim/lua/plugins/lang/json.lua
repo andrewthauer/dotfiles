@@ -2,22 +2,17 @@ return {
   -- add to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "json5" })
-      end
-    end,
+    opts = {
+      ensure_installed = { "json", "jsonc", "json5" },
+    },
   },
 
   -- mason installation
   {
     "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "json-lsp",
-      })
-    end,
+    opts = {
+      ensure_installed = { "json-lsp" },
+    },
   },
 
   -- yaml schema support
@@ -25,6 +20,17 @@ return {
     "b0o/SchemaStore.nvim",
     lazy = true,
     version = false, -- last release is way too old
+  },
+
+  -- setup lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      ensure_installed = { "json-lsp" },
+      servers = {
+        jsonls = {},
+      },
+    },
   },
 
   -- conform formatters

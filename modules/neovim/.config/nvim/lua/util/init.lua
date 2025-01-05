@@ -24,6 +24,22 @@ function M.table.find(f, l)
   return nil
 end
 
+--- Deduplicate a table
+---@generic T
+---@param list T[]
+---@return T[]
+function M.table.dedupe(list)
+  local ret = {}
+  local seen = {}
+  for _, v in ipairs(list) do
+    if not seen[v] then
+      table.insert(ret, v)
+      seen[v] = true
+    end
+  end
+  return ret
+end
+
 --- Check if a module is available to be required
 ---@param module_name string The module to search for.
 ---@return boolean available # Whether the plugin is available.
