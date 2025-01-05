@@ -3,7 +3,7 @@
 #
 
 # Load all modules / plugins
-source_files_in "${XDG_CONFIG_HOME}"/shell.d/*(^pre).*sh
+source_files_in "${XDG_CONFIG_HOME}"/shell.d/*.{sh,zsh}
 
 #
 # ZSH Prompt

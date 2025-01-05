@@ -21,7 +21,7 @@ if [ -f "${HOME}/.bash_profile" ] && [ -z "$BASH_PROFILE_LOADED" ]; then
 fi
 
 # Source bash core scripts
-source_files_in "${XDG_CONFIG_HOME}"/bash/init.d/*.sh
+source_files_in "${XDG_CONFIG_HOME}"/bash/init.d/*.bash
 
 # Append bin directories to path
 prepend_path "${DOTFILES_DIR}/bin"
