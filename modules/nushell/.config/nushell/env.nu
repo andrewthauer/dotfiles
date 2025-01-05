@@ -9,18 +9,30 @@ $env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
 $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 
+# Set the custom autoload directory
+# $env.NU_VENDOR_AUTOLOAD_DIR = ($nu.default-config-dir | path join "autoload")
+
+#
+# Load environment variables
+#
+
 # TODO: Only update if not already set
 $env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
 
 # Load helpers
 source ($nu.default-config-dir | path join 'scripts/dotenv.nu')
-source ($nu.default-config-dir | path join 'scripts/path.nu')
 
 # Load environment variables from files
 glob ~/.config/environment.d/*.conf
     | each { |f| open $f }
     | from env --expand
     | load-env
+
+#
+# Setup path
+#
+
+source ($nu.default-config-dir | path join 'scripts/path.nu')
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
@@ -35,10 +47,10 @@ prepand_path ($env.HOME | path join ".local" "bin")
 prepand_path ($env.HOME | path join ".dotfiles" "bin")
 $env.PATH = ($env.PATH | uniq)
 
-# Editor
-$env.config.buffer_editor = "vi"
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim"
+#
+# Setup modules
+# TODO: Figure out how to modularize these
+#
 
 # starship prompt - https://starship.rs/#nushell
 $env.STARSHIP_SHELL = "nu"
@@ -51,6 +63,3 @@ mkdir ~/.cache/zoxide
 
 # mise - https://mise.jdx.dev/installing-mise.html#nushell
 ^mise activate nu | save -f ~/.cache/mise/activate.nu
-
-# To load from a custom file you can use:
-# source ($nu.default-config-dir | path join 'custom.nu')
