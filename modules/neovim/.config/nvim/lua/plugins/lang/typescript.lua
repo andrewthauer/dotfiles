@@ -87,11 +87,10 @@ return {
     "stevearc/conform.nvim",
     opts = function(_, opts)
       local formatters_by_ft = {
-        -- Use LSP for formatting
-        -- ["javascript"] = "prettier",
-        -- ["javascriptreact"] = "prettier",
-        -- ["typescript"] = "prettier",
-        -- ["typescriptreact"] = "prettier",
+        ["javascript"] = "prettier",
+        ["javascriptreact"] = "prettier",
+        ["typescript"] = "prettier",
+        ["typescriptreact"] = "prettier",
       }
 
       opts.formatters_by_ft = opts.formatters_by_ft or {}

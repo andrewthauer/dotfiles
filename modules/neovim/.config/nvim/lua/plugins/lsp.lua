@@ -37,7 +37,7 @@ local plugin_spec = {
           -- auto_brackets = { enabled = false },
         },
         list = {
-          selection = "manual",
+          selection = { preselect = true, auto_insert = true },
         },
         -- Menu style
         menu = {},
