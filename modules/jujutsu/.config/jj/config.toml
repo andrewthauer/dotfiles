@@ -2,10 +2,11 @@
 
 [user]
 name = "Andrew Thauer"
-email = "6507159+andrewthauer@users.noreply.github.com"
+# email = "6507159+andrewthauer@users.noreply.github.com"
 
 [ui]
 default-command = "log"
+# diff.format = "git"
 # diff-editor = ":builtin"
 # Work around for deleted files not working in builtin
 #   see https://github.com/jj-vcs/jj/issues/3702
@@ -18,3 +19,10 @@ diff-editor = "scm-diff-editor"
 # see woraround above
 program = "scm-diff-editor"
 edit-args = ["--dir-diff", "$left", "$right"]
+
+[template-aliases]
+# 'format_short_signature(signature)' = 'signature.name()'
+
+[aliases]
+# rebase all revisions that are descendants of trunk()
+sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
