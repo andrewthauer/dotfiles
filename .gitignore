@@ -22,9 +22,6 @@
 **/karabiner/.config/karabiner
 !karabiner.json
 
-# iterm2
-**/iterm2/**/AppSupport
-
 # vim / neovim
 .netrwhist
 lazy*.json
