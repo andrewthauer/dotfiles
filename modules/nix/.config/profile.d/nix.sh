@@ -2,12 +2,14 @@
 # Initialize nix environment
 #
 
-# Nix
-# if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-#   # shellcheck disable=SC1091
-#   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-# fi
-# End Nix
+# The determinate nix-installer configures /etc/zshrc & /etc/bashrc to source
+# by default on the system. So if it exists we don't need to source it here.
+if [ ! -x '/nix/nix-installer' ]; then
+  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    # shellcheck disable=SC1091
+    source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  fi
+fi
 
 # For home-manager
 # if [ -z "$NIX_PATH" ]; then

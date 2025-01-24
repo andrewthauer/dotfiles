@@ -73,7 +73,11 @@ main() {
       printf "This will completely remove nix. Are you sure you want to continue [y/N]? "
       read -r answer
       case "${answer}" in [yY] | [yY][eE][sS])
-        uninstall_nix
+        if [ -x "/nix/nix-installer" ]; then
+          sudo /nix/nix-installer uninstall
+        else
+          uninstall_nix
+        fi
         ;;
       esac
       ;;
