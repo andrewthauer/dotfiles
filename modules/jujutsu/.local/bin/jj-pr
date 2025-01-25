@@ -62,7 +62,7 @@ def "main create" [
     error make { msg: $"Failed to push bookmark ($bookmark)" }
   }
 
-  gh pr create --head $branch --title $title [
+  gh pr create --head $branch --title $title ...[
     ...(if $draft { ["--draft"] } else { [] })
   ]
   if $env.LAST_EXIT_CODE != 0 {

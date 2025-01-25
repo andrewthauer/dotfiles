@@ -13,7 +13,8 @@ default-command = "log"
 #   install scm-diff-editor:
 #     mise use -g -p ~/.config/mise/config.local.toml scm-diff-editor
 diff-editor = "scm-diff-editor"
-# diff-instructions = false
+diff-instructions = false
+# paginate = "never"
 
 [merge-tools.scm-diff-editor]
 # see woraround above
@@ -24,5 +25,9 @@ edit-args = ["--dir-diff", "$left", "$right"]
 # 'format_short_signature(signature)' = 'signature.name()'
 
 [aliases]
+# push all bookmarks
+push-bookmarks = ["git", "push", "--revision", "all:bookmarks()"]
+# rebase all bookmarks of trunk()
+rebase-bookmarks = ["rebase", "--source", "all:(bookmarks() ~ immutable())", "--destination", "trunk()"]
 # rebase all revisions that are descendants of trunk()
 sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
