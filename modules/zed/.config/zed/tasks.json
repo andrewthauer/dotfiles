@@ -1,6 +1,10 @@
 [
   {
     "label": "Lazygit",
-    "command": "lazygit -p $ZED_WORKTREE_ROOT"
+    "command": "lazygit -p $ZED_WORKTREE_ROOT",
+  },
+  {
+    "label": "Lazyjj",
+    "command": "bash -i -c 'lazyjj -p $ZED_WORKTREE_ROOT'",
   }
 ]

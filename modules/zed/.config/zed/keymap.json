@@ -42,6 +42,10 @@
         "task::Spawn",
         { "task_name": "Lazygit", "reveal_target": "center" }
       ],
+      "space j j": [
+        "task::Spawn",
+        { "task_name": "Lazyjj", "reveal_target": "center" }
+      ],
       "space o l": "editor::OpenPermalinkToLine",
       "space s d": "diagnostics::Deploy",
       "space s r": "workspace::NewSearch",

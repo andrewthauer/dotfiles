@@ -2,7 +2,7 @@
 
 [user]
 name = "Andrew Thauer"
-# email = "6507159+andrewthauer@users.noreply.github.com"
+email = "6507159+andrewthauer@users.noreply.github.com"
 
 [ui]
 default-command = "log"

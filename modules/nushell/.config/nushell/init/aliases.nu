@@ -46,6 +46,9 @@ export alias gs = git switch
 export alias gst = git status
 export alias gwt = git worktree
 
+# jujutsu
+export alias ljj = lazyjj
+
 # kubernetes
 export alias k = kubectl
 
