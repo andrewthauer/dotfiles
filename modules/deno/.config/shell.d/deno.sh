@@ -3,4 +3,4 @@
 #
 
 # Aliases
-alias dt="deno task"
+alias dt="deno task --quiet"
