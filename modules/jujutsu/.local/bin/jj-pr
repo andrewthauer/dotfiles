@@ -11,6 +11,7 @@ def "main create" [
   --bookmark (-b): string       # The named bookmark / branch name to use if revision does not have one associated (optional)
   --draft                       # Create a draft PR
   --dry-run                     # Print commands without executing them
+  --web                         # Open new PR in a web browser
 ] {
   check_dependencies
 
@@ -64,6 +65,7 @@ def "main create" [
 
   gh pr create --head $branch --title $title ...[
     ...(if $draft { ["--draft"] } else { [] })
+    ...(if $web { ["--web"] } else { [] })
   ]
   if $env.LAST_EXIT_CODE != 0 {
     error make { msg: $"Failed to create PR for branch '($branch)'" }
