@@ -1,15 +1,67 @@
+// https://zed.dev/docs/key-bindings
 [
   {
-    "context": "!Workspace",
+    "context": "Workspace",
     "bindings": {
-      "ctrl-cmd-p": "projects::OpenRecent",
-      "ctrl-/": ["workspace::SendKeystrokes", "cmd-j"]
+      "ctrl-/": ["workspace::SendKeystrokes", "cmd-j"],
+      "ctrl-?": "workspace::NewTerminal"
     }
   },
   {
-    "context": "Terminal",
+    "context": "VimControl",
     "bindings": {
-      // "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"]
+      "ctrl-i": ["vim::ResizePane", "Shorten"]
+    }
+  },
+  {
+    "context": "(Editor && vim_mode == normal) || Dock",
+    "bindings": {
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  {
+    "context": "((Editor || AssistantPanel) && vim_mode == normal) || ProjectPanel || OutlinePanel",
+    "bindings": {
+      "space ,": "file_finder::Toggle",
+      "space /": "workspace::NewSearch",
+      "space b d": "workspace::CloseWindow",
+      "space c s": "outline::Toggle",
+      "space f b": "file_finder::Toggle",
+      "space f e": "workspace::ToggleLeftDock",
+      "space f f": "file_finder::Toggle",
+      "space f p": "projects::OpenRecent",
+      "space f r": "pane::RevealInProjectPanel",
+      "space g b": "branches::OpenRecent",
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "Lazygit", "reveal_target": "center" }
+      ],
+      "space h d": "workspace::CloseAllDocks",
+      "space j j": [
+        "task::Spawn",
+        { "task_name": "Lazyjj", "reveal_target": "center" }
+      ],
+      "space o l": "editor::OpenPermalinkToLine",
+      "space p r": "pane::RevealInProjectPanel",
+      "space s d": "diagnostics::Deploy",
+      "space s r": "workspace::NewSearch",
+      "space s f": "project_panel::ToggleFocus",
+      "space s o": "outline_panel::ToggleFocus",
+      "space s p": "projects::OpenRecent",
+      "space s s": "outline::Toggle",
+      "space |": "pane::SplitLeft",
+      "space t t": "workspace::NewCenterTerminal",
+      "space w h": "pane::SplitLeft",
+      "space w k": "pane::SplitUp",
+      "space w j": "pane::SplitDown",
+      "space w l": "pane::SplitRight"
     }
   },
   {
@@ -26,39 +78,18 @@
     }
   },
   {
-    "context": "vim_mode == normal",
+    "context": "VimControl && !menu && vim_mode != operator",
     "bindings": {
-      "space ,": "file_finder::Toggle",
-      "space /": "workspace::NewSearch",
-      "space b d": "workspace::CloseWindow",
-      "space c s": "outline::Toggle",
-      "space f b": "file_finder::Toggle",
-      "space f e": "workspace::ToggleLeftDock",
-      "space f f": "file_finder::Toggle",
-      "space f p": "projects::OpenRecent",
-      "space f r": "pane::RevealInProjectPanel",
-      "space g b": "branches::OpenRecent",
-      "space g g": [
-        "task::Spawn",
-        { "task_name": "Lazygit", "reveal_target": "center" }
-      ],
-      "space j j": [
-        "task::Spawn",
-        { "task_name": "Lazyjj", "reveal_target": "center" }
-      ],
-      "space o l": "editor::OpenPermalinkToLine",
-      "space s d": "diagnostics::Deploy",
-      "space s r": "workspace::NewSearch",
-      "space s f": "project_panel::ToggleFocus",
-      "space s o": "outline_panel::ToggleFocus",
-      "space s p": "projects::OpenRecent",
-      "space s s": "outline::Toggle",
-      "space |": "pane::SplitLeft",
-      "space t t": "workspace::NewCenterTerminal",
-      "space w h": "pane::SplitLeft",
-      "space w k": "pane::SplitUp",
-      "space w j": "pane::SplitDown",
-      "space w l": "pane::SplitRight"
+      "w": "vim::NextSubwordStart",
+      "b": "vim::PreviousSubwordStart",
+      "e": "vim::NextSubwordEnd",
+      "g e": "vim::PreviousSubwordEnd"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": ["vim::PushOperator", { "AddSurrounds": {} }]
     }
   },
   {
@@ -69,23 +100,10 @@
     }
   },
   {
-    "context": "Editor && (vim_mode == visual)",
+    "context": "Editor && vim_mode == visual",
     "bindings": {
       "<": ["workspace::SendKeystrokes", "< g v"],
       ">": ["workspace::SendKeystrokes", "> g v"]
-    }
-  },
-  {
-    "context": "(Editor && vim_mode == normal) || Dock || Terminal",
-    "bindings": {
-      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"],
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
     }
   }
 ]

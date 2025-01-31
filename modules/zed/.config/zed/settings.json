@@ -1,11 +1,12 @@
+// https://zed.dev/docs/configuring-zed
 {
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4o"
+      "model": "claude-3-5-sonnet"
     },
-    "button": true,
-    "version": "2"
+    "version": "2",
+    "enable_experimental_live_diffs": true
   },
   "autosave": "off",
   "buffer_font_size": 15,
@@ -13,13 +14,26 @@
   "ensure_final_newline_on_save": true,
   "features": {
     "copilot": true
+    // "inline_completion_provider": "zed"
+  },
+  "file_types": {
+    "GitConfig": [
+      "**/git/config*",
+      "**/git/aliases*"
+    ],
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml"
+    ]
   },
   "format_on_save": "off",
-  "languages": {
-    "Ruby": {
-      "language_servers": ["ruby-lsp", "!solargraph", "rubocop", "..."]
-    }
+  "inlay_hints": {
+    "enabled": true
   },
+  "languages": {},
   "lsp": {},
   "telemetry": {
     "diagnostics": false,
@@ -29,10 +43,28 @@
     "font_family": "FiraCode Nerd Font Mono",
     "font_size": 15,
     "option_as_meta": true,
-    "shell": "system"
+    "shell": "system",
+    "toolbar": {
+      "breadcrumbs": false
+    }
   },
   "theme": "Catppuccin Frappé",
   "ui_font_family": "FiraCode Nerd Font Propo",
   "ui_font_size": 15,
-  "vim_mode": true
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true
+  },
+  // Should be moved to a seperate file when supported
+  // https://github.com/zed-industries/zed/discussions/23663
+  "ssh_connections": [
+    {
+      "host": "hass",
+      "projects": [{ "paths": ["~", "/root/config"] }]
+    },
+    {
+      "host": "nas",
+      "projects": [{ "paths": ["~", "/volume1/docker"] }]
+    }
+  ]
 }
