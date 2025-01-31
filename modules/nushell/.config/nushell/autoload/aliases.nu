@@ -34,7 +34,7 @@ export alias dotdir = cd $env.DOTFILES_DIR
 #
 
 # deno
-export alias dt = deno task
+export alias dt = deno task --quiet
 
 # git
 export alias g = git
@@ -54,9 +54,6 @@ export alias k = kubectl
 
 # lazygit
 export alias lg = lazygit
-
-# mise
-export alias m = mise
 
 # ruby
 export alias be = bundle exec
