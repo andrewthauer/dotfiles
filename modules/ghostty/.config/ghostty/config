@@ -4,6 +4,8 @@
 #   ghostty +show-config --default --docs
 #
 
+command = /opt/homebrew/bin/nu
+
 theme = catppuccin-frappe
 font-family = FiraCode Nerd Font Mono
 font-size = 16

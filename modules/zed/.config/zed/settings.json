@@ -17,24 +17,38 @@
     // "inline_completion_provider": "zed"
   },
   "file_types": {
-    "GitConfig": [
-      "**/git/config*",
-      "**/git/aliases*"
-    ],
+    "GitConfig": ["**/git/config*", "**/git/aliases*"],
     "Helm": [
       "**/templates/**/*.tpl",
       "**/templates/**/*.yaml",
       "**/templates/**/*.yml",
       "**/helmfile.d/**/*.yaml",
       "**/helmfile.d/**/*.yml"
-    ]
+    ],
+    "Shell Script": ["**/*.bats"]
   },
   "format_on_save": "off",
+  "icon_theme": "Material Icon Theme",
   "inlay_hints": {
-    "enabled": true
+    "enabled": false
   },
-  "languages": {},
-  "lsp": {},
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!solargraph", "!rubocop"]
+    }
+  },
+  "lsp": {
+    "ruby-lsp": {
+      "initialization_options": {
+        "enabledFeatures": {
+          "diagnostics": false
+        }
+      },
+      "settings": {
+        "use_bundler": false
+      }
+    }
+  },
   "telemetry": {
     "diagnostics": false,
     "metrics": false
@@ -43,7 +57,9 @@
     "font_family": "FiraCode Nerd Font Mono",
     "font_size": 15,
     "option_as_meta": true,
-    "shell": "system",
+    "shell": {
+      "program": "/opt/homebrew/bin/nu"
+    },
     "toolbar": {
       "breadcrumbs": false
     }
