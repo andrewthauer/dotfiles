@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+main() {
+  rm -rf ~/.aws/cli/cache/*
+  rm -rf ~/.aws/sso/cache/*
+}
+
+main "$@"

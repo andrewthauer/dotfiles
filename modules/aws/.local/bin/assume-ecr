@@ -1,0 +1,30 @@
+#!/usr/bin/env nu
+
+def "main" [
+  --account (-a): string | null = null
+  --profile (-p): string | null = null
+  --region (-r): string | null = null
+] {
+  mut $account = $account | default $env.AWS_DEFAULT_ACCOUNT
+  mut $profile = $profile | default $env.AWS_PROFILE
+  mut $region = $region | default $env.AWS_REGION
+
+  if ($account | is-empty) { error make { msg: "Error: Account ID is required" } }
+  if ($profile | is-empty) { error make { msg: "Error: Profile name is required. Try running assume --export" } }
+  if ($region | is-empty) { error make { msg: "Error: Region is required. Try running assume --export" } }
+  if (which assume | is-empty) { error make { msg: "Error: 'assume' command not found" } }
+
+  # if ($profile | is-empty) {
+  #   assume -ex
+  # } else {
+  #   assume -ex $profile
+  # }
+
+  aws --region $region ecr get-login-password --profile $profile |
+    docker login --password-stdin --username AWS $"($account).dkr.ecr.($region).amazonaws.com"
+
+  if not (which skopeo | is-empty) {
+    aws --region $region ecr get-login-password --profile $profile |
+      skopeo login --password-stdin --username AWS $"($account).dkr.ecr.($region).amazonaws.com"
+  }
+}
