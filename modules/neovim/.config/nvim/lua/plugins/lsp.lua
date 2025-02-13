@@ -24,7 +24,9 @@ local plugin_spec = {
     opts = {
       keymap = {
         preset = "super-tab",
-        cmdline = {
+      },
+      cmdline = {
+        keymap = {
           preset = "super-tab",
         },
       },

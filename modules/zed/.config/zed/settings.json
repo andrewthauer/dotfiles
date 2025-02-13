@@ -11,27 +11,30 @@
   "autosave": "off",
   "buffer_font_size": 15,
   "buffer_font_family": "FiraCode Nerd Font Mono",
+  "edit_predictions": {
+    "disabled_globs": [],
+    "mode": "auto"
+  },
   "ensure_final_newline_on_save": true,
   "features": {
+    "edit_prediction_provider": "zed",
     "copilot": true
-    // "inline_completion_provider": "zed"
   },
   "file_types": {
     "GitConfig": ["**/git/config*", "**/git/aliases*"],
-    "Helm": [
-      "**/templates/**/*.tpl",
-      "**/templates/**/*.yaml",
-      "**/templates/**/*.yml",
-      "**/helmfile.d/**/*.yaml",
-      "**/helmfile.d/**/*.yml"
-    ],
+    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
     "Shell Script": ["**/*.bats"]
   },
   "format_on_save": "off",
-  "icon_theme": "Material Icon Theme",
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
   "inlay_hints": {
     "enabled": false
   },
+  "language_models": {},
   "languages": {
     "Ruby": {
       "language_servers": ["ruby-lsp", "!solargraph", "!rubocop"]

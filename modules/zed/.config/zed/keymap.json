@@ -10,20 +10,20 @@
   {
     "context": "VimControl",
     "bindings": {
-      "ctrl-i": ["vim::ResizePane", "Shorten"]
+      "ctrl-i": "vim::ResizePaneDown"
     }
   },
   {
     "context": "(Editor && vim_mode == normal) || Dock",
     "bindings": {
-      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"],
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown"
     }
   },
   {
@@ -38,16 +38,10 @@
       "space f f": "file_finder::Toggle",
       "space f p": "projects::OpenRecent",
       "space f r": "pane::RevealInProjectPanel",
-      "space g b": "branches::OpenRecent",
-      "space g g": [
-        "task::Spawn",
-        { "task_name": "Lazygit", "reveal_target": "center" }
-      ],
+      "space g b": "git::Branch",
+      "space g g": ["task::Spawn", { "task_name": "lazygit" }],
       "space h d": "workspace::CloseAllDocks",
-      "space j j": [
-        "task::Spawn",
-        { "task_name": "Lazyjj", "reveal_target": "center" }
-      ],
+      "space j j": ["task::Spawn", { "task_name": "lazyjj" }],
       "space o l": "editor::OpenPermalinkToLine",
       "space p r": "pane::RevealInProjectPanel",
       "space s d": "diagnostics::Deploy",
@@ -89,7 +83,7 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": ["vim::PushOperator", { "AddSurrounds": {} }]
+      "shift-s": ["vim::PushAddSurrounds", {}]
     }
   },
   {

@@ -44,6 +44,7 @@ main() {
     ghostty
     hammerspoon
     homebrew
+    jujutsu
     karabiner
     local
     macos
