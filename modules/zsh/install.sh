@@ -16,7 +16,7 @@ install_zsh_plugins() {
   esac
 }
 
-main() {
+install_zsh() {
   case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     "macos")
       brew install zsh
@@ -25,7 +25,15 @@ main() {
       "$DOTFILES_DIR"/bin/pkg install "zsh"
       ;;
   esac
+}
 
+main() {
+  if [ "$(command -v zsh)" ]; then
+    echo "starship is already installed"
+    exit 0
+  fi
+
+  install_zsh
   install_zsh_plugins
 }
 

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Summary:
+#   Starts the colima virtual machine.
+#
+# Usage:
+#   colima-start
+#
+
+set -e
+
+function main() {
+  local os
+  os="$(uname)"
+
+  if [[ "$os" == "Darwin" ]]; then
+    echo "Running on macOS..."
+    colima start \
+      --arch aarch64 \
+      --cpu 8 \
+      --memory 8 \
+      --vm-type=vz \
+      --vz-rosetta \
+      --mount-type=virtiofs \
+      --ssh-config=false
+  else
+    echo "The os $os is not implemented yet..."
+  fi
+}
+
+main "$@"

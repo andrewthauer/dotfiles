@@ -34,12 +34,12 @@ clone_dotfiles() {
 # shellcheck disable=SC2317
 backup_dotfiles() {
   # Rename existing dotfiles
-  local files=(~/.bash_profile ~/.bashrc ~/.zshenv ~/.zshrc)
+  local files=(~/.bash_profile ~/.bashrc ~/.zshenv ~/.zprofile ~/.zshrc)
 
-  # move existing files
+  # move existing files that are not symlinks
   for file in "${files[@]}"; do
     if [ -f "${file}" ] && [ ! -L "${file}" ]; then
-      mv "${file}" "${file}.bak"
+      mv "${file}" "${file}.old"
     fi
   done
 }
@@ -48,12 +48,11 @@ main() {
   echo "DOTFILES_DIR: $DOTFILES_DIR"
   echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
 
+  # Use xdg
+  source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
+
   # Clone and initialize dotfiles env
   clone_dotfiles
-
-  # TODO: determine if we need to source this file still
-  # shellcheck source=lib/init.sh disable=SC1091
-  source "${DOTFILES_DIR}"/lib/init.sh
 
   # Backup existing dotfiles
   backup_dotfiles
@@ -64,9 +63,6 @@ main() {
     "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
     *) echo "No OS specific setup script" ;;
   esac
-
-  # Set default shells
-  "$DOTFILES_DIR/scripts/set-default-shells.sh"
 }
 
 # Run the script

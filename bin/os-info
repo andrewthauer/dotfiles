@@ -21,7 +21,11 @@ get_arch() {
   uname -m
 }
 
-os_family() {
+get_os() {
+  uname | tr '[:upper:]' '[:lower:]'
+}
+
+get_os_family() {
   # ideally we would use an associative array here
   # but this needs to work in bash < v4 for macos
   os_info=(
@@ -42,9 +46,9 @@ os_family() {
   echo "${os_family}"
 }
 
-package_manager() {
+get_package_manager() {
   local os_family
-  os_family=$(os_family)
+  os_family=$(get_os_family)
 
   if [ -n "$DOTFILES_PACKAGE_MANAGER" ]; then
     echo "$DOTFILES_PACKAGE_MANAGER"
@@ -65,22 +69,26 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-    family | type | t | --family | --type)
-      os_family
+    --os | -o)
+      get_os
       ;;
-    arch | a | --arch | -a)
+    --family | -f)
+      get_os_family
+      ;;
+    --arch | -a)
       get_arch "$@"
       ;;
-    package-manager | p | --package-manager | -p)
-      package_manager
+    --package-manager | -p)
+      get_package_manager
       ;;
     help | --help | -h)
       usage
       ;;
     *)
-      echo "os-family: $(os_family)"
+      echo "os: $(get_os)"
+      echo "os-family: $(get_os_family)"
       echo "arch: $(get_arch)"
-      echo "package-manager: $(package_manager)"
+      echo "package-manager: $(get_package_manager)"
       ;;
   esac
 }

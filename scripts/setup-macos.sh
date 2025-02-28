@@ -7,17 +7,12 @@ DOTFILES_DIR="${DOTFILES:-$HOME/.dotfiles}"
 main() {
   local bin_dir="$DOTFILES_DIR/bin"
   local mod_dir="$DOTFILES_DIR/modules"
-  local default_modules=()
-  local mods_file
-  mods_file="$("$bin_dir"/dotfiles mod modules-file)"
 
   # Core setup
-  # "$mod_dir/_base/install.sh"
+  "$mod_dir/_base/install.sh"
 
-  # Install Homebrew
+  # Install & load Homebrew shellenv
   "$mod_dir/homebrew/install.sh"
-
-  # Load Homebrew shellenv
   # shellcheck source=/dev/null
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
@@ -25,11 +20,14 @@ main() {
   export HOMEBREW_BUNDLE_FILE="${mod_dir}/homebrew/.config/homebrew/Brewfile"
   brew bundle --no-lock
 
-  # Ensure some directories exist
-  mkdir -p "$HOME/.ssh"
+  # Install dotfiles module scripts
+  "$mod_dir/docker/install.sh"
+  "$mod_dir/github/install.sh"
+  "$mod_dir/hammerspoon/install.sh"
+  "$mod_dir/neovim/install.sh"
 
   # Default modules
-  default_modules=(
+  local default_modules=(
     _base
     bash
     bat
@@ -67,36 +65,19 @@ main() {
   # Ensure local modules directory exists
   mkdir -p "$mod_dir/local"
 
-  # Create a modules file if it doesn't exist
-  if [ ! -f "$mods_file" ]; then
-    cat <<EOF >"$mods_file"
-$(
-      IFS=$'\n'
-      echo "${default_modules[*]}"
-    )
-EOF
-  fi
-
   # Link dotfiles
-  "$bin_dir/dotfiles" mod link
-
-  # Setup SSH for GitHub
-  if [ -f "$HOME/.ssh/known_hosts" ]; then
-    ssh-keygen -R github.com
-    ssh-keyscan -t rsa github.com >>~/.ssh/known_hosts
-  else
-    ssh-keyscan -t rsa github.com >~/.ssh/known_hosts
-  fi
-
-  # Install dotfiles module scripts
-  "$mod_dir/docker/install.sh"
-  "$mod_dir/hammerspoon/install.sh"
+  # shellcheck disable=SC2068
+  "$bin_dir/dotfiles" mod link ${default_modules[@]}
 
   # install mise versions
-  mise install node
+  # mise trust --yes
+  # mise install node --yes
 
   # Setup macos defaults
   "$DOTFILES_DIR/scripts/macos-defaults.sh"
+
+  # Set default shells
+  "$DOTFILES_DIR/scripts/set-default-shells.sh"
 }
 
 main "$@"

@@ -31,10 +31,17 @@ usage() {
 init_package_manager() {
   local pkg_mgr="$1"
 
+  #
   # TODO: Validate if package manager command exists
+  #
+
+  # Skip package manager updates
+  if [ "$SKIP_PACKAGE_MANGER_UPDATE" == "true" ]; then
+    return
+  fi
 
   case ${pkg_mgr} in
-    "apt") $sudo_cmd apt update -y ;;
+    "apt") $sudo_cmd apt update -y -q ;;
     "dnf") ;;
     "yum") ;;
     "pacman") ;;
@@ -55,21 +62,32 @@ init_package_manager() {
 }
 
 install_package() {
-  local pkgs="$1"
+  local pkgs=("$*")
 
   case ${pkg_mgr} in
-    "apt") $sudo_cmd apt install -y "$pkgs" ;;
-    "dnf") $sudo_cmd dnf install -y "$pkgs" ;;
-    "yum") $sudo_cmd yum install -y "$pkgs" ;;
-    "pacman") $sudo_cmd pacman -S "$pkgs" ;;
+    "apt")
+      # shellcheck disable=SC2068
+      $sudo_cmd apt install -y ${pkgs[@]}
+      ;;
+    "dnf")
+      # shellcheck disable=SC2068
+      $sudo_cmd dnf install -y ${pkgs[@]}
+      ;;
+    "yum")
+      # shellcheck disable=SC2068
+      $sudo_cmd yum install -y ${pkgs[@]}
+      ;;
+    "pacman")
+      # shellcheck disable=SC2068
+      $sudo_cmd pacman -S ${pkgs[@]}
+      ;;
     "brew")
-      # shellcheck disable=SC2086
-      brew install $pkgs
+      # shellcheck disable=SC2068
+      brew install ${pkgs[@]}
       ;;
     "nix-env")
-      local nix_pkgs=("$pkgs")
       # shellcheck disable=SC2068
-      for pkg in ${nix_pkgs[@]}; do
+      for pkg in ${pkgs[@]}; do
         nix-env -iA nixpkgs."$pkg"
       done
       ;;
@@ -96,6 +114,10 @@ main() {
       --type | -t)
         pkg_mgr="$2"
         shift 2
+        ;;
+      --skip-update | -s)
+        SKIP_PACKAGE_MANGER_UPDATE="true"
+        shift 1
         ;;
       --) # end argument parsing
         shift
