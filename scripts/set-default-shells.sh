@@ -6,14 +6,15 @@ set -e
 
 add_shell() {
   local shell_path="$1"
+  local shell="$2"
 
   if [ ! -f "$shell_path" ]; then
-    echo "Warning: shell $shell_path not found"
+    echo "Warning: shell $shell not found"
     return 1
   fi
 
   # disable usage of sudo if requested
-  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
+  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo" || sudo_cmd=""
 
   case "$("$DOTFILES_DIR"/bin/os-info --family)" in
     *)
@@ -21,7 +22,7 @@ add_shell() {
         echo "Shell $shell_path already found in /etc/shells"
       else
         echo "Adding $shell_path to /etc/shells"
-        $sudo_cmd tee -a /etc/shells
+        echo "${shell_path}" | "$sudo_cmd" tee -a /etc/shells
       fi
       ;;
   esac
@@ -36,9 +37,6 @@ set_default_shell() {
     echo "Shell path $shell_path does not exist"
     return 1
   fi
-
-  # disable usage of sudo if requested
-  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
   case "$("$DOTFILES_DIR"/bin/os-info --os)" in
     darwin)
@@ -55,9 +53,9 @@ main() {
   local default_shell="${1:-zsh}"
 
   # registers shells with os (e.g. /etc/shells)
-  add_shell "$(which bash | head -1 | tr -d "\n")"
-  add_shell "$(which zsh | head -1 | tr -d "\n")"
-  add_shell "$(which nu | head -1 | tr -d "\n")"
+  add_shell "$(which bash | head -1 | tr -d "\n")" "bash"
+  add_shell "$(which zsh | head -1 | tr -d "\n")" "zsh"
+  add_shell "$(which nu | head -1 | tr -d "\n")" "nu"
 
   # Change default shell to zsh
   set_default_shell "$(which "$default_shell" | head -1)"

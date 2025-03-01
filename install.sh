@@ -8,6 +8,7 @@
 # Environmenet Variables:
 #   DOTFILES_DIR                        The target directory for the dotfiles repo
 #   DOTFILES_DISABLE_SUDO               Allow usage of sudo: 1 (no) or 0 (yes)
+#   DOTFILES_SETUP_COMMAND              The custom setup command to run
 #
 # Examples:
 #   ./install.sh
@@ -23,11 +24,6 @@ clone_dotfiles() {
   if [ ! -d "${DOTFILES_DIR}" ]; then
     echo "Cloning dotfiles repo..."
     git clone "https://github.com/andrewthauer/dotfiles.git" "$DOTFILES_DIR"
-
-    # Ensure repo is using the ssh remote
-    # pushd "${DOTFILES_DIR}" >/dev/null
-    # git remote set-url origin git@github.com:andrewthauer/dotfiles.git
-    # popd >/dev/null
   fi
 }
 
@@ -48,7 +44,7 @@ main() {
   echo "DOTFILES_DIR: $DOTFILES_DIR"
   echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
 
-  # Use xdg
+  # Use xdg spec
   source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
 
   # Clone and initialize dotfiles env
@@ -57,14 +53,18 @@ main() {
   # Backup existing dotfiles
   backup_dotfiles
 
-  # Run OS specific setup script
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
-    "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
-    "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
-    *) echo "No OS specific setup script" ;;
-  esac
+  # Run custom setup script if provided
+  if [ -n "$DOTFILES_SETUP_COMMAND" ]; then
+    "$DOTFILES_SETUP_COMMAND"
+  else
+    # Run OS specific setup script
+    case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+      "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
+      "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
+      *) echo "No OS specific setup script" ;;
+    esac
+  fi
 }
 
 # Run the script
 main "$@"
-exit 0

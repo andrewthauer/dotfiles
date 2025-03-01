@@ -14,7 +14,9 @@ usage() {
   echo "  list, ls           List modules"
   echo "  link, ln           Link a module"
   echo "  unlink, rm         Unlink a module"
-  echo "  modules-file, f    Get the modules filename"
+  echo "  read-file, r       Read a modules file"
+  echo "  write-file, w      Write a modules file"
+  echo "  file-path          Get a modules file location"
   echo "  help               Prints this message"
   echo ""
   echo "FLAGS:"
@@ -120,6 +122,37 @@ read_modules_file() {
   cat <"$modules_file" | sed -e 's/[[:space:]]*#.*// ; /^[[:space:]]*$/d'
 }
 
+write_modules_file() {
+  local modules_file
+  local modules=()
+
+  case "$1" in
+    --file | -f)
+      modules_file="$2"
+      shift 2
+      ;;
+    *) ;;
+  esac
+
+  local modules=("${@}")
+
+  if [ "${#modules[@]}" -eq 0 ]; then
+    echo "No modules specified"
+    exit 1
+  fi
+
+  if [ -z "$modules_file" ]; then
+    modules_file="$(get_modules_file)"
+  fi
+
+  cat <<EOF >|"$modules_file"
+$(
+    IFS=$'\n'
+    echo "${modules[*]}"
+  )
+EOF
+}
+
 main() {
   cmd="$1"
   [ -n "$cmd" ] && shift
@@ -134,7 +167,13 @@ main() {
     unlink | rm)
       unlink "$@"
       ;;
-    modules-file | f)
+    read-file | r)
+      read_modules_file "$@"
+      ;;
+    write-file | w)
+      write_modules_file "$@"
+      ;;
+    file-path)
       get_modules_file
       ;;
     help | --help | -h)

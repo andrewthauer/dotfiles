@@ -21,7 +21,7 @@ usage() {
   echo "  help             Prints this message"
   echo ""
   echo "FLAGS"
-  echo "  --type, -t       Package manager (apt, dnf, yum, pacman, brew, nix-env)"
+  echo "  --type, -t       Package manager (apt, brew, cargo, dnf, nix-env, pacman, yum)"
   echo
   echo "EXAMPLES"
   echo "  $cmd install git zsh bash"
@@ -69,27 +69,31 @@ install_package() {
       # shellcheck disable=SC2068
       $sudo_cmd apt install -y ${pkgs[@]}
       ;;
-    "dnf")
-      # shellcheck disable=SC2068
-      $sudo_cmd dnf install -y ${pkgs[@]}
-      ;;
-    "yum")
-      # shellcheck disable=SC2068
-      $sudo_cmd yum install -y ${pkgs[@]}
-      ;;
-    "pacman")
-      # shellcheck disable=SC2068
-      $sudo_cmd pacman -S ${pkgs[@]}
-      ;;
     "brew")
       # shellcheck disable=SC2068
       brew install ${pkgs[@]}
+      ;;
+    "cargo")
+      # shellcheck disable=SC2068
+      cargo install ${pkgs[@]}
+      ;;
+    "dnf")
+      # shellcheck disable=SC2068
+      $sudo_cmd dnf install -y ${pkgs[@]}
       ;;
     "nix-env")
       # shellcheck disable=SC2068
       for pkg in ${pkgs[@]}; do
         nix-env -iA nixpkgs."$pkg"
       done
+      ;;
+    "pacman")
+      # shellcheck disable=SC2068
+      $sudo_cmd pacman -S ${pkgs[@]}
+      ;;
+    "yum")
+      # shellcheck disable=SC2068
+      $sudo_cmd yum install -y ${pkgs[@]}
       ;;
     *) ;;
   esac

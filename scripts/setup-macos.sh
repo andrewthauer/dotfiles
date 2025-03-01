@@ -2,23 +2,35 @@
 
 set -eo pipefail
 
-DOTFILES_DIR="${DOTFILES:-$HOME/.dotfiles}"
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 main() {
   local bin_dir="$DOTFILES_DIR/bin"
   local mod_dir="$DOTFILES_DIR/modules"
+  local scripts_dir="$DOTFILES_DIR/scripts"
+  local mods_file
+  mods_file="$("$bin_dir"/dotfiles module file-path)"
+
+  # Ensure local modules directory exists
+  mkdir -p "$mod_dir/local"
 
   # Core setup
   "$mod_dir/_base/install.sh"
 
   # Install & load Homebrew shellenv
   "$mod_dir/homebrew/install.sh"
+
   # shellcheck source=/dev/null
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # Install MacOS specific packages
   export HOMEBREW_BUNDLE_FILE="${mod_dir}/homebrew/.config/homebrew/Brewfile"
   brew bundle --no-lock
+
+  # Setup mise
+  mise trust --yes
+  # mise install rust --yes
+  # mise install node --yes
 
   # Install dotfiles module scripts
   "$mod_dir/docker/install.sh"
@@ -62,22 +74,20 @@ main() {
     zsh
   )
 
-  # Ensure local modules directory exists
-  mkdir -p "$mod_dir/local"
+  # Write modules file
+  if [ ! -f "$mods_file" ]; then
+    # shellcheck disable=SC2068
+    "$bin_dir"/dotfiles module write-file --file "$mods_file" ${default_modules[@]}
+  fi
 
   # Link dotfiles
-  # shellcheck disable=SC2068
-  "$bin_dir/dotfiles" mod link ${default_modules[@]}
-
-  # install mise versions
-  # mise trust --yes
-  # mise install node --yes
+  "$bin_dir"/dotfiles module link
 
   # Setup macos defaults
-  "$DOTFILES_DIR/scripts/macos-defaults.sh"
+  "$scripts_dir/scripts/macos-defaults.sh"
 
   # Set default shells
-  "$DOTFILES_DIR/scripts/set-default-shells.sh"
+  "$scripts_dir"/set-default-shells.sh
 }
 
 main "$@"

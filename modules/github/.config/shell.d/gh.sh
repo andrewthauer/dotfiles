@@ -1,3 +1,8 @@
+# Check if gh is installed
+if ! command_exists "gh"; then
+  return 1
+fi
+
 # Refresh gh copilot aliases
 init_gh_copilot() {
   local shell="zsh"
