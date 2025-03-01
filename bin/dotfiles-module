@@ -53,26 +53,44 @@ list_modules() {
 
 stow_modules() {
   local stow_flag="$1"
+  shift 1
+
   local modules=()
   local modules_file
   local modules_dir="$DOTFILES_DIR/modules"
   local oper_text=""
 
-  case "$2" in
-    --all | -a) modules=("$(list_modules --all)") ;;
-    --file | -f)
-      modules_file="$3"
-      if [ -f "$modules_file" ]; then
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --all | -a)
+        modules=("$(list_modules --all)")
+        shift 1
+        ;;
+      --file | -f)
+        modules_file="$2"
+        if [ ! -f "$modules_file" ]; then
+          echo "Module file not found: $modules_file"
+          exit 1
+        fi
         modules=("$(read_modules_file "$modules_file")")
-      else
-        echo "Module file not found: $modules_file"
+        shift 2
+        ;;
+      --no-file)
+        modules_file=0
+        shift 1
+        ;;
+      --*)
+        echo "Error: Unknown option: $1" >&2
         exit 1
-      fi
-      ;;
-    *) modules=("${@:2}") ;;
-  esac
+        ;;
+      *)
+        modules+=("$1")
+        shift
+        ;;
+    esac
+  done
 
-  if [ "${#modules[@]}" -eq 0 ]; then
+  if [ "${#modules[@]}" -eq 0 ] && [ -z "$modules_file" ]; then
     modules_file="$(get_modules_file)"
 
     if [ ! -f "$modules_file" ]; then

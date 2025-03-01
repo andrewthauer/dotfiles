@@ -82,7 +82,7 @@ main() {
   fi
 
   # Link dotfiles
-  "$bin_dir"/dotfiles module link
+  "$bin_dir"/dotfiles module link --file "$mod_file"
 
   # Set default shells
   "$scripts_dir"/set-default-shells.sh

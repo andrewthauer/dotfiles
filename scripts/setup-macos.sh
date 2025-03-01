@@ -83,7 +83,7 @@ main() {
   fi
 
   # Link dotfiles
-  "$bin_dir"/dotfiles module link
+  "$bin_dir"/dotfiles module link --file "$mod_file"
 
   # Setup macos defaults
   "$scripts_dir/scripts/macos-defaults.sh"

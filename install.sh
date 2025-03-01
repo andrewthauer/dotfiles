@@ -7,7 +7,7 @@
 #
 # Flags
 #   --target | -t <dir>                 The target directory for the dotfiles repo
-#   --setup-command | -d <command>      The custom setup command to run
+#   --setup-command | -s <command>      The custom setup command to run
 #   --no-sudo                           Allow usage of sudo: 1 (no) or 0 (yes)
 #   --verbose | -v                      Enable verbose logging
 #
@@ -49,7 +49,7 @@ main() {
       DOTFILES_DIR="$2"
       shift 2
       ;;
-    --setup-command | -d)
+    --setup-command | -s)
       DOTFILES_SETUP_COMMAND="$2"
       shift 2
       ;;
@@ -71,6 +71,7 @@ main() {
   if [ -n "$DOTFILES_LOG_VERBOSE" ]; then
     echo "DOTFILES_DIR: $DOTFILES_DIR"
     echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
+    echo "DOTFILES_SETUP_COMMAND: $DOTFILES_SETUP_COMMAND"
   fi
 
   # Clone and initialize dotfiles env

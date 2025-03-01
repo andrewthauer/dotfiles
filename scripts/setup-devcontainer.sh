@@ -58,14 +58,14 @@ main() {
     direnv
     docker
     fzf
-    git
+    # git
     github
     go
-    gpg
-    jujutsu
-    local
+    # gpg
+    # jujutsu
+    # local
     mise
-    neovim
+    # neovim
     nodejs
     ripgrep
     ruby
@@ -79,7 +79,7 @@ main() {
 
   # Link dotfiles
   # shellcheck disable=SC2068
-  "$bin_dir"/dotfiles module link ${default_modules[@]}
+  "$bin_dir"/dotfiles module link --no-file ${default_modules[@]}
 
   # Set default shells
   DOTFILES_DISABLE_SUDO=1 "$scripts_dir"/set-default-shells.sh

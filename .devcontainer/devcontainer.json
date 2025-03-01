@@ -1,7 +1,6 @@
 {
   "name": "dotfiles",
   "image": "mcr.microsoft.com/devcontainers/base:debian",
-  "containerUser": "dotty",
   "containerEnv": {
     "DOTFILES_DIR": "/workspaces/dotfiles"
   },
