@@ -1,7 +1,3 @@
-#
-# Initialize docker environment
-#
-
 # shellcheck disable=SC2142
 
 #

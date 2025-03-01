@@ -1,7 +1,3 @@
-#
-# Initialize nix environment
-#
-
 # The determinate nix-installer configures /etc/zshrc & /etc/bashrc to source
 # by default on the system. So if it exists we don't need to source it here.
 if [ ! -x '/nix/nix-installer' ]; then

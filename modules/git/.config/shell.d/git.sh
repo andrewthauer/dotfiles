@@ -1,11 +1,4 @@
-#
-# Initialize git environment
-#
-
-#
 # Aliases
-#
-
 alias g='git'
 alias gb='git branch'
 alias gco='git checkout'

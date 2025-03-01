@@ -1,7 +1,4 @@
-#
-# Initialize 1password cli environment
-#
-
+# Exit early if op is not installed
 if ! command_exists "op"; then
   return 1
 fi

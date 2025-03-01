@@ -23,7 +23,8 @@
   "file_types": {
     "GitConfig": ["**/git/config*", "**/git/aliases*"],
     "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
-    "Shell Script": ["**/*.bats"]
+    "Shell Script": ["**/*.bats"],
+    "XML": ["*.plist"]
   },
   "format_on_save": "off",
   "icon_theme": {

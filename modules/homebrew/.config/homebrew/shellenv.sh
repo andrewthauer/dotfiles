@@ -1,6 +1,4 @@
 # Initialize Homebrew environment
-#
-
 if [[ "$OSTYPE" == darwin* ]]; then
   if [ -d "/opt/homebrew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"

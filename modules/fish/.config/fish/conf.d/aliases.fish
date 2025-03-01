@@ -1,8 +1,4 @@
 #
-# Aliases
-#
-
-#
 # XDG Base Directory Specification
 #
 
@@ -48,9 +44,6 @@ alias k="kubectl"
 
 # lazygit
 alias lg="lazygit"
-
-# mise
-alias m="mise"
 
 # ruby
 alias be="bundle exec"

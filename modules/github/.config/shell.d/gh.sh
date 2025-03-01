@@ -1,9 +1,4 @@
-#
-# Initialize environment for GitHub CLI
-#
-
 # Refresh gh copilot aliases
-
 init_gh_copilot() {
   local shell="zsh"
   local dir="${XDG_DATA_HOME}"/gh/shell.d
