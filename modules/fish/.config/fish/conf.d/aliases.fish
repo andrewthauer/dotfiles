@@ -20,7 +20,7 @@ alias l="ls -a"
 alias ll="ls -la"
 
 # dotfiles
-alias dotdir="cd $DOTFILES_DIR"
+alias dotdir="cd $DOTFILES_HOME"
 
 #
 # Module specific

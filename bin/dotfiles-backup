@@ -19,7 +19,7 @@ main() {
     -arv \
     --delete \
     --exclude ".git" \
-    "${DOTFILES_DIR}/" \
+    "${DOTFILES_HOME}/" \
     "${target_dir}"
 }
 

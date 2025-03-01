@@ -14,17 +14,16 @@ typeset -gU cdpath fpath mailpath path
 # Disable shell sessions
 SHELL_SESSIONS_DISABLE=1
 
-# Check for custom dotfiles path
-if [ -f "${XDG_CONFIG_HOME}/dotfiles-path" ]; then
-  dotfiles_path=$(cat "${XDG_CONFIG_HOME}/dotfiles-path")
-  DOTFILES_PATH="${dotfiles_path}"
+# Check for custom dotfiles home
+if [ -f "${XDG_CONFIG_HOME}/dotfiles-home" ]; then
+  DOTFILES_HOME="${DOTFILES_HOME:-$(cat "${XDG_CONFIG_HOME}/dotfiles-home")}"
 fi
 
 # Dotfiles initialization
-export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+export DOTFILES_HOME="${DOTFILES_HOME:-${HOME}/.dotfiles}"
 
 # shellcheck source=../../../lib/init.sh
-source "${DOTFILES_DIR}/lib/init.sh"
+source "${DOTFILES_HOME}/lib/init.sh"
 
 # Export all environment files
 if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then

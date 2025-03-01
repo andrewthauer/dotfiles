@@ -2,13 +2,13 @@
 
 set -eo pipefail
 
-DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
-PATH="$DOTFILES_DIR/bin:$PATH"
+DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_HOME/bin:$PATH"
 
-source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
+source "${DOTFILES_HOME}/modules/xdg/.config/profile.d/xdg.sh"
 
 main() {
-  local scripts_dir="$DOTFILES_DIR/scripts"
+  local scripts_dir="$DOTFILES_HOME/scripts"
   local mod_file
   mod_file="$(dotfiles module file-path)"
 

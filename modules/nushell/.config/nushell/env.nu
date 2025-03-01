@@ -14,7 +14,7 @@ $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 #
 
 # TODO: Only update if not already set
-$env.DOTFILES_DIR = $"($env.HOME)/.dotfiles"
+$env.DOTFILES_HOME = $"($env.HOME)/.dotfiles"
 
 # Load helpers
 source ($nu.default-config-dir | path join 'scripts/dotenv.nu')
@@ -41,5 +41,5 @@ prepand_path /usr/local/bin
 prepand_path /opt/homebrew/bin
 prepand_path ($env.KREW_ROOT | path join "bin")
 prepand_path ($env.HOME | path join ".local" "bin")
-prepand_path (path join $env.DOTFILES_DIR "bin")
+prepand_path ($env.DOTFILES_HOME | path join "bin")
 $env.PATH = ($env.PATH | uniq)

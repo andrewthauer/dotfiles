@@ -37,7 +37,7 @@ list_modules() {
 
   case "$cmd" in
     --all | -a)
-      ls -1 "$DOTFILES_DIR/modules"
+      ls -1 "$DOTFILES_HOME/modules"
       ;;
     help | --help | -h)
       echo "USAGE: dotfiles module [command]"
@@ -57,7 +57,7 @@ stow_modules() {
 
   local modules=()
   local modules_file
-  local modules_dir="$DOTFILES_DIR/modules"
+  local modules_dir="$DOTFILES_HOME/modules"
   local oper_text=""
 
   while [[ $# -gt 0 ]]; do
@@ -126,7 +126,7 @@ stow_modules() {
 }
 
 get_modules_file() {
-  echo "${DOTFILES_MODULES_FILE:-$DOTFILES_DIR/modules.txt}"
+  echo "${DOTFILES_MODULES_FILE:-$DOTFILES_HOME/modules.txt}"
 }
 
 read_modules_file() {

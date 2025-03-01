@@ -1,4 +1,4 @@
-DOTFILES_DIR = $(CURDIR)
+DOTFILES_HOME = $(CURDIR)
 
 default: lint
 

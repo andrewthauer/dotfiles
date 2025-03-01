@@ -1,12 +1,11 @@
-# Check for custom dotfiles path
-if test -f "$XDG_CONFIG_HOME/dotfiles-path"
-  set dotfiles_path (cat "$XDG_CONFIG_HOME/dotfiles-path")
-  set -gx DOTFILES_PATH $dotfiles_path
+# Check for custom dotfiles home
+if test -f "$XDG_CONFIG_HOME/dotfiles-home"
+  set -gx DOTFILES_HOME $(cat "$XDG_CONFIG_HOME/dotfiles-home")
 end
 
 # Setup default dotfiles env vars
-if not set -q DOTFILES_PATH
-  set -gx DOTFILES_PATH $HOME/.dotfiles
+if not set -q DOTFILES_HOME
+  set -gx DOTFILES_HOME $HOME/.dotfiles
 end
 
 # load environment

@@ -138,7 +138,7 @@ in
   };
 
   home.sessionVariables = {
-    DOTFILES_DIR = "${dotfiles.baseDir}";
+    DOTFILES_HOME = "${dotfiles.baseDir}";
   } // sessionVariables;
 
   programs.bash = {

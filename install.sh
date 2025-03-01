@@ -12,7 +12,7 @@
 #   --verbose | -v                      Enable verbose logging
 #
 # Environmenet Variables
-#   DOTFILES_DIR                        The target directory for the dotfiles repo
+#   DOTFILES_HOME                        The target directory for the dotfiles repo
 #   DOTFILES_DISABLE_SUDO               Allow usage of sudo: 1 (no) or 0 (yes)
 #   DOTFILES_SETUP_COMMAND              The custom setup command to run
 #
@@ -24,9 +24,9 @@
 set -eo pipefail
 
 clone_dotfiles() {
-  if [ ! -d "${DOTFILES_DIR}" ]; then
+  if [ ! -d "${DOTFILES_HOME}" ]; then
     echo "Cloning dotfiles repo..."
-    git clone "https://github.com/andrewthauer/dotfiles.git" "$DOTFILES_DIR"
+    git clone "https://github.com/andrewthauer/dotfiles.git" "$DOTFILES_HOME"
   fi
 }
 
@@ -46,7 +46,7 @@ backup_dotfiles() {
 main() {
   case "$1" in
     --target | -t)
-      DOTFILES_DIR="$2"
+      DOTFILES_HOME="$2"
       shift 2
       ;;
     --setup-command | -s)
@@ -65,11 +65,11 @@ main() {
   esac
 
   # Defaults
-  export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+  export DOTFILES_HOME="${DOTFILES_HOME:-$HOME/.dotfiles}"
   export DOTFILES_DISABLE_SUDO="${DOTFILES_DISABLE_SUDO:-0}"
 
   if [ -n "$DOTFILES_LOG_VERBOSE" ]; then
-    echo "DOTFILES_DIR: $DOTFILES_DIR"
+    echo "DOTFILES_HOME: $DOTFILES_HOME"
     echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
     echo "DOTFILES_SETUP_COMMAND: $DOTFILES_SETUP_COMMAND"
   fi
@@ -81,10 +81,10 @@ main() {
   backup_dotfiles
 
   # Add bin helpers to path
-  PATH="$DOTFILES_DIR/bin:$PATH"
+  PATH="$DOTFILES_HOME/bin:$PATH"
 
   # Use xdg spec
-  source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
+  source "${DOTFILES_HOME}/modules/xdg/.config/profile.d/xdg.sh"
 
   # Run custom setup script if provided
   if [ -n "$DOTFILES_SETUP_COMMAND" ]; then
@@ -92,8 +92,8 @@ main() {
   else
     # Run autodetected setup script
     case "$(os-info --family)" in
-      "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
-      "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
+      "macos") "$DOTFILES_HOME/scripts/setup-macos.sh" ;;
+      "debian") "$DOTFILES_HOME/scripts/setup-linux.sh" ;;
       *) echo "No OS specific setup script" ;;
     esac
   fi

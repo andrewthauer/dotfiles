@@ -2,8 +2,8 @@
 
 set -eou pipefail
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
-PATH="$DOTFILES_DIR/bin:$PATH"
+DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_HOME/bin:$PATH"
 
 install_zsh_plugins() {
   local plugins=("zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search")

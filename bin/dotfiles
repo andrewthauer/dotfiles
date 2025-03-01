@@ -19,8 +19,8 @@ usage() {
   echo "  help                 Prints this message"
 }
 
-export DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
-PATH="$DOTFILES_DIR/bin:$PATH"
+export DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   cmd="$1"

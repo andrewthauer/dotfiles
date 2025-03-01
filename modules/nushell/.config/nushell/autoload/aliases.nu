@@ -27,7 +27,7 @@ export alias ll = ls -la
 export alias ex = explore
 
 # dotfiles
-export alias dotdir = cd $env.DOTFILES_DIR
+export alias dotdir = cd $env.DOTFILES_HOME
 
 #
 # Module aliases

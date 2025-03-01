@@ -2,7 +2,7 @@
   "name": "dotfiles",
   "image": "mcr.microsoft.com/devcontainers/base:debian",
   "containerEnv": {
-    "DOTFILES_DIR": "/workspaces/dotfiles"
+    "DOTFILES_HOME": "/workspaces/dotfiles"
   },
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {},

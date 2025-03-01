@@ -14,7 +14,7 @@ This package contains useful docker aliases.
 
 ```sh
 # Run the base docker setup
-$DOTFILES_DIR/modules/docker/install.sh
+$DOTFILES_HOME/modules/docker/install.sh
 
 # startup colima, which will use the docker runtime by default
 colima start --runtime docker --cpu 2 --memory 6 --ssh-config=false

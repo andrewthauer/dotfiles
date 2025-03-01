@@ -4,8 +4,8 @@
 
 set -o errexit -o pipefail -o noclobber
 
-DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
-PATH="${DOTFILES_DIR}/bin:${PATH}"
+DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="${DOTFILES_HOME}/bin:${PATH}"
 
 usage() {
   local cmd
@@ -49,13 +49,13 @@ init_package_manager() {
     "brew")
       if ! command -v brew &>/dev/null; then
         # shellcheck disable=SC1091
-        source "${DOTFILES_DIR}/modules/homebrew/.config/homebrew/shellenv.sh"
+        source "${DOTFILES_HOME}/modules/homebrew/.config/homebrew/shellenv.sh"
       fi
       ;;
     "nix")
       if ! command -v nix-env &>/dev/null; then
         # shellcheck disable=SC1091
-        source "${DOTFILES_DIR}/modules/nix/.config/profile.d/nix.sh"
+        source "${DOTFILES_HOME}/modules/nix/.config/profile.d/nix.sh"
       fi
       ;;
     *) ;;

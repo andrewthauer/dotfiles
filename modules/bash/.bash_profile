@@ -18,17 +18,16 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
-# Check for custom dotfiles path
-if [ -f "${XDG_CONFIG_HOME}/dotfiles-path" ]; then
-  dotfiles_path=$(cat "${XDG_CONFIG_HOME}/dotfiles-path")
-  DOTFILES_PATH="${dotfiles_path}"
+# Check for custom dotfiles home
+if [ -f "${XDG_CONFIG_HOME}/dotfiles-home" ]; then
+  DOTFILES_HOME="${DOTFILES_HOME:-$(cat "${XDG_CONFIG_HOME}/dotfiles-home")}"
 fi
 
 # Dotfiles initialization
-export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
+export DOTFILES_HOME="${DOTFILES_HOME:-${HOME}/.dotfiles}"
 
 # shellcheck source=../../lib/init.sh disable=SC1091
-source "${DOTFILES_DIR}/lib/init.sh"
+source "${DOTFILES_HOME}/lib/init.sh"
 
 # Export all environment files
 if [ -d "${XDG_CONFIG_HOME}/environment.d" ]; then

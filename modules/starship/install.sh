@@ -2,8 +2,8 @@
 
 set -eou pipefail
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
-PATH="$DOTFILES_DIR/bin:$PATH"
+DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   if [ "$(command -v starship)" ]; then
