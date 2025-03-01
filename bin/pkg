@@ -112,7 +112,7 @@ main() {
   pkg_mgr="$(os-info --package-manager)"
 
   # disable usage of sudo if requested
-  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
+  [[ "$DOTFILES_NO_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""
 
   while (("$#")); do
     case "$1" in
@@ -122,6 +122,11 @@ main() {
         ;;
       --skip-update | -s)
         SKIP_PACKAGE_MANGER_UPDATE="true"
+        shift 1
+        ;;
+      --no-sudo)
+        DOTFILES_NO_SUDO=1
+        sudo_cmd="sudo " || sudo_cmd=""
         shift 1
         ;;
       --) # end argument parsing

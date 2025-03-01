@@ -17,7 +17,7 @@ add_shell() {
   fi
 
   # disable usage of sudo if requested
-  [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo" || sudo_cmd=""
+  [[ "$DOTFILES_NO_SUDO" -eq 0 ]] && sudo_cmd="sudo" || sudo_cmd=""
 
   case "$(os-info --family)" in
     *)

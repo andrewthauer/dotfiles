@@ -11,6 +11,9 @@ main() {
   local mod_dir="$DOTFILES_HOME/modules"
   local scripts_dir="$DOTFILES_HOME/scripts"
 
+  # Use custom dotfiles home
+  echo "${DOTFILES_HOME}" >"${XDG_CONFIG_HOME}/dotfiles-home"
+
   # Ensure local modules directory exists
   mkdir -p "$mod_dir/local"
 
@@ -82,7 +85,7 @@ main() {
   dotfiles module link --no-file ${default_modules[@]}
 
   # Set default shells
-  DOTFILES_DISABLE_SUDO=1 "$scripts_dir"/set-default-shells.sh
+  DOTFILES_NO_SUDO=1 "$scripts_dir"/set-default-shells.sh
 }
 
 main "$@"

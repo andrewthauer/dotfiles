@@ -13,8 +13,8 @@
 #
 # Environmenet Variables
 #   DOTFILES_HOME                        The target directory for the dotfiles repo
-#   DOTFILES_DISABLE_SUDO               Allow usage of sudo: 1 (no) or 0 (yes)
-#   DOTFILES_SETUP_COMMAND              The custom setup command to run
+#   DOTFILES_NO_SUDO                     Allow usage of sudo: 1 (no) or 0 (yes)
+#   DOTFILES_SETUP_COMMAND               The custom setup command to run
 #
 # Examples
 #   ./install.sh
@@ -54,7 +54,7 @@ main() {
       shift 2
       ;;
     --no-sudo)
-      DOTFILES_DISABLE_SUDO=1
+      DOTFILES_NO_SUDO=1
       shift 1
       ;;
     --verbose | -v)
@@ -66,11 +66,11 @@ main() {
 
   # Defaults
   export DOTFILES_HOME="${DOTFILES_HOME:-$HOME/.dotfiles}"
-  export DOTFILES_DISABLE_SUDO="${DOTFILES_DISABLE_SUDO:-0}"
+  export DOTFILES_NO_SUDO="${DOTFILES_NO_SUDO:-0}"
 
   if [ -n "$DOTFILES_LOG_VERBOSE" ]; then
     echo "DOTFILES_HOME: $DOTFILES_HOME"
-    echo "DOTFILES_DISABLE_SUDO: $DOTFILES_DISABLE_SUDO"
+    echo "DOTFILES_NO_SUDO: $DOTFILES_NO_SUDO"
     echo "DOTFILES_SETUP_COMMAND: $DOTFILES_SETUP_COMMAND"
   fi
 
