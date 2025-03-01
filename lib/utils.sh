@@ -59,10 +59,12 @@ function function_exists() {
 #   # PATH="/path/abc:/path/xyz:/usr/bin:/bin"
 #
 function prepend_path() {
-  local i
-  local paths=("$1")
-  for ((i = $#; i > 0; i--)); do
-    arg=${paths[i]}
+  local args=("$@")
+  local arg
+
+  # Process arguments in reverse order
+  for ((i = ${#args[@]} - 1; i >= 0; i--)); do
+    arg="${args[i]}"
     if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
       PATH="$arg${PATH:+":$PATH"}"
     fi
