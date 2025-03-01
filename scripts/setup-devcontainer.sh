@@ -2,12 +2,12 @@
 
 set -eo pipefail
 
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
 
 source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
 
 main() {
-  local bin_dir="$DOTFILES_DIR/bin"
   local mod_dir="$DOTFILES_DIR/modules"
   local scripts_dir="$DOTFILES_DIR/scripts"
 
@@ -18,7 +18,7 @@ main() {
   export LANG="en_US.UTF-8"
 
   # Install packages with package manager
-  "$bin_dir/pkg" install \
+  pkg install \
     stow \
     bash \
     direnv \
@@ -79,7 +79,7 @@ main() {
 
   # Link dotfiles
   # shellcheck disable=SC2068
-  "$bin_dir"/dotfiles module link --no-file ${default_modules[@]}
+  dotfiles module link --no-file ${default_modules[@]}
 
   # Set default shells
   DOTFILES_DISABLE_SUDO=1 "$scripts_dir"/set-default-shells.sh

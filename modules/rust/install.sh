@@ -2,13 +2,16 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 main() {
   if [ "$(command -v rustup)" ]; then
     echo "rustup is already installed"
     exit 0
   fi
 
-  case "$("$DOTFILES_DIR"/bin/os-info --package-manager)" in
+  case "$(os-info --package-manager)" in
     *)
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
       ;;

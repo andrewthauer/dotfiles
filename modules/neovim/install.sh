@@ -2,6 +2,9 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 install_plugins() {
   nvim +PlugInstall +qall
 }
@@ -12,13 +15,9 @@ main() {
     exit 1
   fi
 
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
-    "macos")
-      brew install neovim
-      ;;
-    *)
-      "$DOTFILES_DIR"/bin/pkg install "neovim"
-      ;;
+  case "$(os-info --family)" in
+    "macos") brew install neovim ;;
+    *) pkg install "neovim" ;;
   esac
 
   install_plugins

@@ -16,9 +16,6 @@
 #   4. copy command from plist output to this file
 #
 
-# Default dotfiles home directory
-DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-
 # Prompt for admin password upfront
 sudo -v
 

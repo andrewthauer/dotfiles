@@ -2,6 +2,9 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 configure_launch_agent_macos() {
   mkdir -p ~/Library/LaunchAgents
 
@@ -28,7 +31,7 @@ EOF
 }
 
 main() {
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       brew install 1password-cli
       configure_launch_agent_macos

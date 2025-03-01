@@ -18,6 +18,12 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
+# Check for custom dotfiles path
+if [ -f "${XDG_CONFIG_HOME}/dotfiles-path" ]; then
+  dotfiles_path=$(cat "${XDG_CONFIG_HOME}/dotfiles-path")
+  DOTFILES_PATH="${dotfiles_path}"
+fi
+
 # Dotfiles initialization
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 
@@ -35,7 +41,9 @@ if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then
 fi
 
 # Ensure the xdg data directory exists
-[ ! -d "${XDG_DATA_HOME}/bash" ] && mkdir -p "${XDG_DATA_HOME}/bash"
+if [ ! -d "${XDG_DATA_HOME}/bash" ]; then
+  mkdir -p "${XDG_DATA_HOME}/bash"
+fi
 
 # Source the ~/.bashrc file
 if [ -f "${HOME}/.bashrc" ] && [ -z "$BASH_RC_LOADED" ]; then

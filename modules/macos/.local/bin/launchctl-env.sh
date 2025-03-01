@@ -2,6 +2,9 @@
 
 set -e
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 export_xdg_env() {
   export XDG_CONFIG_HOME="${HOME}/.config"
   export XDG_DATA_HOME="${HOME}/.local/share"
@@ -37,7 +40,7 @@ find_deno_path() {
 }
 
 launchctl_env_files() {
-  local script="$HOME/.dotfiles/bin/envx.ts"
+  local script="envx.ts"
   local deno_cmd
 
   deno_cmd=$(find_deno_path)

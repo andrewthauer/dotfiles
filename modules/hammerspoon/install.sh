@@ -2,6 +2,9 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 install_hammerspoon() {
   echo "Installing Hammerspoon..."
   brew list hammerspoon || brew install hammerspoon
@@ -20,7 +23,7 @@ configire_hammerspoon() {
 }
 
 main() {
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       install_hammerspoon
       install_spoons

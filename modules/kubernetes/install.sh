@@ -2,6 +2,9 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 install_krew() {
   (
     set -x
@@ -16,13 +19,9 @@ install_krew() {
 }
 
 main() {
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
-    "macos")
-      brew install kubectl
-      ;;
-    *)
-      "$DOTFILES_DIR"/bin/pkg install "kubectl"
-      ;;
+  case "$(os-info --family)" in
+    "macos") brew install kubectl ;;
+    *) pkg install "kubectl" ;;
   esac
 
   install_krew

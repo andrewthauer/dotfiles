@@ -19,4 +19,6 @@ init_gh_copilot() {
   source "$file"
 }
 
-init_gh_copilot
+init_gh_copilot 2>/dev/null || {
+  return 1
+}

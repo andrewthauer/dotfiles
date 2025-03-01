@@ -2,13 +2,16 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 main() {
   if [ "$(command -v nushell)" ]; then
     echo "nushell is already installed"
     exit 0
   fi
 
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       brew install nushell carapace
       ;;
@@ -17,7 +20,7 @@ main() {
         curl -fsSL https://apt.fury.io/nushell/gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/fury-nushell.gpg
       fi
       echo "deb https://apt.fury.io/nushell/ /" | sudo tee /etc/apt/sources.list.d/fury.list
-      SKIP_PACAKGE_MANGER_UPDATE="false" "$DOTFILES_DIR"/bin/pkg install nushell
+      SKIP_PACAKGE_MANGER_UPDATE="false" pkg install nushell
       ;;
   esac
 }

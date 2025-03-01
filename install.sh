@@ -80,6 +80,9 @@ main() {
   # Backup existing dotfiles
   backup_dotfiles
 
+  # Add bin helpers to path
+  PATH="$DOTFILES_DIR/bin:$PATH"
+
   # Use xdg spec
   source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
 
@@ -88,7 +91,7 @@ main() {
     "$DOTFILES_SETUP_COMMAND"
   else
     # Run autodetected setup script
-    case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+    case "$(os-info --family)" in
       "macos") "$DOTFILES_DIR/scripts/setup-macos.sh" ;;
       "debian") "$DOTFILES_DIR/scripts/setup-linux.sh" ;;
       *) echo "No OS specific setup script" ;;

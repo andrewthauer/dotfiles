@@ -2,13 +2,16 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 main() {
   if [ "$(command -v mise)" ]; then
     echo "mise is already installed"
     exit 0
   fi
 
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       brew install mise
       ;;

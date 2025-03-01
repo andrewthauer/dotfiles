@@ -2,6 +2,9 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 uninstall_nix_macos() {
   sudo -v
 
@@ -68,7 +71,7 @@ uninstall_nix_macos() {
 }
 
 main() {
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       printf "This will completely remove nix. Are you sure you want to continue [y/N]? "
       read -r answer

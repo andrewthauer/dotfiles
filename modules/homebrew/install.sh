@@ -2,8 +2,10 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 install_homebrew() {
   echo "Checking if homebrew is installed..."
@@ -24,11 +26,12 @@ install_homebrew() {
 
 install_brews() {
   # Install brews using brew bundle (uses the Brewfile)
-  if [ -x "$(command -v brew)" ]; then
+  local brewfile="${CURRENT_DIR}/.config/homebrew/Brewfile"
+
+  if [ -x "$(command -v brew)" ] && [ -f "$brewfile" ]; then
     printf "Do you want run brew bundle [y/N]? "
     read -r answer
     case "${answer}" in [yY] | [yY][eE][sS])
-      brewfile="${DOTFILES_DIR}/.config/homebrew/Brewfile"
       HOMEBREW_BUNDLE_FILE="$brewfile" brew bundle
       ;;
     esac
@@ -36,7 +39,7 @@ install_brews() {
 }
 
 main() {
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       install_homebrew
       # install_brews

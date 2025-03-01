@@ -4,6 +4,9 @@
 
 set -e
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 add_shell() {
   local shell_path="$1"
   local shell="$2"
@@ -16,7 +19,7 @@ add_shell() {
   # disable usage of sudo if requested
   [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo" || sudo_cmd=""
 
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     *)
       if grep -qF "${shell_path}" /etc/shells && echo "${shell_path}" >/dev/null; then
         echo "Shell $shell_path already found in /etc/shells"
@@ -38,7 +41,7 @@ set_default_shell() {
     return 1
   fi
 
-  case "$("$DOTFILES_DIR"/bin/os-info --os)" in
+  case "$(os-info --os)" in
     darwin)
       echo "Changing default shell to $shell_path"
       chsh -s "$shell_path"

@@ -2,6 +2,9 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 install_macos() {
   # Setup config directories
   mkdir -p "${XDG_CONFIG_HOME}/docker"
@@ -22,7 +25,7 @@ install_macos() {
 }
 
 main() {
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     "macos")
       install_macos
       ;;

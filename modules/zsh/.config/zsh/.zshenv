@@ -14,6 +14,12 @@ typeset -gU cdpath fpath mailpath path
 # Disable shell sessions
 SHELL_SESSIONS_DISABLE=1
 
+# Check for custom dotfiles path
+if [ -f "${XDG_CONFIG_HOME}/dotfiles-path" ]; then
+  dotfiles_path=$(cat "${XDG_CONFIG_HOME}/dotfiles-path")
+  DOTFILES_PATH="${dotfiles_path}"
+fi
+
 # Dotfiles initialization
 export DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/.dotfiles}"
 

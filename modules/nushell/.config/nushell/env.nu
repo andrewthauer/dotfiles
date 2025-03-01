@@ -41,5 +41,5 @@ prepand_path /usr/local/bin
 prepand_path /opt/homebrew/bin
 prepand_path ($env.KREW_ROOT | path join "bin")
 prepand_path ($env.HOME | path join ".local" "bin")
-prepand_path ($env.HOME | path join ".dotfiles" "bin")
+prepand_path (path join $env.DOTFILES_DIR "bin")
 $env.PATH = ($env.PATH | uniq)

@@ -2,17 +2,20 @@
 
 set -eou pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
+
 install_devpod() {
   # local os arch
-  os="$("$DOTFILES_DIR"/bin/os-info --os)"
-  arch="$("$DOTFILES_DIR"/bin/os-info --arch)"
+  os="$(os-info --os)"
+  arch="$(os-info --arch)"
   [ "$arch" == "x86_64" ] && arch="amd64"
 
   # Use xdg
   export DEVPOD_HOME="$XDG_CONFIG_HOME/devpod"
 
   # Install devpod
-  case "$("$DOTFILES_DIR"/bin/os-info --family)" in
+  case "$(os-info --family)" in
     macos)
       brew install devpod
       ;;

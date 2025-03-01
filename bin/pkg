@@ -4,7 +4,8 @@
 
 set -o errexit -o pipefail -o noclobber
 
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="${DOTFILES_DIR}/bin:${PATH}"
 
 usage() {
   local cmd
@@ -108,7 +109,7 @@ main() {
   local pos_args=""
 
   # shellcheck disable=SC2086
-  pkg_mgr="$(${DOTFILES_DIR}/bin/os-info --package-manager)"
+  pkg_mgr="$(os-info --package-manager)"
 
   # disable usage of sudo if requested
   [[ "$DOTFILES_DISABLE_SUDO" -eq 0 ]] && sudo_cmd="sudo " || sudo_cmd=""

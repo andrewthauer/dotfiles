@@ -2,16 +2,16 @@
 
 set -eo pipefail
 
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="$DOTFILES_DIR/bin:$PATH"
 
 source "${DOTFILES_DIR}/modules/xdg/.config/profile.d/xdg.sh"
 
 main() {
-  local bin_dir="$DOTFILES_DIR/bin"
   local mod_dir="$DOTFILES_DIR/modules"
   local scripts_dir="$DOTFILES_DIR/scripts"
   local mod_file
-  mod_file="$("$bin_dir"/dotfiles module file-path)"
+  mod_file="$(dotfiles module file-path)"
 
   # Ensure local modules directory exists
   mkdir -p "$mod_dir/local"
@@ -20,7 +20,7 @@ main() {
   export LANG="en_US.UTF-8"
 
   # Install packages with package manager
-  "$bin_dir/pkg" install \
+  pkg install \
     stow \
     bash \
     direnv \
@@ -78,11 +78,11 @@ main() {
   # Write modules file
   if [ ! -f "$mod_file" ]; then
     # shellcheck disable=SC2068
-    "$bin_dir"/dotfiles module write-file --file "$mod_file" ${default_modules[@]}
+    dotfiles module write-file --file "$mod_file" ${default_modules[@]}
   fi
 
   # Link dotfiles
-  "$bin_dir"/dotfiles module link --file "$mod_file"
+  dotfiles module link --file "$mod_file"
 
   # Set default shells
   "$scripts_dir"/set-default-shells.sh
