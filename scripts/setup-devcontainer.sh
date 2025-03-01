@@ -7,6 +7,9 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 source "${DOTFILES_HOME}/modules/xdg/.config/profile.d/xdg.sh"
 
+# Disable stow perl language warnings
+export LANG="en_US.UTF-8"
+
 main() {
   local mod_dir="$DOTFILES_HOME/modules"
   local scripts_dir="$DOTFILES_HOME/scripts"
@@ -14,11 +17,9 @@ main() {
   # Use custom dotfiles home
   echo "${DOTFILES_HOME}" >"${XDG_CONFIG_HOME}/dotfiles-home"
 
-  # Ensure local modules directory exists
+  # Base setup
+  "$mod_dir/_base/install.sh"
   mkdir -p "$mod_dir/local"
-
-  # Disable stow perl language warnings
-  export LANG="en_US.UTF-8"
 
   # Install packages with package manager
   pkg install \
@@ -42,7 +43,6 @@ main() {
   # mise install node --yes
 
   # Install dotfiles module scripts
-  "$mod_dir/_base/install.sh"
   "$mod_dir/github/install.sh"
   "$mod_dir/nushell/install.sh"
   "$mod_dir/starship/install.sh"

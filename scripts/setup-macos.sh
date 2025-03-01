@@ -8,15 +8,14 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 source "${DOTFILES_HOME}/modules/xdg/.config/profile.d/xdg.sh"
 
 main() {
+  local mod_dir="$DOTFILES_HOME/modules"
   local scripts_dir="$DOTFILES_HOME/scripts"
   local mod_file
   mod_file="$(dotfiles module file-path)"
 
-  # Ensure local modules directory exists
-  mkdir -p "$mod_dir/local"
-
-  # Core setup
+  # Base setup
   "$mod_dir/_base/install.sh"
+  mkdir -p "$mod_dir/local"
 
   # Install & load Homebrew shellenv
   "$mod_dir/homebrew/install.sh"

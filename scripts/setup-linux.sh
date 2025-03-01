@@ -13,11 +13,9 @@ main() {
   local mod_file
   mod_file="$(dotfiles module file-path)"
 
-  # Ensure local modules directory exists
+  # Base setup
+  "$mod_dir/_base/install.sh"
   mkdir -p "$mod_dir/local"
-
-  # Disable stow perl language warnings
-  export LANG="en_US.UTF-8"
 
   # Install packages with package manager
   pkg install \
