@@ -5,7 +5,7 @@ set -eo pipefail
 DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
-source "${DOTFILES_HOME}/modules/xdg/.config/profile.d/xdg.sh"
+source "${DOTFILES_HOME}/lib/xdg.sh"
 
 # Disable stow perl language warnings
 export LANG="en_US.UTF-8"

@@ -187,3 +187,82 @@ tar_with_timestamp() {
 
 date +%Y_%m_%d_%H_%M_%S
 ```
+
+## Lazy Loading
+
+The folllowing are some helpers that can be used to lazy load an expensive
+operation until the first time the function or command is called.
+
+```sh
+#
+# lazy load function helper
+#
+# usage:
+#   lazyfunc [lazy_function] [commands_to_hook...]
+#
+# example:
+#   lazyfunc _nodenv_init nodenv node npm
+#
+# example:
+#   # Detailed example using pyenv
+#   export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
+#
+#   _pyenv_init() {
+#     # expensive operation
+#     eval "$(pyenv init - --no-rehash)"
+#
+#     # Rehash in the background
+#     # (pyenv rehash &) 2> /dev/null
+#   }
+#
+#   _pyenv_lazy_init() {
+#     unset -f "$0"
+#
+#     # faster alternative to full 'pyenv init'
+#     export PYENV_SHELL="zsh"
+#     prepend_path "${PYENV_ROOT}/shims"
+#
+#     # lazy initialize
+#     lazyfunc _pyenv_init pyenv
+#   }
+#
+#   # Load package manager installed pyenv into shell session
+#   if command_exists "pyenv"; then
+#     _pyenv_lazy_init
+#
+#   # Load manually installed pyenv into the shell session
+#   elif [ -s "${PYENV_ROOT}/bin/pyenv" ]; then
+#     prepend_path "${PYENV_ROOT}/bin"
+#     _pyenv_lazy_init
+#
+#   # Return if requirements not found
+#   else
+#     unset PYENV_ROOT
+#     unset -f _pyenv_lazy_init
+#     unset -f _pyenv_init
+#     return 1
+#   fi
+#
+function lazyfunc() {
+  local lazyfunc="$1"
+  local hooks=("${@:2}")
+
+  for cmd in "${hooks[@]}"; do
+    eval "${cmd}() { __lazyfunc_exec ${lazyfunc} ${hooks[*]}; ${cmd} \$@; }"
+  done
+}
+
+#
+# lazy load function executor
+#
+# usage:
+#   __lazyfunc_exec [lazy_function] [commands_to_hook...]
+#
+__lazyfunc_exec() {
+  local lazyfunc=$1
+  local hooks=("${@:2}")
+  unset -f "${hooks[@]}"
+  eval "${lazyfunc}"
+  unset "${lazyfunc}"
+}
+```

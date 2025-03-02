@@ -7,14 +7,14 @@
 #
 # Flags
 #   --target | -t <dir>                 The target directory for the dotfiles repo
-#   --setup-command | -s <command>      The custom setup command to run
+#   --setup-script | -s <path>          The custom setup command to run
 #   --no-sudo                           Allow usage of sudo: 1 (no) or 0 (yes)
 #   --verbose | -v                      Enable verbose logging
 #
 # Environmenet Variables
-#   DOTFILES_HOME                        The target directory for the dotfiles repo
-#   DOTFILES_NO_SUDO                     Allow usage of sudo: 1 (no) or 0 (yes)
-#   DOTFILES_SETUP_COMMAND               The custom setup command to run
+#   DOTFILES_HOME                       The target directory for the dotfiles repo
+#   DOTFILES_NO_SUDO                    Allow usage of sudo: 1 (no) or 0 (yes)
+#   DOTFILES_SETUP_SCRIPT               The custom setup command to run
 #
 # Examples
 #   ./install.sh
@@ -49,8 +49,8 @@ main() {
       DOTFILES_HOME="$2"
       shift 2
       ;;
-    --setup-command | -s)
-      DOTFILES_SETUP_COMMAND="$2"
+    --setup-script | -s)
+      DOTFILES_SETUP_SCRIPT="$2"
       shift 2
       ;;
     --no-sudo)
@@ -71,7 +71,7 @@ main() {
   if [ -n "$DOTFILES_LOG_VERBOSE" ]; then
     echo "DOTFILES_HOME: $DOTFILES_HOME"
     echo "DOTFILES_NO_SUDO: $DOTFILES_NO_SUDO"
-    echo "DOTFILES_SETUP_COMMAND: $DOTFILES_SETUP_COMMAND"
+    echo "DOTFILES_SETUP_SCRIPT: $DOTFILES_SETUP_SCRIPT"
   fi
 
   # Clone and initialize dotfiles env
@@ -84,11 +84,14 @@ main() {
   PATH="$DOTFILES_HOME/bin:$PATH"
 
   # Use xdg spec
-  source "${DOTFILES_HOME}/modules/xdg/.config/profile.d/xdg.sh"
+  source "${DOTFILES_HOME}/lib/xdg.sh"
 
   # Run custom setup script if provided
-  if [ -n "$DOTFILES_SETUP_COMMAND" ]; then
-    "$DOTFILES_SETUP_COMMAND"
+  if [ -n "$DOTFILES_SETUP_SCRIPT" ]; then
+    "$DOTFILES_SETUP_SCRIPT"
+  elif [ "$DEVPOD" == "true" ]; then
+    # Install as a devcontainer
+    "$DOTFILES_HOME/scripts/setup-devcontainer.sh"
   else
     # Run autodetected setup script
     case "$(os-info --family)" in
