@@ -3,9 +3,8 @@
 set -eo pipefail
 
 DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
-PATH="$DOTFILES_HOME/bin:$PATH"
-
 source "${DOTFILES_HOME}/lib/xdg.sh"
+PATH="${DOTFILES_HOME}/bin:${XDG_BIN_HOME}:${PATH}"
 
 # Disable stow perl language warnings
 export LANG="en_US.UTF-8"
@@ -13,13 +12,27 @@ export LANG="en_US.UTF-8"
 main() {
   local mod_dir="$DOTFILES_HOME/modules"
   local scripts_dir="$DOTFILES_HOME/scripts"
+  local local_mod_name="local-devcontainer"
+  local local_mod_dir="$mod_dir/$local_mod_name"
+  local local_env_file="$local_mod_dir/.config/environment.d/devcontainer.conf"
+  local local_mise_config_file="${XDG_CONFIG_HOME}/mise/config.devcontainer.toml"
 
   # Use custom dotfiles home
   echo "${DOTFILES_HOME}" >"${XDG_CONFIG_HOME}/dotfiles-home"
 
   # Base setup
   "$mod_dir/_base/install.sh"
-  mkdir -p "$mod_dir/local"
+  mkdir -p "$local_mod_dir"
+
+  # Custom environment for devcontainer
+  mkdir -p "$(dirname "$local_env_file")"
+  mkdir -p "$(dirname "$local_mise_config_file")"
+  touch "$local_mise_config_file"
+  cat >"$local_env_file" <<EOF
+# Custom environment variables for devcontainer
+LANG="${LANG}"
+MISE_GLOBAL_CONFIG_FILE="${local_mise_config_file}"
+EOF
 
   # Install packages with package manager
   pkg install \
@@ -39,8 +52,7 @@ main() {
   # Insall mise
   "$mod_dir/mise/install.sh"
   mise trust --yes
-  # mise install rust --yes
-  # mise install node --yes
+  mise trust --yes "$local_mise_config_file"
 
   # Install dotfiles module scripts
   "$mod_dir/github/install.sh"
@@ -56,26 +68,18 @@ main() {
   local default_modules=(
     _base
     bash
-    bat
-    deno
     direnv
-    docker
     fzf
     # git
     github
-    go
     # gpg
     # jujutsu
-    # local
+    "$local_mod_name"
     mise
-    # neovim
-    nodejs
     ripgrep
-    ruby
-    rust
     ssh
     starship
-    xdg
+    # xdg
     zoxide
     zsh
   )

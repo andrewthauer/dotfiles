@@ -64,8 +64,15 @@ main() {
     *) ;;
   esac
 
+  # Determine if the install is being run locally of from a curl
+  if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+    DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+  else
+    DOTFILES_HOME="${DOTFILES_HOME:-$HOME/.dotfiles}"
+  fi
+
   # Defaults
-  export DOTFILES_HOME="${DOTFILES_HOME:-$HOME/.dotfiles}"
+  export DOTFILES_HOME="${DOTFILES_HOME}"
   export DOTFILES_NO_SUDO="${DOTFILES_NO_SUDO:-0}"
 
   if [ -n "$DOTFILES_LOG_VERBOSE" ]; then

@@ -5,7 +5,8 @@
 set -e
 
 DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
-PATH="$DOTFILES_HOME/bin:$PATH"
+source "${DOTFILES_HOME}/lib/xdg.sh"
+PATH="${DOTFILES_HOME}/bin:${XDG_BIN_HOME}:${PATH}"
 
 add_shell() {
   local shell_path="$1"
