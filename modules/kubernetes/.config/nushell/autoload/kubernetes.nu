@@ -1,1 +1,0 @@
-alias k = kubectl

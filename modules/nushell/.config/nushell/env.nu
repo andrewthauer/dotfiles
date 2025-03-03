@@ -39,7 +39,9 @@ use std "path add"
 prepand_path /usr/local/sbin
 prepand_path /usr/local/bin
 prepand_path /opt/homebrew/bin
-prepand_path ($env.KREW_ROOT | path join "bin")
+if ($env.KREW_ROOT? | is-not-empty) {
+    prepand_path ($env.KREW_ROOT | path join "bin")
+}
 prepand_path ($env.HOME | path join ".local" "bin")
 prepand_path ($env.DOTFILES_HOME | path join "bin")
 $env.PATH = ($env.PATH | uniq)
