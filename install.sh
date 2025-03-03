@@ -96,7 +96,7 @@ main() {
   # Run custom setup script if provided
   if [ -n "$DOTFILES_SETUP_SCRIPT" ]; then
     "$DOTFILES_SETUP_SCRIPT"
-  elif [ "$DEVPOD" == "true" ]; then
+  elif [ "$REMOTE_CONTAINERS" == "true" ] || [ "$DEVPOD" == "true" ]; then
     # Install as a devcontainer
     "$DOTFILES_HOME/scripts/setup-devcontainer.sh"
   else
