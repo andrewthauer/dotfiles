@@ -4,7 +4,7 @@
 
 set -e
 
-DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)"
 source "${DOTFILES_HOME}/lib/xdg.sh"
 PATH="${DOTFILES_HOME}/bin:${XDG_BIN_HOME}:${PATH}"
 
