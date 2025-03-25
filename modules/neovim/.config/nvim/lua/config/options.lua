@@ -43,6 +43,7 @@ vim.opt.swapfile = false          -- turn off swap file
 vim.opt.termguicolors = true      -- True color support
 vim.opt.visualbell = true         -- No sounds
 vim.opt.virtualedit = "block"     -- Allow cursor to move where there is no text in visual block mode
+vim.opt.winborder = "rounded"     -- Rounded borders for floating windows
 vim.opt.winminwidth = 5           -- Minimum window width
 vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
 vim.opt.clipboard = "unnamed"     -- Sync clipboard between OS and Neovim
@@ -99,3 +100,5 @@ vim.opt.splitright = true         -- Put new windows right of current
 -- Sets how neovim will display certain whitespace characters in the editor.
 -- vim.opt.list = true
 -- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Window

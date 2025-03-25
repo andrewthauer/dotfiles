@@ -25,11 +25,11 @@ local plugin_spec = {
       keymap = {
         preset = "super-tab",
       },
-      cmdline = {
-        keymap = {
-          preset = "super-tab",
-        },
-      },
+      -- cmdline = {
+      --   keymap = {
+      --     preset = "super-tab",
+      --   },
+      -- },
       appearance = {
         nerd_font_variant = "mono",
       },
@@ -184,21 +184,21 @@ function M.get_keymaps()
   return {
     -- stylua: ignore start
     -- New neovim defaults not released (> 0.10)
-    { "grn", vim.lsp.buf.rename, desc = "Rename symbol" },
-    { "gra", vim.lsp.buf.code_action, desc = "LSP Code Action" },
-    { "grr", vim.lsp.buf.references, desc = "LSP References" },
-    { "<c-s>", vim.lsp.buf.signature_help, desc = "LSP Signature Help", mode = "i", has ="signitureHelp" },
+    -- { "grn", vim.lsp.buf.rename, desc = "Rename symbol" },
+    -- { "gra", vim.lsp.buf.code_action, desc = "LSP Code Action" },
+    -- { "grr", vim.lsp.buf.references, desc = "LSP References" },
+    -- { "<c-s>", vim.lsp.buf.signature_help, desc = "LSP Signature Help", mode = "i", has ="signitureHelp" },
     -- custom
-    { "K", vim.lsp.buf.hover, desc = "Hover documentation" },
-    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    -- { "K", vim.lsp.buf.hover, desc = "Hover documentation" },
+    -- { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
     { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i", has = "signatureHelp" },
-    { "gd", vim.lsp.buf.definition, desc = "Go to definition" },
-    { "gD", vim.lsp.buf.declaration, desc = "Go to declaration" },
+    -- { "gd", vim.lsp.buf.definition, desc = "Go to definition" },
+    -- { "gD", vim.lsp.buf.declaration, desc = "Go to declaration" },
     { "<F2>", vim.lsp.buf.rename, desc = "Rename symbol" },
     { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
     { "<leader>cL", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
     { "<leader>cU", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
-    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+    -- { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
     { "<leader>cI", "<cmd>LspInfo<cr>", desc = "LSP Info" },
     -- not used
     -- { "glh", vim.lsp.buf.document_highlight, desc = "LSP Document Highlight" },

@@ -8,6 +8,7 @@ return {
     cmd = "ConformInfo",
     keys = {
       {
+        -- { "<leader>cf", "<D-I>" },
         "<leader>cf",
         function()
           require("conform").format({ async = true, lsp_fallback = true })

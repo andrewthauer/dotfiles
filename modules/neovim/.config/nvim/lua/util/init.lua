@@ -1,8 +1,6 @@
 local M = {}
 
--- M.keys = require("util.keys")
 M.lazy = require("util.lazy")
-M.toggle = require("util.toggle")
 M.table = {}
 
 --- Create a set from a list

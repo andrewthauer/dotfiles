@@ -42,6 +42,7 @@ return {
       panel = {
         enabled = false,
       },
+      copilot_model = "gtp-4o-copilot",
       suggestion = {
         -- This is not recommened when using with with copilot-cmp or blink-cmp-copilot
         enabled = true,
@@ -78,12 +79,12 @@ return {
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      debug = false, -- Enable debugging
-      -- See Configuration section for rest
-    },
-    keys = {
-      { "<leader>co", "<cmd>CopilotChat<cr>", desc = "Copilot Chat" },
+      debug = false, -- disable debugging
+      model = "claude-3.7-sonnet",
     },
     -- See Commands section for default commands if you want to lazy load on them
+    keys = {
+      { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "Copilot Chat" },
+    },
   },
 }

@@ -98,12 +98,6 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 -- Toggle options
 map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Auto Format (global)" })
 map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Auto Format (buffer)" })
-Util.toggle.map("<leader>us", Util.toggle("spell", { name = "Spelling" }))
-Util.toggle.map("<leader>uw", Util.toggle("wrap", { name = "Word Wrap" }))
-Util.toggle.map("<leader>uL", Util.toggle("relativenumber", { name = "Relative Number" }))
-Util.toggle.map("<leader>ul", Util.toggle.number)
-Util.toggle.map("<leader>ud", Util.toggle.diagnostics)
-Util.toggle.map("<leader>uh", Util.toggle.inlay_hints)
 
 -- Diagnostics
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })

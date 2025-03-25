@@ -8,16 +8,6 @@ return {
     enabled = vim.fn.has("nvim-0.10") == 1,
   },
 
-  -- comment string based on the context
-  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-  -- {
-  --   "JoosepAlviste/nvim-ts-context-commentstring",
-  --   lazy = true,
-  --   opts = {
-  --     enable_autocmd = false,
-  --   },
-  -- },
-
   -- auto pairs
   -- https://github.com/echasnovski/mini.pairs
   {
