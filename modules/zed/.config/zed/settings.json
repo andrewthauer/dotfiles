@@ -13,7 +13,8 @@
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "edit_predictions": {
     "disabled_globs": [],
-    "mode": "auto"
+    "enabled_in_assistant": true,
+    "mode": "eager"
   },
   "ensure_final_newline_on_save": true,
   "features": {

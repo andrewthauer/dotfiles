@@ -51,6 +51,7 @@
       "space s p": "projects::OpenRecent",
       "space s s": "outline::Toggle",
       "space |": "pane::SplitLeft",
+      "space -": "pane::SplitDown",
       "space t t": "workspace::NewCenterTerminal",
       "space w h": "pane::SplitLeft",
       "space w k": "pane::SplitUp",
@@ -68,7 +69,7 @@
       "p": "project_panel::Paste",
       "r": "project_panel::Rename",
       "x": "project_panel::Cut",
-      "y": "project_panel::CopyPath"
+      "y": "workspace::CopyPath"
     }
   },
   {

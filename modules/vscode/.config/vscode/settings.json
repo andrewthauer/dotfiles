@@ -1,0 +1,174 @@
+// Place your settings in this file to overwrite the default settings
+{
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[bats]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[lua]": {
+    "editor.defaultFormatter": "sumneko.lua"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[nix]": {},
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.semanticHighlighting.enabled": true
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "breadcrumbs.enabled": true,
+  "cursor.cpp.disabledLanguages": ["plaintext"],
+  "dotfiles.repository": "https://github.com/andrewthauer/dotfiles",
+  "dotfiles.targetPath": "~/.dotfiles",
+  "editor.accessibilitySupport": "off",
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 15,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.fontLigatures": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderControlCharacters": false,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.useTabStops": false,
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+  "extensions.ignoreRecommendations": true,
+  "files.associations": {
+    ".env*": "dotenv",
+    "*Dockerfile*": "dockerfile",
+    "*gemrc": "yaml",
+    "*ignore": "gitignore",
+    "*vimrc*": "viml"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/*.eggs": true,
+    "**/__pycache__": true,
+    "**/*.egg-info": true,
+    "**/.mypy_cache": true,
+    "**/.pytest_cache": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "git.autofetch": false,
+  "git.mergeEditor": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false
+  },
+  "githubPullRequests.pullBranch": "never",
+  "gitlens.advanced.messages": {
+    "suppressIntegrationDisconnectedTooManyFailedRequestsWarning": true
+  },
+  "gitlens.codeLens.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "projectManager.git.baseFolders": ["$home/.dotfiles", "$home/src"],
+  "projectManager.groupList": true,
+  "projectManager.sortList": "Recent",
+  "projectManager.vscode.baseFolders": [],
+  "redhat.telemetry.enabled": false,
+  "rubyLsp.rubyVersionManager": {
+    "identifier": "mise"
+  },
+  "search.followSymlinks": false,
+  "terminal.external.osxExec": "Ghostty.app",
+  "terminal.integrated.cursorStyle": "underline",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.defaultProfile.osx": "nu",
+  "terminal.integrated.drawBoldTextInBrightColors": false,
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.fontWeight": "400",
+  "terminal.integrated.inheritEnv": false,
+  "terminal.integrated.minimumContrastRatio": 4.5,
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.smoothScrolling": true,
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "vim.useSystemClipboard": true,
+  "window.customTitleBarVisibility": "never",
+  "window.nativeTabs": true,
+  "workbench.colorCustomizations": {
+    "terminal.ansiBlack": "#303030",
+    "terminal.ansiBrightBlack": "#414141",
+    "terminal.ansiRed": "#FF8080",
+    "terminal.ansiBrightRed": "#FF5274",
+    "terminal.ansiGreen": "#87AE86",
+    "terminal.ansiBrightGreen": "#A0CFA1",
+    "terminal.ansiYellow": "#FFFB9D",
+    "terminal.ansiBrightYellow": "#FFFD87",
+    "terminal.ansiBlue": "#4080A0",
+    "terminal.ansiBrightBlue": "#95BFF3",
+    "terminal.ansiMagenta": "#D68686",
+    "terminal.ansiBrightMagenta": "#CC9495",
+    "terminal.ansiCyan": "#60B38A",
+    "terminal.ansiBrightCyan": "#8CD0D3",
+    "terminal.ansiWhite": "#D6D6D6",
+    "terminal.ansiBrightWhite": "#FFFFFF",
+    "terminal.foreground": "#DEDEDE",
+    "terminal.selectionBackground": "#FED5AE94",
+    "terminalCursor.foreground": "#D6D6D6"
+  },
+  "workbench.iconTheme": "catppuccin-frappe",
+  "workbench.settings.editor": "json",
+  "workbench.startupEditor": "none",
+  "workbench.editor.enablePreview": true,
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.editor.editorActionsLocation": "hidden",
+  "workbench.activityBar.orientation": "vertical",
+}
