@@ -83,7 +83,7 @@ return {
         enabled = true,
         shell = "nu",
       },
-      toggle = { enabled = true },
+      -- toggle = {},
     },
     keys = {
       -- stylua: ignore start
