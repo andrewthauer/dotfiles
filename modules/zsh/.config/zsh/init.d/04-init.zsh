@@ -27,9 +27,6 @@ eval "$(starship init zsh)"
 
 # Set the share directory to source from
 SHARE_DIR="${XDG_DATA_HOME}"
-if [ -n "${PROFILE_PREFIX}" ]; then
-  SHARE_DIR="${PROFILE_PREFIX}/share"
-fi
 
 # Load zsh prompt syntax highlighting
 # - https://github.com/zsh-users/zsh-syntax-highlighting

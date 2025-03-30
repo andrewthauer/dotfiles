@@ -14,8 +14,3 @@ else
     eval "$("$HOME"/.linuxbrew/bin/brew shellenv)"
   fi
 fi
-
-# Set the profile prefix used by other modules
-if [ -z "$PROFILE_PREFIX" ] && [ "$(command -v brew)" ]; then
-  PROFILE_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix)}"
-fi

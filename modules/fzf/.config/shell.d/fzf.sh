@@ -11,8 +11,8 @@ FUZZY_FINDER="${FUZZY_FINDER:-fzf}"
 [ "${FUZZY_FINDER}" != "fzf" ] && return 1
 
 # The install directory
-if [ -d "${PROFILE_PREFIX}/opt/fzf" ]; then
-  _FZF_DIR="${PROFILE_PREFIX}/opt/fzf"
+if [ -d "${HOMEBREW_PREFIX}/opt/fzf" ]; then
+  _FZF_DIR="${HOMEBREW_PREFIX}/opt/fzf"
 elif [ -d "/usr/local/opt/fzf" ]; then
   _FZF_DIR="/usr/local/opt/fzf"
 elif [ -d "${XDG_DATA_HOME}/fzf" ]; then
@@ -60,7 +60,6 @@ fi
 alias fzfm='fzf -m'
 # shellcheck disable=SC2139
 alias fzff="${FZF_DEFAULT_COMMAND} | fzf"
-alias fzfvi='nvim $(fzfi)'
 
 #
 # Completions

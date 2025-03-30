@@ -29,26 +29,19 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 # - Must be loaded before running compinit
 #
 
-# Profile is setUsually /usr/share/zsh/functions/Completion
-if [ -n "${PROFILE_PREFIX}" ] && [ -d "${PROFILE_PREFIX}/share/zsh/site-functions" ]; then
-  fpath=("${PROFILE_PREFIX}/share/zsh/site-functions" $fpath)
-fi
-
-# Nix system
-if [ -n "${NIX_PROFILES}" ] && [ -d "${HOME}/.nix-profile/share/zsh/site-functions" ]; then
-  fpath=("${HOME}/.nix-profile/share/zsh/site-functions" $fpath)
-fi
-
-# User completions if cloned locally
-# - https://github.com/zsh-users/zsh-completions
-if [ -d "${XDG_DATA_HOME}/zsh-completions/src" ]; then
-  fpath=($fpath "${XDG_DATA_HOME}/zsh-completions/src")
-fi
-
-# User completions
-if [ -d "${XDG_DATA_HOME}/zsh/site-functions" ]; then
-  fpath=("${XDG_DATA_HOME}/zsh/site-functions" $fpath)
-fi
+_zsh_fpaths=(
+  "/usr/share/zsh/site-functions"
+  "/usr/local/share/zsh/site-functions"
+  "${HOMEBREW_PREFIX}/share/zsh/site-functions"
+  "${HOME}/.nix-profile/share/zsh/site-functions"
+  "${XDG_DATA_HOME}/zsh/site-functions"
+)
+for zsh_fpath in "${_zsh_fpaths[@]}"; do
+  if [ -d "$zsh_fpath" ]; then
+    fpath=("$zsh_fpath" $fpath)
+  fi
+done
+unset _zsh_fpaths
 
 #
 # Initialize Completion
