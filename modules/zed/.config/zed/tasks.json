@@ -1,11 +1,13 @@
 [
   {
     "label": "Lazygit",
-    "command": "lazygit -p $ZED_WORKTREE_ROOT"
+    "command": "lazygit -p $ZED_WORKTREE_ROOT",
+    "reveal_target": "center"
   },
   {
     "label": "Lazyjj",
     "command": "lazyjj -p $ZED_WORKTREE_ROOT",
+    "reveal_target": "center",
     "shell": {
       "program": "zsh"
     }

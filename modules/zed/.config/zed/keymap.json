@@ -14,7 +14,7 @@
     }
   },
   {
-    "context": "(Editor && vim_mode == normal) || Dock",
+    "context": "Dock || Editor",
     "bindings": {
       "ctrl-w h": "workspace::ActivatePaneLeft",
       "ctrl-w l": "workspace::ActivatePaneRight",
@@ -31,32 +31,49 @@
     "bindings": {
       "space ,": "file_finder::Toggle",
       "space /": "workspace::NewSearch",
+      "space e": "workspace::ToggleLeftDock",
       "space b d": "workspace::CloseWindow",
+      "space c c": "workspace::ToggleRightDock",
       "space c s": "outline::Toggle",
+      "space c R": "editor::Rename",
       "space f b": "file_finder::Toggle",
       "space f e": "workspace::ToggleLeftDock",
       "space f f": "file_finder::Toggle",
       "space f p": "projects::OpenRecent",
       "space f r": "pane::RevealInProjectPanel",
       "space g b": "git::Branch",
+      "space g B": "editor::OpenPermalinkToLine",
+      "space g d": "git::Diff",
       "space g g": ["task::Spawn", { "task_name": "lazygit" }],
       "space h d": "workspace::CloseAllDocks",
       "space j j": ["task::Spawn", { "task_name": "lazyjj" }],
       "space o l": "editor::OpenPermalinkToLine",
       "space p r": "pane::RevealInProjectPanel",
+      "space s \"": "vim::ToggleRegistersView",
       "space s d": "diagnostics::Deploy",
-      "space s r": "workspace::NewSearch",
       "space s f": "project_panel::ToggleFocus",
+      "space s k": "zed::OpenKeymap",
       "space s o": "outline_panel::ToggleFocus",
       "space s p": "projects::OpenRecent",
-      "space s s": "outline::Toggle",
+      "space s r": "workspace::NewSearch",
       "space |": "pane::SplitLeft",
       "space -": "pane::SplitDown",
       "space t t": "workspace::NewCenterTerminal",
+      "space u h": "editor::ToggleInlayHints",
+      "space u l": "editor::ToggleLineNumbers",
+      "space u L": "editor::ToggleRelativeLineNumbers",
+      "space u w": "editor::ToggleSoftWrap",
       "space w h": "pane::SplitLeft",
       "space w k": "pane::SplitUp",
       "space w j": "pane::SplitDown",
-      "space w l": "pane::SplitRight"
+      "space w l": "pane::SplitRight",
+      "space z": "workspace::ToggleZoom"
+    }
+  },
+  {
+    "context": "TerminalPane",
+    "bindings": {
+      "escape escape": "terminal::ToggleViMode"
     }
   },
   {

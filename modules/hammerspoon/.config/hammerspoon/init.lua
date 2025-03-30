@@ -229,7 +229,8 @@ hs.hotkey.bind(hyper, "n", utils.launchById("notion.id"))
 hs.hotkey.bind(hyper, "s", utils.launchById("com.tinyspeck.slackmacgap"))
 hs.hotkey.bind(hyper, "t", utils.launchById("com.mitchellh.ghostty"))
 hs.hotkey.bind(hyper, "w", utils.launchById("com.apple.finder"))
-hs.hotkey.bind(hyper, "l", utils.launchById("dev.zed.Zed"))
+-- hs.hotkey.bind(hyper, "l", utils.launchById("dev.zed.Zed"))
+hs.hotkey.bind(hyper, "l", utils.launchById("dev.zed.Zed-Preview"))
 -- stylua: ignore end
 
 -------------------------------------------------------------------------------
