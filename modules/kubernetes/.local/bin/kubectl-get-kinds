@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Summary:
+#   Lists Kubernetes resource kinds
+#
+# Usage:
+#   kubectl-get-kinds
+
+for i in $(kubectl api-resources --verbs=list --namespaced -o name \
+  | grep -v "events.events.k8s.io" \
+  | grep -v "events" | sort | uniq); do
+
+  echo "$i"
+done

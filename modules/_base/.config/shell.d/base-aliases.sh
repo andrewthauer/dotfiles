@@ -1,40 +1,12 @@
-#
-# Common aliases
-#
-
-# Go to the dotfiles directory
-alias dotdir='cd ${DOTFILES_HOME}'
-
-#
-# General
-#
-
 # Reloads the current shell
 alias reload='exec $SHELL'
 
-# Make sudo work with aliases
-# https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
-alias sudo='sudo '
-
-#
-# Directories
-#
-
-# Listing
+# Directory listing
 alias l='ls -1A'   # Lists in one column, hidden files.
 alias ll='ls -alF' # Lists human readable sizes.
 alias la='ll -a'   # Lists human readable sizes, hidden files.
 
-#
-# encoding / decoding
-#
-
-alias b64dec="base64 --decode"
-
-#
 # Clipboard
-#
-
 # macOS open everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='open'

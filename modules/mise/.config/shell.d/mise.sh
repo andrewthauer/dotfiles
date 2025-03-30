@@ -8,7 +8,3 @@ elif [ -n "${ZSH_VERSION}" ]; then
 else
   return 1
 fi
-
-# Aliases
-alias m="mise"
-alias mr="mise run"
