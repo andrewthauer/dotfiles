@@ -62,9 +62,10 @@ else
   touch "$_comp_path"
 fi
 # Reset completions helpers
-alias compclear="rm -f $_comp_path; compinit -i -d $_comp_path;"
-alias clearcomp="compclear"
-unset _comp_path
+compclear() {
+  rm -f "$_comp_path"
+}
+# unset _comp_path
 
 #
 # Styles
