@@ -8,7 +8,7 @@ if not set -q DOTFILES_HOME
   set -gx DOTFILES_HOME $HOME/.dotfiles
 end
 
-# load environment
+# TODO: load environment
 # https://gist.github.com/nikoheikkila/dd4357a178c8679411566ba2ca280fcc
 
 if status is-interactive

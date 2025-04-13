@@ -4,7 +4,7 @@
 #
 
 # Subversion
-alias svn='svn --config-dir ${XDG_CONFIG_HOME}/subversion'
+alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
 
 # Wget
-alias wget='wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts"'
+alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'

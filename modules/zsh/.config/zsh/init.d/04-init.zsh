@@ -2,8 +2,11 @@
 # Load regular zsh plugins
 #
 
-# Load all modules / plugins
+# Source all module shell scripts
 source_files_in "${XDG_CONFIG_HOME}"/shell.d/*.{sh,zsh}
+
+# Source all module aliases
+source_files_in "${XDG_CONFIG_HOME}"/alias.d/*.{sh,zsh}
 
 #
 # ZSH Prompt
