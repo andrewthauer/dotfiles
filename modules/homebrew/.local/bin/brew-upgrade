@@ -6,7 +6,11 @@
 #   brew-upgrade
 
 main() {
-  brew update && brew upgrade && brew bundle && brew cleanup
+  brew update
+  brew upgrade
+  brew upgrade --cask
+  brew bundle
+  brew cleanup
 }
 
 main "$@"
