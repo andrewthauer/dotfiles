@@ -76,8 +76,8 @@ local plugin_spec = {
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "saghen/blink.cmp",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      { "mason-org/mason-lspconfig.nvim", branch = "v1.x" },
     },
     opts = {
       ensure_installed = {},

@@ -34,9 +34,9 @@ return {
   { "nvim-lua/plenary.nvim" },
 
   -- Portable package manager for Neovim
-  -- https://github.com/williamboman/mason.nvim
+  -- https://github.com/mason-org/mason.nvim
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     build = ":MasonUpdate",
     opts_extend = { "ensure_installed" },
