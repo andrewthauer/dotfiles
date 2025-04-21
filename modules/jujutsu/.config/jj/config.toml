@@ -25,6 +25,8 @@ edit-args = ["--dir-diff", "$left", "$right"]
 # 'format_short_signature(signature)' = 'signature.name()'
 
 [aliases]
+# git fetch
+gf = ["git", "fetch"]
 # push all bookmarks
 push-bookmarks = ["git", "push", "--revision", "all:bookmarks()"]
 # rebase all bookmarks of trunk()

@@ -87,7 +87,7 @@ def "main view" [
     exit 1
   }
 
-  let branch = (get_tracking_branch $revision)
+  let branch = (find_tracking_branch $revision)
 
   gh pr view ...[
     $branch
@@ -115,4 +115,9 @@ def get_bookmark [rev: string] {
 
 def get_tracking_branch [rev: string ] {
   jj bookmark list --tracked --template "if(tracking_present, name)" --revisions $rev
+}
+
+def find_tracking_branch [rev: string ] {
+  let revisions = $"::($rev) ~ trunk\(\)"
+  jj bookmark list --tracked --template "if(tracking_present, name)" --revisions $revisions
 }
