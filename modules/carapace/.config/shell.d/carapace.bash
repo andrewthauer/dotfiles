@@ -1,8 +1,5 @@
-#
 # Carapace shell setup for bash
-#
-# https://carapace-sh.github.io/carapace-bin/setup.html
-#
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 
 # shellcheck disable=SC1090
 source <(carapace _carapace)
