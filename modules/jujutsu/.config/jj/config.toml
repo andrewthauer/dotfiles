@@ -4,32 +4,45 @@
 name = "Andrew Thauer"
 email = "6507159+andrewthauer@users.noreply.github.com"
 
+[git]
+push-new-bookmarks = true
+# sign-on-push = true
+
+# Configured in ~/.config/jj/conf.d/local.toml
+# [signing]
+# backend = "ssh"
+# key = "<public key>
+# backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
 [ui]
 default-command = "log"
-# diff.format = "git"
-# diff-editor = ":builtin"
-# Work around for deleted files not working in builtin
-#   see https://github.com/jj-vcs/jj/issues/3702
-#   install scm-diff-editor:
-#     mise use -g -p ~/.config/mise/config.local.toml scm-diff-editor
-diff-editor = "scm-diff-editor"
-diff-instructions = false
-# paginate = "never"
 
 [merge-tools.scm-diff-editor]
-# see woraround above
-program = "scm-diff-editor"
+# # see woraround above
+# program = "scm-diff-editor"
 edit-args = ["--dir-diff", "$left", "$right"]
 
 [template-aliases]
+'format_short_change_id(id)' = 'id.shortest()'
 # 'format_short_signature(signature)' = 'signature.name()'
 
 [aliases]
-# git fetch
-gf = ["git", "fetch"]
-# push all bookmarks
+log-recent = ["log", "-r", "default() & recent()"]
 push-bookmarks = ["git", "push", "--revision", "all:bookmarks()"]
-# rebase all bookmarks of trunk()
 rebase-bookmarks = ["rebase", "--source", "all:(bookmarks() ~ immutable())", "--destination", "trunk()"]
-# rebase all revisions that are descendants of trunk()
 sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
+
+c = ["commit"]
+ci = ["commit", "--interactive"]
+e = ["edit"]
+fetch = ["git", "fetch"]
+gf = ["git", "fetch"]
+gp = ["git", "push"]
+push = ["git", "push", "--allow-new"]
+r = ["rebase"]
+s = ["squash"]
+si = ["squash", "--interactive"]
+
+[revset-aliases]
+'recent()' = 'committer_date(after:"3 months ago")'
+
