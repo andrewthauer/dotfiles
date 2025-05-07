@@ -64,8 +64,7 @@ return {
             importModuleSpecifierPreference = "non-relative",
           }
 
-          require("lspconfig").ts_ls.setup({
-            ---@diagnostic disable-next-line: unused-local
+          return {
             on_attach = function(client, bufnr)
               require("util").map_keys({ keys = keys, buffer = bufnr })
             end,
@@ -76,7 +75,7 @@ return {
                 completeFunctionCalls = true,
               },
             },
-          })
+          }
         end,
       },
     },

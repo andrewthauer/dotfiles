@@ -61,14 +61,6 @@ local plugin_spec = {
     opts_extend = { "sources.default" },
   },
 
-  -- Neovim's LSP client with minimum effort
-  -- https://lsp-zero.netlify.app
-  -- https://github.com/VonHeikemen/lsp-zero.nvim
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v4.x",
-  },
-
   -- configurations for nvim lsp
   -- https://github.com/neovim/nvim-lspconfig
   {
@@ -77,9 +69,15 @@ local plugin_spec = {
     dependencies = {
       "saghen/blink.cmp",
       "mason-org/mason.nvim",
-      { "mason-org/mason-lspconfig.nvim", branch = "v1.x" },
+      "mason-org/mason-lspconfig.nvim",
     },
     opts = {
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = { spacing = 4, prefix = "●" },
+        severity_sort = true,
+      },
       ensure_installed = {},
       servers = {},
       inlay_hints = {
@@ -90,91 +88,32 @@ local plugin_spec = {
       },
     },
     config = function(_, opts)
-      local lsp_zero = require("lsp-zero")
-      local util = require("util")
-
-      local lsp_attach = function(client, bufnr)
-        -- enable inlay hints
-        if opts.inlay_hints.enabled and vim.lsp.inlay_hint then
-          if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-          end
-        end
-
-        -- code lens
-        if opts.codelens.enabled and vim.lsp.codelens then
-          if client.supports_method("textDocument/codeLens") or client.server_capabilities.codeLensProvider then
-            vim.lsp.codelens.refresh({ bufnr = 0 })
-            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-              buffer = bufnr,
-              callback = vim.lsp.codelens.refresh,
-            })
-          end
-        end
-
-        -- lsp_zero.default_keymaps({ buffer = bufnr })
-        local Util = require("util")
-        Util.map_keys({ keys = M.get_keymaps(), buffer = bufnr })
-      end
-
-      -- configure lsp
-      lsp_zero.extend_lspconfig({
-        capabilities = require("blink.cmp").get_lsp_capabilities(),
-        lsp_attach = lsp_attach,
-        sign_text = { error = "✘", warn = "▲", hint = "⚑", info = "»" },
-        float_border = "rounded",
+      -- configure lsp on attach
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+          local buffer = event.buf
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          M.lsp_attach(client, buffer, opts)
+        end,
       })
 
-      local servers = opts.servers
+      -- configure diatnostics
+      vim.diagnostic.config(opts.diagnostics)
 
-      local function setup(server)
-        local server_opts = servers[server] or {}
-
-        if server_opts then
-          if type(server_opts) == "function" then
-            server_opts()
-            return
-          end
-        elseif servers["*"] then
-          if servers.setup["*"](server, server_opts) then
-            return
-          end
-        end
-
-        require("lspconfig")[server].setup(server_opts)
-      end
-
-      -- get all available servers from mason-lspconfig
-      local mason_lspconfig = require("mason-lspconfig")
-      local all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-
-      -- setup servers that are not available through mason-lspconfig
-      local ensure_installed = {} -- type string[]
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          if not vim.tbl_contains(all_mslp_servers, server) then
-            setup(server)
-          else
-            ensure_installed[#ensure_installed + 1] = server
-          end
-        end
-      end
-
-      -- setup mason to install language servers
-      mason_lspconfig.setup({
-        automatic_installation = true,
-        ensure_installed = vim.tbl_deep_extend("force", ensure_installed, opts.ensure_installed),
-        handlers = { setup },
+      -- auto setup lsp servers
+      require("mason-lspconfig").setup({
+        automatic_enable = true,
+        ensure_installed = opts.ensure_installed,
       })
 
-      -- avoid conflicts with ts_ls & denols
-      if M.get_lsp_config("denols") and M.get_lsp_config("ts_ls") then
-        local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-        -- M.disable_lsp("vtsls", is_deno)
-        M.disable_lsp("ts_ls", is_deno)
-        M.disable_lsp("denols", function(root_dir)
-          return not is_deno(root_dir)
-        end)
+      -- configure and enable lsp servers
+      local servers = opts.servers or {}
+      for server, settings in pairs(servers) do
+        if type(settings) == "function" then
+          settings = settings()
+        end
+        vim.lsp.config(server, settings)
+        vim.lsp.enable(server)
       end
     end,
   },
@@ -194,8 +133,8 @@ function M.get_keymaps()
     { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i", has = "signatureHelp" },
     -- { "gd", vim.lsp.buf.definition, desc = "Go to definition" },
     -- { "gD", vim.lsp.buf.declaration, desc = "Go to declaration" },
+    { "g.", vim.lsp.buf.code_action, desc = "Code Action" },
     { "<F2>", vim.lsp.buf.rename, desc = "Rename symbol" },
-    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
     { "<leader>cL", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
     { "<leader>cU", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
     -- { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
@@ -217,25 +156,44 @@ function M.get_keymaps()
   }
 end
 
--- Get an lsp server configuration
-function M.get_lsp_config(server)
-  local configs = require("lspconfig.configs")
-  return rawget(configs, server)
-end
-
--- Disable an lsp server
-function M.disable_lsp(server, cond)
-  local util = require("lspconfig.util")
-  local lsp_config = M.get_lsp_config(server)
-
-  lsp_config.document_config.on_new_config = util.add_hook_before(
-    lsp_config.document_config.on_new_config,
-    function(config, root_dir)
-      if cond(root_dir, config) then
-        config.enabled = false
-      end
+-- attach function for lsp
+-- -- @param client lsp client
+-- -- @param bufnr buffer number
+function M.lsp_attach(client, bufnr, opts)
+  -- enable inlay hints
+  if opts.inlay_hints.enabled then
+    if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
-  )
+  end
+
+  -- code lens
+  if opts.codelens.enabled and vim.lsp.codelens then
+    if client.supports_method("textDocument/codeLens") or client.server_capabilities.codeLensProvider then
+      vim.lsp.codelens.refresh({ bufnr = 0 })
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        buffer = bufnr,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
+  end
+
+  -- key mappings
+  local Util = require("util")
+  Util.map_keys({ keys = M.get_keymaps(), buffer = bufnr })
+
+  -- avoid conflicts with ts_ls & denols
+  local lspconfig = require("lspconfig")
+  local is_in_deno_repo = lspconfig.util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd())
+  if is_in_deno_repo then
+    if client.name == "ts_ls" then
+      client.stop()
+    end
+  else
+    if client.name == "denols" then
+      client.stop()
+    end
+  end
 end
 
 return plugin_spec

@@ -15,44 +15,30 @@ return {
     },
   },
 
+  -- lazydev.nvim
+  -- https://github.com/folke/lazydev.nvim
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+
   -- setup lspconfig
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "folke/neodev.nvim", opts = {} },
       { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
     },
     opts = {
       ensure_installed = { "lua_ls" },
       servers = {
-        lua_ls = function()
-          local runtime_path = vim.split(package.path, ";")
-          table.insert(runtime_path, "lua/?.lua")
-          table.insert(runtime_path, "lua/?/init.lua")
-
-          require("lspconfig").lua_ls.setup({
-            settings = {
-              Lua = {
-                runtime = {
-                  version = "LuaJIT",
-                  path = runtime_path,
-                },
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME,
-                    "${3rd}/luv/library",
-                    -- "${3rd}/busted/library",
-                  },
-                },
-                diagnostics = {
-                  globals = { "vim" },
-                },
-                hint = { enable = true },
-              },
-            },
-          })
-        end,
+        lua_ls = {},
       },
     },
   },
