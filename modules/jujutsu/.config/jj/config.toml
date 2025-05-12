@@ -16,6 +16,7 @@ push-new-bookmarks = true
 
 [ui]
 default-command = "log"
+conflict-marker-style = "git"
 
 [merge-tools.scm-diff-editor]
 # # see woraround above
@@ -40,9 +41,9 @@ gf = ["git", "fetch"]
 gp = ["git", "push"]
 push = ["git", "push", "--allow-new"]
 r = ["rebase"]
+rbm = ["rebase", "-d", "trunk()"]
 s = ["squash"]
 si = ["squash", "--interactive"]
 
 [revset-aliases]
 'recent()' = 'committer_date(after:"3 months ago")'
-
