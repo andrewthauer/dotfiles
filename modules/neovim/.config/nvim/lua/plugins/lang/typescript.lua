@@ -3,7 +3,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "javascript", "jsdoc", "typescript", "tsx" },
+      ensure_installed = {
+        "javascript",
+        "jsdoc",
+        "typescript",
+        "tsx",
+      },
     },
   },
 
@@ -11,7 +16,23 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "typescript-language-server" },
+      ensure_installed = {
+        "typescript-language-server",
+        "prettier",
+      },
+    },
+  },
+
+  -- conform formatters
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+      },
     },
   },
 
@@ -79,25 +100,6 @@ return {
         end,
       },
     },
-  },
-
-  -- conform formatters
-  {
-    "stevearc/conform.nvim",
-    opts = function(_, opts)
-      local formatters_by_ft = {
-        ["javascript"] = "prettier",
-        ["javascriptreact"] = "prettier",
-        ["typescript"] = "prettier",
-        ["typescriptreact"] = "prettier",
-      }
-
-      opts.formatters_by_ft = opts.formatters_by_ft or {}
-      for ft, formatter in pairs(formatters_by_ft) do
-        opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
-        table.insert(opts.formatters_by_ft[ft], formatter)
-      end
-    end,
   },
 
   -- config debug adapter for node

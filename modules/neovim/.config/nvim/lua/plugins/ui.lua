@@ -1,3 +1,5 @@
+---@module "snacks"
+
 return {
   -- ui components
   -- https://github.com/MunifTanjim/nui.nvim

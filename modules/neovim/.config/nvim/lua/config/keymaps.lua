@@ -1,10 +1,8 @@
+
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 --
--- stylua: ignore start
-
-local Util = require("util")
 
 local function map(kind, lhs, rhs, opts)
   opts = opts or {}
@@ -15,6 +13,8 @@ end
 -- Conveniently enter command mode
 -- Don't use silent=true as this removes the command line
 -- map("n", ";", ":", { noremap = true })
+
+-- stylua: ignore start
 
 -- Remap ESC key for insert mode
 map("i", "jk", "<esc>", { noremap = true, desc = "Alternative escape key" })
@@ -98,24 +98,3 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 -- Toggle options
 map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Auto Format (global)" })
 map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Auto Format (buffer)" })
-
--- Diagnostics
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
--- map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
--- map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
--- map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
--- local diagnostic_goto = function(next, severity)
---   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
---   severity = severity and vim.diagnostic.severity[severity] or nil
---   return function()
---     go({ severity = severity })
---   end
--- end
--- map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
--- map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
--- map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
--- map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
--- map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
--- map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
--- map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })

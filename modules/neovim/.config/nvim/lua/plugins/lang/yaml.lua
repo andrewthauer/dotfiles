@@ -11,7 +11,10 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "yaml-language-server" },
+      ensure_installed = {
+        "yaml-language-server",
+        "prettier",
+      },
     },
   },
 
@@ -26,7 +29,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      ensure_installed = { "yamlls" },
+      -- make sure mason installs the server
       servers = {
         yamlls = {},
       },
@@ -36,17 +39,10 @@ return {
   -- conform formatters
   {
     "stevearc/conform.nvim",
-    opts = function(_, opts)
-      local formatters_by_ft = {
-        -- Use LSP for formatting
-        -- ["yaml"] = "prettier",
-      }
-
-      opts.formatters_by_ft = opts.formatters_by_ft or {}
-      for ft, formatter in pairs(formatters_by_ft) do
-        opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
-        table.insert(opts.formatters_by_ft[ft], formatter)
-      end
-    end,
+    opts = {
+      formatters_by_ft = {
+        yaml = { "prettier" },
+      },
+    },
   },
 }

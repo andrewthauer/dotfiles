@@ -3,7 +3,10 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "javascript", "typescript" },
+      ensure_installed = {
+        "javascript",
+        "typescript",
+      },
     },
   },
 

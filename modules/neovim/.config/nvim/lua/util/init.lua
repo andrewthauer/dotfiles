@@ -1,6 +1,5 @@
 local M = {}
 
-M.lazy = require("util.lazy")
 M.table = {}
 
 --- Create a set from a list

@@ -11,7 +11,10 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "lua-language-server", "stylua" },
+      ensure_installed = {
+        "lua-language-server",
+        "stylua",
+      },
     },
   },
 
@@ -46,16 +49,10 @@ return {
   -- conform formatters
   {
     "stevearc/conform.nvim",
-    opts = function(_, opts)
-      local formatters_by_ft = {
-        ["lua"] = "stylua",
-      }
-
-      opts.formatters_by_ft = opts.formatters_by_ft or {}
-      for ft, formatter in pairs(formatters_by_ft) do
-        opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
-        table.insert(opts.formatters_by_ft[ft], formatter)
-      end
-    end,
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+      },
+    },
   },
 }

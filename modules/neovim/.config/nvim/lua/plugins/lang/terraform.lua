@@ -3,7 +3,10 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "hcl", "terraform" },
+      ensure_installed = {
+        "hcl",
+        "terraform",
+      },
     },
   },
 
@@ -11,7 +14,10 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "terraform-ls", "tflint" },
+      ensure_installed = {
+        "terraform-ls",
+        "tflint",
+      },
     },
   },
 
@@ -30,8 +36,8 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
-        ["terraform"] = { "terraform_fmt" },
-        ["tf"] = { "terraform_fmt" },
+        terraform = { "terraform_fmt" },
+        tf = { "terraform_fmt" },
         ["terraform-vars"] = { "terraform_fmt" },
       },
     },

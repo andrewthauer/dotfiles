@@ -17,26 +17,43 @@ return {
         desc = "Format Buffer",
       },
     },
-    opts = function()
-      local opts = {
-        formatters_by_ft = {
-          -- defined in lang/*.lua
+    -- opts = function()
+    --   local opts = {
+    --     formatters_by_ft = {
+    --       -- defined in lang/*.lua
+    --     },
+    --     formatters = {
+    --       injected = {
+    --         options = { ignore_errors = true },
+    --       },
+    --     },
+    --     format_on_save = function(bufnr)
+    --       -- Disable with a global or buffer-local variable
+    --       if vim.g.autoformat_enabled or vim.b[bufnr].autoformat then
+    --         return { timeout_ms = 500, lsp_fallback = true }
+    --       end
+    --     end,
+    --     notify_on_error = true,
+    --   }
+    --   return opts
+    -- end,
+    opts = {
+      formatters_by_ft = {
+        -- defined in lang/*.lua
+      },
+      formatters = {
+        injected = {
+          options = { ignore_errors = true },
         },
-        formatters = {
-          injected = {
-            options = { ignore_errors = true },
-          },
-        },
-        format_on_save = function(bufnr)
-          -- Disable with a global or buffer-local variable
-          if vim.g.autoformat_enabled or vim.b[bufnr].autoformat then
-            return { timeout_ms = 500, lsp_fallback = true }
-          end
-        end,
-        notify_on_error = true,
-      }
-      return opts
-    end,
+      },
+      format_on_save = function(bufnr)
+        -- Disable with a global or buffer-local variable
+        if vim.g.autoformat_enabled or vim.b[bufnr].autoformat then
+          return { timeout_ms = 500, lsp_fallback = true }
+        end
+      end,
+      notify_on_error = true,
+    },
     init = function()
       vim.api.nvim_create_user_command("Format", function(args)
         local range = nil

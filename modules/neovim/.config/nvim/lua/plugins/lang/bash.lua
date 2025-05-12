@@ -11,7 +11,11 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "bash-language-server", "shellcheck", "shfmt" },
+      ensure_installed = {
+        "bash-language-server",
+        "shellcheck",
+        "shfmt",
+      },
     },
   },
 
@@ -27,23 +31,12 @@ return {
   -- conform formatters
   {
     "stevearc/conform.nvim",
-    opts = function(_, opts)
-      local formatters_by_ft = {
-        ["bash"] = "shfmt",
-        ["sh"] = "shfmt",
-      }
-
-      opts.formatters_by_ft = opts.formatters_by_ft or {}
-      for ft, formatter in pairs(formatters_by_ft) do
-        opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
-        table.insert(opts.formatters_by_ft[ft], formatter)
-      end
-
-      -- opts.formatters = opts.formatters or {}
-      -- opts.formatters.shfmt = {
-      --   prepend_args = { "-i", "2", "-ci" },
-      -- }
-    end,
+    opts = {
+      formatters_by_ft = {
+        bash = { "shfmt" },
+        sh = { "shfmt" },
+      },
+    },
   },
 
   -- linting
