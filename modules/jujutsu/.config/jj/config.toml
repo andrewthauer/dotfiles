@@ -1,38 +1,35 @@
 # see https://jj-vcs.github.io/jj/latest/config/
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [user]
 name = "Andrew Thauer"
 email = "6507159+andrewthauer@users.noreply.github.com"
 
+[ui]
+default-command = "log"
+# conflict-marker-style = "git"
+
 [git]
 push-new-bookmarks = true
-# sign-on-push = true
 
 # Configured in ~/.config/jj/conf.d/local.toml
+# [git]
+# sign-on-push = true
 # [signing]
 # backend = "ssh"
 # key = "<public key>
 # backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-
-[ui]
-default-command = "log"
-conflict-marker-style = "git"
 
 [merge-tools.scm-diff-editor]
 # # see woraround above
 # program = "scm-diff-editor"
 edit-args = ["--dir-diff", "$left", "$right"]
 
-[template-aliases]
-'format_short_change_id(id)' = 'id.shortest()'
-# 'format_short_signature(signature)' = 'signature.name()'
-
 [aliases]
 log-recent = ["log", "-r", "default() & recent()"]
 push-bookmarks = ["git", "push", "--revision", "all:bookmarks()"]
 rebase-bookmarks = ["rebase", "--source", "all:(bookmarks() ~ immutable())", "--destination", "trunk()"]
 sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
-
 c = ["commit"]
 ci = ["commit", "--interactive"]
 e = ["edit"]
@@ -47,3 +44,8 @@ si = ["squash", "--interactive"]
 
 [revset-aliases]
 'recent()' = 'committer_date(after:"3 months ago")'
+
+[template-aliases]
+# 'format_short_change_id(id)' = 'id.shortest()'
+# 'format_short_signature(signature)' = 'signature.name()'
+
