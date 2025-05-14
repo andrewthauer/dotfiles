@@ -19,6 +19,7 @@ return {
   },
 
   -- yaml schema support
+  -- https://github.com/b0o/SchemaStore.nvim
   {
     "b0o/SchemaStore.nvim",
     lazy = true,
