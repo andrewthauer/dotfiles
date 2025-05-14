@@ -119,6 +119,30 @@
   },
   "gitlens.codeLens.enabled": false,
   "javascript.updateImportsOnFileMove.enabled": "never",
+  "pgsql.serverGroups": [
+    {
+      "name": "Servers",
+      "id": "708C066A-FE4E-4F7A-9C5D-35EFA35B93B1",
+      "isDefault": true
+    }
+  ],
+  "pgsql.connections": [
+    {
+      "id": "84189D2F-8136-42FD-89CE-0C2949E7A4E2",
+      "groupId": "708C066A-FE4E-4F7A-9C5D-35EFA35B93B1",
+      "authenticationType": "SqlLogin",
+      "connectTimeout": 15,
+      "applicationName": "vscode-pgsql",
+      "clientEncoding": "utf8",
+      "sslmode": "prefer",
+      "server": "localhost",
+      "user": "postgres",
+      "profileName": "localhost, <default> (postgres)",
+      "expiresOn": 0,
+      "password": "",
+      "emptyPasswordInput": true
+    }
+  ],
   "projectManager.git.baseFolders": ["$home/.dotfiles", "$home/src"],
   "projectManager.groupList": true,
   "projectManager.sortList": "Recent",
