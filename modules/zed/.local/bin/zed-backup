@@ -3,14 +3,19 @@
 # Script to read ~/.config/zed/settings.json and strip out specific keys
 # Usage: zed-backup [key1] [key2] ... [keyN]
 # If no keys specified, strips common sensitive/personal keys by default
+# Supports nested keys using dot notation (e.g., "context_services.argocd")
 
 set -euo pipefail
 
 SETTINGS_FILE="$HOME/.config/zed/settings.json"
+BACKUP_FILE="$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json"
 
 # Default keys to strip if none provided
 DEFAULT_KEYS=(
   "context_servers"
+  # "context_servers.argocd"
+  # "context_servers.github"
+  # "context_servers.backstage"
 )
 
 # Use provided keys or default ones
@@ -41,8 +46,10 @@ strip_json_comments() {
 # Build jq filter to remove specified keys
 filter="."
 for key in "${KEYS_TO_STRIP[@]}"; do
+  # Convert dot notation to jq del() syntax
+  # "context_services.argocd" becomes "del(.context_services.argocd)"
   filter="$filter | del(.$key)"
 done
 
 # Strip comments from JSON and process with jq
-strip_json_comments "$SETTINGS_FILE" | jq "$filter" >"$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json"
+strip_json_comments "$SETTINGS_FILE" | jq "$filter" >"$BACKUP_FILE"
