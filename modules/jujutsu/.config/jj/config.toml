@@ -11,6 +11,7 @@ default-command = "log"
 
 [git]
 push-new-bookmarks = true
+private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
 
 # Configured in ~/.config/jj/conf.d/local.toml
 # [git]
@@ -44,8 +45,10 @@ si = ["squash", "--interactive"]
 
 [revset-aliases]
 'recent()' = 'committer_date(after:"3 months ago")'
+integration = 'description("[integration]") | description("[integration merge]")'
+wip = 'description(regex:"^\\[(wip|WIP|todo|TODO)\\]|(wip|WIP|todo|TODO):?")'
+testing = '(description(regex:"^testing:"))'
 
 [template-aliases]
 # 'format_short_change_id(id)' = 'id.shortest()'
 # 'format_short_signature(signature)' = 'signature.name()'
-
