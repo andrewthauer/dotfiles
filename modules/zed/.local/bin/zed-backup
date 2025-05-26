@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# Script to read ~/.config/zed/settings.json and strip out specific keys
+# Usage: zed-backup [key1] [key2] ... [keyN]
+# If no keys specified, strips common sensitive/personal keys by default
+
+set -euo pipefail
+
+SETTINGS_FILE="$HOME/.config/zed/settings.json"
+
+# Default keys to strip if none provided
+DEFAULT_KEYS=(
+  "context_servers"
+)
+
+# Use provided keys or default ones
+KEYS_TO_STRIP=("${@:-${DEFAULT_KEYS[@]}}")
+
+# Check if settings file exists
+if [[ ! -f "$SETTINGS_FILE" ]]; then
+  echo "Error: Zed settings file not found at $SETTINGS_FILE" >&2
+  exit 1
+fi
+
+# Check if jq is available
+if ! command -v jq >/dev/null 2>&1; then
+  echo "Error: jq is required but not installed" >&2
+  exit 1
+fi
+
+# Function to strip JSON comments using Deno's JSONC package
+strip_json_comments() {
+  deno eval "
+    import { parse } from 'jsr:@std/jsonc';
+    const text = await Deno.readTextFile('$1');
+    const parsed = parse(text);
+    console.log(JSON.stringify(parsed, null, 2));
+  "
+}
+
+# Build jq filter to remove specified keys
+filter="."
+for key in "${KEYS_TO_STRIP[@]}"; do
+  filter="$filter | del(.$key)"
+done
+
+# Strip comments from JSON and process with jq
+strip_json_comments "$SETTINGS_FILE" | jq "$filter" >"$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json"
