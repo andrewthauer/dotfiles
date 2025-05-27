@@ -5,7 +5,7 @@
       "model": "claude-sonnet-4"
     },
     "version": "2",
-    "always_allow_tool_actions": false,
+    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
       "model": "claude-sonnet-4"
@@ -56,7 +56,6 @@
   "inlay_hints": {
     "enabled": false
   },
-  "language_models": {},
   "languages": {
     "Ruby": {
       "language_servers": [

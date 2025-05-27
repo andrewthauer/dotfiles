@@ -13,9 +13,7 @@ BACKUP_FILE="$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json"
 # Default keys to strip if none provided
 DEFAULT_KEYS=(
   "context_servers"
-  # "context_servers.argocd"
-  # "context_servers.github"
-  # "context_servers.backstage"
+  "language_models"
 )
 
 # Use provided keys or default ones

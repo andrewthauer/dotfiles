@@ -1,6 +1,19 @@
 // https://zed.dev/docs/key-bindings
 [
   {
+    "bindings": {
+      "f4": "debugger::Start",
+      "alt-f4": "debugger::RerunLastSession",
+      "f5": "debugger::Continue",
+      "shift-f5": "debugger::Stop",
+      "shift-cmd-f5": "debugger::Restart",
+      "f6": "debugger::Pause",
+      "f10": "debugger::StepOver",
+      "f11": "debugger::StepInto",
+      "shift-f11": "debugger::StepOut"
+    }
+  },
+  {
     "context": "Workspace",
     "bindings": {
       "ctrl-/": ["workspace::SendKeystrokes", "cmd-j"],
@@ -109,6 +122,7 @@
     "bindings": {
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp"
+      // "g c s": ["vim::PushChangeSurrounds", {}]
     }
   },
   {
