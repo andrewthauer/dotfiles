@@ -8,11 +8,9 @@ min_time = 0
 show_milliseconds = true
 style = "yellow"
 
-[docker_context]
-disabled = true
-
-[package]
-disabled = true
+[aws.region_aliases]
+ca-central-1 = 'cac1'
+us-east-1 = 'use1'
 
 #
 # jujutsu
