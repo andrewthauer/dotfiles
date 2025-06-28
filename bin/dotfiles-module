@@ -14,13 +14,26 @@ usage() {
   echo "  list, ls           List modules"
   echo "  link, ln           Link a module"
   echo "  unlink, rm         Unlink a module"
+  echo "  add                Add module(s) to modules file"
   echo "  read-file, r       Read a modules file"
   echo "  write-file, w      Write a modules file"
   echo "  file-path          Get a modules file location"
   echo "  help               Prints this message"
   echo ""
-  echo "FLAGS:"
-  echo "  --help, -h   Prints help"
+  echo "GLOBAL FLAGS:"
+  echo "  --help, -h         Prints help"
+  echo ""
+  echo "COMMAND-SPECIFIC FLAGS:"
+  echo "  list:"
+  echo "    --all, -a        List all modules"
+  echo "  link/unlink:"
+  echo "    --all, -a        Link/unlink all modules"
+  echo "    --file, -f FILE  Use specific modules file"
+  echo "    --no-file        Don't use a modules file"
+  echo "  add:"
+  echo "    --file, -f FILE  Target modules file (optional)"
+  echo "  write-file:"
+  echo "    --file, -f FILE  Specify output file"
 }
 
 link() {
@@ -28,7 +41,7 @@ link() {
 }
 
 unlink() {
-  stow_modules -D "$@"
+  remove_modules_from_file "$@"
 }
 
 list_modules() {
@@ -140,6 +153,49 @@ read_modules_file() {
   cat <"$modules_file" | sed -e 's/[[:space:]]*#.*// ; /^[[:space:]]*$/d'
 }
 
+remove_modules_from_file() {
+  local modules_file
+  modules_file="$(get_modules_file)"
+  
+  for module in "$@"; do
+    sed -i.bak "/^${module}$/d" "$modules_file" && rm -f "${modules_file}.bak"
+  done
+}
+
+add_modules_to_file() {
+  local modules_file
+
+  case "$1" in
+    --file | -f)
+      modules_file="$2"
+      shift 2
+      ;;
+    *)
+      modules_file="$(get_modules_file)"
+      ;;
+  esac
+
+  local existing_modules
+  IFS=$'\n' read -d '' -ra existing_modules < <(read_modules_file "$modules_file" 2>/dev/null && printf '\0') || true
+
+  local new_modules=()
+  for module in "$@"; do
+    if printf '%s\n' "${existing_modules[@]}" | grep -q "^${module}$"; then
+      echo "Module $module already exists"
+    else
+      echo "$module" >>"$modules_file"
+      echo "Added module $module"
+      new_modules+=("$module")
+    fi
+  done
+
+  # Link newly added modules
+  if [ "${#new_modules[@]}" -gt 0 ]; then
+    echo "Linking new modules..."
+    stow_modules -S "${new_modules[@]}"
+  fi
+}
+
 write_modules_file() {
   local modules_file
   local modules=()
@@ -184,6 +240,9 @@ main() {
       ;;
     unlink | rm)
       unlink "$@"
+      ;;
+    add)
+      add_modules_to_file "$@"
       ;;
     read-file | r)
       read_modules_file "$@"

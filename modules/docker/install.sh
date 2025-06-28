@@ -14,7 +14,9 @@ install_macos() {
 
   # Install colima, docker, docker-compose and docker-buildx
   echo "Installing docker and colima..."
-  brew install colima docker docker-compose docker-buildx
+  DOCKER_APPS="colima docker docker-compose docker-buildx"
+  # shellcheck disable=SC2086
+  brew list $DOCKER_APPS &>/dev/null || brew install $DOCKER_APPS || true
 
   # Setup docker-compose and set buildx as the default docker build engine
   echo "Setting up docker-compose and docker-buildx..."

@@ -6,19 +6,21 @@ DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
-  if [ "$(command -v mise)" ]; then
-    echo "mise is already installed"
-    exit 0
-  fi
-
   case "$(os-info --family)" in
     "macos")
-      brew install mise
+      brew list mise || brew install mise || true
       ;;
     *)
-      curl https://mise.jdx.dev/install.sh | sh
+      if [ "$(command -v mise)" ]; then
+        echo "mise is already installed"
+      else
+        curl https://mise.jdx.dev/install.sh | sh
+      fi
       ;;
   esac
+
+  dotfiles module add mise
+  mise trust "$XDG_CONFIG_HOME/mise/config.toml" --yes
 }
 
 main "$@"

@@ -6,37 +6,26 @@ DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/
 source "${DOTFILES_HOME}/lib/xdg.sh"
 PATH="${DOTFILES_HOME}/bin:${XDG_BIN_HOME}:${PATH}"
 
-main() {
-  local mod_dir="$DOTFILES_HOME/modules"
-  local scripts_dir="$DOTFILES_HOME/scripts"
-  local mod_file
-  mod_file="$(dotfiles module file-path)"
+# Prompt for admin password upfront (only if not already running as sudo)
+# if ! sudo -n true 2>/dev/null; then
+#   sudo -v
+# fi
 
-  # Base setup
-  "$mod_dir/_base/install.sh"
-  mkdir -p "$mod_dir/local"
+# Function to prompt before performing an action
+prompt_for_action() {
+  local app_name="$1"
+  local command="$2"
+  local action="${3:-install}"
 
-  # Install & load Homebrew shellenv
-  "$mod_dir/homebrew/install.sh"
+  if read -p "Do you want to $action $app_name? (y/N): " -n 1 -r && echo; then
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "Running action..."
+      eval "$command"
+    fi
+  fi
+}
 
-  # shellcheck source=/dev/null
-  source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
-
-  # Install MacOS specific packages
-  export HOMEBREW_BUNDLE_FILE="${mod_dir}/homebrew/.config/homebrew/Brewfile"
-  brew bundle --no-lock
-
-  # Setup mise
-  mise trust --yes
-  # mise install rust --yes
-  # mise install node --yes
-
-  # Install dotfiles module scripts
-  "$mod_dir/docker/install.sh"
-  "$mod_dir/github/install.sh"
-  "$mod_dir/hammerspoon/install.sh"
-  "$mod_dir/neovim/install.sh"
-
+link_dotfiles() {
   # Default modules
   local default_modules=(
     _base
@@ -60,7 +49,6 @@ main() {
     mise
     neovim
     nodejs
-    op
     python
     ripgrep
     ruby
@@ -81,12 +69,72 @@ main() {
 
   # Link dotfiles
   dotfiles module link --file "$mod_file"
+}
+
+install_op_module() {
+  # Prompt to install op (1password) module
+  echo "The 'op' module integrates 1Password with the shell and SSH."
+  echo "NOTE: This requires manually enabling the SSH agent in the 1Password app first."
+  echo "If you haven't done this, or if you are unsure, select 'N'."
+  read -p "Do you want to install the 1Password (op) module? (y/N) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    dotfiles module add op
+  fi
+}
+
+# Main function to set up the macOS environment
+main() {
+  # TODO: set terminal defaults early
+  # font, etc.
+
+  local mod_dir="$DOTFILES_HOME/modules"
+  local scripts_dir="$DOTFILES_HOME/scripts"
+  local mod_file
+  mod_file="$(dotfiles module file-path)"
+
+  # Setup key environment variables for macOS (e.g. XDG_CONFIG_HOME)
+  "$mod_dir/macos/.local/bin/launchctl-env.sh"
+
+  # Setup github known host
+  "$mod_dir/github/install.sh"
+
+  # Base setup
+  "$mod_dir/_base/install.sh"
+  mkdir -p "$mod_dir/local"
+
+  # Link dotfile
+  link_dotfiles
+
+  # Install & load Homebrew shellenv
+  "$mod_dir/homebrew/install.sh"
+  # shellcheck source=/dev/null
+  source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
+
+  # Install other tools and modules
+  "$mod_dir/docker/install.sh"
+  "$mod_dir/nushell/install.sh"
+  "$mod_dir/mise/install.sh"
+  "$mod_dir/zed/install.sh"
+
+  # Install 1Password module (op)
+  install_op_module
+
+  # Make firefox default browser
+  echo "Setting Firefox Developer Edition as the default browser..."
+  open -a "Firefox Developer Edition" --background --args -silent -nosplash -setDefaultBrowser
+
+  # Install applications
+  prompt_for_action "1password" "brew install --cask 1password"
+  prompt_for_action "NeoVim" "$mod_dir/neovim/install.sh"
+  prompt_for_action "Hammerspoon" "$mod_dir/hammerspoon/install.sh"
+  prompt_for_action "Karabiner-Elements" "$mod_dir/karabiner/install.sh"
 
   # Setup macos defaults
-  "$scripts_dir/scripts/macos-defaults.sh"
+  "$scripts_dir/macos-defaults.sh"
 
   # Set default shells
-  "$scripts_dir"/set-default-shells.sh
+  prompt_for_action "change default shells" "$scripts_dir"/set-default-shells.sh
 }
 
 main "$@"

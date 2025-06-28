@@ -27,22 +27,15 @@ install_homebrew() {
 install_brews() {
   # Install brews using brew bundle (uses the Brewfile)
   local brewfile="${CURRENT_DIR}/.config/homebrew/Brewfile"
-
-  if [ -x "$(command -v brew)" ] && [ -f "$brewfile" ]; then
-    printf "Do you want run brew bundle [y/N]? "
-    read -r answer
-    case "${answer}" in [yY] | [yY][eE][sS])
-      HOMEBREW_BUNDLE_FILE="$brewfile" brew bundle
-      ;;
-    esac
-  fi
+  HOMEBREW_BUNDLE_FILE="$brewfile" brew bundle
 }
 
 main() {
   case "$(os-info --family)" in
     "macos")
       install_homebrew
-      # install_brews
+      dotfiles module add homebrew
+      install_brews
       ;;
     *)
       echo "Not implemented for this OS"

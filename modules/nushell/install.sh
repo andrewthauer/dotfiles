@@ -13,7 +13,7 @@ main() {
 
   case "$(os-info --family)" in
     "macos")
-      brew install nushell carapace
+      brew list nushell carapace || brew install nushell carapace || true
       ;;
     "debian")
       if [ ! -f "/etc/apt/trusted.gpg.d/fury-nushell.gpg" ]; then
@@ -23,6 +23,8 @@ main() {
       SKIP_PACAKGE_MANGER_UPDATE="false" pkg install nushell
       ;;
   esac
+
+  dotfiles module add nushell carapace
 }
 
 main "$@"

@@ -16,9 +16,6 @@
 #   4. copy command from plist output to this file
 #
 
-# Prompt for admin password upfront
-sudo -v
-
 # =============================================================================
 # Appearance
 # =============================================================================
@@ -119,12 +116,6 @@ defaults write -g com.apple.keyboard.fnState -bool true
 /usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ContextMenu'" -c "Add ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ContextMenu' bool 'false'" "$HOME/Library/Preferences/pbs.plist"
 /usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ServicesMenu'" -c "Add ':NSServicesStatus:com.apple.Safari - Search With %WebSearchProvider@ - searchWithWebSearchProvider:presentation_modes:ServicesMenu' bool 'false'" "$HOME/Library/Preferences/pbs.plist"
 
-# Disable Search > Spotlight with shift+cmd+f
-/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:enabled_context_menu'" "$HOME/Library/Preferences/pbs.plist"
-/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:enabled_services_menu'" "$HOME/Library/Preferences/pbs.plist"
-/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:presentation_modes:ContextMenu'" "$HOME/Library/Preferences/pbs.plist"
-/usr/libexec/PlistBuddy -c "Delete ':NSServicesStatus:com.apple.SpotlightService - SEARCH_WITH_SPOTLIGHT - doSearchWithSpotlight:presentation_modes:ServicesMenu'" "$HOME/Library/Preferences/pbs.plist"
-
 # =============================================================================
 # Input - Mouse, Trackpad
 # =============================================================================
@@ -193,7 +184,7 @@ defaults write com.apple.TextInputMenu "visible" -bool false
 defaults write com.apple.TextInputMenuAgent "NSStatusItem Visible Item-0" -bool false
 
 # Reduce Transparency
-defaults write com.apple.universalaccess reduceTransparency -int 0
+# defaults write com.apple.universalaccess reduceTransparency -int 0
 
 # =============================================================================
 # Dock
@@ -360,15 +351,7 @@ apply_settings() {
   echo "Applying settings..."
   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 }
-
-restart_processes() {
-  echo "Restarting processes..."
-  for app in \
-    "Activity Monitor" "cfprefsd" "Dock" "Finder" "SystemUIServer" "Terminal"; do
-    killall "${app}" >/dev/null 2>&1
-  done
-}
-
 apply_settings
+
 echo "✅ Done"
 echo "Some changes require a logout/restart to take effect."
