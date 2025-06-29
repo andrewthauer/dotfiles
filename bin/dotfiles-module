@@ -156,7 +156,7 @@ read_modules_file() {
 remove_modules_from_file() {
   local modules_file
   modules_file="$(get_modules_file)"
-  
+
   for module in "$@"; do
     sed -i.bak "/^${module}$/d" "$modules_file" && rm -f "${modules_file}.bak"
   done

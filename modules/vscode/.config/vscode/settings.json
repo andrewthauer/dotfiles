@@ -193,5 +193,5 @@
   "workbench.editor.enablePreview": true,
   "workbench.editor.editorActionsLocation": "hidden",
   "workbench.settings.editor": "json",
-  "workbench.startupEditor": "none",
+  "workbench.startupEditor": "none"
 }
