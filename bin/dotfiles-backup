@@ -19,6 +19,8 @@ main() {
     -arv \
     --delete \
     --exclude ".git" \
+    --exclude ".jj" \
+    --exclude "modules/hammerspoon/.config/hammerspoon/Spoons" \
     "${DOTFILES_HOME}/" \
     "${target_dir}"
 }
