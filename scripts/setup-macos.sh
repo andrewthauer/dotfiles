@@ -98,6 +98,10 @@ main() {
   local mod_file
   mod_file="$(dotfiles module file-path)"
 
+  # Run these install scripts
+  "$mod_dir/_base/install.sh"
+  "$mod_dir/macos/install.sh"
+
   # Setup key environment variables for macOS (e.g. XDG_CONFIG_HOME)
   "$mod_dir/macos/.local/bin/launchctl-env.sh"
 
@@ -117,7 +121,6 @@ main() {
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # Install other tools and modules
-  "$mod_dir/macos/install.sh"
   "$mod_dir/docker/install.sh"
   "$mod_dir/nushell/install.sh"
   "$mod_dir/mise/install.sh"

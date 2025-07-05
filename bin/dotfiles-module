@@ -115,9 +115,9 @@ stow_modules() {
   fi
 
   case "$stow_flag" in
-    -S) oper_text="Linking" ;;
-    -D) oper_text="Unlinking" ;;
-    -R) oper_text="Relinking" ;;
+    --stow | -S) oper_text="Linking" ;;
+    --delete | -D) oper_text="Unlinking" ;;
+    --restow | -R) oper_text="Relinking" ;;
     *)
       echo "Unknown flag: $stow_flag"
       exit 1

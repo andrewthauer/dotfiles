@@ -29,8 +29,11 @@ link_dotfile() {
 }
 
 sync_zed_settingss() {
-  if [ -f "$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json" ]; then
-    cp "$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json" "$XDG_CONFIG_HOME/zed/settings.json"
+  local source_settings_file="$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json"
+  local target_settings_file="$XDG_CONFIG_HOME/zed/settings.json"
+
+  if [ ! -f "$target_settings_file" ]; then
+    cp "$source_settings_file" "$target_settings_file"
   fi
 
   # TODO: Merge settings.json with existing settings if it exists
