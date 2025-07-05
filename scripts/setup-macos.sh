@@ -117,6 +117,7 @@ main() {
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # Install other tools and modules
+  "$mod_dir/macos/install.sh"
   "$mod_dir/docker/install.sh"
   "$mod_dir/nushell/install.sh"
   "$mod_dir/mise/install.sh"
