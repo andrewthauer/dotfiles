@@ -57,9 +57,7 @@
       "source": "custom",
       "enabled": true,
       "command": "cu",
-      "args": [
-        "stdio"
-      ],
+      "args": ["stdio"],
       "env": {}
     }
   },
@@ -72,30 +70,13 @@
     "edit_prediction_provider": "copilot"
   },
   "file_types": {
-    "GitConfig": [
-      "**/git/config*",
-      "**/git/aliases*"
-    ],
-    "Helm": [
-      "**/templates/**/*.tpl",
-      "**/templates/**/*.yaml"
-    ],
-    "Markdown": [
-      "*.rules",
-      "*.mdc"
-    ],
-    "Shell Script": [
-      "**/*.bats"
-    ],
-    "XML": [
-      "*.plist"
-    ]
+    "GitConfig": ["**/git/config*", "**/git/aliases*"],
+    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
+    "Markdown": ["*.rules", "*.mdc"],
+    "Shell Script": ["**/*.bats"],
+    "XML": ["*.plist"]
   },
-  "file_scan_exclusions": [
-    ".git/*",
-    ".jj/*",
-    "**/node_modules/**"
-  ],
+  "file_scan_exclusions": [".git/*", ".jj/*", "**/node_modules/**"],
   "format_on_save": "off",
   "icon_theme": {
     "mode": "system",
@@ -126,10 +107,7 @@
       "host": "hass",
       "projects": [
         {
-          "paths": [
-            "~",
-            "/root/config"
-          ]
+          "paths": ["~", "/root/config"]
         }
       ]
     },
@@ -137,10 +115,7 @@
       "host": "nas",
       "projects": [
         {
-          "paths": [
-            "~",
-            "/volume1/docker"
-          ]
+          "paths": ["~", "/volume1/docker"]
         }
       ]
     }
