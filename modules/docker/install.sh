@@ -26,10 +26,17 @@ install_macos() {
   docker buildx install
 }
 
+install_model_runner() {
+  mise install -g "go:github.com/docker/cli-model@latest"
+  ln -sfn "$(mise which model-cli)" ~/.docker/cli-plugins/docker-model
+  docker model install-runner
+}
+
 main() {
   case "$(os-info --family)" in
     "macos")
       install_macos
+      # install_model_runner
       ;;
     *)
       echo "Not implemented for this OS"
