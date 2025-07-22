@@ -16,19 +16,26 @@ def "from env" [
     $e
 }
 
-# Parse a file of bash aliases into nushell functions
+# Parse a file of bash aliases into nushell aliases
 def "from aliases" []: list -> record {
     mut $e = sanitize-lines
         | parse "alias {key}={value}"
         | each {|i|
             let value = $i.value | unquote | expand-var
-            # Check if the alias value contains the alias name and prepend with ^
-            let safe_value = if ($value | str contains $i.key) {
-                $value | str replace --all $i.key $"^($i.key)"
+
+            # If the alias contains a pipe, create a function
+            if ($value | str contains "|") {
+                # Check if the alias value contains the alias name and prepend with ^
+                let safe_value = if ($value | str contains $i.key) {
+                    $value | str replace --all $i.key $"^($i.key)"
+                } else {
+                    $value
+                }
+                $"def ($i.key) [] { ($safe_value) }"
             } else {
-                $value
+                # For simple aliases without pipes, use regular alias syntax
+                $"alias ($i.key) = ($value)"
             }
-            $"def ($i.key) [] { ($safe_value) }"
         }
 
     $e
