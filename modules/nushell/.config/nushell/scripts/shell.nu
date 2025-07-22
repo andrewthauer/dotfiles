@@ -16,11 +16,20 @@ def "from env" [
     $e
 }
 
-# Parse a file of bash aliases into nushell aliases
+# Parse a file of bash aliases into nushell functions
 def "from aliases" []: list -> record {
     mut $e = sanitize-lines
         | parse "alias {key}={value}"
-        | each {|i| $"alias ($i.key) = ($i.value | unquote | expand-var)" }
+        | each {|i|
+            let value = $i.value | unquote | expand-var
+            # Check if the alias value contains the alias name and prepend with ^
+            let safe_value = if ($value | str contains $i.key) {
+                $value | str replace --all $i.key $"^($i.key)"
+            } else {
+                $value
+            }
+            $"def ($i.key) [] { ($safe_value) }"
+        }
 
     $e
 }
