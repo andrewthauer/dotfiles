@@ -4,6 +4,12 @@
 name = "Andrew Thauer"
 email = "6507159+andrewthauer@users.noreply.github.com"
 
+[core]
+fsmonitor = "watchman"
+
+[core.watchman]
+register-snapshot-trigger = true
+
 [ui]
 default-command = "log"
 # conflict-marker-style = "git"
@@ -27,27 +33,30 @@ write-change-id-header = true
 # program = "scm-diff-editor"
 # edit-args = ["--dir-diff", "$left", "$right"]
 
-[aliases]
-logc = ["log", "-T", "builtin_log_compact"]
-logd = ["log", "-T", "builtin_log_detailed"]
-log-recent = ["log", "-r", "recent()"]
-push-bookmarks = ["git", "push", "--revision", "all:bookmarks()"]
-rebase-bookmarks = ["rebase", "--source", "all:(bookmarks() ~ immutable())", "--destination", "trunk()"]
-sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
-# rbm = ["rebase", "-d", "trunk()"]
-
-[templates]
-# log = 'log_oneline'
-
 [revset-aliases]
-'recent()' = 'committer_date(after:"3 months ago")'
+# branch name helpers
 integration = 'description("[integration]") | description("[integration merge]")'
 wip = 'description(regex:"^\\[(wip|WIP|todo|TODO)\\]|(wip|WIP|todo|TODO):?")'
 testing = '(description(regex:"^testing:"))'
+# bookmark helpers
+all_bookmarks = 'all:(bookmarks() ~ immutable())'
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+# misc
+'recent()' = 'committer_date(after:"3 months ago")'
 'direct_descendants(x)' = 'descendants(x, 2) ~ (x | main)'
 
+[aliases]
+fetch = ["git", "fetch"]
+logc = ["log", "-T", "builtin_log_compact"]
+logd = ["log", "-T", "builtin_log_detailed"]
+logr = ["log", "-r", "recent()"]
+push = ["git", "push"]
+push-all = ["git", "push", "--revision", "all:bookmarks()"]
+rebase-all = ["rebase", "--source", "all_bookmarks", "--destination", "trunk()"]
+sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
+
 [template-aliases]
-# 'format_short_change_id(id)' = 'id.shortest()'
 'format_short_signature(signature)' = 'signature.email().local()'
 'format_timestamp(timestamp)' = 'timestamp.ago()'
 'commit_timestamp(commit)' = 'commit.author().timestamp()'
