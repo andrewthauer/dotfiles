@@ -77,8 +77,8 @@ def expand-var []: string -> string {
 
     for r in $tokens {
         let token = $r.token
-        let key = $token | parse --regex $varRegex | get -i capture0.0
-        let replacement = $env | get -i $key
+        let key = $token | parse --regex $varRegex | get -o capture0.0
+        let replacement = $env | get -o $key
         if ($replacement | is-empty) {
             continue
         }
