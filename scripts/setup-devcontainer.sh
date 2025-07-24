@@ -20,20 +20,6 @@ main() {
   # Use custom dotfiles home
   echo "${DOTFILES_HOME}" >"${XDG_CONFIG_HOME}/dotfiles-home"
 
-  # Base setup
-  "$mod_dir/_base/install.sh"
-  mkdir -p "$local_mod_dir"
-
-  # Custom environment for devcontainer
-  mkdir -p "$(dirname "$local_env_file")"
-  mkdir -p "$(dirname "$local_mise_config_file")"
-  touch "$local_mise_config_file"
-  cat >"$local_env_file" <<EOF
-# Custom environment variables for devcontainer
-LANG="${LANG}"
-MISE_GLOBAL_CONFIG_FILE="${local_mise_config_file}"
-EOF
-
   # Install packages with package manager
   pkg install \
     stow \
@@ -45,6 +31,20 @@ EOF
     shfmt \
     zoxide \
     zsh
+
+  # Custom environment for devcontainer
+  mkdir -p "$(dirname "$local_env_file")"
+  mkdir -p "$(dirname "$local_mise_config_file")"
+  touch "$local_mise_config_file"
+  cat >"$local_env_file" <<EOF
+# Custom environment variables for devcontainer
+LANG="${LANG}"
+MISE_GLOBAL_CONFIG_FILE="${local_mise_config_file}"
+EOF
+
+  # Base setup
+  "$mod_dir/_base/install.sh"
+  mkdir -p "$local_mod_dir"
 
   # No need to install packages
   export SKIP_PACKAGER_MANAGER_UPDATE="true"

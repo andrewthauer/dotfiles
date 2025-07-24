@@ -12,10 +12,6 @@ main() {
   local mod_file
   mod_file="$(dotfiles module file-path)"
 
-  # Base setup
-  "$mod_dir/_base/install.sh"
-  mkdir -p "$mod_dir/local"
-
   # Install packages with package manager
   pkg install \
     stow \
@@ -27,6 +23,10 @@ main() {
     shfmt \
     zoxide \
     zsh
+
+  # Base setup
+  "$mod_dir/_base/install.sh"
+  mkdir -p "$mod_dir/local"
 
   # No need to install packages
   export SKIP_PACKAGER_MANAGER_UPDATE="true"
