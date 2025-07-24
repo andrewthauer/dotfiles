@@ -220,7 +220,8 @@ spoon.SpoonInstall:andUse("Seal", {
 -- stylua: ignore start
 hs.hotkey.bind(hyper, "1", utils.launchById("com.1password.1password"))
 hs.hotkey.bind(hyper, "m", utils.launchById("md.obsidian"))
-hs.hotkey.bind(hyper, "c", utils.launchById("com.google.Chrome"))
+-- hs.hotkey.bind(hyper, "c", utils.launchById("com.google.Chrome"))
+hs.hotkey.bind(hyper, "c", utils.launchById("com.todesktop.230313mzl4w4u92"))
 hs.hotkey.bind(hyper, "d", utils.launchById("com.todoist.mac.Todoist"))
 hs.hotkey.bind(hyper, "f", utils.launchById("org.mozilla.firefoxdeveloperedition"))
 hs.hotkey.bind(hyper, "h", utils.launchById("io.robbie.HomeAssistant"))
