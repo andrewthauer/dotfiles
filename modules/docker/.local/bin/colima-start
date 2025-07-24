@@ -16,10 +16,9 @@ function main() {
     echo "Running on macOS..."
     colima start \
       --arch aarch64 \
-      --cpu 8 \
-      --memory 8 \
+      --cpu 10 \
+      --memory 16 \
       --vm-type=vz \
-      --vz-rosetta \
       --mount-type=virtiofs \
       --ssh-config=false
   else
