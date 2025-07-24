@@ -4,11 +4,11 @@
 name = "Andrew Thauer"
 email = "6507159+andrewthauer@users.noreply.github.com"
 
-[core]
-fsmonitor = "watchman"
+# [core]
+# fsmonitor = "watchman"
 
-[core.watchman]
-register-snapshot-trigger = true
+# [core.watchman]
+# register-snapshot-trigger = true
 
 [ui]
 default-command = "log"
