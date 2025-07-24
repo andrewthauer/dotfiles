@@ -17,7 +17,7 @@ install_macos() {
   fi
 }
 
-link_dotfile() {
+link_dotfiles() {
   echo "Installing Zed editor configuration..."
 
   # We need to ensure the config directory exists and has a child so stow doesn't symlink the parent directory
@@ -47,7 +47,7 @@ main() {
       ;;
   esac
 
-  link_dotfile
+  link_dotfiles
   sync_zed_settingss
 }
 
