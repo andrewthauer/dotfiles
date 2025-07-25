@@ -15,6 +15,7 @@ usage() {
   echo "  link, ln           Link a module"
   echo "  unlink, rm         Unlink a module"
   echo "  add                Add module(s) to modules file"
+  echo "  install, i         Install module(s) (runs install.sh if present)"
   echo "  read-file, r       Read a modules file"
   echo "  write-file, w      Write a modules file"
   echo "  file-path          Get a modules file location"
@@ -33,6 +34,9 @@ usage() {
   echo "    --continue-on-error  Skip missing modules and errors instead of failing"
   echo "  add:"
   echo "    --file, -f FILE  Target modules file (optional)"
+  echo "  install:"
+  echo "    --file, -f FILE  Target modules file (optional)"
+  echo "    --no-file        Don't add modules to modules file after install"
   echo "  write-file:"
   echo "    --file, -f FILE  Specify output file"
 }
@@ -109,7 +113,7 @@ stow_modules() {
     esac
   done
 
-  if [ "${#modules[@]}" -eq 0 ] && [ -z "$modules_file" ]; then
+  if [ "${#modules[@]}" -eq 0 ] && [ -z "$modules_file" ] && [ "$no_file_flag" = false ]; then
     modules_file="$(get_modules_file)"
 
     if [ ! -f "$modules_file" ]; then
@@ -209,6 +213,64 @@ add_modules_to_file() {
   fi
 }
 
+install_modules() {
+  local modules_dir="$DOTFILES_HOME/modules"
+  local no_file_flag=false
+  local modules_file=""
+  local modules=()
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --file | -f)
+        modules_file="$2"
+        shift 2
+        ;;
+      --no-file)
+        no_file_flag=true
+        shift 1
+        ;;
+      --*)
+        echo "Error: Unknown option: $1" >&2
+        exit 1
+        ;;
+      *)
+        modules+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  for module in "${modules[@]}"; do
+    # Check if module directory exists
+    local module_path="$modules_dir/$module"
+    if [ ! -d "$module_path" ]; then
+      echo "Module $module does not exist"
+      exit 1
+    fi
+
+    # Check for and run install.sh if it exists
+    local install_script="$module_path/install.sh"
+    if [ -f "$install_script" ] && [ -x "$install_script" ]; then
+      echo "Running install script for module $module"
+      if ! (cd "$module_path" && ./install.sh); then
+        echo "Install script failed for module $module"
+        exit 1
+      fi
+    else
+      echo "No install script found for module $module"
+    fi
+
+    # Add module to file after install script (unless --no-file is specified)
+    if [ "$no_file_flag" = false ]; then
+      if [ -n "$modules_file" ]; then
+        add_modules_to_file --file "$modules_file" "$module"
+      else
+        add_modules_to_file "$module"
+      fi
+    fi
+  done
+}
+
 write_modules_file() {
   local modules_file
   local modules=()
@@ -256,6 +318,9 @@ main() {
       ;;
     add)
       add_modules_to_file "$@"
+      ;;
+    install | i)
+      install_modules "$@"
       ;;
     read-file | r)
       read_modules_file "$@"

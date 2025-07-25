@@ -31,9 +31,7 @@ install_devpod() {
   devpod context set-options -o SSH_CONFIG_PATH="${XDG_CONFIG_HOME}/ssh/config.d/devpod"
 
   # Customizations
-  # devpod ide use zed
-  # TODO: Set dotfiles defaults
-  # devpod context set-options
+  devpod context set-options -o DOTFILES_URL=https://github.com/andrewthauer/dotfiles
 }
 
 main() {

@@ -32,12 +32,17 @@ install_zsh() {
 
 main() {
   if [ "$(command -v zsh)" ]; then
-    echo "starship is already installed"
-    exit 0
+    echo "zsh is already installed"
+  else
+    install_zsh
+    install_zsh_plugins
   fi
 
-  install_zsh
-  install_zsh_plugins
+  # Make sure the share directory exists
+  mkdir -p "$XDG_DATA_HOME/zsh"
+
+  # Link the zsh configuration
+  dotfiles module add zsh
 }
 
 main "$@"

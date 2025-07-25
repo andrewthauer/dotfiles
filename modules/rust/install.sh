@@ -8,14 +8,14 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 main() {
   if [ "$(command -v rustup)" ]; then
     echo "rustup is already installed"
-    exit 0
+  else
+    case "$(os-info --package-manager)" in
+      *)
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        ;;
+    esac
   fi
 
-  case "$(os-info --package-manager)" in
-    *)
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-      ;;
-  esac
 }
 
 main "$@"

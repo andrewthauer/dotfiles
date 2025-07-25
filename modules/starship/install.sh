@@ -8,13 +8,13 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 main() {
   if [ "$(command -v starship)" ]; then
     echo "starship is already installed"
-    exit 0
+  else
+    case "$(os-info --package-manager)" in
+      "apt") curl -fsSL https://starship.rs/install.sh | sh -s -- --yes --bin-dir ~/.local/bin ;;
+      *) pkg install "starship" ;;
+    esac
   fi
 
-  case "$(os-info --package-manager)" in
-    "apt") curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
-    *) pkg install "starship" ;;
-  esac
 }
 
 main "$@"

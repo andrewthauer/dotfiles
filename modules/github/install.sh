@@ -9,6 +9,11 @@ setup_github() {
 }
 
 setup_ssh_keys() {
+  if ! command -v ssh-keygen &>/dev/null; then
+    echo "ssh-keygen is not available, please install it to generate SSH keys"
+    return 0
+  fi
+
   if [ -f "$HOME/.ssh/known_hosts" ]; then
     ssh-keygen -R github.com
     ssh-keyscan -t rsa github.com >>~/.ssh/known_hosts

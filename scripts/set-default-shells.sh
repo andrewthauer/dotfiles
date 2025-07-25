@@ -42,14 +42,10 @@ set_default_shell() {
     return 1
   fi
 
+  echo "Changing default shell to $shell_path"
   case "$(os-info --os)" in
-    darwin)
-      echo "Changing default shell to $shell_path"
-      chsh -s "$shell_path"
-      ;;
-    *)
-      echo "Unsupported OS: Unable to change default shell"
-      ;;
+    darwin) chsh -s "$shell_path" ;;
+    *) sudo chsh -s "$shell_path" ;;
   esac
 }
 

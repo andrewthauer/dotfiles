@@ -20,6 +20,20 @@ link_dotfiles() {
 }
 
 main() {
+  if [ "$(command -v carapace)" ]; then
+    echo "carapace is already installed"
+  else
+    case "$(os-info --family)" in
+      "macos")
+        brew install carapace || true
+        ;;
+      "debian")
+        echo "deb [trusted=yes] https://apt.fury.io/rsteube/ /" | sudo tee /etc/apt/sources.list.d/carapace.list
+        SKIP_PACAKGE_MANGER_UPDATE="false" pkg install carapace-bin
+        ;;
+    esac
+  fi
+
   link_dotfiles
 }
 

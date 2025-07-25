@@ -20,9 +20,9 @@ if [ -f "${HOME}/.bash_profile" ] && [ -z "$BASH_PROFILE_LOADED" ]; then
   unset BASH_RC_LOADED
 fi
 
-# Source bash core scripts
-source_files_in "${XDG_CONFIG_HOME}"/bash/init.d/*.bash
-
 # Append bin directories to path
 prepend_path "${DOTFILES_HOME}/bin"
 prepend_path "${HOME}/.local/bin"
+
+# Source bash core scripts
+source_files_in "${XDG_CONFIG_HOME}"/bash/init.d/*.bash

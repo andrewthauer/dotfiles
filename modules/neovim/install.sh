@@ -19,17 +19,16 @@ install_plugins() {
 main() {
   if [ "$(command -v neovim)" ]; then
     echo "neovim is already installed"
-    exit 1
+  else
+    case "$(os-info --family)" in
+      "macos")
+        brew install neovim || true
+        ;;
+      *)
+        pkg install "neovim"
+        ;;
+    esac
   fi
-
-  case "$(os-info --family)" in
-    "macos")
-      brew list neovim || brew install neovim || true
-      ;;
-    *)
-      pkg install "neovim"
-      ;;
-  esac
 
   install_prerequisites
   install_plugins

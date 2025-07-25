@@ -33,7 +33,7 @@ prompt_for_action() {
   fi
 }
 
-link_dotfiles() {
+install_modules() {
   # Default modules
   local default_modules=(
     _base
@@ -57,6 +57,7 @@ link_dotfiles() {
     mise
     neovim
     nodejs
+    nushell
     python
     ripgrep
     ruby
@@ -66,17 +67,13 @@ link_dotfiles() {
     xdg
     zed
     zoxide
+    zed
     zsh
   )
 
-  # Write modules file
-  if [ ! -f "$mod_file" ]; then
-    # shellcheck disable=SC2068
-    dotfiles module write-file --file "$mod_file" ${default_modules[@]}
-  fi
-
-  # Link dotfiles
-  dotfiles module link --file "$mod_file"
+  # Install dotfiles modules
+  # shellcheck disable=SC2068
+  dotfiles module install --file "$mod_file" ${default_modules[@]}
 }
 
 install_op_module() {
@@ -98,6 +95,9 @@ main() {
   local mod_file
   mod_file="$(dotfiles module file-path)"
 
+  # Create local module directory (not tracked by git)
+  mkdir -p "$mod_dir/local"
+
   # Run these install scripts
   "$mod_dir/_base/install.sh"
   "$mod_dir/macos/install.sh"
@@ -108,23 +108,11 @@ main() {
   # Setup github known host
   "$mod_dir/github/install.sh"
 
-  # Base setup
-  "$mod_dir/_base/install.sh"
-  mkdir -p "$mod_dir/local"
-
   # Link dotfile
-  link_dotfiles
+  install_modules
 
-  # Install & load Homebrew shellenv
-  "$mod_dir/homebrew/install.sh"
   # shellcheck source=/dev/null
   source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
-
-  # Install other tools and modules
-  "$mod_dir/docker/install.sh"
-  "$mod_dir/nushell/install.sh"
-  "$mod_dir/mise/install.sh"
-  "$mod_dir/zed/install.sh"
 
   # Install 1Password module (op)
   install_op_module

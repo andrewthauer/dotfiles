@@ -20,18 +20,6 @@ main() {
   # Use custom dotfiles home
   echo "${DOTFILES_HOME}" >"${XDG_CONFIG_HOME}/dotfiles-home"
 
-  # Install packages with package manager
-  pkg install \
-    stow \
-    bash \
-    direnv \
-    fzf \
-    git \
-    shellcheck \
-    shfmt \
-    zoxide \
-    zsh
-
   # Custom environment for devcontainer
   mkdir -p "$(dirname "$local_env_file")"
   mkdir -p "$(dirname "$local_mise_config_file")"
@@ -42,51 +30,53 @@ LANG="${LANG}"
 MISE_GLOBAL_CONFIG_FILE="${local_mise_config_file}"
 EOF
 
-  # Base setup
-  "$mod_dir/_base/install.sh"
+  # Create local module directory (not tracked by git)
   mkdir -p "$local_mod_dir"
+
+  # Install packages with package manager
+  pkg install \
+    bash \
+    direnv \
+    fonts-firacode \
+    fzf \
+    git \
+    shellcheck \
+    shfmt \
+    stow \
+    zoxide \
+    zsh
 
   # No need to install packages
   export SKIP_PACKAGER_MANAGER_UPDATE="true"
 
-  # Insall mise
-  "$mod_dir/mise/install.sh"
-  mise trust --yes
-  mise trust --yes "$local_mise_config_file"
-
-  # Install dotfiles module scripts
-  "$mod_dir/github/install.sh"
-  "$mod_dir/nushell/install.sh"
-  "$mod_dir/starship/install.sh"
-  "$mod_dir/zsh/install.sh"
-
-  # TODO: Install
-  # jj
-  # neovim
-
   # Default modules
   local default_modules=(
+    # needs to be installed first
     _base
+    github
+    # order doesn't matter
     bash
+    carapace
     direnv
     fzf
     # git
-    github
     # gpg
     # jujutsu
     "$local_mod_name"
     mise
+    # neovim
+    nushell
     ripgrep
     ssh
     starship
-    # xdg
+    xdg
     zoxide
     zsh
   )
 
-  # Link dotfiles
+  # Install dotfiles modules
   # shellcheck disable=SC2068
-  dotfiles module link --no-file ${default_modules[@]}
+  dotfiles module install --no-file ${default_modules[@]}
 
   # Set default shells
   DOTFILES_NO_SUDO=1 "$scripts_dir"/set-default-shells.sh
