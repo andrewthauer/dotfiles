@@ -30,6 +30,7 @@ usage() {
   echo "    --all, -a        Link/unlink all modules"
   echo "    --file, -f FILE  Use specific modules file"
   echo "    --no-file        Don't use a modules file"
+  echo "    --continue-on-error  Skip missing modules and errors instead of failing"
   echo "  add:"
   echo "    --file, -f FILE  Target modules file (optional)"
   echo "  write-file:"
@@ -72,6 +73,7 @@ stow_modules() {
   local modules_file
   local modules_dir="$DOTFILES_HOME/modules"
   local oper_text=""
+  local continue_on_error=false
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -90,6 +92,10 @@ stow_modules() {
         ;;
       --no-file)
         modules_file=0
+        shift 1
+        ;;
+      --continue-on-error)
+        continue_on_error=true
         shift 1
         ;;
       --*)
@@ -134,7 +140,14 @@ stow_modules() {
     fi
 
     echo "$oper_text module $module"
-    pkg exec --skip-update "stow -t ${HOME} -d $modules_dir $stow_flag $module"
+    if [ "$continue_on_error" = true ]; then
+      if ! pkg exec --skip-update "stow -t ${HOME} -d $modules_dir $stow_flag $module" 2>/dev/null; then
+        echo "Warning: Failed to $oper_text module $module, skipping..."
+        continue
+      fi
+    else
+      pkg exec --skip-update "stow -t ${HOME} -d $modules_dir $stow_flag $module"
+    fi
   done
 }
 

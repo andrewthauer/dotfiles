@@ -1,10 +1,7 @@
 # See https://mise.jdx.dev/configuration.html
 
 [settings]
-disable_backends = [""]
 experimental = true
-legacy_version_file = true
-# libgit2 = false
 python_venv_auto_create = true
 
 [settings.pipx]

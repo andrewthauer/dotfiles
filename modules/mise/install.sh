@@ -19,8 +19,11 @@ main() {
       ;;
   esac
 
-  dotfiles module add mise
-  mise trust "$XDG_CONFIG_HOME/mise/config.toml" --yes
+  dotfiles module add --continue-on-error mise
+
+  if [ -f "$XDG_CONFIG_HOME/mise/config.toml" ]; then
+    mise trust "$XDG_CONFIG_HOME/mise/config.toml" --yes
+  fi
 }
 
 main "$@"
