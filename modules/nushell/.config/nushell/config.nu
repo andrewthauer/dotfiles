@@ -11,5 +11,3 @@ $env.config = {
 
 # Editor
 $env.config.buffer_editor = "vi"
-$env.EDITOR = "nvim"
-$env.VISUAL = "nvim -b"

@@ -33,7 +33,7 @@ EOF
 main() {
   case "$(os-info --family)" in
     "macos")
-      brew list 1password 1password-cli || brew install 1password 1password-cli || true
+      pkg install --type brew list 1password 1password-cli
       configure_launch_agent_macos
       ;;
     *)

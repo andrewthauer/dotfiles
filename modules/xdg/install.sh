@@ -12,7 +12,6 @@ prepare_dirs() {
 
 main() {
   prepare_dirs
-  stow -t "${HOME}" -d "${DOTFILES_HOME}/modules" --stow _base
 }
 
 main "$@"

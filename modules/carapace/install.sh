@@ -13,10 +13,6 @@ link_dotfiles() {
   mkdir -p "$XDG_CONFIG_HOME/carapace/bridge/zsh"
   touch "$XDG_CONFIG_HOME/carapace/_no_parent_symlink" || true
   touch "$XDG_CONFIG_HOME/carapace/bridge/no_parent_symlink" || true
-
-  # We can now safely link the carapace configuration
-  dotfiles module add carapace
-  dotfiles module link carapace
 }
 
 main() {
@@ -25,7 +21,7 @@ main() {
   else
     case "$(os-info --family)" in
       "macos")
-        brew install carapace || true
+        pkg install carapace
         ;;
       "debian")
         echo "deb [trusted=yes] https://apt.fury.io/rsteube/ /" | sudo tee /etc/apt/sources.list.d/carapace.list

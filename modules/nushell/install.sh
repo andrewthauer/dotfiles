@@ -11,7 +11,7 @@ main() {
   else
     case "$(os-info --family)" in
       "macos")
-        brew install nushell || true
+        pkg install --type brew nushell
         ;;
       "debian")
         if [ ! -f "/etc/apt/trusted.gpg.d/fury-nushell.gpg" ]; then
@@ -22,8 +22,6 @@ main() {
         ;;
     esac
   fi
-
-  dotfiles module add nushell
 }
 
 main "$@"

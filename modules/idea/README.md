@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-brew install intellij-idea-ce
+pkg install --type brew intellij-idea-ce
 ```
 
 ## Resources

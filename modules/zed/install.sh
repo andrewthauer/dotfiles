@@ -25,7 +25,7 @@ link_dotfiles() {
   touch "$XDG_CONFIG_HOME/zed/_no_parent_symlink" || true
 
   # We can now safely link the Zed configuration
-  dotfiles module add zed
+  dotfiles module link zed
 }
 
 sync_zed_settingss() {

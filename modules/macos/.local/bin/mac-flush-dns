@@ -6,7 +6,7 @@
 #   mac-flush-dns
 
 main() {
-  if [[ "$OSTYPE" != darwin* ]]; then
+  if [[ "$(uname)" != "Darwin" ]]; then
     echo "Only compatible with macOS"
     exit 1
   fi

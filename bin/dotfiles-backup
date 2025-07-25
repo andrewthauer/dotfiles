@@ -3,18 +3,74 @@
 #   Backup local machine setups & secrets
 #
 # Usage:
-#   dotfiles-backup [target_dir]
+#   dotfiles-backup [command] [options]
 
-set -e
+set -o errexit -o pipefail -o noclobber
 
-main() {
-  local target_dir="${1:-$DOTFILES_BACKUP_DIR}"
+DOTFILES_HOME="${DOTFILES_HOME:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)}"
+PATH="${DOTFILES_HOME}/bin:${PATH}"
 
-  if [ ! -d "${target_dir}" ]; then
-    echo "Invalid target directory: '${target_dir}'"
+#
+# Backup existing dotfiles that are not symlinks
+#
+# examples:
+#    backup_unlinked_dotfiles ~/.bash_profile ~/.bashrc
+#
+backup_unlinked_dotfiles() {
+  for file in "$@"; do
+    # if the file is not a symlink back it up as $file.old
+    if [ -f "${file}" ] && [ ! -L "${file}" ]; then
+      mv "${file}" "${file}.old"
+    fi
+  done
+}
+
+usage() {
+  local cmd
+  cmd="$(basename "$0")"
+  echo "SUMMARY"
+  echo "  Backup local machine setups & secrets"
+  echo ""
+  echo "USAGE: dotfiles backup [command] [options]"
+  echo ""
+  echo "COMMANDS"
+  echo "  files        Backup non-symlinked files locally"
+  echo "  sync         Sync dotfiles directory to target location"
+  echo "  help         Prints this message"
+  echo ""
+  echo "EXAMPLES"
+  echo "  dotfiles backup files ~/.bashrc ~/.zshrc ~/.vimrc"
+  echo "  dotfiles backup sync /backup/dotfiles"
+  echo "  dotfiles backup sync  # uses \$DOTFILES_BACKUP_DIR"
+}
+
+backup_files() {
+  if [ $# -eq 0 ]; then
+    echo "ERROR: No files specified for backup"
+    echo "Usage: dotfiles backup files [file1] [file2] ..."
     exit 1
   fi
 
+  echo "Backing up non-symlinked files..."
+  backup_unlinked_dotfiles "$@"
+  echo "Files backed up successfully (renamed with .old extension)"
+}
+
+sync_dotfiles() {
+  local target_dir="${1:-$DOTFILES_BACKUP_DIR}"
+
+  if [ -z "${target_dir}" ]; then
+    echo "ERROR: No target directory specified and \$DOTFILES_BACKUP_DIR not set"
+    echo "Usage: dotfiles backup sync [target_dir]"
+    exit 1
+  fi
+
+  if [ ! -d "${target_dir}" ]; then
+    echo "ERROR: Invalid target directory: '${target_dir}'"
+    exit 1
+  fi
+
+  echo "Syncing dotfiles to: ${target_dir}"
   rsync \
     -arv \
     --delete \
@@ -23,6 +79,31 @@ main() {
     --exclude "modules/hammerspoon/.config/hammerspoon/Spoons" \
     "${DOTFILES_HOME}/" \
     "${target_dir}"
+
+  echo "Dotfiles synced successfully"
+}
+
+main() {
+  local cmd="$1"
+  [ -n "$cmd" ] && shift
+
+  case "$cmd" in
+    files)
+      backup_files "$@"
+      ;;
+    sync)
+      sync_dotfiles "$@"
+      ;;
+    help | --help | -h | "")
+      usage
+      ;;
+    *)
+      echo "ERROR: Unknown command: $cmd"
+      echo ""
+      usage
+      exit 1
+      ;;
+  esac
 }
 
 main "$@"

@@ -5,7 +5,7 @@ set -eou pipefail
 main() {
   case "$(os-info --family)" in
     "macos")
-      brew install dagger/tap/container-use
+      pkg install dagger/tap/container-use
       ;;
     *)
       echo "Not implemented for this OS"

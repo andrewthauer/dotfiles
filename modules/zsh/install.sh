@@ -19,30 +19,19 @@ install_zsh_plugins() {
   esac
 }
 
-install_zsh() {
-  case "$(os-info --family)" in
-    "macos")
-      brew install zsh
-      ;;
-    *)
-      pkg install "zsh"
-      ;;
-  esac
-}
-
 main() {
   if [ "$(command -v zsh)" ]; then
     echo "zsh is already installed"
   else
-    install_zsh
+    pkg install zsh
     install_zsh_plugins
   fi
 
-  # Make sure the share directory exists
-  mkdir -p "$XDG_DATA_HOME/zsh"
+  # Backup existing dotfiles
+  dotfiles backup files ~/.zshenv ~/.zprofile ~/.zshrc
 
   # Link the zsh configuration
-  dotfiles module add zsh
+  dotfiles module link zsh
 }
 
 main "$@"

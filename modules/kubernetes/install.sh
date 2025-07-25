@@ -20,8 +20,7 @@ install_krew() {
 
 main() {
   case "$(os-info --family)" in
-    "macos") brew install kubectl ;;
-    *) pkg install "kubectl" ;;
+    *) pkg install kubectl ;;
   esac
 
   install_krew

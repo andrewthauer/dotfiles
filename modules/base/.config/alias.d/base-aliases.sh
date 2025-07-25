@@ -5,5 +5,5 @@ alias dotdir='cd $DOTFILES_HOME'
 # https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
 alias sudo="sudo "
 
-# encoding / decoding
-alias b64dec="base64 --decode"
+# Reloads the current shell
+alias reload='exec $SHELL'

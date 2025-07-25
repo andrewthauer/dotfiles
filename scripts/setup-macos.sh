@@ -33,10 +33,43 @@ prompt_for_action() {
   fi
 }
 
-install_modules() {
+install_op_module() {
+  # Explain the op module before prompting
+  echo "The 'op' module integrates 1Password with the shell and SSH."
+  echo "NOTE: This requires manually enabling the SSH agent in the 1Password app first."
+  echo "If you haven't done this, or if you are unsure, select 'N'."
+
+  prompt_for_action "1Password (op) module" "dotfiles install op" "dotfiles module list | grep -q '^op$'"
+}
+
+# Main function to set up the macOS environment
+main() {
+
+  local modules_dir="$DOTFILES_HOME/modules"
+  local scripts_dir="$DOTFILES_HOME/scripts"
+  local modules_file
+  modules_file="$(dotfiles module file-path)"
+
+  # Create local module directory (not tracked by git)
+  mkdir -p "$modules_dir/local"
+
+  # Setup key environment variables for macOS (e.g. XDG_CONFIG_HOME)
+  "$modules_dir/macos/.local/bin/launchctl-env.sh"
+
+  # Install homebrew and brews from brewfile
+  "$modules_dir/homebrew/install.sh"
+
+  # shellcheck disable=SC1091 source=../modules/homebrew/.config/homebrew/shellenv.sh
+  source "$modules_dir/homebrew/.config/homebrew/shellenv.sh"
+
   # Default modules
   local default_modules=(
-    _base
+    # these need to be installed first
+    stow
+    xdg
+    base
+    github
+    # order does not matter
     bash
     bat
     deno
@@ -44,7 +77,6 @@ install_modules() {
     docker
     fzf
     git
-    github
     go
     gpg
     ghostty
@@ -73,46 +105,11 @@ install_modules() {
 
   # Install dotfiles modules
   # shellcheck disable=SC2068
-  dotfiles module install --file "$mod_file" ${default_modules[@]}
-}
+  dotfiles install --file "$modules_file" ${default_modules[@]}
 
-install_op_module() {
-  # Explain the op module before prompting
-  echo "The 'op' module integrates 1Password with the shell and SSH."
-  echo "NOTE: This requires manually enabling the SSH agent in the 1Password app first."
-  echo "If you haven't done this, or if you are unsure, select 'N'."
-
-  prompt_for_action "1Password (op) module" "dotfiles module add op" "dotfiles module list | grep -q '^op$'"
-}
-
-# Main function to set up the macOS environment
-main() {
-  # TODO: set terminal defaults early
-  # font, etc.
-
-  local mod_dir="$DOTFILES_HOME/modules"
-  local scripts_dir="$DOTFILES_HOME/scripts"
-  local mod_file
-  mod_file="$(dotfiles module file-path)"
-
-  # Create local module directory (not tracked by git)
-  mkdir -p "$mod_dir/local"
-
-  # Run these install scripts
-  "$mod_dir/_base/install.sh"
-  "$mod_dir/macos/install.sh"
-
-  # Setup key environment variables for macOS (e.g. XDG_CONFIG_HOME)
-  "$mod_dir/macos/.local/bin/launchctl-env.sh"
-
-  # Setup github known host
-  "$mod_dir/github/install.sh"
-
-  # Link dotfile
-  install_modules
-
-  # shellcheck source=/dev/null
-  source "$mod_dir/homebrew/.config/homebrew/shellenv.sh"
+  #
+  # Extra stuff
+  #
 
   # Install 1Password module (op)
   install_op_module
@@ -123,15 +120,15 @@ main() {
 
   # Install applications
   prompt_for_action "1password" "brew install --cask 1password" "brew list --cask 1password"
-  prompt_for_action "NeoVim" "$mod_dir/neovim/install.sh" "command -v nvim"
-  prompt_for_action "Hammerspoon" "$mod_dir/hammerspoon/install.sh" "test -d /Applications/Hammerspoon.app"
-  prompt_for_action "Karabiner-Elements" "$mod_dir/karabiner/install.sh" "test -d /Applications/Karabiner-Elements.app"
+  prompt_for_action "NeoVim" "$modules_dir/neovim/install.sh" "command -v nvim"
+  prompt_for_action "Hammerspoon" "$modules_dir/hammerspoon/install.sh" "test -d /Applications/Hammerspoon.app"
+  prompt_for_action "Karabiner-Elements" "$modules_dir/karabiner/install.sh" "test -d /Applications/Karabiner-Elements.app"
 
   # Setup macos defaults
   "$scripts_dir/macos-defaults.sh"
 
   # Set default shells
-  prompt_for_action "change default shells" "$scripts_dir"/set-default-shells.sh
+  prompt_for_action "change default shells" "$scripts_dir/set-default-shells.sh"
 }
 
 main "$@"

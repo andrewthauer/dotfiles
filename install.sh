@@ -30,19 +30,6 @@ clone_dotfiles() {
   fi
 }
 
-# shellcheck disable=SC2317
-backup_dotfiles() {
-  # Rename existing dotfiles
-  local files=(~/.bash_profile ~/.bashrc ~/.zshenv ~/.zprofile ~/.zshrc)
-
-  # move existing files that are not symlinks
-  for file in "${files[@]}"; do
-    if [ -f "${file}" ] && [ ! -L "${file}" ]; then
-      mv "${file}" "${file}.old"
-    fi
-  done
-}
-
 main() {
   case "$1" in
     --target | -t)
@@ -83,12 +70,6 @@ main() {
 
   # Clone and initialize dotfiles env
   clone_dotfiles
-
-  # Backup existing dotfiles
-  backup_dotfiles
-
-  # Add bin helpers to path
-  PATH="$DOTFILES_HOME/bin:$PATH"
 
   # Use xdg spec
   source "${DOTFILES_HOME}/lib/xdg.sh"

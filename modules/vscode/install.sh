@@ -11,7 +11,7 @@ SOURCE_DIR="$XDG_CONFIG_HOME/vscode"
 main() {
   case "$(os-info --family)" in
     macos)
-      dotfiles module add vscode
+      dotfiles modules link vscode
       # vscode
       ln -sf "$SOURCE_DIR/keybindings.json" "$LIBRARY_DIR/Code/User/keybindings.json"
       ln -sf "$SOURCE_DIR/settings.json" "$LIBRARY_DIR/Code/User/settings.json"

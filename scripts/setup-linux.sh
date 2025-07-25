@@ -7,11 +7,13 @@ source "${DOTFILES_HOME}/lib/xdg.sh"
 PATH="${DOTFILES_HOME}/bin:${XDG_BIN_HOME}:${PATH}"
 
 main() {
-  local mod_dir="$DOTFILES_HOME/modules"
+  local modules_dir="$DOTFILES_HOME/modules"
   local scripts_dir="$DOTFILES_HOME/scripts"
+  local modules_file
+  modules_file="$(dotfiles module file-path)"
 
   # Create local module directory (not tracked by git)
-  mkdir -p "$mod_dir/local"
+  mkdir -p "$modules_dir/local"
 
   # Install packages with package manager
   pkg install \
@@ -30,12 +32,14 @@ main() {
   export SKIP_PACKAGER_MANAGER_UPDATE="true"
 
   # Base setup
-  mkdir -p "$mod_dir/local"
+  mkdir -p "$modules_dir/local"
 
   # Default modules
   local default_modules=(
     # needs to be installed first
-    _base
+    stow
+    xdg
+    base
     github
     # order doesn't matter
     bash
@@ -50,6 +54,7 @@ main() {
     gpg
     jujutsu
     local
+    linux
     mise
     neovim
     nodejs
@@ -66,10 +71,10 @@ main() {
 
   # Install dotfiles modules
   # shellcheck disable=SC2068
-  dotfiles module install --no-file ${default_modules[@]}
+  dotfiles install --file "$modules_file" ${default_modules[@]}
 
   # Set default shells
-  "$scripts_dir"/set-default-shells.sh
+  "$scripts_dir/set-default-shells.sh"
 }
 
 main "$@"

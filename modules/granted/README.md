@@ -6,8 +6,7 @@
 ## Setup
 
 ```sh
-brew tap common-fate/granted
-brew install granted
+brew install common-fate/granted/granted
 ```
 
 Path to use for Firefox Developer Edition:

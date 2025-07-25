@@ -7,12 +7,12 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 install_karabiner() {
   echo "Installing Karabiner-Elements..."
-  brew list karabiner-elements || brew install karabiner-elements || true
+  pkg install --type brew karabiner-elements
 }
 
 configure_karabiner() {
   echo "Configuring Karabiner-Elements..."
-  dotfiles module add karabiner
+  dotfiles module link karabiner
 
   # TODO: Walk user through configuration steps
   # ...

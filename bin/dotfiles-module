@@ -12,10 +12,10 @@ usage() {
   echo ""
   echo "COMMANDS:"
   echo "  list, ls           List modules"
-  echo "  link, ln           Link a module"
+  echo "  link, ln           Link a module (uses default modules file if no args)"
   echo "  unlink, rm         Unlink a module"
   echo "  add                Add module(s) to modules file"
-  echo "  install, i         Install module(s) (runs install.sh if present)"
+  echo "  install, i         Install module(s) (uses default modules file if no args)"
   echo "  read-file, r       Read a modules file"
   echo "  write-file, w      Write a modules file"
   echo "  file-path          Get a modules file location"
@@ -24,6 +24,7 @@ usage() {
   echo "GLOBAL FLAGS:"
   echo "  --help, -h         Prints help"
   echo ""
+
   echo "COMMAND-SPECIFIC FLAGS:"
   echo "  list:"
   echo "    --all, -a        List all modules"
@@ -31,7 +32,6 @@ usage() {
   echo "    --all, -a        Link/unlink all modules"
   echo "    --file, -f FILE  Use specific modules file"
   echo "    --no-file        Don't use a modules file"
-  echo "    --continue-on-error  Skip missing modules and errors instead of failing"
   echo "  add:"
   echo "    --file, -f FILE  Target modules file (optional)"
   echo "  install:"
@@ -77,7 +77,7 @@ stow_modules() {
   local modules_file
   local modules_dir="$DOTFILES_HOME/modules"
   local oper_text=""
-  local continue_on_error=false
+  local no_file_flag=false
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -96,10 +96,6 @@ stow_modules() {
         ;;
       --no-file)
         modules_file=0
-        shift 1
-        ;;
-      --continue-on-error)
-        continue_on_error=true
         shift 1
         ;;
       --*)
@@ -144,14 +140,10 @@ stow_modules() {
     fi
 
     echo "$oper_text module $module"
-    if [ "$continue_on_error" = true ]; then
-      if ! pkg exec --skip-update "stow -t ${HOME} -d $modules_dir $stow_flag $module" 2>/dev/null; then
-        echo "Warning: Failed to $oper_text module $module, skipping..."
-        continue
-      fi
-    else
-      pkg exec --skip-update "stow -t ${HOME} -d $modules_dir $stow_flag $module"
-    fi
+
+    local stow_cmd="stow -t ${HOME} -d $modules_dir $stow_flag $module"
+
+    pkg exec --skip-update "$stow_cmd"
   done
 }
 
@@ -181,22 +173,34 @@ remove_modules_from_file() {
 
 add_modules_to_file() {
   local modules_file
+  local modules=()
 
-  case "$1" in
-    --file | -f)
-      modules_file="$2"
-      shift 2
-      ;;
-    *)
-      modules_file="$(get_modules_file)"
-      ;;
-  esac
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --file | -f)
+        modules_file="$2"
+        shift 2
+        ;;
+      --*)
+        echo "Error: Unknown option: $1" >&2
+        exit 1
+        ;;
+      *)
+        modules+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  if [ -z "$modules_file" ]; then
+    modules_file="$(get_modules_file)"
+  fi
 
   local existing_modules
   IFS=$'\n' read -d '' -ra existing_modules < <(read_modules_file "$modules_file" 2>/dev/null && printf '\0') || true
 
   local new_modules=()
-  for module in "$@"; do
+  for module in "${modules[@]}"; do
     if printf '%s\n' "${existing_modules[@]}" | grep -q "^${module}$"; then
       echo "Module $module already exists"
     else
@@ -205,12 +209,6 @@ add_modules_to_file() {
       new_modules+=("$module")
     fi
   done
-
-  # Link newly added modules
-  if [ "${#new_modules[@]}" -gt 0 ]; then
-    echo "Linking new modules..."
-    stow_modules -S "${new_modules[@]}"
-  fi
 }
 
 install_modules() {
@@ -239,6 +237,18 @@ install_modules() {
         ;;
     esac
   done
+
+  # If no modules specified and no specific file given, use default modules file
+  if [ "${#modules[@]}" -eq 0 ] && [ -z "$modules_file" ]; then
+    modules_file="$(get_modules_file)"
+
+    if [ ! -f "$modules_file" ]; then
+      echo "Module file not found: $modules_file"
+      exit 1
+    fi
+
+    IFS=$'\n' read -d '' -ra modules < <(read_modules_file "$modules_file" && printf '\0') || true
+  fi
 
   for module in "${modules[@]}"; do
     # Check if module directory exists
@@ -269,6 +279,10 @@ install_modules() {
       fi
     fi
   done
+
+  # Stow all processed modules to ensure they are linked
+  echo "Linking installed modules..."
+  stow_modules -S "${modules[@]}"
 }
 
 write_modules_file() {

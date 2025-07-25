@@ -16,7 +16,7 @@
 
 ## Features
 
-- **extremely fast startup!** with lazy loading for expensive operations.
+- **fast startup!** optimized for fast shell startup times.
 - **limited dependencies** make it very portable and easy to install.
 - **[`stow`](https://www.gnu.org/software/stow/) powered:** symlink dotfiles and
   thus keep them always up-to-date.
@@ -28,7 +28,8 @@
 - **mostly posix compliant** so it works with most shells (`bash`, `zsh`).
 - **full featured zsh** with auto-completion & syntax highlighting.
 - **useful aliases & utilities** for maximum productivity.
-- **cross platform** portability.
+- **shell agnostic** works with `bash`, `zsh`, `nushell` & `fish`.
+- **cross platform** portability to macOS, Linux & WSL.
 
 ## Pre-requisites
 

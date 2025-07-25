@@ -25,7 +25,6 @@ setup_ssh_keys() {
 main() {
   setup_github
   setup_ssh_keys
-  dotfiles module add github
 }
 
 main "$@"

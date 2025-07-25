@@ -7,7 +7,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 install_hammerspoon() {
   echo "Installing Hammerspoon..."
-  brew list hammerspoon || brew install hammerspoon || true
+  pkg install hammerspoon --type brew hammerspoon
 }
 
 install_spoons() {
@@ -43,7 +43,7 @@ main() {
       install_hammerspoon
       install_spoons
       configire_hammerspoon
-      dotfiles module add zed
+      dotfiles module link hammerspoon
       setup_launch_on_startup
       launch_hammerspoon
       ;;

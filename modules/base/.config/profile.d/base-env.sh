@@ -1,10 +1,7 @@
 #
 # Common environment user session
+# NOTE: This works for bash, zsh, and other POSIX shells.
 #
-
-# Editor
-# export EDITOR="nvim"
-# export VISUAL="nvim -b"
 
 # Colors
 export CLICOLOR=1

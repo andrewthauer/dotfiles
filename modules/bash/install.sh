@@ -15,8 +15,11 @@ main() {
   # Make sure the share directory exists
   mkdir -p "$XDG_DATA_HOME/bash"
 
-  # Link the zsh configuration
-  dotfiles module add bash
+  # Backup existing dotfiles
+  dotfiles backup files ~/.bash_profile ~/.bashrc
+
+  # Link the bash configuration
+  dotfiles module link bash
 }
 
 main "$@"

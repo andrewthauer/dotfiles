@@ -12,10 +12,13 @@ usage() {
   echo "USAGE: dotfiles [command]"
   echo ""
   echo "COMMANDS:"
+  echo "  install, i           Install dotfile modules"
+  echo "  sync, s              Sync/link dotfile modules"
+  echo "  add, a               Add modules to modules file"
   echo "  module, mod, m       Manage dotfile modules"
   echo "  package, pkg, p      Manage system packages"
   echo "  doctor               Check for dotfiles configuration issues"
-  echo "  backup               Backups up the local dotfiles directory"
+  echo "  backup               Backup the local dotfiles directory"
   echo "  help                 Prints this message"
 }
 
@@ -27,6 +30,15 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
+    install | i)
+      dotfiles-module install "$@"
+      ;;
+    sync | s)
+      dotfiles-module link "$@"
+      ;;
+    add | a)
+      dotfiles-module add "$@"
+      ;;
     module | mod | m)
       dotfiles-module "$@"
       ;;

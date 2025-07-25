@@ -52,6 +52,16 @@ init_package_manager() {
         source "${DOTFILES_HOME}/modules/homebrew/.config/homebrew/shellenv.sh"
       fi
       ;;
+    "cargo")
+      if ! command -v cargo-binstall &>/dev/null; then
+        echo "Installing cargo-binstall..."
+        if [[ "$(uname)" == "Darwin" ]]; then
+          brew install cargo-binstall
+        else
+          cargo install cargo-binstall
+        fi
+      fi
+      ;;
     "nix")
       if ! command -v nix-env &>/dev/null; then
         # shellcheck disable=SC1091
@@ -60,6 +70,38 @@ init_package_manager() {
       ;;
     *) ;;
   esac
+}
+
+handle_brew_packages() {
+  local operation="$1"
+  shift
+  local to_process=()
+
+  # Get list of all installed packages once
+  local installed_packages
+  installed_packages=$(brew list --formula 2>/dev/null | tr '\n' ' ')
+
+  for pkg in "$@"; do
+    if [[ " $installed_packages " == *" $pkg "* ]]; then
+      # Package is installed
+      if [[ "$operation" == "uninstall" ]]; then
+        to_process+=("$pkg")
+      else
+        echo "$pkg already installed, skipping..."
+      fi
+    else
+      # Package is not installed
+      if [[ "$operation" == "install" ]]; then
+        to_process+=("$pkg")
+      else
+        echo "$pkg not installed, skipping..."
+      fi
+    fi
+  done
+
+  if [ ${#to_process[@]} -gt 0 ]; then
+    brew "$operation" "${to_process[@]}"
+  fi
 }
 
 install_package() {
@@ -72,11 +114,11 @@ install_package() {
       ;;
     "brew")
       # shellcheck disable=SC2068
-      brew install ${pkgs[@]}
+      handle_brew_packages "install" ${pkgs[@]}
       ;;
     "cargo")
       # shellcheck disable=SC2068
-      cargo install ${pkgs[@]}
+      cargo binstall -y ${pkgs[@]}
       ;;
     "dnf")
       # shellcheck disable=SC2068
@@ -101,8 +143,44 @@ install_package() {
 }
 
 uninstall_package() {
-  echo "ERROR: Uninstall not implemented"
-  exit 1
+  local pkgs=("$*")
+
+  case ${pkg_mgr} in
+    "apt")
+      # shellcheck disable=SC2068
+      $sudo_cmd apt remove -y ${pkgs[@]}
+      ;;
+    "brew")
+      # shellcheck disable=SC2068
+      handle_brew_packages "uninstall" ${pkgs[@]}
+      ;;
+    "cargo")
+      # shellcheck disable=SC2068
+      cargo uninstall ${pkgs[@]}
+      ;;
+    "dnf")
+      # shellcheck disable=SC2068
+      $sudo_cmd dnf remove -y ${pkgs[@]}
+      ;;
+    "nix-env")
+      # shellcheck disable=SC2068
+      for pkg in ${pkgs[@]}; do
+        nix-env -e "$pkg"
+      done
+      ;;
+    "pacman")
+      # shellcheck disable=SC2068
+      $sudo_cmd pacman -R ${pkgs[@]}
+      ;;
+    "yum")
+      # shellcheck disable=SC2068
+      $sudo_cmd yum remove -y ${pkgs[@]}
+      ;;
+    *)
+      echo "ERROR: Uninstall not implemented for package manager: $pkg_mgr"
+      exit 1
+      ;;
+  esac
 }
 
 main() {
@@ -147,11 +225,11 @@ main() {
   [ -n "$cmd" ] && shift
 
   case "$cmd" in
-    install | i | add)
+    install | i)
       init_package_manager "$pkg_mgr"
       install_package "$@"
       ;;
-    uninstall | u | remove | rm)
+    uninstall | u)
       init_package_manager "$pkg_mgr"
       uninstall_package "$@"
       ;;
