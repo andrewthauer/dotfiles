@@ -80,15 +80,13 @@ EOF
     carapace
     direnv
     fzf
-    git
-    # gpg
+    # git
     # jujutsu
     "$local_mod_name"
     mise
     # neovim
     nushell
     ripgrep
-    ssh
     starship
     xdg
     zoxide

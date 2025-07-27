@@ -47,6 +47,7 @@ link() {
 
 unlink() {
   remove_modules_from_file "$@"
+  stow_modules -D "$@"
 }
 
 list_modules() {
@@ -166,6 +167,13 @@ remove_modules_from_file() {
   local modules_file
   modules_file="$(get_modules_file)"
 
+  # Check if modules file exists
+  if [ ! -f "$modules_file" ]; then
+    echo "Warning: Module file not found: $modules_file"
+    echo "Nothing to remove"
+    return 0
+  fi
+
   for module in "$@"; do
     sed -i.bak "/^${module}$/d" "$modules_file" && rm -f "${modules_file}.bak"
   done
@@ -194,6 +202,15 @@ add_modules_to_file() {
 
   if [ -z "$modules_file" ]; then
     modules_file="$(get_modules_file)"
+  fi
+
+  # Create modules file if it doesn't exist and we have modules to add
+  if [ ! -f "$modules_file" ] && [ "${#modules[@]}" -gt 0 ]; then
+    touch "$modules_file"
+  elif [ ! -f "$modules_file" ]; then
+    echo "Warning: Module file not found: $modules_file"
+    echo "Nothing to add."
+    return 0
   fi
 
   local existing_modules

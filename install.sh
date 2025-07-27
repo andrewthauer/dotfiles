@@ -71,9 +71,6 @@ main() {
   # Clone and initialize dotfiles env
   clone_dotfiles
 
-  # Use xdg spec
-  source "${DOTFILES_HOME}/lib/xdg.sh"
-
   # Run custom setup script if provided
   if [ -n "$DOTFILES_SETUP_SCRIPT" ]; then
     "$DOTFILES_SETUP_SCRIPT"
@@ -81,6 +78,10 @@ main() {
     # Install as a devcontainer
     "$DOTFILES_HOME/scripts/setup-devcontainer.sh"
   else
+    # set PATH to include helpers
+    source "${DOTFILES_HOME}/lib/xdg.sh"
+    PATH="${DOTFILES_HOME}/bin:${XDG_BIN_HOME}:${PATH}"
+
     # Run autodetected setup script
     case "$(os-info --family)" in
       "macos") "$DOTFILES_HOME/scripts/setup-macos.sh" ;;
