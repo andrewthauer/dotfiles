@@ -1,15 +1,65 @@
 #!/usr/bin/env bash
 # Summary:
-#   Remove all tags for image name
+#   Remove all tags for image name (supports wildcards)
 #
 # Usage:
-#   docker-rmi--all-tags <image>
+#   docker-rmi-all-tags <image_pattern>
+#
+# Examples:
+#   docker-rmi-all-tags myapp
+#   docker-rmi-all-tags "myapp*"
+#   docker-rmi-all-tags "*test*"
 #
 
 set -e
 
 function main() {
-  docker images | grep "$1" | awk '{system("docker rmi " "'"$1:"'" $2)}'
+  local pattern="$1"
+
+  if [[ -z "$pattern" ]]; then
+    echo "Error: Image pattern is required"
+    echo "Usage: docker-rmi-all-tags <image_pattern>"
+    exit 1
+  fi
+
+  # Get all images and filter with the pattern
+  local matching_lines
+  if [[ "$pattern" == *"*"* ]]; then
+    # Handle wildcard patterns - convert shell wildcards to grep pattern
+    local grep_pattern
+    grep_pattern="${pattern//\*/[^[:space:]]*}"
+    matching_lines=$(docker images | grep -E "^${grep_pattern}[[:space:]]" || true)
+  else
+    # Handle exact matches (original behavior)
+    matching_lines=$(docker images | grep "^$pattern " || true)
+  fi
+
+  if [[ -z "$matching_lines" ]]; then
+    echo "No images found matching pattern: $pattern"
+    exit 0
+  fi
+
+  echo "Found the following images matching pattern '$pattern':"
+  echo "$matching_lines"
+  echo
+
+  # Confirm before deletion
+  read -p "Are you sure you want to remove all these images? (y/N): " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Aborted."
+    exit 0
+  fi
+
+  # Remove the images using the original approach but with better error handling
+  echo "$matching_lines" | while read -r repo tag _; do
+    if [[ -n "$repo" && -n "$tag" && "$repo" != "REPOSITORY" ]]; then
+      echo "Removing: $repo:$tag"
+      docker rmi "$repo:$tag" 2>/dev/null || echo "Failed to remove: $repo:$tag"
+    fi
+  done
+
+  echo "Done."
 }
 
 main "$@"
