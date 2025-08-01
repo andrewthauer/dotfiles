@@ -45,16 +45,17 @@ function command_exists() {
 #   # PATH="/path/abc:/path/xyz:/usr/bin:/bin"
 #
 function prepend_path() {
-  local args=("$@")
-  local arg
-
-  # Process arguments in reverse order
-  for ((i = ${#args[@]} - 1; i >= 0; i--)); do
-    arg="${args[i]}"
-    if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
-      PATH="$arg${PATH:+":$PATH"}"
-    fi
+  i=$#
+  while [ "$i" -gt 0 ]; do
+    eval "dir=\${$i}"
+    # shellcheck disable=SC2154
+    case ":$PATH:" in
+      *":$dir:"*) ;;
+      *) PATH="$dir${PATH:+:$PATH}" ;;
+    esac
+    i=$((i - 1))
   done
+  export PATH
 }
 
 #
@@ -72,12 +73,13 @@ function prepend_path() {
 #   # PATH="/usr/bin:/bin:/path/abc:/path/xyz"
 #
 function append_path() {
-  local arg
-  for arg in "$@"; do
-    if [ -d "$arg" ] && [[ ":$PATH:" != *":$arg:"* ]]; then
-      PATH="${PATH:+"$PATH:"}$arg"
-    fi
+  for dir; do
+    case ":$PATH:" in
+      *":$dir:"*) ;;
+      *) PATH="${PATH:+$PATH:}$dir" ;;
+    esac
   done
+  export PATH
 }
 
 #
