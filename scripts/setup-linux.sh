@@ -28,11 +28,11 @@ main() {
     zoxide \
     zsh
 
-  # No need to install packages
-  export SKIP_PACKAGER_MANAGER_UPDATE="true"
-
   # Base setup
   mkdir -p "$modules_dir/local"
+
+  # No need to update the package managers anymore
+  export SKIP_PACKAGER_MANAGER_UPDATE="true"
 
   # Default modules
   local default_modules=(

@@ -44,7 +44,6 @@ install_op_module() {
 
 # Main function to set up the macOS environment
 main() {
-
   local modules_dir="$DOTFILES_HOME/modules"
   local scripts_dir="$DOTFILES_HOME/scripts"
   local modules_file
@@ -61,6 +60,9 @@ main() {
 
   # shellcheck disable=SC1091 source=../modules/homebrew/.config/homebrew/shellenv.sh
   source "$modules_dir/homebrew/.config/homebrew/shellenv.sh"
+
+  # No need to update the package managers anymore
+  export SKIP_PACKAGER_MANAGER_UPDATE="true"
 
   # Default modules
   local default_modules=(
