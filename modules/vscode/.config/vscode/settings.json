@@ -61,6 +61,7 @@
     "editor.formatOnSave": false
   },
   "breadcrumbs.enabled": true,
+  "cursor.composer.shouldAllowCustomModes": true,
   "dotfiles.repository": "https://github.com/andrewthauer/dotfiles",
   "dotfiles.targetPath": "~/.dotfiles",
   "editor.accessibilitySupport": "off",
@@ -192,6 +193,5 @@
   "workbench.colorTheme": "Catppuccin Frappé",
   "workbench.editor.enablePreview": true,
   "workbench.editor.editorActionsLocation": "hidden",
-  "workbench.settings.editor": "json",
-  "workbench.startupEditor": "none"
+  "workbench.settings.editor": "json"
 }
