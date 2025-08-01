@@ -34,7 +34,6 @@ main() {
   case "$(os-info --family)" in
     "macos")
       install_homebrew
-      dotfiles module link homebrew
       install_brews
       ;;
     *)

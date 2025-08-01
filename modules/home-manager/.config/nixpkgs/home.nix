@@ -101,8 +101,6 @@ in
     #
 
     ".hushlogin".source = "${dotfiles.baseDir}/etc/.hushlogin";
-    ".stow-global-ignore".source = "${dotfiles.baseDir}/etc/.stow-global-ignore";
-    ".stowrc".source = "${dotfiles.baseDir}/etc/.stowrc";
 
     # shell environment
     # ".config/environment".source = "${dotfiles.baseDir}/etc/.config/environment";

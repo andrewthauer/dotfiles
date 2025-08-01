@@ -32,18 +32,31 @@
         },
         "enable_all_context_servers": false,
         "context_servers": {
+          "mcp-server-context7": {
+            "tools": {
+              "get-library-docs": true,
+              "resolve-library-id": true
+            }
+          },
+          "mcp-server-sequential-thinking": {
+            "tools": {
+              "sequentialthinking": true
+            }
+          },
           "container-use": {
             "tools": {
-              "environment_create": true,
               "environment_add_service": true,
-              "environment_update": true,
-              "environment_run_cmd": true,
-              "environment_open": true,
-              "environment_file_write": true,
-              "environment_file_read": true,
-              "environment_file_list": true,
+              "environment_checkpoint": true,
+              "environment_config": true,
+              "environment_create": true,
               "environment_file_delete": true,
-              "environment_checkpoint": true
+              "environment_file_edit": true,
+              "environment_file_list": true,
+              "environment_file_read": true,
+              "environment_file_write": true,
+              "environment_open": true,
+              "environment_run_cmd": true,
+              "environment_update_metadata": true
             }
           }
         }
@@ -54,11 +67,12 @@
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "context_servers": {
     "container-use": {
-      "source": "custom",
       "enabled": true,
-      "command": "cu",
-      "args": ["stdio"],
-      "env": {}
+      "source": "custom",
+      "command": "/opt/homebrew/bin/cu",
+      "args": [
+        "stdio"
+      ]
     }
   },
   "edit_predictions": {
@@ -70,13 +84,43 @@
     "edit_prediction_provider": "copilot"
   },
   "file_types": {
-    "GitConfig": ["**/git/config*", "**/git/aliases*"],
-    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
-    "Markdown": ["*.rules", "*.mdc"],
-    "Shell Script": ["**/*.bats"],
-    "XML": ["*.plist"]
+    "env": [
+      "*.env",
+      ".env.*",
+      "*.conf"
+    ],
+    "Git Config": [
+      "**/git/config*",
+      "**/git/aliases*"
+    ],
+    "Git Ignore": [
+      "**/git/ignore*",
+      "dockerignore"
+    ],
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml"
+    ],
+    "ini": [
+      "**/git/config*",
+      "**/git/aliases*"
+    ],
+    "Markdown": [
+      "*.rules",
+      "*.mdc"
+    ],
+    "Shell Script": [
+      "**/*.bats"
+    ],
+    "XML": [
+      "*.plist"
+    ]
   },
-  "file_scan_exclusions": [".git/*", ".jj/*", "**/node_modules/**"],
+  "file_scan_exclusions": [
+    ".git/*",
+    ".jj/*",
+    "**/node_modules/**"
+  ],
   "format_on_save": "off",
   "icon_theme": {
     "mode": "system",
@@ -107,7 +151,10 @@
       "host": "hass",
       "projects": [
         {
-          "paths": ["~", "/root/config"]
+          "paths": [
+            "~",
+            "/root/config"
+          ]
         }
       ]
     },
@@ -115,7 +162,10 @@
       "host": "nas",
       "projects": [
         {
-          "paths": ["~", "/volume1/docker"]
+          "paths": [
+            "~",
+            "/volume1/docker"
+          ]
         }
       ]
     }
@@ -128,9 +178,6 @@
     "font_family": "FiraCode Nerd Font Mono",
     "font_size": 15,
     "option_as_meta": true,
-    "shell": {
-      "program": "/opt/homebrew/bin/nu"
-    },
     "toolbar": {
       "breadcrumbs": false
     }

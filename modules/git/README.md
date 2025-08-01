@@ -3,12 +3,6 @@
 This package contains a base `gitconfig`, `gitignore` along with various useful
 aliases for [git](https://git-scm.com).
 
-## Setup
-
-```bash
-stow git
-```
-
 ## Configuration
 
 A `local/.config/git/credentials` file will include your git credentials:

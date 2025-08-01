@@ -64,7 +64,6 @@ EOF
   # Default modules
   local default_modules=(
     # needs to be installed first
-    stow
     xdg
     base
     github

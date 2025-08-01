@@ -7,6 +7,23 @@
 
 set -o errexit -o pipefail -o noclobber
 
+# Stow ignore patterns - corresponds to .stow-global-ignore
+readonly STOW_IGNORE_PATTERNS=(
+  '\.DS_Store'
+  '\.git'
+  '\.gitkeep'
+  '^/*.*log'
+  '^/README.*'
+  '^/LICENSE.*'
+  '^/_.*'
+  '_.*'
+  'test*'
+  'tmp*'
+  'Makefile'
+  'install.*'
+  'uninstall.*'
+)
+
 usage() {
   echo "USAGE: dotfiles module [command]"
   echo ""
@@ -24,7 +41,6 @@ usage() {
   echo "GLOBAL FLAGS:"
   echo "  --help, -h         Prints help"
   echo ""
-
   echo "COMMAND-SPECIFIC FLAGS:"
   echo "  list:"
   echo "    --all, -a        List all modules"
@@ -140,9 +156,15 @@ stow_modules() {
       exit 1
     fi
 
+    # Build ignore arguments from patterns
+    local ignore_args=""
+    for pattern in "${STOW_IGNORE_PATTERNS[@]}"; do
+      ignore_args+=" --ignore='${pattern}'"
+    done
+
     echo "$oper_text module $module"
 
-    local stow_cmd="stow -t ${HOME} -d $modules_dir $stow_flag $module"
+    local stow_cmd="stow -t ${HOME} -d $modules_dir ${ignore_args} $stow_flag $module"
 
     pkg exec --skip-update "$stow_cmd"
   done

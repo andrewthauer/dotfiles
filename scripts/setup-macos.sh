@@ -67,7 +67,6 @@ main() {
   # Default modules
   local default_modules=(
     # these need to be installed first
-    stow
     xdg
     base
     github

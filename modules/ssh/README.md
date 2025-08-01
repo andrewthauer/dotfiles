@@ -2,12 +2,6 @@
 
 Configuration for [SSH](https://www.openssh.com/).
 
-## Setup
-
-```bash
-stow ssh
-```
-
 ## Commands
 
 Use the `ssh-key-gen` command to create an `ssh` key in a single step. The

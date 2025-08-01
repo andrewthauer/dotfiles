@@ -3,12 +3,6 @@
 Configuration for [fzf](https://github.com/junegunn/fzf), a general-purpose
 command-line fuzzy finder.
 
-## Setup
-
-```bash
-stow fzf
-```
-
 ## Usage
 
 - General

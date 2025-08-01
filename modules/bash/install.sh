@@ -17,9 +17,6 @@ main() {
 
   # Backup existing dotfiles
   dotfiles backup files ~/.bash_profile ~/.bashrc
-
-  # Link the bash configuration
-  dotfiles module link bash
 }
 
 main "$@"
