@@ -19,6 +19,7 @@ usage() {
   echo "  package, pkg, p      Manage system packages"
   echo "  doctor               Check for dotfiles configuration issues"
   echo "  backup               Backup the local dotfiles directory"
+  echo "  noabsorb             Prevent stow from absorbing unwanted files"
   echo "  help                 Prints this message"
 }
 
@@ -50,6 +51,9 @@ main() {
       ;;
     backup)
       dotfiles-backup "$@"
+      ;;
+    noabsorb)
+      dotfiles-noabsorb "$@"
       ;;
     help | h | --help | -h)
       usage

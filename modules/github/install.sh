@@ -2,10 +2,12 @@
 
 set -eou pipefail
 
+DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
+PATH="$DOTFILES_HOME/bin:$PATH"
+
 setup_github() {
-  # We need to ensure the config directory exists and has a child so stow doesn't symlink the parent directory
-  mkdir -p "$XDG_CONFIG_HOME/gh"
-  touch "$XDG_CONFIG_HOME/gh/_no_parent_symlink" || true
+  # Avoid absorbing extra gh config files into dotfiles
+  dotfiles noabsorb "$XDG_CONFIG_HOME/gh"
 }
 
 setup_ssh_keys() {

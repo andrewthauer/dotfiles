@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Summary:
+#   Prevent stow from absorbing unwanted files by creating placeholder files
+#
+# Usage:
+#   dotfiles-noabsorb <directory_path> [placeholder_filename]
+
+set -o errexit -o pipefail -o noclobber
+
+usage() {
+  local cmd
+  cmd="$(basename "$0")"
+  echo "SUMMARY"
+  echo "  Prevent stow from absorbing unwanted files into dotfiles"
+  echo ""
+  echo "USAGE: $cmd <directory_path> [placeholder_filename]"
+  echo ""
+  echo "ARGUMENTS"
+  echo "  directory_path       The target directory path to protect"
+  echo "  placeholder_filename Name of placeholder file (default: _no_parent_symlink)"
+  echo ""
+  echo "EXAMPLES"
+  echo "  $cmd \"\$XDG_CONFIG_HOME/claude\""
+  echo "  $cmd \"\$XDG_CONFIG_HOME/nvim\" .keep"
+  echo ""
+  echo "FLAGS"
+  echo "  --help, -h           Prints this message"
+}
+
+main() {
+  case "$1" in
+    help | --help | -h | "")
+      usage
+      exit 0
+      ;;
+  esac
+
+  local target_dir="$1"
+  local placeholder_file="${2:-_no_parent_symlink}"
+
+  if [ -z "$target_dir" ]; then
+    echo "ERROR: Directory path is required"
+    echo ""
+    usage
+    exit 1
+  fi
+
+  mkdir -p "$target_dir"
+  touch "$target_dir/$placeholder_file"
+}
+
+main "$@"

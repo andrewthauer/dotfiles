@@ -20,9 +20,8 @@ install_macos() {
 link_dotfiles() {
   echo "Installing Zed editor configuration..."
 
-  # We need to ensure the config directory exists and has a child so stow doesn't symlink the parent directory
-  mkdir -p "$XDG_CONFIG_HOME/zed"
-  touch "$XDG_CONFIG_HOME/zed/_no_parent_symlink" || true
+  # Avoid absorbing extra zed config files into dotfiles
+  dotfiles noabsorb "$XDG_CONFIG_HOME/zed"
 
   # We can now safely link the Zed configuration
   dotfiles module link zed

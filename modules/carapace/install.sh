@@ -6,13 +6,9 @@ DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
 link_dotfiles() {
-  echo "Installing Carapace configuration..."
-
-  # We need to ensure the config directory exists and has a child so stow doesn't symlink the parent directory
-  mkdir -p "$XDG_CONFIG_HOME/carapace/bridge/fish"
-  mkdir -p "$XDG_CONFIG_HOME/carapace/bridge/zsh"
-  touch "$XDG_CONFIG_HOME/carapace/_no_parent_symlink" || true
-  touch "$XDG_CONFIG_HOME/carapace/bridge/no_parent_symlink" || true
+  # Avoid absorbing extra carapace config files into dotfiles
+  dotfiles noabsorb "$XDG_CONFIG_HOME/carapace"
+  dotfiles noabsorb "$XDG_CONFIG_HOME/carapace/bridge"
 }
 
 main() {
