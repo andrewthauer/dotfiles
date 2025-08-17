@@ -165,6 +165,7 @@
   "terminal.integrated.scrollback": 10000,
   "terminal.integrated.smoothScrolling": true,
   "typescript.updateImportsOnFileMove.enabled": "never",
+  "vsicons.dontShowNewVersionMessage": true,
   "window.customTitleBarVisibility": "never",
   "window.nativeTabs": true,
   "workbench.activityBar.orientation": "vertical",

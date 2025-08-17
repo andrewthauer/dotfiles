@@ -2,6 +2,7 @@
 
 [settings]
 experimental = true
+idiomatic_version_file_enable_tools = ["java", "node", "python", "ruby"]
 python_venv_auto_create = true
 
 [settings.pipx]
