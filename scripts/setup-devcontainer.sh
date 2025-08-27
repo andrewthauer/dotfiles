@@ -73,12 +73,8 @@ EOF
     direnv
     fzf
     # git
-    # jujutsu
     "$local_mod_name"
     mise
-    # neovim
-    nushell
-    ripgrep
     starship
     xdg
     zoxide
