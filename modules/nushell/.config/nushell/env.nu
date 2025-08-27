@@ -45,12 +45,12 @@ use std "path add"
 source ($nu.default-config-dir | path join "scripts/path.nu")
 
 # Add non-standard paths to PATH
-prepand_path /usr/local/sbin
-prepand_path /usr/local/bin
+prepend_path /usr/local/sbin
+prepend_path /usr/local/bin
 
 # Homebrew on macOS based on what brew shellenv does (TODO: modularize this to the homebrew module)
-prepand_path /opt/homebrew/sbin
-prepand_path /opt/homebrew/bin
+prepend_path /opt/homebrew/sbin
+prepend_path /opt/homebrew/bin
 $env.HOMEBREW_PREFIX = "/opt/homebrew"
 $env.HOMEBREW_CELLAR = "/opt/homebrew/Cellar"
 $env.HOMEBREW_REPOSITORY = "/opt/homebrew"
@@ -63,12 +63,12 @@ $env.INFOPATH = $"/opt/homebrew/share/info:($env.INFOPATH | default "")"
 
 # Krew k8s plugin manager (TODO: See if we can modularie this to the kubernetes module)
 if ($env.KREW_ROOT? | is-not-empty) {
-    prepand_path ($env.KREW_ROOT | path join "bin")
+    prepend_path ($env.KREW_ROOT | path join "bin")
 }
 
 # Home and dotfiles paths
-prepand_path ($env.HOME | path join ".local" "bin")
-prepand_path ($env.DOTFILES_HOME | path join "bin")
+prepend_path ($env.HOME | path join ".local" "bin")
+prepend_path ($env.DOTFILES_HOME | path join "bin")
 
 # Remove duplicates from PATH
 $env.PATH = ($env.PATH | uniq)
