@@ -40,6 +40,10 @@ launch_hammerspoon() {
 main() {
   case "$(os-info --family)" in
     "macos")
+      if brew list hammerspoon &>/dev/null; then
+        echo "Hammerspoon already installed, skipping..."
+        return 0
+      fi
       install_hammerspoon
       install_spoons
       configire_hammerspoon

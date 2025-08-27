@@ -87,14 +87,14 @@ handle_brew_packages() {
       if [[ "$operation" == "uninstall" ]]; then
         to_process+=("$pkg")
       else
-        echo "$pkg already installed, skipping..."
+        echo "Package $pkg already installed"
       fi
     else
       # Package is not installed
       if [[ "$operation" == "install" ]]; then
         to_process+=("$pkg")
       else
-        echo "$pkg not installed, skipping..."
+        echo "Package $pkg not installed"
       fi
     fi
   done

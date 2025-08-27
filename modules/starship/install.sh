@@ -14,7 +14,6 @@ main() {
       *) pkg install "starship" ;;
     esac
   fi
-
 }
 
 main "$@"

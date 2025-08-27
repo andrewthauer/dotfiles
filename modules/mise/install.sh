@@ -22,7 +22,7 @@ main() {
   mise settings add idiomatic_version_file_enable_tools java,node,python,ruby
 
   # Trust the global configuration file if it exists
-  local mise_config_file="${MISE_GLOBAL_CONFIG_FILE:-$XDG_CONFIG_HOME/mise/config.toml}"
+  local mise_config_file="${MISE_GLOBAL_CONFIG_FILE:-$XDG_CONFIG_HOME/mise/config.local.toml}"
   if [ -f "$mise_config_file" ]; then
     mise trust "$mise_config_file" --yes
   fi

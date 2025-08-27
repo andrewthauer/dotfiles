@@ -21,6 +21,10 @@ configure_karabiner() {
 main() {
   case "$(os-info --family)" in
     "macos")
+      if brew list karabiner-elements &>/dev/null; then
+        echo "Karabiner-Elements already installed, skipping..."
+        return 0
+      fi
       install_karabiner
       configure_karabiner
       ;;

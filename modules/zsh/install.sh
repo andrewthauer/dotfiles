@@ -29,7 +29,7 @@ main() {
 
   # Ensure zsh xdg directories exist
   mkdir -p "${XDG_DATA_HOME}/zsh"
-  mkdir -p "${XDG_CACH_HOME}/zsh"
+  mkdir -p "${XDG_CACHE_HOME}/zsh"
 
   # Backup existing dotfiles
   dotfiles backup files ~/.zshenv ~/.zprofile ~/.zshrc

@@ -241,7 +241,7 @@ add_modules_to_file() {
   local new_modules=()
   for module in "${modules[@]}"; do
     if printf '%s\n' "${existing_modules[@]}" | grep -q "^${module}$"; then
-      echo "Module $module already exists"
+      echo "Module $module already enabled"
     else
       echo "$module" >>"$modules_file"
       echo "Added module $module"
@@ -305,8 +305,6 @@ install_modules() {
         echo "Install script failed for module $module"
         exit 1
       fi
-    else
-      echo "No install script found for module $module"
     fi
 
     # Add module to file after install script (unless --no-file is specified)
