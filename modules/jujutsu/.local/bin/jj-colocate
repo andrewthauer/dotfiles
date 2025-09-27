@@ -9,15 +9,24 @@ def main [
   if not (is_git_repo) { error make { msg: "Error: Not in a Git repository" } }
   if (is_jj_initialized) { error make { msg: "Repository is already initialized with Jujutsu" } }
   if (has_uncommitted_changes) { error make { msg: "Error: Repository has uncommitted changes" } }
-  if not (is_on_default_branch) { error make { msg: "Error: Not on the default branch" } }
 
   let git_root = (get_git_root)
-  let default_branch = (get_default_branch)
+  let has_remote = (has_remote_origin)
+
+  if $has_remote and not (is_on_default_branch) {
+    error make { msg: "Error: Not on the default branch" }
+  }
+
   let git_email = (git -C $git_root config user.email | str trim)
   let remote = "origin"
 
   jj git init --colocate $git_root
-  jj --repository $git_root bookmark track $"($default_branch)@($remote)"
+
+  if $has_remote {
+    let default_branch = (get_default_branch)
+    jj --repository $git_root bookmark track $"($default_branch)@($remote)"
+  }
+
   jj --repository $git_root config set --repo user.email $git_email
   jj describe --reset-author --no-edit
 }
@@ -62,9 +71,18 @@ def is_on_default_branch [] {
 }
 
 def get_default_branch [] {
-  git symbolic-ref --short refs/remotes/origin/HEAD
-    | sed 's@^origin/@@'
-    | str trim
+  if (has_remote_origin) {
+    git symbolic-ref --short refs/remotes/origin/HEAD
+      | sed 's@^origin/@@'
+      | str trim
+  } else {
+    # Fall back to current branch if no remote
+    git branch --show-current | str trim
+  }
+}
+
+def has_remote_origin [] {
+  do { git remote get-url origin } | complete | $env.LAST_EXIT_CODE == 0
 }
 
 def is_jj_initialized [] {

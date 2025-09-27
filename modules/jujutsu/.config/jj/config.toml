@@ -12,7 +12,6 @@ email = "6507159+andrewthauer@users.noreply.github.com"
 
 [ui]
 default-command = "log"
-# conflict-marker-style = "git"
 # graph.style = "ascii"
 
 [git]
@@ -28,34 +27,44 @@ write-change-id-header = true
 # key = "<public key>
 # backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
-[merge-tools.scm-diff-editor]
-# # see woraround above
-# program = "scm-diff-editor"
-# edit-args = ["--dir-diff", "$left", "$right"]
+#
+# revset-aliases
+#
 
 [revset-aliases]
 # branch name helpers
 integration = 'description("[integration]") | description("[integration merge]")'
 wip = 'description(regex:"^\\[(wip|WIP|todo|TODO)\\]|(wip|WIP|todo|TODO):?")'
 testing = '(description(regex:"^testing:"))'
+
 # bookmark helpers
 all_bookmarks = 'all:(bookmarks() ~ immutable())'
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+
 # misc
 'recent()' = 'committer_date(after:"3 months ago")'
 'direct_descendants(x)' = 'descendants(x, 2) ~ (x | main)'
 
+#
+# aliases
+#
+
 [aliases]
 fetch = ["git", "fetch"]
+lazy = ["util", "exec", "--", "lazyjj"]
 logc = ["log", "-T", "builtin_log_compact"]
 logd = ["log", "-T", "builtin_log_detailed"]
 logr = ["log", "-r", "recent()"]
+pr = ["util", "exec", "--", "jj-pr"]
 push = ["git", "push"]
-push-all = ["git", "push", "--revision", "all:bookmarks()"]
-rebase-all = ["rebase", "--source", "all_bookmarks", "--destination", "trunk()"]
 sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 tugc = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
+ui = ["util", "exec", "--", "jjui"]
+
+#
+# template-aliases
+#
 
 [template-aliases]
 'format_short_signature(signature)' = 'signature.email().local()'
