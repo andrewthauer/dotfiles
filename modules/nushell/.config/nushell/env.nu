@@ -45,8 +45,8 @@ use std "path add"
 source ($nu.default-config-dir | path join "scripts/path.nu")
 
 # Add non-standard paths to PATH
-prepend_path /usr/local/sbin
-prepend_path /usr/local/bin
+prepend_path "/usr/local/sbin"
+prepend_path "/usr/local/bin"
 
 # Homebrew on macOS based on what brew shellenv does (TODO: modularize this to the homebrew module)
 prepend_path /opt/homebrew/sbin

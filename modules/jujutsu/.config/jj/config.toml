@@ -54,7 +54,8 @@ push = ["git", "push"]
 push-all = ["git", "push", "--revision", "all:bookmarks()"]
 rebase-all = ["rebase", "--source", "all_bookmarks", "--destination", "trunk()"]
 sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
-tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+tugc = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
 
 [template-aliases]
 'format_short_signature(signature)' = 'signature.email().local()'

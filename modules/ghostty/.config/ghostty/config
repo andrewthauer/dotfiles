@@ -4,16 +4,25 @@
 #   ghostty +show-config --default --docs
 #
 
-command = /opt/homebrew/bin/nu
+# default shell
+# command = /opt/homebrew/bin/nu
 
-theme = catppuccin-frappe
+# theme & fonts
+theme = Catppuccin Frappe
 font-family = FiraCode Nerd Font Mono
 font-size = 16
-macos-option-as-alt = true
+
+# cursor
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
 
 # window
 window-width = 128
 window-height = 48
+
+# macos settings
+macos-option-as-alt = true
 
 # keybinds
 keybind = shift+enter=text:\n

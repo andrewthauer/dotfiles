@@ -1,6 +1,8 @@
 #
 # ZSH Environment
 #
+# https://zsh.sourceforge.io/Doc/Release/Options.html
+#
 
 # Basics
 autoload -Uz run-help
