@@ -3,14 +3,16 @@
   {
     "bindings": {
       "f4": "debugger::Start",
-      "alt-f4": "debugger::RerunLastSession",
+      "alt-f4": "debugger::Rerun",
       "f5": "debugger::Continue",
       "shift-f5": "debugger::Stop",
       "shift-cmd-f5": "debugger::Restart",
       "f6": "debugger::Pause",
       "f10": "debugger::StepOver",
       "f11": "debugger::StepInto",
-      "shift-f11": "debugger::StepOut"
+      "shift-f11": "debugger::StepOut",
+      "cmd-`": "window::ShowNextWindowTab",
+      "cmd-~": "window::ShowPreviousWindowTab"
     }
   },
   {
