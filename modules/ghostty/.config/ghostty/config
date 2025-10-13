@@ -20,6 +20,8 @@ shell-integration-features = no-cursor
 # window
 window-width = 128
 window-height = 48
+window-padding-x = 12
+window-padding-y = 12
 
 # macos settings
 macos-option-as-alt = true

@@ -37,16 +37,18 @@ if [ -d "$_SHELL_DIR" ]; then
   source_file "${_SHELL_DIR}/key-bindings.${_SHELL_TYPE}"
 fi
 
-# Default options
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --inline-info --preview 'preview {} | head -n 500'"
-
-# Use ripgrep
+# Default command
 export FZF_DEFAULT_COMMAND="rg-files"
+export FZF_DEFAULT_OPTS="--style full --inline-info --preview 'preview {} | head -n 500'"
+# export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --inline-info --preview 'preview {} | head -n 500'"
 
+# Ctrl-z Command (find files and directories)
 # Keybindings
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-export FZF_ALT_C_COMMAND="rg-dirs"
 # export FZF_CTRL_T_OPTS=""
+
+# Alt-C Command (find directories)
+export FZF_ALT_C_COMMAND="rg-dirs"
 # export FZF_CTRL_R_OPTS=""
 
 # Keybindings for zsh
@@ -57,9 +59,9 @@ if [ "${_SHELL_TYPE}" = "zsh" ]; then
 fi
 
 # Aliases
-alias fzfm='fzf -m'
-# shellcheck disable=SC2139
-alias fzff="${FZF_DEFAULT_COMMAND} | fzf"
+alias ff="${FZF_CTRL_T_COMMAND} | fzf"
+alias ffd="${FZF_ALT_C_COMMAND} | fzf"
+alias fzfm='fzf --multi'
 
 #
 # Completions
