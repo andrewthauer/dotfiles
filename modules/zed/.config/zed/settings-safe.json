@@ -1,5 +1,6 @@
 {
   "agent": {
+    "use_modifier_to_send": true,
     "always_allow_tool_actions": false,
     "default_model": {
       "provider": "copilot_chat",
@@ -14,20 +15,20 @@
       "container-use": {
         "name": "Container Use",
         "tools": {
-          "fetch": true,
           "now": true,
+          "fetch": true,
           "thinking": true,
           "copy_path": false,
-          "create_directory": false,
-          "delete_path": false,
-          "diagnostics": false,
-          "edit_file": false,
           "find_path": false,
-          "grep": false,
+          "delete_path": false,
+          "create_directory": false,
           "list_directory": false,
-          "move_path": false,
-          "open": false,
+          "diagnostics": false,
           "read_file": false,
+          "open": false,
+          "move_path": false,
+          "grep": false,
+          "edit_file": false,
           "terminal": false
         },
         "enable_all_context_servers": false,
@@ -67,7 +68,7 @@
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "context_servers": {
     "container-use": {
-      "enabled": true,
+      "enabled": false,
       "source": "custom",
       "command": "/opt/homebrew/bin/cu",
       "args": [
@@ -118,8 +119,7 @@
   },
   "file_scan_exclusions": [
     ".git/*",
-    ".jj/*",
-    "**/node_modules/**"
+    ".jj/*"
   ],
   "format_on_save": "off",
   "icon_theme": {
@@ -185,6 +185,7 @@
   "theme": "Catppuccin Frappé",
   "ui_font_family": "FiraCode Nerd Font Propo",
   "ui_font_size": 15,
+  "use_system_window_tabs": true,
   "vim_mode": true,
   "vim": {
     "toggle_relative_line_numbers": false
