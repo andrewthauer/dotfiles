@@ -4,12 +4,12 @@
     "always_allow_tool_actions": false,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
+      "model": "claude-sonnet-4.5"
     },
     "default_profile": "write",
     "inline_assistant_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
+      "model": "claude-sonnet-4.5"
     },
     "profiles": {
       "container-use": {
@@ -71,9 +71,7 @@
       "enabled": false,
       "source": "custom",
       "command": "/opt/homebrew/bin/cu",
-      "args": [
-        "stdio"
-      ]
+      "args": ["stdio"]
     }
   },
   "edit_predictions": {
@@ -85,42 +83,16 @@
     "edit_prediction_provider": "copilot"
   },
   "file_types": {
-    "env": [
-      "*.env",
-      ".env.*",
-      "*.conf"
-    ],
-    "Git Config": [
-      "**/git/config*",
-      "**/git/aliases*"
-    ],
-    "Git Ignore": [
-      "**/git/ignore*",
-      "dockerignore"
-    ],
-    "Helm": [
-      "**/templates/**/*.tpl",
-      "**/templates/**/*.yaml"
-    ],
-    "ini": [
-      "**/git/config*",
-      "**/git/aliases*"
-    ],
-    "Markdown": [
-      "*.rules",
-      "*.mdc"
-    ],
-    "Shell Script": [
-      "**/*.bats"
-    ],
-    "XML": [
-      "*.plist"
-    ]
+    "env": ["*.env", ".env.*", "*.conf"],
+    "Git Config": ["**/git/config*", "**/git/aliases*"],
+    "Git Ignore": ["**/git/ignore*", "dockerignore"],
+    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
+    "ini": ["**/git/config*", "**/git/aliases*"],
+    "Markdown": ["*.rules", "*.mdc"],
+    "Shell Script": ["**/*.bats"],
+    "XML": ["*.plist"]
   },
-  "file_scan_exclusions": [
-    ".git/*",
-    ".jj/*"
-  ],
+  "file_scan_exclusions": [".git/*", ".jj/*"],
   "format_on_save": "off",
   "icon_theme": {
     "mode": "system",
@@ -151,10 +123,7 @@
       "host": "hass",
       "projects": [
         {
-          "paths": [
-            "~",
-            "/root/config"
-          ]
+          "paths": ["~", "/root/config"]
         }
       ]
     },
@@ -162,10 +131,7 @@
       "host": "nas",
       "projects": [
         {
-          "paths": [
-            "~",
-            "/volume1/docker"
-          ]
+          "paths": ["~", "/volume1/docker"]
         }
       ]
     }

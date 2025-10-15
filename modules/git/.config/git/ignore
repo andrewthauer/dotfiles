@@ -26,3 +26,6 @@ Temporary Items
 
 # Other
 yarn-error.log
+
+# Coding assistants
+**/.claude/settings.local.json

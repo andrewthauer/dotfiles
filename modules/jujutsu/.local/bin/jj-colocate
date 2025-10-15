@@ -13,10 +13,6 @@ def main [
   let git_root = (get_git_root)
   let has_remote = (has_remote_origin)
 
-  if $has_remote and not (is_on_default_branch) {
-    error make { msg: "Error: Not on the default branch" }
-  }
-
   let git_email = (git -C $git_root config user.email | str trim)
   let remote = "origin"
 
