@@ -4,13 +4,10 @@
 #   ghostty +show-config --default --docs
 #
 
-# default shell
-# command = /opt/homebrew/bin/nu
-
 # theme & fonts
 theme = Catppuccin Frappe
 font-family = FiraCode Nerd Font Mono
-font-size = 16
+font-size = 15
 
 # cursor
 cursor-style = block
@@ -28,3 +25,6 @@ macos-option-as-alt = true
 
 # keybinds
 keybind = shift+enter=text:\n
+
+# Load local config overrides
+config-file = ?~/.config/ghostty/config.local

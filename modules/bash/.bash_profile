@@ -18,6 +18,14 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
+# Ensure the xdg data directory exists
+if [ ! -d "${XDG_DATA_HOME}/bash" ]; then
+  mkdir -p "${XDG_DATA_HOME}/bash"
+fi
+
+# Configure history file location
+HISTFILE="${XDG_DATA_HOME}/bash/history"
+
 # Check for custom dotfiles home
 if [ -f "${XDG_CONFIG_HOME}/dotfiles-home" ]; then
   DOTFILES_HOME="${DOTFILES_HOME:-$(cat "${XDG_CONFIG_HOME}/dotfiles-home")}"
@@ -37,11 +45,6 @@ fi
 # Load profile files into environment
 if [ -d "${XDG_CONFIG_HOME}/profile.d" ]; then
   source_files_in "${XDG_CONFIG_HOME}"/profile.d/*
-fi
-
-# Ensure the xdg data directory exists
-if [ ! -d "${XDG_DATA_HOME}/bash" ]; then
-  mkdir -p "${XDG_DATA_HOME}/bash"
 fi
 
 # Source the ~/.bashrc file

@@ -29,11 +29,12 @@ usage() {
   echo "COMMANDS:"
   echo "  list, ls           List modules"
   echo "  link, ln           Link a module (uses default modules file if no args)"
-  echo "  unlink, rm         Unlink a module"
-  echo "  add                Add module(s) to modules file"
+  echo "  unlink, un         Unlink a module"
+  echo "  add, a             Add module(s) to modules file"
+  echo "  remove, rm         Remove module(s) from modules file"
   echo "  install, i         Install module(s) (uses default modules file if no args)"
-  echo "  read-file, r       Read a modules file"
-  echo "  write-file, w      Write a modules file"
+  echo "  read-file          Read a modules file"
+  echo "  write-file         Write a modules file"
   echo "  file-path          Get a modules file location"
   echo "  help               Prints this message"
   echo ""
@@ -48,6 +49,8 @@ usage() {
   echo "    --file, -f FILE  Use specific modules file"
   echo "    --no-file        Don't use a modules file"
   echo "  add:"
+  echo "    --file, -f FILE  Target modules file (optional)"
+  echo "  remove:"
   echo "    --file, -f FILE  Target modules file (optional)"
   echo "  install:"
   echo "    --file, -f FILE  Target modules file (optional)"
@@ -185,8 +188,30 @@ read_modules_file() {
 }
 
 remove_modules_from_file() {
+  local modules_dir="$DOTFILES_HOME/modules"
   local modules_file
-  modules_file="$(get_modules_file)"
+  local modules=()
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --file | -f)
+        modules_file="$2"
+        shift 2
+        ;;
+      --*)
+        echo "Error: Unknown option: $1" >&2
+        exit 1
+        ;;
+      *)
+        modules+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  if [ -z "$modules_file" ]; then
+    modules_file="$(get_modules_file)"
+  fi
 
   # Check if modules file exists
   if [ ! -f "$modules_file" ]; then
@@ -195,12 +220,15 @@ remove_modules_from_file() {
     return 0
   fi
 
-  for module in "$@"; do
+  # Remove each specified module
+  for module in "${modules[@]}"; do
+    echo "Removing module $module from $modules_file"
     sed -i.bak "/^${module}$/d" "$modules_file" && rm -f "${modules_file}.bak"
   done
 }
 
 add_modules_to_file() {
+  local modules_dir="$DOTFILES_HOME/modules"
   local modules_file
   local modules=()
 
@@ -241,10 +269,12 @@ add_modules_to_file() {
   for module in "${modules[@]}"; do
     if printf '%s\n' "${existing_modules[@]}" | grep -q "^${module}$"; then
       echo "Module $module already enabled"
-    else
+    elif [ -d "$modules_dir/$module" ]; then
       echo "$module" >>"$modules_file"
       echo "Added module $module"
       new_modules+=("$module")
+    else
+      echo "Module $module does not exist"
     fi
   done
 }
@@ -363,19 +393,22 @@ main() {
     link | ln)
       link "$@"
       ;;
-    unlink | rm)
+    unlink | un)
       unlink "$@"
       ;;
-    add)
+    add | a)
       add_modules_to_file "$@"
+      ;;
+    remove | rm)
+      remove_modules_from_file "$@"
       ;;
     install | i)
       install_modules "$@"
       ;;
-    read-file | r)
+    read-file)
       read_modules_file "$@"
       ;;
-    write-file | w)
+    write-file)
       write_modules_file "$@"
       ;;
     file-path)

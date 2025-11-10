@@ -14,6 +14,9 @@ typeset -gU cdpath fpath mailpath path
 # Disable shell sessions
 SHELL_SESSIONS_DISABLE=1
 
+# Completions file
+export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zsh/zcompdump"
+
 # Check for custom dotfiles home
 if [ -f "${XDG_CONFIG_HOME}/dotfiles-home" ]; then
   DOTFILES_HOME="${DOTFILES_HOME:-$(cat "${XDG_CONFIG_HOME}/dotfiles-home")}"

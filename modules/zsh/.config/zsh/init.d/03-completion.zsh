@@ -48,24 +48,26 @@ unset _zsh_fpaths
 # - Note: must be run after all fpath values are set
 #
 
+autoload -Uz compinit
+ZSH_COMPDUMP="${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zsh/zcompdump}"
+
 # Load and initialize the completion system ignoring insecure directories with a
 # cache time of 20 hours, so it should almost always regenerate the first time a
 # shell is opened each day.
-autoload -Uz compinit
-_comp_path="${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zsh/zcompdump}"
-if [[ $_comp_path(#qNmh-20) ]]; then
-  compinit -i -C -d "$_comp_path"
+
+if [[ $ZSH_COMPDUMP(#qNmh-20) ]]; then
+  compinit -i -C -d "$ZSH_COMPDUMP"
 else
-  mkdir -p "$_comp_path:h"
-  compinit -i -d "$_comp_path"
+  mkdir -p "$ZSH_COMPDUMP:h"
+  compinit -i -d "$ZSH_COMPDUMP"
   # Keep $_comp_path younger than cache time even if it isn't regenerated.
-  touch "$_comp_path"
+  touch "$ZSH_COMPDUMP"
 fi
+
 # Reset completions helpers
 compclear() {
-  rm -f "$_comp_path"
+  rm -f "$ZSH_COMPDUMP"
 }
-# unset _comp_path
 
 #
 # Styles
