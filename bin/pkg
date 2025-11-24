@@ -132,7 +132,7 @@ install_package() {
       ;;
     "pacman")
       # shellcheck disable=SC2068
-      $sudo_cmd pacman -S ${pkgs[@]}
+      $sudo_cmd pacman -S --noconfirm ${pkgs[@]}
       ;;
     "yum")
       # shellcheck disable=SC2068
@@ -170,7 +170,7 @@ uninstall_package() {
       ;;
     "pacman")
       # shellcheck disable=SC2068
-      $sudo_cmd pacman -R ${pkgs[@]}
+      $sudo_cmd pacman -R --noconfirm ${pkgs[@]}
       ;;
     "yum")
       # shellcheck disable=SC2068

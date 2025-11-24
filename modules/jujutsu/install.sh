@@ -10,9 +10,9 @@ install_tools() {
     pkg install lazyjj
   fi
 
-  if ! command -v jjui &>/dev/null; then
-    mise use --global go:github.com/idursun/jjui/cmd/jjui@latest
-  fi
+  # if ! command -v jjui &>/dev/null; then
+  #   mise use --global go:github.com/idursun/jjui/cmd/jjui@latest
+  # fi
 }
 
 main() {

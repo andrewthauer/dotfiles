@@ -9,13 +9,14 @@ main() {
   if [ "$(command -v rustup)" ]; then
     echo "rustup is already installed"
   else
+    export CARGO_HOME="$XDG_DATA_HOME/cargo"
+    export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
     case "$(os-info --package-manager)" in
       *)
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y
         ;;
     esac
   fi
-
 }
 
 main "$@"

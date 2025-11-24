@@ -69,7 +69,9 @@ main() {
     # these need to be installed first
     xdg
     base
+    ssh
     github
+    mise
     # order does not matter
     bash
     bat
@@ -87,7 +89,6 @@ main() {
     karabiner
     local
     macos
-    mise
     neovim
     nodejs
     nushell
@@ -95,7 +96,6 @@ main() {
     ripgrep
     ruby
     rust
-    ssh
     starship
     xdg
     zed

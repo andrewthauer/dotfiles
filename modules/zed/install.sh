@@ -5,10 +5,8 @@ set -eou pipefail
 DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
-# Zed package to use
-ZED_PACKAGE="zed@preview"
-
 install_macos() {
+  ZED_PACKAGE="zed@preview"
   echo "Installing $ZED_PACKAGE editor..."
   if ! brew list --cask | grep -q "^$ZED_PACKAGE\$"; then
     brew install --cask $ZED_PACKAGE || true
@@ -43,6 +41,10 @@ main() {
   case "$(os-info --family)" in
     macos)
       install_macos
+      ;;
+    *)
+      curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh
+      ln -s /usr/bin/zeditor "$HOME/.local/bin/zed"
       ;;
   esac
 

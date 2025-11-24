@@ -15,18 +15,13 @@ main() {
   # Create local module directory (not tracked by git)
   mkdir -p "$modules_dir/local"
 
+# fonts-firacode \
+
   # Install packages with package manager
   pkg install \
-    bash \
-    direnv \
-    fonts-firacode \
-    fzf \
-    git \
-    shellcheck \
-    shfmt \
     stow \
-    zoxide \
-    zsh
+    shellcheck \
+    shfmt
 
   # Base setup
   mkdir -p "$modules_dir/local"
@@ -39,14 +34,16 @@ main() {
     # needs to be installed first
     xdg
     base
+    ssh
     github
+    mise
     # order doesn't matter
     bash
     bat
-    carapace
+    # carapace
     deno
     direnv
-    docker
+    # docker
     fzf
     git
     go
@@ -54,14 +51,12 @@ main() {
     jujutsu
     local
     linux
-    mise
     neovim
     nodejs
     nushell
     ripgrep
     ruby
     rust
-    ssh
     starship
     xdg
     zoxide

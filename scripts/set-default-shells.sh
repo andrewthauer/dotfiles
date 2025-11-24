@@ -14,7 +14,7 @@ add_shell() {
 
   if [ ! -f "$shell_path" ]; then
     echo "Warning: shell $shell not found"
-    return 1
+    return 0
   fi
 
   # disable usage of sudo if requested
@@ -45,19 +45,21 @@ set_default_shell() {
   echo "Changing default shell to $shell_path"
   case "$(os-info --os)" in
     darwin) chsh -s "$shell_path" ;;
-    *) sudo chsh -s "$shell_path" ;;
+    *) chsh -s "$shell_path" ;;
   esac
 }
 
 main() {
+  # Default to zsh
   local default_shell="${1:-zsh}"
 
   # registers shells with os (e.g. /etc/shells)
-  add_shell "$(which bash | head -1 | tr -d "\n")" "bash"
-  add_shell "$(which zsh | head -1 | tr -d "\n")" "zsh"
-  add_shell "$(which nu | head -1 | tr -d "\n")" "nu"
+  add_shell "$(which bash 2>/dev/null | head -1 | tr -d "\n")" "bash"
+  add_shell "$(which zsh 2>/dev/null | head -1 | tr -d "\n")" "zsh"
+  add_shell "$(which fish 2>/dev/null | head -1 | tr -d "\n")" "fish"
+  add_shell "$(which nu 2>/dev/null | head -1 | tr -d "\n")" "nu"
 
-  # Change default shell to zsh
+  # Change default shell
   set_default_shell "$(which "$default_shell" | head -1)"
 }
 

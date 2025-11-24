@@ -15,6 +15,9 @@ main() {
     esac
   fi
 
+  # Do not own ~/.config/mise
+  dotfiles noabsorb "$XDG_CONFIG_HOME/mise"
+
   # Ensure the dotfiles module is available
   dotfiles module link mise
 
@@ -29,3 +32,4 @@ main() {
 }
 
 main "$@"
+#
