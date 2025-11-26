@@ -58,8 +58,13 @@ if [ "${_SHELL_TYPE}" = "zsh" ]; then
   # bindkey -M viins '^Y' fzf-cd-widget
 fi
 
+#
 # Aliases
+#
+
+# shellcheck disable=SC2139
 alias ff="${FZF_CTRL_T_COMMAND} | fzf"
+# shellcheck disable=SC2139
 alias ffd="${FZF_ALT_C_COMMAND} | fzf"
 alias fzfm='fzf --multi'
 

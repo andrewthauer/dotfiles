@@ -20,7 +20,7 @@ backup_unlinked_dotfiles() {
   for file in "$@"; do
     # if the file is not a symlink back it up as $file.old
     if [ -f "${file}" ] && [ ! -L "${file}" ]; then
-      echo "Backing up non-symlinked file "$file""
+      echo "Backing up non-symlinked file $file"
       mv "${file}" "${file}.old"
     fi
   done
