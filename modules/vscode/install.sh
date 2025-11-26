@@ -10,7 +10,7 @@ SOURCE_DIR="$XDG_CONFIG_HOME/vscode"
 
 main() {
   case "$(os-info --family)" in
-    macos)
+    darwin)
       dotfiles modules link vscode
       # vscode
       ln -sf "$SOURCE_DIR/keybindings.json" "$LIBRARY_DIR/Code/User/keybindings.json"

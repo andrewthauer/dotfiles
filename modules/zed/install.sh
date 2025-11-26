@@ -39,7 +39,7 @@ sync_zed_settingss() {
 
 main() {
   case "$(os-info --family)" in
-    macos)
+    darwin)
       install_macos
       ;;
     *)

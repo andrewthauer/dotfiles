@@ -7,7 +7,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    "macos")
+    darwin)
       mkdir -p "$HOME/Library/LaunchAgents"
       ;;
     *)

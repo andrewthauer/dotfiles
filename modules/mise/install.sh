@@ -7,7 +7,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    "macos") pkg install --type brew mise ;;
+    darwin) pkg install --type brew mise ;;
     *) curl https://mise.jdx.dev/install.sh | sh ;;
   esac
 

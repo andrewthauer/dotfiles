@@ -72,7 +72,7 @@ uninstall_nix_macos() {
 
 main() {
   case "$(os-info --family)" in
-    "macos")
+    darwin)
       printf "This will completely remove nix. Are you sure you want to continue [y/N]? "
       read -r answer
       case "${answer}" in [yY] | [yY][eE][sS])

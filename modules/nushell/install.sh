@@ -7,7 +7,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    "debian") pkg install --type apt-repo --repo "deb [trusted=yes] https://apt.fury.io/nushell/ /" nushell ;;
+    debian) pkg install --type apt-repo --repo "deb [trusted=yes] https://apt.fury.io/nushell/ /" nushell ;;
     *) pkg install nushell ;;
   esac
 }

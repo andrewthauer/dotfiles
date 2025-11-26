@@ -39,7 +39,7 @@ launch_hammerspoon() {
 
 main() {
   case "$(os-info --family)" in
-    "macos")
+    darwin)
       if brew list hammerspoon &>/dev/null; then
         echo "Hammerspoon already installed, skipping..."
         return 0

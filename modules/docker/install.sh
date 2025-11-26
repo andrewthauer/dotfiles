@@ -34,7 +34,7 @@ install_model_runner() {
 
 main() {
   case "$(os-info --family)" in
-    "macos")
+    darwin)
       install_macos
       # install_model_runner
       ;;

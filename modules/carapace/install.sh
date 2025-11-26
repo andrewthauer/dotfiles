@@ -7,9 +7,9 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    "macos") pkg --type brew install carapace ;;
-    "arch") pkg --type aur install carapace-bin ;;
-    "debian") pkg install --type apt-repo --repo "deb [trusted=yes] https://apt.fury.io/rsteube/ /" carapace-bin ;;
+    darwin) pkg --type brew install carapace ;;
+    arch) pkg --type aur install carapace-bin ;;
+    debian) pkg install --type apt-repo --repo "deb  https://apt.fury.io/rsteube/ /" carapace-bin ;;
     *)
       echo "Unsupported OS for carapace installation"
       exit 1

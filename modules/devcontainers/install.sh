@@ -8,7 +8,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 install_devpod() {
   # Install devpod
   case "$(os-info --family)" in
-    macos)
+    darwin)
       pkg --type brew install devpod
       configure_devpod
       ;;

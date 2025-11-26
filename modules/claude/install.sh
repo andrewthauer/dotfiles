@@ -20,7 +20,7 @@ setup_claude_desktop() {
 
 main() {
   case "$(os-info --family)" in
-    macos)
+    darwin)
       pkg install --brew type claude claude-code
       configure_claude_desktop
       ;;

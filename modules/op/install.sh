@@ -32,11 +32,11 @@ EOF
 
 main() {
   case "$(os-info --family)" in
-    "macos")
+    darwin)
       pkg install --type brew 1password 1password-cli
       configure_launch_agent_macos
       ;;
-    "arch")
+    arch)
       pkg install --type aur 1password 1password-cli
       ;;
     *)

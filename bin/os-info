@@ -29,7 +29,7 @@ get_os_family() {
   # ideally we would use an associative array here
   # but this needs to work in bash < v4 for macos
   os_info=(
-    "/etc/auto_master::macos"
+    "/etc/auto_master::darwin"
     "/etc/debian_version::debian"
     "/etc/fedora-release::fedora"
     "/etc/redhat-release::rhel"
@@ -54,11 +54,11 @@ get_package_manager() {
     echo "$DOTFILES_PACKAGE_MANAGER"
   else
     case ${os_family} in
-      "macos") echo "brew" ;;
-      "debian") echo "apt" ;;
-      "fedora") echo "dnf" ;;
-      "rhel") echo "yum" ;;
-      "arch") echo "pacman" ;;
+      darwin) echo "brew" ;;
+      debian) echo "apt" ;;
+      fedora) echo "dnf" ;;
+      rhel) echo "yum" ;;
+      arch) echo "pacman" ;;
       *) ;;
     esac
   fi

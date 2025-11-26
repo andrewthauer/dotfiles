@@ -32,7 +32,7 @@ install_brews() {
 
 main() {
   case "$(os-info --family)" in
-    "macos")
+    darwin)
       install_homebrew
       install_brews
       ;;

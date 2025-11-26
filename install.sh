@@ -84,9 +84,9 @@ main() {
 
     # Run autodetected setup script
     case "$(os-info --family)" in
-      "macos") "$DOTFILES_HOME/scripts/setup-macos.sh" ;;
-      "debian") "$DOTFILES_HOME/scripts/setup-linux.sh" ;;
-      "arch") "$DOTFILES_HOME/scripts/setup-linux.sh" ;;
+      darwin) "$DOTFILES_HOME/scripts/setup-macos.sh" ;;
+      debian) "$DOTFILES_HOME/scripts/setup-linux.sh" ;;
+      arch) "$DOTFILES_HOME/scripts/setup-linux.sh" ;;
       *) echo "No OS specific setup script" ;;
     esac
   fi
