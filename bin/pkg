@@ -22,11 +22,72 @@ usage() {
   echo "  help             Prints this message"
   echo ""
   echo "FLAGS"
-  echo "  --type, -t       Package manager (apt, brew, cargo, dnf, nix-env, pacman, yum)"
+  echo "  --type, -t       Package manager (aur, apt, apt-repo, brew, cargo, dnf, nix-env, pacman, yum)"
   echo
   echo "EXAMPLES"
   echo "  $cmd install git zsh bash"
   echo "  $cmd install --type brew git"
+  echo "  $cmd install --type aur google-chrome"
+  echo "  $cmd install --type apt-repo --repo 'deb [trusted=yes] https://apt.fury.io/rsteube/ /' carapace-bin"
+}
+
+install_aur_helper() {
+  local helper="${1:-paru}"
+
+  echo "$helper not found, installing it..."
+
+  # Ensure base-devel is installed (required for building AUR packages)
+  if ! pacman -Qg base-devel &>/dev/null; then
+    echo "Installing base-devel..."
+    $sudo_cmd pacman -S --needed --noconfirm base-devel
+  fi
+
+  # Install AUR helper from AUR
+  local temp_dir
+  temp_dir=$(mktemp -d)
+  trap 'rm -rf "$temp_dir"' EXIT
+
+  echo "Cloning $helper from AUR..."
+  git clone "https://aur.archlinux.org/$helper.git" "$temp_dir/$helper"
+
+  echo "Building and installing $helper..."
+  (cd "$temp_dir/$helper" && makepkg -si --noconfirm)
+
+  rm -rf "$temp_dir"
+  trap - EXIT
+
+  echo "$helper installed successfully!"
+}
+
+install_apt_repo() {
+  local repo_line=""
+  local pkgs=()
+
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --repo)
+        repo_line="$2"
+        shift 2
+        ;;
+      *)
+        pkgs+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  # Auto-generate repo filename from first package name
+  local repo_file="${pkgs[0]}.list"
+
+  # Add the repository
+  echo "${repo_line}" | $sudo_cmd tee /etc/apt/sources.list.d/"${repo_file}"
+
+  # Update and install packages
+  $sudo_cmd apt update -y -q
+
+  # shellcheck disable=SC2068
+  $sudo_cmd apt install -y ${pkgs[@]}
 }
 
 init_package_manager() {
@@ -37,15 +98,21 @@ init_package_manager() {
   #
 
   # Skip package manager updates
-  if [ "$SKIP_PACKAGE_MANGER_UPDATE" == "true" ]; then
+  if [ "$SKIP_PACKAGE_MANAGER_UPDATE" == "true" ]; then
     return
   fi
 
   case ${pkg_mgr} in
     "apt") $sudo_cmd apt update -y -q ;;
+    "apt-repo") ;;
     "dnf") ;;
     "yum") ;;
     "pacman") ;;
+    "aur")
+      if ! command -v paru &>/dev/null; then
+        install_aur_helper "paru"
+      fi
+      ;;
     "brew")
       if ! command -v brew &>/dev/null; then
         # shellcheck disable=SC1091
@@ -112,6 +179,10 @@ install_package() {
       # shellcheck disable=SC2068
       $sudo_cmd apt install -y ${pkgs[@]}
       ;;
+    "apt-repo")
+      # shellcheck disable=SC2068
+      install_apt_repo ${pkgs[@]}
+      ;;
     "brew")
       # shellcheck disable=SC2068
       handle_brew_packages "install" ${pkgs[@]}
@@ -132,7 +203,12 @@ install_package() {
       ;;
     "pacman")
       # shellcheck disable=SC2068
-      $sudo_cmd pacman -S --noconfirm ${pkgs[@]}
+      $sudo_cmd pacman -S --needed --noconfirm ${pkgs[@]}
+      ;;
+    "aur")
+      # DO NOT use sudo with paru - it handles privilege escalation itself
+      # shellcheck disable=SC2068
+      paru -S --needed --noconfirm ${pkgs[@]}
       ;;
     "yum")
       # shellcheck disable=SC2068
@@ -146,7 +222,7 @@ uninstall_package() {
   local pkgs=("$*")
 
   case ${pkg_mgr} in
-    "apt")
+    "apt" | "apt-repo")
       # shellcheck disable=SC2068
       $sudo_cmd apt remove -y ${pkgs[@]}
       ;;
@@ -171,6 +247,11 @@ uninstall_package() {
     "pacman")
       # shellcheck disable=SC2068
       $sudo_cmd pacman -R --noconfirm ${pkgs[@]}
+      ;;
+    "aur")
+      # DO NOT use sudo with paru
+      # shellcheck disable=SC2068
+      paru -R --noconfirm ${pkgs[@]}
       ;;
     "yum")
       # shellcheck disable=SC2068
@@ -199,7 +280,7 @@ main() {
         shift 2
         ;;
       --skip-update | -s)
-        SKIP_PACKAGE_MANGER_UPDATE="true"
+        SKIP_PACKAGE_MANAGER_UPDATE="true"
         shift 1
         ;;
       --no-sudo)

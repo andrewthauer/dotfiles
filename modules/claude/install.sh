@@ -19,16 +19,12 @@ setup_claude_desktop() {
 }
 
 main() {
-  if [ "$(command -v claude)" ]; then
-    echo "claude is already installed"
-  else
-    case "$(os-info --family)" in
-      macos)
-        pkg install claude claude-code
-        configure_claude_desktop
-        ;;
-    esac
-  fi
+  case "$(os-info --family)" in
+    macos)
+      pkg install --brew type claude claude-code
+      configure_claude_desktop
+      ;;
+  esac
 
   setup_claude_code
   setup_claude_desktop

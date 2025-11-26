@@ -59,7 +59,7 @@ EOF
     zsh
 
   # No need to update the package managers anymore
-  export SKIP_PACKAGER_MANAGER_UPDATE="true"
+  export SKIP_PACKAGE_MANAGER_UPDATE="true"
 
   # Default modules
   local default_modules=(

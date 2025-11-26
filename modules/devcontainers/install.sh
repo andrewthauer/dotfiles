@@ -7,20 +7,13 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 install_devpod() {
   # Install devpod
-  if [ "$(command -v devpod)" ]; then
-    echo "mise is already installed"
-  else
-    case "$(os-info --family)" in
-      macos)
-        pkg install devpod
-        configure_devpod
-        ;;
-      *)
-        echo "Not implemented for this OS"
-        exit 1
-        ;;
-    esac
-  fi
+  case "$(os-info --family)" in
+    macos)
+      pkg --type brew install devpod
+      configure_devpod
+      ;;
+    *) echo "Not implemented for this OS" ;;
+  esac
 }
 
 configure_devpod() {

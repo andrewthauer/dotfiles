@@ -7,7 +7,6 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    macos) brew install git ;;
     *) pkg install git ;;
   esac
 }

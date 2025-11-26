@@ -33,12 +33,14 @@ EOF
 main() {
   case "$(os-info --family)" in
     "macos")
-      pkg install --type brew list 1password 1password-cli
+      pkg install --type brew 1password 1password-cli
       configure_launch_agent_macos
+      ;;
+    "arch")
+      pkg install --type aur 1password 1password-cli
       ;;
     *)
       echo "Not implemented for this OS"
-      exit 1
       ;;
   esac
 }

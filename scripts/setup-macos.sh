@@ -62,7 +62,7 @@ main() {
   source "$modules_dir/homebrew/.config/homebrew/shellenv.sh"
 
   # No need to update the package managers anymore
-  export SKIP_PACKAGER_MANAGER_UPDATE="true"
+  export SKIP_PACKAGE_MANAGER_UPDATE="true"
 
   # Default modules
   local default_modules=(
@@ -78,6 +78,7 @@ main() {
     deno
     direnv
     docker
+    eza
     fzf
     git
     go

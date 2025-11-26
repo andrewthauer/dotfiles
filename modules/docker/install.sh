@@ -38,10 +38,7 @@ main() {
       install_macos
       # install_model_runner
       ;;
-    *)
-      echo "Not implemented for this OS"
-      exit 1
-      ;;
+    *) echo "Not implemented for this OS" ;;
   esac
 }
 

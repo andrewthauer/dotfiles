@@ -7,7 +7,6 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    macos) brew install fzf ;;
     *) pkg install fzf ;;
   esac
 }

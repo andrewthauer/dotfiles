@@ -6,14 +6,10 @@ DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
-  if [ "$(command -v mise)" ]; then
-    echo "mise is already installed"
-  else
-    case "$(os-info --family)" in
-      "macos") pkg install --type brew mise ;;
-      *) curl https://mise.jdx.dev/install.sh | sh ;;
-    esac
-  fi
+  case "$(os-info --family)" in
+    "macos") pkg install --type brew mise ;;
+    *) curl https://mise.jdx.dev/install.sh | sh ;;
+  esac
 
   # Do not own ~/.config/mise
   dotfiles noabsorb "$XDG_CONFIG_HOME/mise"
