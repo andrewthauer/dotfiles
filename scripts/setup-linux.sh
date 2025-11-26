@@ -15,8 +15,6 @@ main() {
   # Create local module directory (not tracked by git)
   mkdir -p "$modules_dir/local"
 
-# fonts-firacode \
-
   # Install packages with package manager
   pkg install \
     stow \
@@ -40,11 +38,12 @@ main() {
     # order doesn't matter
     bash
     bat
-    # carapace
+    carapace
     deno
     direnv
     # docker
     fzf
+    fonts
     git
     go
     gpg

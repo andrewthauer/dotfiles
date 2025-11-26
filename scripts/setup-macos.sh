@@ -80,6 +80,7 @@ main() {
     docker
     eza
     fzf
+    fonts
     git
     go
     gpg
