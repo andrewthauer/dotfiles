@@ -42,10 +42,23 @@ set_default_shell() {
     return 1
   fi
 
+  # Get current login shell
+  local current_shell
+  current_shell="$(getent passwd "$USER" | cut -d: -f7)"
+
+  # Check if shell is already set
+  if [ "$current_shell" = "$shell_path" ]; then
+    echo "Default shell is already set to $shell_path"
+    return 0
+  fi
+
+  # disable usage of sudo if requested
+  [[ "$DOTFILES_NO_SUDO" -eq 0 ]] && sudo_cmd="sudo" || sudo_cmd=""
+
   echo "Changing default shell to $shell_path"
   case "$(os-info --os)" in
-    darwin) chsh -s "$shell_path" ;;
-    *) chsh -s "$shell_path" ;;
+    darwin) $sudo_cmd chsh -s "$shell_path" "$USER" ;;
+    *) $sudo_cmd chsh -s "$shell_path" "$USER" ;;
   esac
 }
 
