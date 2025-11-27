@@ -4,6 +4,7 @@
     "singleQuote": true,
     "exclude": [
       "*.lock",
+      "modules/github/.config/gh/config.yml",
       "modules/iterm2/.config/iterm2/profile.json",
       "modules/karabiner/.config/karabiner/*",
       "modules/hammerspoon/.config/hammerspoon/Spoons/*"
