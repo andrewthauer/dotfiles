@@ -47,7 +47,7 @@
       "space ,": "file_finder::Toggle",
       "space /": "workspace::NewSearch",
       "space e": "workspace::ToggleLeftDock",
-      "space b d": "workspace::CloseWindow",
+      "space b d": "pane::CloseActiveItem",
       "space c c": "workspace::ToggleRightDock",
       "space c s": "outline::Toggle",
       "space c R": "editor::Rename",

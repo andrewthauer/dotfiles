@@ -7,6 +7,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
+    arch) pkg install neovim tree-sitter-cli ;;
     *) pkg install neovim ;;
   esac
 

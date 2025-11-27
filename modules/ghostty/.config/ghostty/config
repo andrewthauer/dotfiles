@@ -15,8 +15,8 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 
 # window
-window-width = 128
-window-height = 48
+window-width = 100
+window-height = 30
 window-padding-x = 12
 window-padding-y = 12
 

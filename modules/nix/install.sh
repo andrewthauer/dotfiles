@@ -7,7 +7,7 @@ install_nix() {
   # curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
 
   # Offical nix experimental installer
-  curl -L https://github.com/NixOS/experimental-nix-installer/releases/download/0.27.0/nix-installer.sh | sh -s -- install
+  curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | sh -s -- install
 }
 
 install_nix_pkgs() {

@@ -19,7 +19,9 @@ main() {
   pkg install \
     stow \
     shellcheck \
-    shfmt
+    shfmt \
+    jq \
+    unzip
 
   # Base setup
   mkdir -p "$modules_dir/local"
