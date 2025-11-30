@@ -1,15 +1,14 @@
 [
   {
-    "label": "Lazygit",
+    "label": "lazygit",
     "command": "lazygit -p $ZED_WORKTREE_ROOT",
-    "reveal_target": "center"
+    "reveal_target": "center",
+    "shell": "system"
   },
   {
-    "label": "Lazyjj",
+    "label": "lazyjj",
     "command": "lazyjj -p $ZED_WORKTREE_ROOT",
     "reveal_target": "center",
-    "shell": {
-      "program": "zsh"
-    }
+    "shell": "system"
   }
 ]

@@ -97,12 +97,16 @@
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "dark": "Catppuccin Frappé"
   },
   "inlay_hints": {
     "enabled": false
   },
-  "languages": {},
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!solargraph"]
+    }
+  },
   "lsp": {
     "ruby-lsp": {
       "initialization_options": {

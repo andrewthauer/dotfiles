@@ -5,15 +5,7 @@ set -eou pipefail
 DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
-install_macos() {
-  ZED_PACKAGE="zed@preview"
-  echo "Installing $ZED_PACKAGE editor..."
-  if ! brew list --cask | grep -q "^$ZED_PACKAGE\$"; then
-    brew install --cask $ZED_PACKAGE || true
-  else
-    echo "$ZED_PACKAGE is already installed"
-  fi
-}
+ZED_CHANNEL="${ZED_CHANNEL:-preview}"
 
 link_dotfiles() {
   echo "Installing Zed editor configuration..."
@@ -40,10 +32,13 @@ sync_zed_settingss() {
 main() {
   case "$(os-info --family)" in
     darwin)
-      install_macos
+      brew install --cask "zed@$ZED_CHANNEL" || true
+      rm -f "$HOME/.local/bin/zed"
+      ln -s /Applications/Zed\ Preview.app/Contents/MacOS/cli "$HOME/.local/bin/zed"
       ;;
     *)
-      curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh
+      curl -f https://zed.dev/install.sh | ZED_CHANNEL="$ZED_CHANNEL" sh
+      rm -f "$HOME/.local/bin/zed"
       ln -s /usr/bin/zeditor "$HOME/.local/bin/zed"
       ;;
   esac
