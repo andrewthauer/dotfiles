@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# Parse command line arguments
+account=""
+assume_role=""
+profile=""
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -a | --account)
+      account="$2"
+      shift 2
+      ;;
+    --assume-role | --role)
+      assume_role="$2"
+      shift 2
+      ;;
+    -r | --region)
+      region="$2"
+      shift 2
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+# Set defaults from environment variables
+account="${account:-${AWS_DEFAULT_ACCOUNT:-}}"
+assume_role="${assume_role:-${ASSUME_ROLE:-}}"
+region="${region:-${AWS_REGION:-us-east-1}}"
+
+# Validate required parameters
+if [[ -z "$account" ]]; then
+  echo "Error: Account is required" >&2
+  exit 1
+fi
+if [[ -z "$assume_role" ]]; then
+  echo "Error: Assume role is required" >&2
+  exit 1
+fi
+
+if ! command -v assume &>/dev/null; then
+  echo "Error: 'assume' command not found" >&2
+  exit 1
+fi
+
+shopt -s expand_aliases
+alias assume="source assume"
+export GRANTED_ENABLE_AUTO_REASSUME=true
+echo "Assuming role: $assume_role"
+assume -ex "$assume_role"
+
+# Login to ECR with docker
+echo "Logging in to ECR in account: $account, region: $region, profile: $profile"
+aws --region "$region" ecr get-login-password --profile "$profile" |
+  docker login --password-stdin --username AWS "${account}.dkr.ecr.${region}.amazonaws.com"
