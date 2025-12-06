@@ -45,7 +45,7 @@ def "from aliases" []: list -> record {
 def sanitize-lines [] {
     mut $e = lines
         | split column "#"
-        | get column1
+        | get column0
         | compact --empty
 
     $e
