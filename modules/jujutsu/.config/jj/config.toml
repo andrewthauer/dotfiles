@@ -28,7 +28,7 @@ write-change-id-header = true
 # backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 [remotes.origin]
-auto-track-bookmarks = "glob:*"
+auto-track-bookmarks = "glob:andrewthauer/*"
 
 #
 # revset-aliases
