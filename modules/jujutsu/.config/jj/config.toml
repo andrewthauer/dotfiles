@@ -64,6 +64,7 @@ sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 tugc = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
 ui = ["util", "exec", "--", "jjui"]
+spr = ["util", "exec", "--", "jj-spr"]
 
 #
 # template-aliases

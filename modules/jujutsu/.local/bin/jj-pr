@@ -1,123 +1,136 @@
-#!/usr/bin/env nu
+#!/usr/bin/env bash
 
-# Managed GitHub Pull Requests for Jujutsu revisions.
-def "main" [] {
-  help main
+set -euo pipefail
+
+usage() {
+  cat <<EOF
+Managed GitHub Pull Requests for Jujutsu revisions.
+
+Usage:
+  jj-pr create -r <revision> [-b <bookmark>] [--draft] [--dry-run] [--web]
+  jj-pr view [-r <revision>] [--web]
+
+Commands:
+  create    Create a PR for a Jujutsu revision
+  view      View a PR for a Jujutsu revision
+EOF
 }
 
-# Create a PR for a Jujutsu revision
-def "main create" [
-  --revision (-r): string       # The Jujutsu revision to create a PR for
-  --bookmark (-b): string       # The named bookmark / branch name to use if revision does not have one associated (optional)
-  --draft                       # Create a draft PR
-  --dry-run                     # Print commands without executing them
-  --web                         # Open new PR in a web browser
-] {
+check_dependencies() {
+  command -v git >/dev/null 2>&1 || { echo "Error: git is not installed" >&2; exit 1; }
+  command -v jj >/dev/null 2>&1 || { echo "Error: jj is not installed" >&2; exit 1; }
+  command -v gh >/dev/null 2>&1 || { echo "Error: gh is not installed" >&2; exit 1; }
+}
+
+description() {
+  jj log --no-graph --no-pager --quiet --template 'self.description()' --revisions "$1"
+}
+
+get_bookmark() {
+  jj bookmark list --template "name" --revisions "$1"
+}
+
+get_tracking_branch() {
+  jj bookmark list --tracked --template "if(tracking_present, name)" --revisions "$1"
+}
+
+find_tracking_branch() {
+  local revisions="::$1 ~ trunk()"
+  jj bookmark list --tracked --template "if(tracking_present, name)" --revisions "$revisions"
+}
+
+cmd_create() {
+  local revision="" bookmark="" draft=0 dry_run=0 web=0
+
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -r|--revision) revision="$2"; shift 2 ;;
+      -b|--bookmark) bookmark="$2"; shift 2 ;;
+      --draft) draft=1; shift ;;
+      --dry-run) dry_run=1; shift ;;
+      --web) web=1; shift ;;
+      *) echo "Unknown option: $1" >&2; exit 1 ;;
+    esac
+  done
+
+  [[ -z "$revision" ]] && { echo "Error: revision is required" >&2; exit 1; }
+
+  local desc title body
+  desc=$(description "$revision")
+  title=$(echo "$desc" | head -n1)
+  body=$(echo "$desc" | tail -n +3)
+
+  [[ -z "$title" ]] && { echo "Error: Revision has no description" >&2; exit 1; }
+  [[ -z "$desc" ]] && { echo "Error: Could not find description for revision" >&2; exit 1; }
+
+  if [[ $dry_run -eq 1 ]]; then
+    local draft_text=""
+    [[ $draft -eq 1 ]] && draft_text="draft "
+    echo "Would create ${draft_text}PR:"
+    echo "  revision: $revision"
+    echo "  bookmark: $bookmark"
+    echo "  title: $title"
+    echo "  body:"
+    echo "$body"
+    return 0
+  fi
+
+  local branch
+  branch=$(get_tracking_branch "$revision")
+
+  if [[ -z "$branch" && -n "$bookmark" && -z "$(get_bookmark "$revision")" ]]; then
+    jj bookmark create "$bookmark" -r "$revision" || { echo "Failed to create bookmark $bookmark" >&2; exit 1; }
+    branch="$bookmark"
+  elif [[ -z "$branch" ]]; then
+    jj git push --change "$revision" || { echo "Failed to push changes" >&2; exit 1; }
+    branch=$(get_tracking_branch "$revision")
+    [[ -z "$branch" ]] && { echo "Failed to get branch after push" >&2; exit 1; }
+  fi
+
+  jj git push --bookmark "$branch" --allow-new || { echo "Failed to push bookmark $branch" >&2; exit 1; }
+
+  local gh_args=(--head "$branch" --title "$title")
+  [[ $draft -eq 1 ]] && gh_args+=(--draft)
+  [[ $web -eq 1 ]] && gh_args+=(--web)
+
+  gh pr create "${gh_args[@]}" || { echo "Failed to create PR for branch '$branch'" >&2; exit 1; }
+
+  local draft_text=""
+  [[ $draft -eq 1 ]] && draft_text=" draft"
+  echo "Successfully created${draft_text} PR for branch '$branch'"
+}
+
+cmd_view() {
+  local revision="@" web=0
+
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -r|--revision) revision="$2"; shift 2 ;;
+      --web) web=1; shift ;;
+      *) echo "Unknown option: $1" >&2; exit 1 ;;
+    esac
+  done
+
+  local branch
+  branch=$(find_tracking_branch "$revision")
+
+  local gh_args=("$branch")
+  [[ $web -eq 1 ]] && gh_args+=(--web)
+
+  gh pr view "${gh_args[@]}"
+}
+
+main() {
   check_dependencies
 
-  if ($revision | is-empty) { error make { msg: "Error: revision is required" } }
-
-  let desc = (description $revision)
-  let title = ($desc | split row "\n" | first)
-  let body = ($desc | split row "\n" | skip 2 | str join "\n")
-
-  if ($title | is-empty) { error make { msg: "Error: Revision has no desciption" } }
-  if ($desc | is-empty) { error make { msg: "Error: Could not find description for revision" } }
-
-  if $dry_run {
-    let draft_text = if $draft { "draft " } else { "" }
-    print $"Would create ($draft_text)PR:"
-    print $"  revision: ($revision)"
-    print $"  bookmark: ($bookmark)"
-    print $"  title: ($title)"
-    print $"  body:"
-    print $body
-    return
-  }
-
-  # If the revision has a tracking branch, use that
-  mut branch = (get_tracking_branch $revision)
-
-  # If no current tracking branch or bookmark use supplied bookmark as the branch
-  if ($branch | is-empty) and (not ($bookmark | is-empty)) and (get_bookmark $revision | is-empty) {
-    jj bookmark create $bookmark -r $revision | complete
-    if $env.LAST_EXIT_CODE != 0 {
-      error make { msg: $"Failed to create bookmark ($bookmark)" }
-    }
-
-    $branch = $bookmark
-  } else if ($branch | is-empty) {
-    jj git push --change $revision | complete
-    if $env.LAST_EXIT_CODE != 0 {
-      error make { msg: "Failed to push changes" }
-    }
-
-    $branch = (get_tracking_branch $revision)
-    if ($branch | is-empty) {
-      error make { msg: "Failed to get branch after push" }
-    }
-  }
-
-  jj git push --bookmark $branch --allow-new | complete
-  if $env.LAST_EXIT_CODE != 0 {
-    error make { msg: $"Failed to push bookmark ($bookmark)" }
-  }
-
-  gh pr create --head $branch --title $title ...[
-    ...(if $draft { ["--draft"] } else { [] })
-    ...(if $web { ["--web"] } else { [] })
-  ]
-  if $env.LAST_EXIT_CODE != 0 {
-    error make { msg: $"Failed to create PR for branch '($branch)'" }
-  }
-
-  let draft_text = if $draft { " draft" } else { "" }
-  print $"Successfully created($draft_text) PR for branch '($branch)'"
+  case "${1:-}" in
+    create) shift; cmd_create "$@" ;;
+    view) shift; cmd_view "$@" ;;
+    *)
+      usage
+      exit 0
+      ;;
+  esac
 }
 
-# View a PR for a Jujutsu revision
-def "main view" [
-  --revision (-r): string = "@"   # The Jujutsu revision to create a PR for
-  --web                           # Open the PR in a web browser
-] {
-  check_dependencies
-
-  if ($revision | is-empty) {
-    print "Error: Missing required argument: revision"
-    exit 1
-  }
-
-  let branch = (find_tracking_branch $revision)
-
-  gh pr view ...[
-    $branch
-    ...(if $web { ["--web"] } else { [] })
-  ]
-}
-
-def check_dependencies [] {
-  if (which git | is-empty) {
-    error make { msg: "Error: git is not installed" }
-  }
-
-  if (which jj | is-empty) {
-    error make { msg: "Error: jj is not installed" }
-  }
-}
-
-def description [rev: string] {
-  jj log --no-graph --no-pager --quiet --template 'self.description()' --revisions $rev
-}
-
-def get_bookmark [rev: string] {
-  jj bookmark list --template "name" --revisions $rev
-}
-
-def get_tracking_branch [rev: string ] {
-  jj bookmark list --tracked --template "if(tracking_present, name)" --revisions $rev
-}
-
-def find_tracking_branch [rev: string ] {
-  let revisions = $"::($rev) ~ trunk\(\)"
-  jj bookmark list --tracked --template "if(tracking_present, name)" --revisions $revisions
-}
+main "$@"

@@ -1,87 +1,83 @@
-#!/usr/bin/env nu
-
+#!/usr/bin/env bash
+#
 # Set up a colocated Jujutsu repository in the current Git repository.
-def main [
-  --dry-run      # Print commands without executing them
-] {
-  check_dependencies
+#
 
-  if not (is_git_repo) { error make { msg: "Error: Not in a Git repository" } }
-  if (is_jj_initialized) { error make { msg: "Repository is already initialized with Jujutsu" } }
-  if (has_uncommitted_changes) { error make { msg: "Error: Repository has uncommitted changes" } }
+set -euo pipefail
 
-  let git_root = (get_git_root)
-  let has_remote = (has_remote_origin)
-
-  let git_email = (git -C $git_root config user.email | str trim)
-  let remote = "origin"
-
-  jj git init --colocate $git_root
-
-  if $has_remote {
-    let default_branch = (get_default_branch)
-    jj --repository $git_root bookmark track $"($default_branch)@($remote)"
-  }
-
-  jj --repository $git_root config set --repo user.email $git_email
-  jj describe --reset-author --no-edit
+check_dependencies() {
+  command -v git >/dev/null 2>&1 || { echo "Error: git is not installed" >&2; exit 1; }
+  command -v jj >/dev/null 2>&1 || { echo "Error: jj is not installed" >&2; exit 1; }
 }
 
-def check_dependencies [] {
-  if (which git | is-empty) {
-    error make { msg: "Error: git is not installed" }
-  }
-
-  if (which jj | is-empty) {
-    error make { msg: "Error: jj is not installed" }
-  }
+is_git_repo() {
+  git rev-parse --git-dir &>/dev/null
 }
 
-def execute [
-  cmd: string
-  dry_run: bool
-] {
-  if $dry_run {
-    print $cmd
-  } else {
-    nu -c $cmd
-  }
-}
-
-def get_git_root [] {
+get_git_root() {
   git rev-parse --show-toplevel
 }
 
-def is_git_repo [] {
-  do { git rev-parse --git-dir } | complete | $env.LAST_EXIT_CODE == 0
+is_jj_initialized() {
+  local git_root=$(get_git_root)
+  [[ -d "$git_root/.jj" ]]
 }
 
-def has_uncommitted_changes [] {
-  not (do { git diff --quiet HEAD } | complete | $env.LAST_EXIT_CODE == 0)
+has_uncommitted_changes() {
+  ! git diff --quiet || ! git diff --cached --quiet
 }
 
-def is_on_default_branch [] {
-  let current_branch = (git branch --show-current | str trim)
-  let default_branch = (get_default_branch)
-  $current_branch == $default_branch
+has_remote_origin() {
+  git remote get-url origin &>/dev/null
 }
 
-def get_default_branch [] {
-  if (has_remote_origin) {
-    git symbolic-ref --short refs/remotes/origin/HEAD
-      | sed 's@^origin/@@'
-      | str trim
-  } else {
-    # Fall back to current branch if no remote
-    git branch --show-current | str trim
-  }
+get_default_branch() {
+  if has_remote_origin; then
+    git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's@^origin/@@' || git branch --show-current
+  else
+    git branch --show-current
+  fi
 }
 
-def has_remote_origin [] {
-  do { git remote get-url origin } | complete | $env.LAST_EXIT_CODE == 0
+main() {
+  check_dependencies
+
+  if ! is_git_repo; then
+    echo "Error: Not in a Git repository" >&2
+    exit 1
+  fi
+
+  if is_jj_initialized; then
+    echo "Repository is already initialized with Jujutsu" >&2
+    exit 1
+  fi
+
+  if has_uncommitted_changes; then
+    echo "Error: Repository has uncommitted changes" >&2
+    exit 1
+  fi
+
+  local git_root=$(get_git_root)
+  local git_email=$(git -C "$git_root" config user.email 2>/dev/null || true)
+  if [[ -z "$git_email" ]]; then
+    git_email=""
+  fi
+
+  if [[ -z "$git_email" ]]; then
+    echo "Error: git user.email is not configured" >&2
+    exit 1
+  fi
+
+  jj git init --colocate "$git_root"
+
+  local remote="origin"
+  if has_remote_origin; then
+    local default_branch=$(get_default_branch)
+    jj --repository "$git_root" bookmark track "${default_branch}@${remote}"
+  fi
+
+  jj --repository "$git_root" config set --repo user.email "$git_email"
+  jj describe --reset-author --no-edit
 }
 
-def is_jj_initialized [] {
-  let git_root = (get_git_root)
-  ($git_root + "/.jj") | path exists
-}
+main "$@"
