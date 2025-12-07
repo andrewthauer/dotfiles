@@ -2,57 +2,86 @@
 
 set -eo pipefail
 
+show_usage() {
+  cat <<EOF
+Usage: $0 [OPTIONS]
+
+Assume an AWS role and login to ECR (Elastic Container Registry).
+
+Options:
+  --profile PROFILE            AWS profile/role to assume (required)
+  --region, -r REGION          AWS region (default: \$AWS_REGION or \$AWS_DEFAULT_REGION)
+  -h, --help                   Show this help message
+
+Environment Variables:
+  AWS_PROFILE, AWS_DEFAULT_PROFILE    Default profile to use
+  AWS_REGION, AWS_DEFAULT_REGION      Default region to use
+
+Examples:
+  $0
+  $0 --profile my-role --region us-east-1
+  $0 --profile prod-deploy -r eu-west-1
+
+EOF
+}
+
+if ! command -v assume &>/dev/null; then
+  echo "Error: 'assume' command not found" >&2
+  echo "Install granted from: https://github.com/common-fate/granted" >&2
+  show_usage
+  exit 1
+fi
+
 # Parse command line arguments
-account=""
-assume_role=""
 profile=""
+region=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
-    -a | --account)
-      account="$2"
+    -h | --help)
+      show_usage
+      exit 0
+      ;;
+    --profile | -p)
+      profile="$2"
       shift 2
       ;;
-    --assume-role | --role)
-      assume_role="$2"
-      shift 2
-      ;;
-    -r | --region)
+    --region | -r)
       region="$2"
       shift 2
       ;;
     *)
-      echo "Unknown option: $1" >&2
+      echo "Error: Unknown option: $1" >&2
+      show_usage
       exit 1
       ;;
   esac
 done
 
 # Set defaults from environment variables
-account="${account:-${AWS_DEFAULT_ACCOUNT:-}}"
-assume_role="${assume_role:-${ASSUME_ROLE:-}}"
-region="${region:-${AWS_REGION:-us-east-1}}"
+profile="${profile:-${AWS_PROFILE:-$AWS_DEFAULT_PROFILE}}"
+region="${region:-${AWS_REGION:-$AWS_DEFAULT_REGION}}"
 
-# Validate required parameters
-if [[ -z "$account" ]]; then
-  echo "Error: Account is required" >&2
-  exit 1
-fi
-if [[ -z "$assume_role" ]]; then
-  echo "Error: Assume role is required" >&2
+if [[ -z "$profile" ]]; then
+  echo "Error: Profile is required" >&2
+  show_usage
   exit 1
 fi
 
-if ! command -v assume &>/dev/null; then
-  echo "Error: 'assume' command not found" >&2
-  exit 1
-fi
-
+# Assume the profile / role
 shopt -s expand_aliases
 alias assume="source assume"
 export GRANTED_ENABLE_AUTO_REASSUME=true
-echo "Assuming role: $assume_role"
-assume -ex "$assume_role"
+echo "Assuming role: $profile"
+assume --export "$profile"
+
+# Get the AWS account from the assumed profile
+account="$(aws sts get-caller-identity --profile "$AWS_PROFILE" --query Account --output text)"
+if [[ -z "$account" ]]; then
+  echo "Error: Could not determine AWS account ID" >&2
+  show_usage
+  exit 1
+fi
 
 # Login to ECR with docker
 echo "Logging in to ECR in account: $account, region: $region, profile: $profile"

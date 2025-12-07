@@ -83,7 +83,6 @@ return {
       -- words = { enabled = true },
       terminal = {
         enabled = true,
-        shell = "nu",
       },
       -- toggle = {},
     },
