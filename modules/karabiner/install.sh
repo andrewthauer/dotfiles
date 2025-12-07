@@ -12,7 +12,7 @@ install_karabiner() {
 
 configure_karabiner() {
   echo "Configuring Karabiner-Elements..."
-  dotfiles module link karabiner
+  dotfiles module add karabiner
 
   # TODO: Walk user through configuration steps
   # ...

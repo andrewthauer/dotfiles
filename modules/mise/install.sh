@@ -15,7 +15,7 @@ main() {
   dotfiles noabsorb "$XDG_CONFIG_HOME/mise"
 
   # Ensure the dotfiles module is available
-  dotfiles module link mise
+  dotfiles module add mise
 
   # Use idomatic version file for mise
   mise settings add idiomatic_version_file_enable_tools java,node,python,ruby

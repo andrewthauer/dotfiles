@@ -14,7 +14,7 @@ link_dotfiles() {
   dotfiles noabsorb "$XDG_CONFIG_HOME/zed"
 
   # We can now safely link the Zed configuration
-  dotfiles module link zed
+  dotfiles module add zed
 }
 
 sync_zed_settingss() {

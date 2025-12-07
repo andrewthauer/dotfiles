@@ -35,7 +35,7 @@ main() {
       dotfiles-module install "$@"
       ;;
     sync | s)
-      dotfiles-module link "$@"
+      dotfiles-module sync "$@"
       ;;
     add | a)
       dotfiles-module add "$@"

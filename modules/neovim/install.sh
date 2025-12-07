@@ -16,7 +16,7 @@ main() {
     mise install node --yes
   fi
 
-  dotfiles module link neovim
+  dotfiles module add neovim
 
   nvim +PlugInstall +qall
 }

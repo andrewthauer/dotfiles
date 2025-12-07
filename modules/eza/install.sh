@@ -22,7 +22,7 @@ main() {
 
   # Link eza dotfiles
   dotfiles noabsorb "$XDG_CONFIG_HOME/eza"
-  dotfiles module link eza
+  dotfiles module add eza
 
   # Setup theme
   echo "Setting eza theme..."

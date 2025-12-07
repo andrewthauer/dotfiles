@@ -47,7 +47,7 @@ main() {
       install_hammerspoon
       install_spoons
       configire_hammerspoon
-      dotfiles module link hammerspoon
+      dotfiles module add hammerspoon
       setup_launch_on_startup
       launch_hammerspoon
       ;;

@@ -28,8 +28,6 @@ usage() {
   echo ""
   echo "COMMANDS:"
   echo "  list, ls           List modules"
-  echo "  link, ln           Link a module (uses default modules file if no args)"
-  echo "  unlink, un         Unlink a module"
   echo "  add, a             Add module(s) to modules file"
   echo "  remove, rm         Remove module(s) from modules file"
   echo "  install, i         Install module(s) (uses default modules file if no args)"
@@ -44,10 +42,6 @@ usage() {
   echo "COMMAND-SPECIFIC FLAGS:"
   echo "  list:"
   echo "    --all, -a        List all modules"
-  echo "  link/unlink:"
-  echo "    --all, -a        Link/unlink all modules"
-  echo "    --file, -f FILE  Use specific modules file"
-  echo "    --no-file        Don't use a modules file"
   echo "  add:"
   echo "    --file, -f FILE  Target modules file (optional)"
   echo "  remove:"
@@ -59,12 +53,11 @@ usage() {
   echo "    --file, -f FILE  Specify output file"
 }
 
-link() {
+link_modules() {
   stow_modules -S "$@"
 }
 
-unlink() {
-  remove_modules_from_file "$@"
+unlink_modules() {
   stow_modules -D "$@"
 }
 
@@ -348,7 +341,7 @@ install_modules() {
 
   # Stow all processed modules to ensure they are linked
   echo "Linking installed modules..."
-  stow_modules -S "${modules[@]}"
+  link_modules "${modules[@]}"
 }
 
 write_modules_file() {
@@ -390,17 +383,16 @@ main() {
     list | ls)
       list_modules "$@"
       ;;
-    link | ln)
-      link "$@"
-      ;;
-    unlink | un)
-      unlink "$@"
+    sync | s)
+      link_modules "$@"
       ;;
     add | a)
       add_modules_to_file "$@"
+      link_modules "$@"
       ;;
     remove | rm)
       remove_modules_from_file "$@"
+      unlink_modules "$@"
       ;;
     install | i)
       install_modules "$@"
