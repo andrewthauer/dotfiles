@@ -35,11 +35,9 @@ function M.init_hotkeys(keys)
   hs.hotkey.bind(keys.hyper, "d", launchById(apps.TODOIST))
   hs.hotkey.bind(keys.hyper, "f", launchById(apps.FINDER))
   hs.hotkey.bind(keys.hyper, "l", launchById(apps.EDITOR))
+  hs.hotkey.bind(keys.hyper, "m", launchById(apps.SLACK))
   hs.hotkey.bind(keys.hyper, "n", launchById(apps.NOTION))
-  hs.hotkey.bind(keys.hyper, "s", launchById(apps.SLACK))
   hs.hotkey.bind(keys.hyper, "t", launchById(apps.TERMINAL))
-  -- hs.hotkey.bind(keys.hyper, "/", launchById(apps.TERMINAL))
-  -- hs.hotkey.bind(keys.hyper, "?", launchById(apps.TERMINAL))
   -- stylua: ignore end
 end
 

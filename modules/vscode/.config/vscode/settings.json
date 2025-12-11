@@ -108,6 +108,7 @@
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
   "git.mergeEditor": false,
   "github.copilot.enable": {
     "*": true,

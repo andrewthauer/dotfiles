@@ -4,12 +4,12 @@
     "always_allow_tool_actions": false,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "model": "claude-sonnet-4.5",
     },
     "default_profile": "write",
     "inline_assistant_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "model": "claude-sonnet-4.5",
     },
     "profiles": {
       "container-use": {
@@ -29,20 +29,20 @@
           "move_path": false,
           "grep": false,
           "edit_file": false,
-          "terminal": false
+          "terminal": false,
         },
         "enable_all_context_servers": false,
         "context_servers": {
           "mcp-server-context7": {
             "tools": {
               "get-library-docs": true,
-              "resolve-library-id": true
-            }
+              "resolve-library-id": true,
+            },
           },
           "mcp-server-sequential-thinking": {
             "tools": {
-              "sequentialthinking": true
-            }
+              "sequentialthinking": true,
+            },
           },
           "container-use": {
             "tools": {
@@ -57,32 +57,32 @@
               "environment_file_write": true,
               "environment_open": true,
               "environment_run_cmd": true,
-              "environment_update_metadata": true
-            }
-          }
-        }
-      }
-    }
+              "environment_update_metadata": true,
+            },
+          },
+        },
+      },
+    },
   },
   "buffer_font_size": 15,
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "context_servers": {
     "container-use": {
       "enabled": false,
-      "source": "custom",
       "command": "/opt/homebrew/bin/cu",
-      "args": ["stdio"]
-    }
+      "args": ["stdio"],
+    },
   },
   "edit_predictions": {
     "enabled_in_text_threads": true,
-    "mode": "eager"
+    "mode": "eager",
   },
   "ensure_final_newline_on_save": true,
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "file_types": {
+    "Dockerfile": ["**/Dockerfile*"],
     "env": ["*.env", ".env.*", "*.conf"],
     "Git Config": ["**/git/config*", "**/git/aliases*"],
     "Git Ignore": ["**/git/ignore*", "dockerignore"],
@@ -90,67 +90,67 @@
     "ini": ["**/git/config*", "**/git/aliases*"],
     "Markdown": ["*.rules", "*.mdc"],
     "Shell Script": ["**/*.bats"],
-    "XML": ["*.plist"]
+    "XML": ["*.plist"],
   },
-  "file_scan_exclusions": [".git/*", ".jj/*"],
+  "file_scan_exclusions": [".git/*", ".jj/*", "**/node_modules/**"],
   "format_on_save": "off",
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
-    "dark": "Catppuccin Frappé"
+    "dark": "Catppuccin Frappé",
   },
   "inlay_hints": {
-    "enabled": false
+    "enabled": false,
   },
   "languages": {
     "Ruby": {
-      "language_servers": ["ruby-lsp", "!solargraph"]
-    }
+      "language_servers": ["ruby-lsp", "!solargraph"],
+    },
   },
   "lsp": {
     "ruby-lsp": {
       "initialization_options": {
         "enabledFeatures": {
-          "diagnostics": false
-        }
+          "diagnostics": false,
+        },
       },
       "settings": {
-        "use_bundler": false
-      }
-    }
+        "use_bundler": false,
+      },
+    },
   },
   "search": {
-    "include_ignored": false
+    "include_ignored": false,
   },
   "ssh_connections": [
     {
       "host": "hass",
       "projects": [
         {
-          "paths": ["~", "/root/config"]
-        }
-      ]
+          "paths": ["~", "/root/config"],
+        },
+      ],
     },
     {
       "host": "nas",
       "projects": [
         {
-          "paths": ["~", "/volume1/docker"]
-        }
-      ]
-    }
+          "paths": ["~", "/volume1/docker"],
+        },
+      ],
+    },
   ],
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "terminal": {
     "font_family": "FiraCode Nerd Font Mono",
     "font_size": 15,
     "option_as_meta": true,
     "toolbar": {
-      "breadcrumbs": false
-    }
+      "breadcrumbs": false,
+    },
   },
   "theme": "Catppuccin Frappé",
   "ui_font_family": "FiraCode Nerd Font Propo",
@@ -158,6 +158,6 @@
   "use_system_window_tabs": true,
   "vim_mode": true,
   "vim": {
-    "toggle_relative_line_numbers": false
-  }
+    "toggle_relative_line_numbers": false,
+  },
 }
