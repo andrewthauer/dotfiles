@@ -1,5 +1,5 @@
 # Exit early if op is not installed
-if ! command_exists "op"; then
+if ! command -v "op" >/dev/null 2>&1; then
   return 1
 fi
 
