@@ -17,14 +17,12 @@ main() {
 
   # Install packages with package manager
   pkg install \
-    stow \
+    fd \
+    jq \
     shellcheck \
     shfmt \
-    jq \
+    stow \
     unzip
-
-  # Base setup
-  mkdir -p "$modules_dir/local"
 
   # No need to update the package managers anymore
   export SKIP_PACKAGE_MANAGER_UPDATE="true"

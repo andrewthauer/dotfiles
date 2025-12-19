@@ -7,7 +7,7 @@ PATH="$DOTFILES_HOME/bin:$PATH"
 
 main() {
   case "$(os-info --family)" in
-    *) pkg install git difftastic ;;
+    *) pkg install ripgrep ;;
   esac
 }
 

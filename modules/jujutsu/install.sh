@@ -15,7 +15,7 @@ install_tools() {
 
 main() {
   case "$(os-info --family)" in
-    *) pkg install jujutsu ;;
+    *) pkg install jujutsu difftastic ;;
   esac
 
   install_tools

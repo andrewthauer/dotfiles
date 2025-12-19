@@ -61,6 +61,14 @@ main() {
   # shellcheck disable=SC1091 source=../modules/homebrew/.config/homebrew/shellenv.sh
   source "$modules_dir/homebrew/.config/homebrew/shellenv.sh"
 
+  # Install common packages with package manager
+  pkg install \
+    fd \
+    jq \
+    shellcheck \
+    shfmt \
+    stow
+
   # No need to update the package managers anymore
   export SKIP_PACKAGE_MANAGER_UPDATE="true"
 
