@@ -1,52 +1,52 @@
 # https://git-scm.com/docs/git-config
 
 [branch]
-  sort = -committerdate
+	sort = -committerdate
 
 [commit]
-  verbose = true
+	verbose = true
 
 [core]
-  excludesfile = ~/.config/git/ignore
-  mergeoptions = --no-edit
-  editor = nvim
+	excludesfile = ~/.config/git/ignore
+	mergeoptions = --no-edit
+	editor = nvim
 
 [diff]
-  external = difft
+	external = difft
 
 [fetch]
-  prune = true
+	prune = true
 
 [init]
-  defaultBranch = main
+	defaultBranch = main
 
 [pull]
 	ff = only
 
 [push]
-  default = simple
-  autoSetupRemote = true
+	default = simple
+	autoSetupRemote = true
 
 [rebase]
-  autosquash = true
+	autosquash = true
 
 [rerere]
-  enabled = true
+	enabled = true
 
 [url "ssh://git@github.com/"]
-  insteadOf = https://github.com/
+	insteadOf = https://github.com/
 
 [user]
-  name = Andrew Thauer
-  email = 6507159+andrewthauer@users.noreply.github.com
+	name = Andrew Thauer
+	email = 6507159+andrewthauer@users.noreply.github.com
 
 [include]
-  path = ~/.config/git/aliases
+	path = ~/.config/git/aliases
 
 # Include os specific config (defined in macos module)
 [include]
-  path = ~/.config/git/config-macos
+	path = ~/.config/git/config-macos
 
 # Include additional local/private config settings
 [include]
-  path = ~/.config/git/config-local
+	path = ~/.config/git/config-local
