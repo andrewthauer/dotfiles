@@ -21,8 +21,7 @@ setup_claude_desktop() {
 main() {
   case "$(os-info --family)" in
     darwin)
-      pkg install --brew type claude claude-code
-      configure_claude_desktop
+      pkg install --type brew claude claude-code
       ;;
   esac
 
