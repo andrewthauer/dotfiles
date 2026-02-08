@@ -32,4 +32,3 @@ yarn-error.log
 .envrc.local
 mise.local.toml
 settings.local.json
-**/.claude/settings.local.json
