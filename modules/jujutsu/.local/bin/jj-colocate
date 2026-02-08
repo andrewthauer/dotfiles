@@ -73,11 +73,11 @@ main() {
   local remote="origin"
   if has_remote_origin; then
     local default_branch=$(get_default_branch)
-    jj --repository "$git_root" bookmark track "${default_branch}@${remote}"
+    jj --repository "$git_root" bookmark track "${default_branch}" --remote "${remote}"
   fi
 
   jj --repository "$git_root" config set --repo user.email "$git_email"
-  jj describe --reset-author --no-edit
+  jj metaedit --update-author
 }
 
 main "$@"
