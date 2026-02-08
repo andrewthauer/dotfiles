@@ -1,4 +1,44 @@
 return {
+  -- codecompanion
+  -- https://github.com/olimorris/codecompanion.nvim
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      -- NOTE: The log_level is in `opts.opts`
+      opts = {
+        log_level = "DEBUG", -- or "TRACE"
+      },
+      interactions = {
+        chat = {
+          adapter = {
+            name = "claude_code",
+            model = "opus",
+          },
+        },
+      },
+      adapters = {
+        acp = {
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {
+              -- env = {
+              --   CLAUDE_CODE_OAUTH_TOKEN = vim.env["CLAUDE_CODE_OAUTH_TOKEN"],
+              -- },
+            })
+          end,
+        },
+      },
+    },
+    keys = {
+      { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, noremap = true, silent = true },
+      { "<LocalLeader>a", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, noremap = true, silent = true },
+      { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = { "v" }, noremap = true, silent = true },
+    },
+  },
+
   -- copilot
   -- https://github.com/zbirenbaum/copilot.lua
   {
