@@ -15,6 +15,11 @@ fi
 prepend_path "${DOTFILES_HOME}/bin"
 prepend_path "${HOME}/.local/bin"
 
+# Skip loading if we're in an IntelliJ environment
+if [ ! -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
+  return 0
+fi
+
 # Source zsh core scripts
 source_files_in "${XDG_CONFIG_HOME}"/zsh/init.d/*.zsh
 

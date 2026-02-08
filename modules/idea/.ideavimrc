@@ -1,0 +1,191 @@
+" .ideavimrc - IdeaVim configuration
+
+" ------------------------------------
+" Leader Key
+" ------------------------------------
+let mapleader = " "
+
+" Vim takes precedence for all key handlers
+sethandler a:vim
+
+" ------------------------------------
+" Options
+" ------------------------------------
+set clipboard=unnamed
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+set number
+set norelativenumber
+set scrolloff=10
+set showcmd
+set showmode
+set visualbell
+set timeoutlen=500
+set ideastatusicon=gray
+
+" ------------------------------------
+" IdeaVim Plugins
+" ------------------------------------
+set surround
+set commentary
+set highlightedyank
+set NERDTree
+set which-key
+
+" Which-key settings
+let g:WhichKey_ShowVimActions = "false"
+let g:WhichKey_DefaultDelay = 300
+
+" ------------------------------------
+" Escape Mappings
+" ------------------------------------
+inoremap jk <Esc>
+inoremap kj <Esc>
+
+" Clear search with <Esc>
+nnoremap <Esc> :noh<CR>
+
+" ------------------------------------
+" Window Navigation (Ctrl + hjkl)
+" ------------------------------------
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" ------------------------------------
+" Window Management
+" ------------------------------------
+nnoremap <leader>ww <C-w>p
+nnoremap <leader>wd <Action>(CloseContent)
+nnoremap <leader>w- <Action>(SplitHorizontally)
+nnoremap <leader>w<Bar> <Action>(SplitVertically)
+nnoremap <leader>- <Action>(SplitHorizontally)
+nnoremap <leader><Bar> <Action>(SplitVertically)
+nnoremap <leader>wm <Action>(MoveEditorToOppositeTabGroup)
+
+" ------------------------------------
+" Move Lines (Alt + j/k)
+" ------------------------------------
+nnoremap <A-j> <Action>(MoveLineDown)
+nnoremap <A-k> <Action>(MoveLineUp)
+inoremap <A-j> <Action>(MoveLineDown)
+inoremap <A-k> <Action>(MoveLineUp)
+vnoremap <A-j> <Action>(MoveLineDown)
+vnoremap <A-k> <Action>(MoveLineUp)
+
+" ------------------------------------
+" Better Indenting (stay in visual mode)
+" ------------------------------------
+vnoremap < <gv
+vnoremap > >gv
+
+" ------------------------------------
+" Buffers / Editors
+" ------------------------------------
+nnoremap <leader>bb <Action>(Switcher)
+nnoremap <leader>` <Action>(Switcher)
+nnoremap <leader>bd <Action>(CloseContent)
+nnoremap <leader>bo <Action>(CloseAllEditorsButActive)
+nnoremap <leader>fn <Action>(NewFile)
+
+" ------------------------------------
+" Tabs
+" ------------------------------------
+nnoremap <leader><Tab>l <Action>(GoToLastTab)
+nnoremap <leader><Tab>f <Action>(GoToTab1)
+nnoremap <leader><Tab><Tab> <Action>(NewScratchBuffer)
+nnoremap <leader><Tab>] <Action>(NextTab)
+nnoremap <leader><Tab>d <Action>(CloseContent)
+nnoremap <leader><Tab>[ <Action>(PreviousTab)
+
+" ------------------------------------
+" Quit
+" ------------------------------------
+nnoremap <leader>qq <Action>(Exit)
+
+" ------------------------------------
+" Commenting
+" ------------------------------------
+" gcc and gc{motion} provided by commentary plugin
+nnoremap gco o<Esc>gcc0f/a<Space>
+nnoremap gcO O<Esc>gcc0f/a<Space>
+
+" ------------------------------------
+" Find/Search
+" ------------------------------------
+nnoremap <leader>ff <Action>(GotoFile)
+nnoremap <leader>fg <Action>(FindInPath)
+nnoremap <leader>fr <Action>(RecentFiles)
+nnoremap <leader>fs <Action>(GotoSymbol)
+nnoremap <leader>fc <Action>(GotoClass)
+nnoremap <leader>fa <Action>(GotoAction)
+nnoremap <leader>/ <Action>(FindInPath)
+
+" ------------------------------------
+" Code Actions
+" ------------------------------------
+nnoremap <leader>ca <Action>(ShowIntentionActions)
+nnoremap <leader>cr <Action>(RenameElement)
+nnoremap <leader>cf <Action>(ReformatCode)
+nnoremap <leader>co <Action>(OptimizeImports)
+nnoremap <leader>cg <Action>(Generate)
+
+" ------------------------------------
+" Go to
+" ------------------------------------
+nnoremap gd <Action>(GotoDeclaration)
+nnoremap gD <Action>(GotoTypeDeclaration)
+nnoremap gi <Action>(GotoImplementation)
+nnoremap gr <Action>(ShowUsages)
+nnoremap gR <Action>(FindUsages)
+nnoremap gs <Action>(GotoSuperMethod)
+nnoremap gf <Action>(GotoFile)
+
+" ------------------------------------
+" Diagnostics/Errors
+" ------------------------------------
+nnoremap ]d <Action>(GotoNextError)
+nnoremap [d <Action>(GotoPreviousError)
+nnoremap ]c <Action>(VcsShowNextChangeMarker)
+nnoremap [c <Action>(VcsShowPrevChangeMarker)
+nnoremap <leader>cd <Action>(ShowErrorDescription)
+
+" ------------------------------------
+" File Explorer (NERDTree plugin)
+" ------------------------------------
+nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>fe :NERDTreeFind<CR>
+
+" ------------------------------------
+" Terminal
+" ------------------------------------
+nnoremap <leader>t <Action>(ActivateTerminalToolWindow)
+
+" ------------------------------------
+" Run/Debug
+" ------------------------------------
+nnoremap <leader>rr <Action>(Run)
+nnoremap <leader>rd <Action>(Debug)
+nnoremap <leader>rs <Action>(Stop)
+nnoremap <leader>rc <Action>(RunClass)
+nnoremap <leader>rt <Action>(RerunTests)
+
+" ------------------------------------
+" Git
+" ------------------------------------
+nnoremap <leader>gb <Action>(Git.Branches)
+nnoremap <leader>gc <Action>(CheckinProject)
+nnoremap <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
+nnoremap <leader>ga <Action>(Annotate)
+
+" ------------------------------------
+" Refactoring
+" ------------------------------------
+nnoremap <leader>rm <Action>(ExtractMethod)
+nnoremap <leader>rv <Action>(IntroduceVariable)
+nnoremap <leader>rf <Action>(IntroduceField)
+nnoremap <leader>rs <Action>(ChangeSignature)
+nnoremap <leader>ri <Action>(Inline)
