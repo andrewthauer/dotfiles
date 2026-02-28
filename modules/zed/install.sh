@@ -6,6 +6,7 @@ DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." &>/dev/null && pwd)"
 PATH="$DOTFILES_HOME/bin:$PATH"
 
 ZED_CHANNEL="${ZED_CHANNEL:-preview}"
+ZED_LOCAL_CONFIG_DIR="${DOTFILES_HOME}/modules/local/.config/zed"
 
 link_dotfiles() {
   echo "Installing Zed editor configuration..."
@@ -18,12 +19,16 @@ link_dotfiles() {
 }
 
 sync_zed_settingss() {
+  mkdir -p "$ZED_LOCAL_CONFIG_DIR"
+
   local source_settings_file="$DOTFILES_HOME/modules/zed/.config/zed/settings-safe.json"
-  local target_settings_file="$XDG_CONFIG_HOME/zed/settings.json"
+  local target_settings_file="$ZED_LOCAL_CONFIG_DIR/settings.json"
 
   if [ ! -f "$target_settings_file" ]; then
     cp "$source_settings_file" "$target_settings_file"
   fi
+
+  dotfiles sync local
 
   # TODO: Merge settings.json with existing settings if it exists
   # ...
