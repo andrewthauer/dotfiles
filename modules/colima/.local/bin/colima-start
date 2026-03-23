@@ -20,6 +20,7 @@ function main() {
       --memory 16 \
       --vm-type=vz \
       --mount-type=virtiofs \
+      --ssh-agent \
       --ssh-config=false
   else
     echo "The os $os is not implemented yet..."
