@@ -42,6 +42,9 @@ integration = 'description("[integration]") | description("[integration merge]")
 wip = 'description(regex:"^\\[(wip|WIP|todo|TODO)\\]|(wip|WIP|todo|TODO):?")'
 testing = '(description(regex:"^testing:"))'
 
+# Exclude Graphite's internal tracking refs from the immutable set
+"immutable_heads()" = "present(trunk()) | tags() | (untracked_remote_bookmarks() ~ remote_bookmarks(glob:'graphite-base/*'))"
+
 # bookmark helpers
 all_bookmarks = 'all:(bookmarks() ~ immutable())'
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
@@ -66,7 +69,6 @@ sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 tugc = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
 ui = ["util", "exec", "--", "jjui"]
-spr = ["util", "exec", "--", "jj-spr"]
 
 #
 # template-aliases

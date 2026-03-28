@@ -8,8 +8,9 @@ if [ -n "$DOTFILES_TRACE" ]; then
   echo "path: ${PATH}" "path: ${PATH}"
 fi
 
-# If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+# If not running interactively or without a real TTY, skip interactive setup
+# to avoid polluting stdout when bash is invoked with -i but no terminal attached
+[[ -z "$PS1" || ! -t 1 ]] && return
 
 # Load the ~/.bash_profile if has not been loaded
 if [ -f "${HOME}/.bash_profile" ] && [ -z "$BASH_PROFILE_LOADED" ]; then
