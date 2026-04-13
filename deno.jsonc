@@ -2,6 +2,7 @@
   "lock": false,
   "fmt": {
     "singleQuote": true,
+    "proseWrap": true,
     "exclude": [
       "*.lock",
       "modules/github/.config/gh/config.yml",

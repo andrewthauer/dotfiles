@@ -31,4 +31,7 @@ yarn-error.log
 .env.local
 .envrc.local
 mise.local.toml
+
+# Claude
 settings.local.json
+**/.claude/worktrees/

@@ -12,21 +12,21 @@
       "f11": "debugger::StepInto",
       "shift-f11": "debugger::StepOut",
       "cmd-`": "window::ShowNextWindowTab",
-      "cmd-~": "window::ShowPreviousWindowTab",
-    },
+      "cmd-~": "window::ShowPreviousWindowTab"
+    }
   },
   {
     "context": "Workspace",
     "bindings": {
       "ctrl-/": ["workspace::SendKeystrokes", "cmd-j"],
-      "ctrl-?": "workspace::NewTerminal",
-    },
+      "ctrl-?": "workspace::NewTerminal"
+    }
   },
   {
     "context": "VimControl",
     "bindings": {
-      "ctrl-i": "vim::ResizePaneDown",
-    },
+      "ctrl-i": "vim::ResizePaneDown"
+    }
   },
   {
     "context": "Dock || Editor",
@@ -38,8 +38,8 @@
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-    },
+      "ctrl-j": "workspace::ActivatePaneDown"
+    }
   },
   {
     "context": "((Editor || AssistantPanel) && vim_mode == normal) || ProjectPanel || OutlinePanel",
@@ -82,14 +82,14 @@
       "space w k": "pane::SplitUp",
       "space w j": "pane::SplitDown",
       "space w l": "pane::SplitRight",
-      "space z": "workspace::ToggleZoom",
-    },
+      "space z": "workspace::ToggleZoom"
+    }
   },
   {
     "context": "TerminalPane",
     "bindings": {
-      "escape escape": "terminal::ToggleViMode",
-    },
+      "escape escape": "terminal::ToggleViMode"
+    }
   },
   {
     "context": "ProjectPanel && not_editing",
@@ -101,14 +101,14 @@
       "p": "project_panel::Paste",
       "r": "project_panel::Rename",
       "x": "project_panel::Cut",
-      "y": "workspace::CopyPath",
-    },
+      "y": "workspace::CopyPath"
+    }
   },
   {
     "context": "(VimControl && !menu)",
     "bindings": {
-      "space": null, // Disable the default action vim::WrappingRight
-    },
+      "space": null // Disable the default action vim::WrappingRight
+    }
   },
   {
     "context": "VimControl && !menu && vim_mode != operator",
@@ -116,28 +116,28 @@
       "w": "vim::NextSubwordStart",
       "b": "vim::PreviousSubwordStart",
       "e": "vim::NextSubwordEnd",
-      "g e": "vim::PreviousSubwordEnd",
-    },
+      "g e": "vim::PreviousSubwordEnd"
+    }
   },
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": "vim::PushAddSurrounds",
-    },
+      "shift-s": "vim::PushAddSurrounds"
+    }
   },
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
       "alt-j": "editor::MoveLineDown",
-      "alt-k": "editor::MoveLineUp",
+      "alt-k": "editor::MoveLineUp"
       // "g c s": ["vim::PushChangeSurrounds", {}]
-    },
+    }
   },
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
       "<": ["workspace::SendKeystrokes", "< g v"],
-      ">": ["workspace::SendKeystrokes", "> g v"],
-    },
-  },
+      ">": ["workspace::SendKeystrokes", "> g v"]
+    }
+  }
 ]

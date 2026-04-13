@@ -1,103 +1,57 @@
 {
-  "agent_servers": {
-    "opencode": {
-      "type": "registry"
-    }
-  },
   "agent": {
-    "use_modifier_to_send": true,
-    "always_allow_tool_actions": false,
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
-    },
-    "default_profile": "write",
-    "inline_assistant_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
-    },
-    "profiles": {
-      "container-use": {
-        "name": "Container Use",
-        "tools": {
-          "now": true,
-          "fetch": true,
-          "thinking": true,
-          "copy_path": false,
-          "find_path": false,
-          "delete_path": false,
-          "create_directory": false,
-          "list_directory": false,
-          "diagnostics": false,
-          "read_file": false,
-          "open": false,
-          "move_path": false,
-          "grep": false,
-          "edit_file": false,
-          "terminal": false
-        },
-        "enable_all_context_servers": false,
-        "context_servers": {
-          "mcp-server-context7": {
-            "tools": {
-              "get-library-docs": true,
-              "resolve-library-id": true
-            }
-          },
-          "mcp-server-sequential-thinking": {
-            "tools": {
-              "sequentialthinking": true
-            }
-          },
-          "container-use": {
-            "tools": {
-              "environment_add_service": true,
-              "environment_checkpoint": true,
-              "environment_config": true,
-              "environment_create": true,
-              "environment_file_delete": true,
-              "environment_file_edit": true,
-              "environment_file_list": true,
-              "environment_file_read": true,
-              "environment_file_write": true,
-              "environment_open": true,
-              "environment_run_cmd": true,
-              "environment_update_metadata": true
-            }
-          }
-        }
-      }
-    }
+    "profiles": {},
+    "use_modifier_to_send": true
   },
   "buffer_font_size": 15,
   "buffer_font_family": "FiraCode Nerd Font Mono",
-  "context_servers": {
-    "container-use": {
-      "enabled": false,
-      "command": "/opt/homebrew/bin/cu",
-      "args": ["stdio"]
-    }
-  },
+  "cli_default_open_behavior": "existing_window",
   "edit_predictions": {
-    "enabled_in_text_threads": true,
+    "provider": "none",
     "mode": "eager"
   },
   "ensure_final_newline_on_save": true,
-  "features": {
-    "edit_prediction_provider": "copilot"
-  },
   "file_types": {
-    "Dockerfile": ["**/Dockerfile*"],
-    "env": ["*.env", ".env.*", "*.conf"],
-    "Git Config": ["**/git/config*", "**/git/aliases*"],
-    "Git Ignore": ["**/git/ignore*", "dockerignore"],
-    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
-    "ini": ["**/git/config*", "**/git/aliases*"],
-    "Markdown": ["*.rules", "*.mdc"],
-    "Shell Script": ["**/*.bats"],
-    "XML": ["*.plist"]
+    "Dockerfile": [
+      "**/Dockerfile*"
+    ],
+    "env": [
+      "*.env",
+      ".env.*",
+      "*.conf"
+    ],
+    "Git Config": [
+      "**/git/config*",
+      "**/git/aliases*"
+    ],
+    "Git Ignore": [
+      "**/git/ignore*",
+      "dockerignore"
+    ],
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml"
+    ],
+    "ini": [
+      "**/git/config*",
+      "**/git/aliases*"
+    ],
+    "Markdown": [
+      "*.rules",
+      "*.mdc"
+    ],
+    "Shell Script": [
+      "**/*.bats"
+    ],
+    "XML": [
+      "*.plist"
+    ]
   },
-  "file_scan_exclusions": [".git/*", ".jj/*", "**/node_modules/**"],
+  "file_scan_exclusions": [
+    ".git/*",
+    ".jj/*",
+    "**/node_modules/**"
+  ],
   "format_on_save": "off",
   "icon_theme": {
     "mode": "system",
@@ -105,18 +59,25 @@
     "dark": "Catppuccin Frappé"
   },
   "inlay_hints": {
-    "enabled": false
+    "enabled": true
   },
   "languages": {
     "Ruby": {
-      "language_servers": ["ruby-lsp", "!solargraph"]
+      "language_servers": [
+        "ruby-lsp",
+        "!solargraph"
+      ]
     }
   },
   "lsp": {
     "ruby-lsp": {
       "binary": {
         "path": "mise",
-        "arguments": ["exec", "--", "ruby-lsp"]
+        "arguments": [
+          "exec",
+          "--",
+          "ruby-lsp"
+        ]
       },
       "initialization_options": {
         "enabledFeatures": {
@@ -137,7 +98,10 @@
       "host": "hass",
       "projects": [
         {
-          "paths": ["~", "/root/config"]
+          "paths": [
+            "~",
+            "/root/config"
+          ]
         }
       ]
     },
@@ -145,7 +109,10 @@
       "host": "nas",
       "projects": [
         {
-          "paths": ["~", "/volume1/docker"]
+          "paths": [
+            "~",
+            "/volume1/docker"
+          ]
         }
       ]
     }
@@ -171,7 +138,7 @@
     "toggle_relative_line_numbers": false
   },
   "which_key": {
-    "delay_ms": 1000,
+    "delay_ms": 750,
     "enabled": true
   }
 }

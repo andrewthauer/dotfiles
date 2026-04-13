@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+#
+# Remove Graphite base branch noise from a colocated jj+git repository.
+#
+# Prevention is handled by `remotes.origin.auto-track-bookmarks` in jj config
+# (jj rejects negative glob refspecs, so fetch-level exclusion is not possible).
+#
+# This script cleans up noise that has already accumulated:
+# - Deletes all remote-tracking refs for graphite-base/* via git directly.
+# - Runs `jj git import` to sync jj's view with the cleaned git state.
+# - Forgets any remaining jj bookmarks matching graphite-base/*.
+# - Abandons any revisions only reachable via those bookmarks.
+#
+
+set -euo pipefail
+
+DRY_RUN=false
+GRAPHITE_REMOTE_PATTERN='refs/remotes/origin/graphite-base/*'
+
+check_dependencies() {
+  command -v git >/dev/null 2>&1 || { echo "Error: git is not installed" >&2; exit 1; }
+  command -v jj >/dev/null 2>&1 || { echo "Error: jj is not installed" >&2; exit 1; }
+}
+
+is_git_repo() {
+  git rev-parse --git-dir &>/dev/null
+}
+
+is_jj_repo() {
+  local git_root
+  git_root=$(git rev-parse --show-toplevel)
+  [[ -d "$git_root/.jj" ]]
+}
+
+has_remote_origin() {
+  git remote get-url origin &>/dev/null
+}
+
+prune_remote_tracking_refs() {
+  local refs
+  refs=$(git for-each-ref --format='%(refname)' "$GRAPHITE_REMOTE_PATTERN" 2>/dev/null || true)
+  if [[ -z "$refs" ]]; then
+    echo "  No graphite-base remote-tracking refs found"
+    return
+  fi
+  while IFS= read -r ref; do
+    if $DRY_RUN; then
+      echo "  [dry-run] Would delete: $ref"
+    else
+      git update-ref -d "$ref"
+      echo "  Deleted: $ref"
+    fi
+  done <<< "$refs"
+}
+
+forget_jj_bookmarks() {
+  local bookmarks
+  bookmarks=$(jj bookmark list --all -T 'name ++ "\n"' 2>/dev/null \
+    | grep '^graphite-base/' || true)
+  if [[ -z "$bookmarks" ]]; then
+    echo "  No graphite-base jj bookmarks found"
+    return
+  fi
+  while IFS= read -r bm; do
+    if $DRY_RUN; then
+      echo "  [dry-run] Would forget bookmark: $bm"
+    else
+      jj bookmark forget "$bm" 2>/dev/null && echo "  Forgot bookmark: $bm" || true
+    fi
+  done <<< "$bookmarks"
+}
+
+abandon_orphaned_revisions() {
+  # Revisions that are now unreachable (no bookmark, not ancestors of any
+  # bookmark, and not the working copy) will be hidden automatically by jj.
+  # Explicitly abandon any that match the graphite-base description pattern
+  # to keep `jj log --all` clean.
+  local revs
+  revs=$(jj log --no-graph -r "all:description(glob:'graphite-base*') & ~(::bookmarks() | ::@)" \
+    -T 'change_id ++ "\n"' 2>/dev/null || true)
+  if [[ -z "$revs" ]]; then
+    echo "  No orphaned graphite-base revisions found"
+    return
+  fi
+  while IFS= read -r rev; do
+    if $DRY_RUN; then
+      echo "  [dry-run] Would abandon revision: $rev"
+    else
+      jj abandon "$rev" 2>/dev/null && echo "  Abandoned revision: $rev" || true
+    fi
+  done <<< "$revs"
+}
+
+main() {
+  for arg in "$@"; do
+    case "$arg" in
+      -n|--dry-run) DRY_RUN=true ;;
+      *) echo "Unknown argument: $arg" >&2; exit 1 ;;
+    esac
+  done
+
+  check_dependencies
+
+  if ! is_git_repo; then
+    echo "Error: Not in a Git repository" >&2
+    exit 1
+  fi
+
+  if ! is_jj_repo; then
+    echo "Error: Repository is not initialized with Jujutsu" >&2
+    exit 1
+  fi
+
+  if ! has_remote_origin; then
+    echo "Error: No remote 'origin' configured" >&2
+    exit 1
+  fi
+
+  $DRY_RUN && echo "Pruning Graphite base branch noise... (dry run)" \
+    || echo "Pruning Graphite base branch noise..."
+
+  echo ""
+  echo "1. Deleting remote-tracking refs..."
+  prune_remote_tracking_refs
+
+  echo ""
+  echo "2. Syncing jj with git state..."
+  if $DRY_RUN; then
+    echo "  [dry-run] Would run: jj git import"
+  else
+    jj git import
+    echo "  Done"
+  fi
+
+  echo ""
+  echo "3. Forgetting jj bookmarks..."
+  forget_jj_bookmarks
+
+  echo ""
+  echo "4. Abandoning orphaned revisions..."
+  abandon_orphaned_revisions
+
+  echo ""
+  echo "Done. Run 'jj log' to verify."
+}
+
+main "$@"

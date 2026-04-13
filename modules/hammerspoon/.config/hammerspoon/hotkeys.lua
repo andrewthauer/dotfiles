@@ -30,13 +30,17 @@ end
 function M.init_hotkeys(keys)
   -- stylua: ignore start
   hs.hotkey.bind(keys.hyper, "1", launchById(apps.ONEPASSWORD))
+  hs.hotkey.bind(keys.hyper, "a", launchById(apps.AI_ASSISTANT))
   hs.hotkey.bind(keys.hyper, "b", launchById(apps.BROWSER))
-  hs.hotkey.bind(keys.hyper, "c", launchById(apps.EDITOR))
+  hs.hotkey.bind(keys.hyper, "c", launchById(apps.CLAUDE_DESKTOP))
   hs.hotkey.bind(keys.hyper, "d", launchById(apps.TODOIST))
-  hs.hotkey.bind(keys.hyper, "f", launchById(apps.FINDER))
-  hs.hotkey.bind(keys.hyper, "l", launchById(apps.EDITOR))
+  hs.hotkey.bind(keys.hyper, "e", launchById(apps.EDITOR))
+  hs.hotkey.bind(keys.hyper, "f", launchById(apps.FIREFOX))
+  hs.hotkey.bind(keys.hyper, "l", launchById(apps.ZED))
+  hs.hotkey.bind(keys.hyper, "k", launchById(apps.FIREFOX))
   hs.hotkey.bind(keys.hyper, "m", launchById(apps.SLACK))
   hs.hotkey.bind(keys.hyper, "n", launchById(apps.NOTION))
+  hs.hotkey.bind(keys.hyper, "s", launchById(apps.SLACK))
   hs.hotkey.bind(keys.hyper, "t", launchById(apps.TERMINAL))
   -- stylua: ignore end
 end
@@ -47,6 +51,7 @@ function M.init_recursive_keybinder(keys)
     fn = function(s)
       local app_keymap = {
         [s.singleKey("1", "1Password")] = launchById(apps.ONEPASSWORD),
+        [s.singleKey("a", "Claude Desktop")] = launchById(apps.CLAUDE_DESKTOP),
         [s.singleKey("c", "Chrome")] = launchById(apps.CHROME),
         [s.singleKey("f", "Firefox")] = launchById(apps.FIREFOX),
         [s.singleKey("h", "Home Assistant")] = launchById(apps.HOME_ASSISTANT),
