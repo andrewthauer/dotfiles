@@ -1,24 +1,14 @@
 return {
-  -- synatx highlighting, etc.
+  -- syntax highlighting, etc.
   -- https://github.com/nvim-treesitter/nvim-treesitter
   -- https://github.com/tree-sitter/tree-sitter
-  --
-  -- There are additional nvim-treesitter modules that you can use to interact with nvim-treesitter.
-  --
-  --   - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-  --   - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-  --   - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+    lazy = false, -- lazy loading not supported in new API
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     opts_extend = { "ensure_installed" },
     opts = {
-      highlight = { enable = true },
-      indent = { enable = true },
-      auto_install = true,
-      sync_install = false,
       ensure_installed = {
         "csv",
         "diff",
@@ -38,51 +28,20 @@ return {
         "xml",
         "yaml",
       },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-      textobjects = {
-        select = {
-          enable = true,
-          -- Automatically jump forward to textobj, similar to targets.vim
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-            ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-          },
-          selection_modes = {
-            ["@parameter.outer"] = "v", -- charwise
-            ["@function.outer"] = "V", -- linewise
-            ["@class.outer"] = "<c-v>", -- blockwise
-          },
-          include_surrounding_whitespace = true,
-        },
-        move = {
-          enable = true,
-          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-        },
-      },
     },
-    ---@param opts TSConfig
     config = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      if type(opts.ensure_installed) == "table" then
+      local ensure_installed = opts.ensure_installed or {}
+      if type(ensure_installed) == "table" then
         ---@diagnostic disable-next-line: param-type-mismatch
-        opts.ensure_installed = require("util").table.dedupe(opts.ensure_installed)
+        ensure_installed = require("util").table.dedupe(ensure_installed)
       end
-      require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter").install(ensure_installed)
+
+      -- Neovim 0.12 only ships ftplugins that call vim.treesitter.start() for
+      -- help/lua/markdown/query. Enable it for everything else here.
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(ev) pcall(vim.treesitter.start, ev.buf) end,
+      })
     end,
   },
 
@@ -91,6 +50,45 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        select = {
+          lookahead = true,
+          selection_modes = {
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
+            ["@class.outer"] = "<c-v>", -- blockwise
+          },
+          include_surrounding_whitespace = true,
+        },
+        move = {
+          set_jumps = true,
+        },
+      })
+
+      -- select keymaps
+      local select = require("nvim-treesitter-textobjects.select")
+      vim.keymap.set({ "x", "o" }, "af", function() select.select_textobject("@function.outer", "textobjects") end)
+      vim.keymap.set({ "x", "o" }, "if", function() select.select_textobject("@function.inner", "textobjects") end)
+      vim.keymap.set({ "x", "o" }, "ac", function() select.select_textobject("@class.outer", "textobjects") end)
+      vim.keymap.set({ "x", "o" }, "ic", function() select.select_textobject("@class.inner", "textobjects") end, { desc = "Select inner part of a class region" })
+      vim.keymap.set({ "x", "o" }, "as", function() select.select_textobject("@local.scope", "locals") end, { desc = "Select language scope" })
+
+      -- move keymaps
+      local move = require("nvim-treesitter-textobjects.move")
+      vim.keymap.set({ "n", "x", "o" }, "]f", function() move.goto_next_start("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]c", function() move.goto_next_start("@class.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]a", function() move.goto_next_start("@parameter.inner", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]F", function() move.goto_next_end("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]C", function() move.goto_next_end("@class.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]A", function() move.goto_next_end("@parameter.inner", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[f", function() move.goto_previous_start("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[c", function() move.goto_previous_start("@class.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[a", function() move.goto_previous_start("@parameter.inner", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[F", function() move.goto_previous_end("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[C", function() move.goto_previous_end("@class.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[A", function() move.goto_previous_end("@parameter.inner", "textobjects") end)
+    end,
   },
 
   -- rainbow delimiters

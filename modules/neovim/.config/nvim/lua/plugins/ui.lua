@@ -52,7 +52,7 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      -- bigfile = { enabled = true },
+      bigfile = { enabled = true },
       explorer = { enabled = true },
       git = { enabled = true },
       gitbrowse = { enabled = true },

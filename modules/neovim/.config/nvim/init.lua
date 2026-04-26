@@ -8,6 +8,7 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 require("config.commands")
+require("config.lsp")
 
 -- load any local configuration options
 Util.try_require("config.local")
