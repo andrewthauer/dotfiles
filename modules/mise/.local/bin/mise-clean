@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+# shellcheck disable=SC2046
+mise uninstall $(mise ls --installed | awk '{print $1"@"$2}' | fzf -m --header="Tab to select multiple, Enter to uninstall")
