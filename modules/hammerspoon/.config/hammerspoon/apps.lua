@@ -19,7 +19,7 @@ M.ONEPASSWORD = "com.1password.1password"
 M.SLACK = "com.tinyspeck.slackmacgap"
 M.TODOIST = "com.todoist.mac.Todoist"
 M.VSCODE = "com.microsoft.VSCode"
-M.ZED = "dev.zed.Zed-Preview"
+M.ZED = "dev.zed.Zed"
 
 -- Default apps
 M.AI_ASSISTANT = M.CLAUDE_DESKTOP

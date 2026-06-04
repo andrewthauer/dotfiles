@@ -19,7 +19,9 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
 # Zsh home directory
-ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+# export is needed so subprocesses inherit ZDOTDIR and compinit writes
+# to ~/.config/zsh/.zcompdump instead of ~/.zcompdump
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # Load the zshenv
 source "${ZDOTDIR}/.zshenv"

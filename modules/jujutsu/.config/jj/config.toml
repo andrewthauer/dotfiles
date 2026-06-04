@@ -42,8 +42,9 @@ integration = 'description("[integration]") | description("[integration merge]")
 wip = 'description(regex:"^\\[(wip|WIP|todo|TODO)\\]|(wip|WIP|todo|TODO):?")'
 testing = '(description(regex:"^testing:"))'
 
-# Exclude Graphite's internal tracking refs from the immutable set
-"immutable_heads()" = "present(trunk()) | tags() | (untracked_remote_bookmarks() ~ remote_bookmarks(glob:'graphite-base/*'))"
+# Keep Graphite's internal tracking refs in the immutable set so they don't
+# show up as visible heads in `jj log`.
+"immutable_heads()" = "present(trunk()) | tags() | untracked_remote_bookmarks()"
 
 # bookmark helpers
 all_bookmarks = 'all:(bookmarks() ~ immutable())'
