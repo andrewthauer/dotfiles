@@ -10,32 +10,32 @@
  * Usage: zed-backup [--exclude path1,path2] [--include path3,path4] [--dry-run] [--help]
  */
 
-import { parse } from "jsr:@std/jsonc";
-import { parseArgs } from "jsr:@std/cli";
+import { parse } from 'jsr:@std/jsonc';
+import { parseArgs } from 'jsr:@std/cli';
 
 type NestedObject = Record<string, unknown>;
 
 // Paths to exclude from the backup (dot-notation, any depth).
 const DEFAULT_EXCLUDE_PATHS: string[] = [
-  "agent.default_model",
-  "agent.default_profile",
-  "agent.inline_assistant_model",
-  "agent.tool_permissions",
-  "agent_servers",
-  "context_servers",
-  "language_models",
+  'agent.default_model',
+  'agent.default_profile',
+  'agent.inline_assistant_model',
+  'agent.tool_permissions',
+  'agent_servers',
+  'context_servers',
+  'language_models',
 ];
 
 // Paths to restore even if an ancestor was excluded (negates exclusions).
 const DEFAULT_INCLUDE_PATHS: string[] = [];
 
-const DEFAULT_SETTINGS_FILE = `${
-  Deno.env.get("HOME")
-}/.config/zed/settings.json`;
+const DEFAULT_SETTINGS_FILE = `${Deno.env.get(
+  'HOME',
+)}/.config/zed/settings.json`;
 
-const DEFAULT_BACKUP_FILE = `${
-  Deno.env.get("DOTFILES_HOME")
-}/modules/zed/.config/zed/settings-safe.json`;
+const DEFAULT_BACKUP_FILE = `${Deno.env.get(
+  'DOTFILES_HOME',
+)}/modules/zed/.config/zed/settings-safe.json`;
 
 // ---------------------------------------------------------------------------
 // Path helpers
@@ -45,7 +45,7 @@ const DEFAULT_BACKUP_FILE = `${
 function getAtPath(obj: NestedObject, parts: string[]): unknown {
   let cur: unknown = obj;
   for (const key of parts) {
-    if (typeof cur !== "object" || cur === null) return undefined;
+    if (typeof cur !== 'object' || cur === null) return undefined;
     cur = (cur as NestedObject)[key];
   }
   return cur;
@@ -60,7 +60,7 @@ function deleteAtPath(obj: NestedObject, parts: string[]): void {
   }
   const [head, ...rest] = parts;
   const child = obj[head];
-  if (typeof child === "object" && child !== null) {
+  if (typeof child === 'object' && child !== null) {
     deleteAtPath(child as NestedObject, rest);
   }
 }
@@ -76,7 +76,7 @@ function setAtPath(obj: NestedObject, parts: string[], value: unknown): void {
     return;
   }
   const [head, ...rest] = parts;
-  if (typeof obj[head] !== "object" || obj[head] === null) {
+  if (typeof obj[head] !== 'object' || obj[head] === null) {
     obj[head] = {};
   }
   setAtPath(obj[head] as NestedObject, rest, value);
@@ -101,12 +101,12 @@ function filterSettings(
 
   // Step 1: exclusions
   for (const path of excludePaths) {
-    deleteAtPath(filtered, path.split("."));
+    deleteAtPath(filtered, path.split('.'));
   }
 
   // Step 2: inclusions (restore from original)
   for (const path of includePaths) {
-    const parts = path.split(".");
+    const parts = path.split('.');
     const original = getAtPath(settings, parts);
     if (original !== undefined) {
       setAtPath(filtered, parts, JSON.parse(JSON.stringify(original)));
@@ -145,9 +145,9 @@ Examples:
 
 async function main(): Promise<void> {
   const args = parseArgs(Deno.args, {
-    string: ["exclude", "include"],
-    boolean: ["dry-run", "help"],
-    alias: { h: "help" },
+    string: ['exclude', 'include'],
+    boolean: ['dry-run', 'help'],
+    alias: { h: 'help' },
   });
 
   if (args.help) {
@@ -155,19 +155,25 @@ async function main(): Promise<void> {
     return;
   }
 
-  if (!Deno.env.get("HOME") || !Deno.env.get("DOTFILES_HOME")) {
+  if (!Deno.env.get('HOME') || !Deno.env.get('DOTFILES_HOME')) {
     console.error(
-      "Error: HOME or DOTFILES_HOME environment variable is not set",
+      'Error: HOME or DOTFILES_HOME environment variable is not set',
     );
     Deno.exit(1);
   }
 
   const excludePaths = args.exclude
-    ? args.exclude.split(",").map((p) => p.trim()).filter(Boolean)
+    ? args.exclude
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean)
     : DEFAULT_EXCLUDE_PATHS;
 
   const includePaths = args.include
-    ? args.include.split(",").map((p) => p.trim()).filter(Boolean)
+    ? args.include
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean)
     : DEFAULT_INCLUDE_PATHS;
 
   const settingsFile = DEFAULT_SETTINGS_FILE;
@@ -179,8 +185,8 @@ async function main(): Promise<void> {
     const filtered = filterSettings(settings, excludePaths, includePaths);
     const outputJson = JSON.stringify(filtered, null, 2);
 
-    if (args["dry-run"]) {
-      console.error("# Dry run - preview only (omit --dry-run to save)");
+    if (args['dry-run']) {
+      console.error('# Dry run - preview only (omit --dry-run to save)');
       console.error(`# Would save to: ${backupFile}`);
       console.log(outputJson);
     } else {
@@ -188,8 +194,8 @@ async function main(): Promise<void> {
       console.error(`Backed up to ${backupFile}`);
     }
 
-    console.error(`# Excluded: ${excludePaths.join(", ") || "(none)"}`);
-    console.error(`# Included: ${includePaths.join(", ") || "(none)"}`);
+    console.error(`# Excluded: ${excludePaths.join(', ') || '(none)'}`);
+    console.error(`# Included: ${includePaths.join(', ') || '(none)'}`);
   } catch (error) {
     console.error(
       `Error: ${error instanceof Error ? error.message : String(error)}`,

@@ -53,5 +53,5 @@ Personal dotfiles for macOS and Linux. GNU Stow links each module into `$HOME`.
 - Follow `.editorconfig`: 2 spaces in most files, tabs in Makefiles and git
   config.
 - Run `make lint` before you finish. It runs `shellcheck`, `shfmt`, and
-  `deno fmt --check`.
+  `prettier --check`.
 - Run `make fmt` to fix the format.

@@ -1,0 +1,8 @@
+[tools]
+prettier = "3"
+
+[tasks.fmt]
+run = "make fmt"
+
+[tasks.lint]
+run = "make lint"

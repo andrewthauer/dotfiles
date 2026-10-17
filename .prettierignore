@@ -1,0 +1,7 @@
+*.lock
+.mise/
+**/SKILL.md
+modules/github/.config/gh/config.yml
+modules/karabiner/.config/karabiner/*
+modules/hammerspoon/.config/hammerspoon/Spoons/*
+modules/zed/.config/zed/settings-safe.json

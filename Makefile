@@ -1,4 +1,5 @@
 DOTFILES_HOME = $(CURDIR)
+PRETTIER ?= prettier
 
 default: lint
 
@@ -11,12 +12,12 @@ shellcheck:
 
 .PHONY: fmt-check
 fmt-check:
-	@deno fmt --check --quiet
+	@$(PRETTIER) --check --log-level warn .
 	@shfmt --list $$(make --no-print-directory shell-files)
 
 .PHONY: fmt
 fmt:
-	@deno fmt --quiet
+	@$(PRETTIER) --write --log-level warn .
 	@shfmt --write $$(make --no-print-directory shell-files)
 
 .PHONY: shell-files
