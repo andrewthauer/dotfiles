@@ -12,7 +12,7 @@ email = "6507159+andrewthauer@users.noreply.github.com"
 
 [ui]
 default-command = "log"
-diff-formatter = ["difft", "--color=always", "$left", "$right"]
+diff-formatter = ["difft", "--color=always", "--width", "$width", "$left", "$right"]
 # graph.style = "ascii"
 
 [git]
@@ -33,6 +33,27 @@ write-change-id-header = true
 auto-track-bookmarks = "glob:andrewthauer/*"
 
 #
+# revsets
+#
+
+[revsets]
+# Default jj log view, minus other workspaces' working copies that are
+# currently empty (no changes yet). Breakdown:
+#   present(@) | ancestors(immutable_heads().., 2) | trunk()
+#     -> this is jj's normal default: your @, recent ancestors of the
+#        immutable heads, and trunk().
+#   ~ (stale_workspace_wcs() & empty())
+#     -> subtract any *other* workspace's @ that has no content, so idle
+#        agent/feature workspaces don't clutter the log. Your own @ is
+#        untouched even when empty.
+# log = '(present(@) | ancestors(immutable_heads().., 2) | trunk()) ~ (stale_workspace_wcs() & empty())'
+
+# Target for `jj bookmark advance`: move the nearest bookmark to the
+# *parent* of @ instead of @ itself — useful if @ is usually an empty/
+# in-progress commit and you only want the bookmark to follow finished work.
+bookmark-advance-to = '@-'
+
+#
 # revset-aliases
 #
 
@@ -50,9 +71,15 @@ testing = '(description(regex:"^testing:"))'
 all_bookmarks = 'all:(bookmarks() ~ immutable())'
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
 
+# All workspaces' working-copy commits except the one you're currently in.
+# ("working_copies()" = every workspace's @; "~ @" drops your own so it's
+# never affected by the filter below, no matter which workspace you run from.)
+'stale_workspace_wcs()' = 'working_copies() ~ @'
+
 # misc
 'recent()' = 'committer_date(after:"3 months ago")'
 'direct_descendants(x)' = 'descendants(x, 2) ~ (x | main)'
+
 
 #
 # aliases
@@ -67,8 +94,7 @@ logr = ["log", "-r", "recent()"]
 pr = ["util", "exec", "--", "jj-pr"]
 push = ["git", "push"]
 sync = ["rebase", "--source", "all:roots(trunk()..@)", "--destination", "trunk()"]
-tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
-tugc = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
+tug = ["bookmark", "advance"]
 ui = ["util", "exec", "--", "jjui"]
 
 #

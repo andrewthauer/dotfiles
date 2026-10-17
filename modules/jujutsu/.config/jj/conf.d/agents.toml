@@ -1,0 +1,12 @@
+# Settings for AI coding agents. AI_AGENT is set by Claude Code and pi;
+# opencode and Codex only set their own variables.
+[[--scope]]
+--when.environments = ["AI_AGENT", "OPENCODE", "CODEX_CI"]
+[--scope.ui]
+# Plain git diffs instead of colored side-by-side difft output.
+diff-formatter = ":git"
+paginate = "never"
+# Fail fast instead of hanging on an editor or TUI the agent cannot use.
+editor = "false"
+diff-editor = "false"
+merge-editor = "false"
