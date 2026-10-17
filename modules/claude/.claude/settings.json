@@ -1,0 +1,11 @@
+{
+  "env": {
+    "ENABLE_TOOL_SEARCH": "true"
+  },
+  "enabledPlugins": {},
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "allow": [],
+  "ask": [],
+  "deny": []
+}
